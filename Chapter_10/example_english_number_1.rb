@@ -69,7 +69,7 @@ def english_number number
     elsif write == 9
       num_string = num_string + 'ninety'
     end
-    
+
     if left > 0
       num_string = num_string + '-'
     end
@@ -109,13 +109,11 @@ def english_number number
   return num_string
 end
 
-  puts english_number(  9)
-  puts english_number( 12)
-  puts english_number( 25)
-  puts english_number( 34)
-  puts english_number( 42)
-  puts english_number( 57)
-  puts english_number( 61)
-  puts english_number( 78)
-  puts english_number( 89)
-  puts english_number(100)
+while true
+  puts "Give me a number (0-100):"
+  puts "Enter \"STOP\" to exit program."
+  n = gets.chomp
+  break if n.downcase == 'stop' || 'exit'
+  puts english_number( n.to_i )
+  puts
+end
