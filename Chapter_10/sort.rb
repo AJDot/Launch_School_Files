@@ -1,4 +1,3 @@
-
 def sort_list list
   sorted_list = []
   # duplicate list

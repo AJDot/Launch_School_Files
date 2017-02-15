@@ -1,34 +1,35 @@
 def sort list
-  unsorted_list = list.dup
-  sorted_list = []
-  sorted_list << unsorted_list[0]
-  unsorted_list.delete_at(0)
-  sort_recursive unsorted_list, sorted_list
+  sort_recursive list, []
 end
 
-def sort_recursive unsorted_list, sorted_list
-  new_item = unsorted_list[0]
+def sort_recursive unsorted, sorted
+  # if nothing left to sort
+  if unsorted.length <= 0
+    return sorted
+  end
 
-  sorted_list.each_with_index do |sorted_item, idx|
-    if unsorted_list.length == 0
-      break
-    end
+  smallest = unsorted.pop
+  still_unsorted = []
 
-    if new_item <= sorted_item
-      sorted_list.insert(idx, new_item)
-      unsorted_list.delete_at(0)
-      sort_recursive unsorted_list, sorted_list
-    elsif idx == sorted_list.length - 1
-      sorted_list << new_item
-      unsorted_list.delete_at(0)
-      sort_recursive unsorted_list, sorted_list
+  unsorted.each do |tested_object|
+    if tested_object < smallest
+      still_unsorted.push smallest
+      smallest = tested_object
+    else
+      still_unsorted.push tested_object
     end
   end
-  sorted_list
+
+  # Now smallest really does point to the smallest element in
+  # unsorted.
+
+  sorted.push smallest
+
+  sort_recursive still_unsorted, sorted
 end
 
 list = ['x', 'd', 'c', 'c', 'Apple', 'banana', 'apple', 'orange', 'k', 'u']
 
-print sort list
-puts ""
 print list.sort
+puts ""
+print sort list
