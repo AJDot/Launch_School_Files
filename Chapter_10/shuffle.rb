@@ -5,6 +5,7 @@ end
 
 def shuffle_rec remaining, shuffled
   left = remaining.length
+
   if left >= 1
     next_item_idx = rand(0...left)
     shuffled << remaining[next_item_idx]

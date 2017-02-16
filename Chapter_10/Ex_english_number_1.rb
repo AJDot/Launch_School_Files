@@ -113,7 +113,7 @@ while true
   puts "Give me a number (0-100):"
   puts "Enter \"STOP\" to exit program."
   n = gets.chomp
-  break if n.downcase == 'stop' || 'exit'
+  break if n.downcase == 'stop' || n.downcase == 'exit'
   puts english_number( n.to_i )
   puts
 end
