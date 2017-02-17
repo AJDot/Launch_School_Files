@@ -21,8 +21,8 @@ def music_shuffle filenames
   filenames = filenames.sort
   len       = filenames.length
 
-  # Now we shuffle twice
-  2.times do
+  # Now we shuffle five times
+  5.times do
     l_idx = 0         # index of next card in left pile
     r_idx = len / 2   # index of next card in right pile
     shuf = []
