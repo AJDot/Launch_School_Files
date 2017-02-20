@@ -21,6 +21,7 @@ class Dragon
   end
 
   # now all methods are private except for this method dispatch
+  # so all the user can do is start this dispatch.
   def method_dispatch
     while true
       puts "Do something (feed, toss, walk, put to bed, rock)"
