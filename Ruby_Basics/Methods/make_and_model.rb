@@ -1,4 +1,3 @@
-# Give us your feedback
 # Make and Model
 #
 # Using the following code, write a method called car that takes two arguments

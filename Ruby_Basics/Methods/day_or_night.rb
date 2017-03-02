@@ -1,4 +1,3 @@
-# Give us your feedback
 # Day or Night?
 #
 # The variable below will be randomly assigned as true or false. Write a method
@@ -9,3 +8,14 @@
 # daylight = [true, false].sample
 
 # ANSWER
+def time_of_day(daylight)
+  if daylight
+    puts "It's daytime!"
+  else
+    puts "It's nighttime!"
+  end
+end
+
+daylight = [true, false].sample
+
+time_of_day(daylight)
