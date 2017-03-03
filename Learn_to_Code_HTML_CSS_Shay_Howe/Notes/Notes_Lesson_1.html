@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Notes - Lesson 1</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="highlight/styles/atom-one-dark.css">
+    <script src="highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <h1>Building Your First Web Page</h1>
+    <h2>Setting Up the HTML Document Structure</h2>
+    <p>Below is the breakdown of a typical HTML document structure:</p>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Hello World&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is a web page.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    <h3>Self-Closing Elements</h3>
+    <p>Some elements are assigned content with the use of the charset attribut and value. Some common self-closing element include:</p>
+    <ul>
+      <li><pre><code>&lt;br&gt;</code></pre></li>
+      <li><pre><code>&lt;img&gt;</code></pre></li>
+      <li><pre><code>&lt;meta&gt;</code></pre></li>
+      <li><pre><code>&lt;wbr&gt;</code></pre></li>
+      <li><pre><code>&lt;embed&gt;</code></pre></li>
+      <li><pre><code>&lt;input&gt;</code></pre></li>
+      <li><pre><code>&lt;param&gt;</code></pre></li>
+      <li><pre><code>&lt;hr&gt;</code></pre></li>
+      <li><pre><code>&lt;link&gt;</code></pre></li>
+      <li><pre><code>&lt;source&gt;</code></pre></li>
+    </ul>
+    <h3 class="clearFloat">Code Validation</h3>
+    <p>The W3C has abuilt HTMl and CSS validators that will scan code for mistakes.</p>
+    <h2>Using CSS Resets</h2>
+    <h3>Eric Meyer's Reset</h3>
+    <pre><code>/* http://meyerweb.com/eric/tools/css/reset/
+       v2.0 | 20110126
+       License: none (public domain)
+    */
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+    	margin: 0;
+    	padding: 0;
+    	border: 0;
+    	font-size: 100%;
+    	font: inherit;
+    	vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+    	display: block;
+    }
+    body {
+    	line-height: 1;
+    }
+    ol, ul {
+    	list-style: none;
+    }
+    blockquote, q {
+    	quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+    	content: '';
+    	content: none;
+    }
+    table {
+    	border-collapse: collapse;
+    	border-spacing: 0;
+    }</code></pre>
+  </body>
+</html>
