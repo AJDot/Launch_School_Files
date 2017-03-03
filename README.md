@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-# README.md
-=======
-# README #
->>>>>>> LS_Intro_To_Programming_with_Ruby-master
+# Launch_School_Files
+My notes and files for Launch School Website
