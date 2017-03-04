@@ -73,12 +73,24 @@ a:visited {
 a:hover, a:active {
 	color: #68B54F;
 }
+nav {
+	text-align: center;
+}
+nav > a {
+	padding-right: 5px;
+}
 .veryLarge {
 	font-weight: bold;
 	font-size: 20px;
 }
 .inline {
-	display: inline-block;
+	display: inline-block ; important!
+}
+.codeInline {
+	color: #999999;
+	font-family: monospace;
+	background-color: #E0F0DB;
+
 }
 .clearFloat {
 	clear: both;

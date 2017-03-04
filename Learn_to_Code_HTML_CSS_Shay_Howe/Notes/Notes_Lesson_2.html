@@ -9,6 +9,20 @@
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
+    <nav>
+      <a href="Notes_Lesson_1.html">Chapter 1</a>
+      <a href="Notes_Lesson_2.html">Chapter 2</a>
+      <a href="Notes_Lesson_3.html">Chapter 3</a>
+      <a href="Notes_Lesson_4.html">Chapter 4</a>
+      <a href="Notes_Lesson_5.html">Chapter 5</a>
+      <a href="Notes_Lesson_6.html">Chapter 6</a>
+      <a href="Notes_Lesson_7.html">Chapter 7</a>
+      <a href="Notes_Lesson_8.html">Chapter 8</a>
+      <a href="Notes_Lesson_9.html">Chapter 9</a>
+      <a href="Notes_Lesson_10.html">Chapter 10</a>
+      <a href="Notes_Lesson_11.html">Chapter 11</a>
+      <a href="Notes_Lesson_12.html">Chapter 12</a>
+    </nav>
     <h1>Getting to Know HTML</h1>
     <p>There is a right way and a wrong way to display content.</p>
     <h2>Semantics Overview</h2>
@@ -30,9 +44,24 @@
     <h3>Paragraphs</h3>
     <p>... just like in a book ...</p>
     <h3>Bold Text with Strong</h3>
-    <p>To place a strong importance on a word, bold text with <pre class="inline"><code>&lt;strong&gt;</code></pre> instead of <pre class="inline"><code>&lt;b&gt;</code></pre>. Use the strong element when you would actually say it differently. Use the b element when you're just styling something bold, like the title of a table column.</p>
+    <p>To place a strong importance on a word, bold text with <span class="codeInline">&lt;strong&gt;</span> instead of <span class="codeInline">&lt;b&gt;</span>. Use the <span class="codeInline">&lt;strong&gt;</span> element when you would actually say it differently. Use the <span class="codeInline">&lt;b&gt;</span> element when you're just styling something bold, like the title of a table column.</p>
     <h3>Italicize Text with Emphasis</h3>
-    <p>The place emphasis on text use <pre class="inline"><code>&lt;em&gt;</code></pre> instead of <pre class="inline"><code>&lt;i&gt;</code></pre>. Use the em element when you would actually say it differently. Use the i element when you need to say something in an <i>alternative voice or tone</i>, like a quote inside a paragraph.</p>
+    <p>The place emphasis on text use <span class="codeInline">&lt;em&gt;</span> instead of <span class="codeInline">&lt;i&gt;</span>. Use the <span class="codeInline">&lt;em&gt;</span> element when you would actually say it differently. Use the <span class="codeInline">&lt;i&gt;</span> element when you need to say something in an <i>alternative voice or tone</i>, like a quote inside a paragraph.</p>
     <h2>Building Structure</h2>
+    <p>HTML 5 introduced many new structurally relevant elements:
+      <span class="codeInline">&lt;header&gt;</span>
+      <span class="codeInline">&lt;nav&gt;</span>
+      <span class="codeInline">&lt;article&gt;</span>
+      <span class="codeInline">&lt;section&gt;</span>
+      <span class="codeInline">&lt;aside&gt;</span>
+      <span class="codeInline">&lt;footer&gt;</span>
+    </p>
+
+    <h2 class="clearFloat">Creating Hyperlinks</h2>
+    <h3>Wrapping Block-Level Elements with Anchors</h3>
+    <p>&lt;a&gt; is an inline element, and is typically used to wrap only inline-level elements. However, HTML 5 now specifically allows the anchor element to wrap either block-, inline-, or any other level elements. This allows entire blocks to become links.</p>
+    <h3>Linking to an Email Address</h3>
+    <p>To create an email link, the href attribute will need to start with <span class="codeInline">mailto:</span> followed by the email address. to add a subject line, include <span class="codeInline">subject=</span> parameter right after a <span class="codeInline">?</span> following the email address. If there are multiple spaces in the address, use the space encoding <span class="codeInline">%20</span>.</p>
+    <p>To add body text, do the same this as <span class="codeInline">subject=</span> but use <span class="codeInline">body=</span> instead. Use <span class="codeInline">&amp;</span> between parameters when using more than one.</p>
   </body>
 </html>
