@@ -23,6 +23,58 @@
       <a href="Notes_Lesson_11.html">Chapter 11</a>
       <a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 4</h1>
+    <h1>Opening the Box Model</h1>
+    <h2>How Are Elements Displayed?</h2>
+    <ul>
+      <li>Block-level elements: occupy any available width, regardless of their content, and begin on a new line. Usually used for larger pieces of content like headings and structure elements.</li>
+      <li>Inline-level elements: occupy only the width their content requires and line up on the same line. Usually used for smaller bits of content like a word in a sentence.</li>
+    </ul>
+    <h3>Display</h3>
+    <p>The exact was an element is displayed is determined by the <span class="codeInline">display</span> property and this may be overwritten. The most common values are <span class="codeInline">block</span>, <span class="codeInline">inline</span>, <span class="codeInline">inline-block</span>, and <span class="codeInline">none</span>.</p>
+    <p><span class="codeInline">block</span> and <span class="codeInline">inline</span> do what you think they do. <span class="codeInline">inline-block</span> is weird. This allows an element to behave as a block-level element (accepts all box model properties) but will be displayed in line with other elements (and will not begin on a new line).</p>
+    <div class="note">
+      <h4>The Space Between Inline-Block Elements</h4>
+      <p>Inline-block element are not always touching (unlike inline elements which do touch). This space can be annoying and can be removed. Read on...</p>
+    </div>
+    <p>Lastly, <span class="codeInline">none</span> will completely hide an element and render the page as if it never existed. Anything inside a <span class="codeInline">display: none;</span> element will also behave this way.</p>
+    <h2>What Is the Box Model?</h2>
+    <p>The <a href="https://css-tricks.com/the-css-box-model/" target="_blank">box model</a> states that everything is a rectangular box and may have width, height, padding, border, and margin.</p>
+    <h2>Working with the Box Model</h2>
+    <p>The total width can be calculated by adding up every component in the left-right direction.</p>
+    <pre><code>margin-right + border-right + padding-right + width + padding-left + border-left + margin-left</code></pre>
+    <p>And the total height is:</p>
+    <pre><code>margin-top + border-top + padding-top + height + padding-bottom + border-bottom + margin-bottom</code></pre>
+    <h3>Width &amp; Height</h3>
+    <h4>Width</h4>
+    <p>Only relevant to block-level elements since inline and inline-block elements will change width depending on their content.</p>
+    <h4>Height</h4>
+    <p>Default height is determined by its content. For non-inline elements, you can override this by using the <span class="codeInline">height</span> property.</p>
+    <div class="note">
+      <h4>Sizing Inline-Level Elements</h4>
+      <p>These will not accept the <span class="codeInline">width</span> and <span class="codeInline">height</span> properties. However, inline-block elements will accept them.</p>
+    </div>
+    <h3>Margin &amp; Padding</h3>
+    <p>Default values may be applied by the browser. Use a CSS reset to get rid of these if necessary. Then we can work from the ground up.</p>
+    <h4>Margin</h4>
+    <p>The amount of space surrounding an element. They are present outside the the border of an element and are always completely transparent. Used to position objects or space elements out for readability. NOTE: vertical margins (top and bottom) are not accept by inline-level elements.</p>
+    <h4>Padding</h4>
+    <p>Similar to margin but lies inside the border. This property <strong>does</strong> work vertically on inline-level elements. </p>
+    <div class="note">
+      <h4>Margin &amp; Padding on Inline-Level Elements</h4>
+      <p>Margins only work horizontally (left and right). Padding works on all four sides. NOTE: vertial padding my bleed into the lines above and below the element.</p>
+    </div>
+    <h3>Borders</h3>
+    <p>Separate the margin and padding of an element. The <span class="codeInline">border</span> requires three values: width, style, and color.</p>
+    <h3>Box Sizing</h3>
+    <p>Until now the box model has been additive. We can now (CSS 3) use the <span class="codeInline">box-sizing</span> property to change how this works. It accepts 3 values <span class="codeInline">content-box</span>,  <span class="codeInline">padding-box</span>, and <span class="codeInline">border-box</span>.</p>
+    <h4>Content Box</h4>
+    <p>This is the default value and makes it additive.</p>
+    <h4>Padding Box</h4>
+    <p>Alters the box model by including any padding property values with the width and height of an element. This means that if the width was 400px and the padding was 20px on all sides then the total width will still be 400px. In the Content Box this would appear as a width of 360px and padding of 20px on both sides. Margin and border would still be added to calculate the total width of the element.</p>
+    <h4>Border Box</h4>
+    <p>Now any border or padding values will be included within the width and height of the element. Ex: A border of 10px and padding of 20px on all sides of an element of width 400px will calculate the total width of the element as 400 px. In the Content Box version this would look like a border of 10px, padding of 20 px, and a width of 340px. Margin will still need to be added to get the total width of the element.</p>
+    <h3>Picking a Box Size</h3>
+    <p><span class="codeInline">border-box</span> is generally the best to use. It makes our math easy to do. If we want an element to be 400px wide then set the width to 400px. Then whatever the padding and border are change to, the width of the element will remain 400px.</p>
+    <p>This has the added advantage of being able to mix values of different kinds. We can have a width of 40% and a padding of 20px and a border of 10px. So the border and padding will remain constant while the width will remain 40% of its parent.</p>
   </body>
 </html>
