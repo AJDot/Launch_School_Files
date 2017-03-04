@@ -23,6 +23,88 @@
       <a href="Notes_Lesson_11.html">Chapter 11</a>
       <a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 5</h1>
+    <h1>Positioning Content</h1>
+    <h2>Positioning with Floats</h2>
+    <p>This property removes an element from the normal flow and position it to the left or right of its parent element. Everything else on the page will flow around the floated element. <span class="codeInline">Float</span> accepts just a few values, usually <span class="codeInline">left</span> and <span class="codeInline">right</span> are used.</p>
+    <div class="note">
+      <h4>Floats May Change an Element's Display Value</h4>
+      <p>The <span class="codeInline">display</span> value of block is required for a float element. So any element previously not a block element may be altered after it is floated.</p>
+    </div>
+    <p>For a 3-column row, we may do something like the following for the 3 sections that appear back-to-back in the html file.</p>
+    <pre><code>section {
+  float: left;
+  margin: 0 1.5%;
+  width: 30%;
+}</code></pre>
+    <p>Now each section will take up 33% of the width of the parent element.</p>
+    <h3>Clearing &amp; Containing Floats</h3>
+    <p>The float property was intended for images and images only, not for positioning. There are some downfalls to using it in this way. Some styles will not render correctly if that element is next to or is a parent element of a floated element. Often margin and padding values aren't interpreted correctly, causing them to run into the floated element.</p>
+    <p>Sometimes content wraps around a float when you don't want it to do so...</p>
+    <h3>Clearing Floats</h3>
+    <p>To clear a float and have the next element appear on a new line we can use the <span class="codeInline">clear</span> property and set it to <span class="codeInline">left</span>, <span class="codeInline">right</span> or <span class="codeInline">both</span>. This needs to be applied to the element <strong>after</strong> the floated element.</p>
+    <h3>Containing Floats</h3>
+    <p>The outcome of containing a float vs clearing one are nearly the same. Though, contining floats does help to ensure that all of our styles will be rendered properly.</p>
+    <p>Floated elements must reside in a parent element that will act as a container that is in the normal flow. Below is the CSS for the parent element of the floated element.</p>
+    <pre><code>.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  clear: both;
+  *zoom: 1;
+}</code></pre>
+    <p>This technique is often called a "clearfix" and is often written as such in most websites.</p>
+    <h2>Positioning with Inline-Block</h2>
+    <p>In addition to floats, we can position elements using the <span class="codeInline">display</span> property with the <span class="codeInline">inline-block</span> value</p>
+    <pre><code>section {
+  display: inline-block;
+  margin: 0 1.5%;
+  width: 30%;
+}
+</code></pre>
+    <p>Placing this code for our 3 sections we discussed earlier will <em>almost</em> work. The last section will get pushed to the next line. Because these are inline-block display elements they will have a single space between each other. This must be removed for this technique to work properly.</p>
+    <h3>Removing Spaces Between Inline-Block Elements</h3>
+    <p>There are several ways to do this.</p>
+    <p>First: put each new <span class="codeInline">section</span> element's opening tag on the same line as the previous <span class="codeInline">section</span>. When there is no space in the HTML then there will be no space when the elements are rendered.</p>
+    <pre><code>&lt;header&gt;...&lt;/header&gt;
+&lt;section&gt;
+  ...
+&lt;/section&gt;&lt;section&gt;
+  ...
+&lt;/section&gt;&lt;section&gt;
+  ...
+&lt;/section&gt;
+&lt;footer&gt;...&lt;/footer&gt;
+</code></pre>
+    <p>Second: open an HTML comment directly after an inline-block element's closing tag. Then close it immediately before teh next inline-block element's opening tag. In essence this is "commenting out" any whitespace between the elements.</p>
+    <pre><code>&lt;header&gt;...&lt;/header&gt;
+&lt;section&gt;
+  ...
+&lt;/section&gt;&lt;!--
+--&gt;&lt;section&gt;
+  ...
+&lt;/section&gt;&lt;!--
+--&gt;&lt;section&gt;
+  ...
+ &lt;/section&gt;
+ &lt;footer&gt;...&lt;/footer&gt;
+</code></pre>
+    <h2>Creating Reusable Layouts</h2>
+    <p>It is always best to write as modular as possible so that code may be reused elsewhere. Which layout works best, floats or inline-block elements, and why?</p>
+    <p>Author's approach: Use inline-block elements to create the grid - or layout - of a page and use floats when content needs to wrap around an element (as they were intended to do for images).</p>
+    <p>Currently flex- and grid-based properties are currently being developed in CSS.</p>
+    <h2>Uniquely Positioning Elements</h2>
+    <p>To place an element <em>exactly</em> where you want, the <a href="https://alistapart.com/article/css-positioning-101">position</a> element is needed.</p>
+    <p>The <span class="codeInline">position</span> property identifies <em>how</em> an element is positioned on a page and if it will appear in the normal flow. It is used with offset properties <span class="codeInline">top</span>, <span class="codeInline">right</span>, <span class="codeInline">bottom</span>, and <span class="codeInline">left</span>.</p>
+    <p>The default value for <span class="codeInline">position</span> is <span class="codeInline">static</span>, i.e. in the normal flow. <span class="codeInline">relative</span> or <span class="codeInline">absolute</span> are commonly used to override this.</p>
+    <h3>Relative Positioning</h3>
+    <p>This keeps the normal position of the element in the flow so that all other elements flow around as if it was there. Then the box offset properties can be used to move where that element is displayed.</p>
+    <h3>Absolute Positioning</h3>
+    <p>This will cause the element to not appear in the normal flow. The position the element would have been in will not be preserved. These elements will be positioned to their closest relatively positioned parent element.</p>
+    <p>Typically most positioning can be handled without the use of the <span class="codeInline">position</span> property and <span class="codeInline">box offset</span> properties.</p>
   </body>
 </html>
