@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Notes - Lesson 3</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <nav>
+      <a href="Notes_Lesson_1.html">Chapter 1</a>
+      <a href="Notes_Lesson_2.html">Chapter 2</a>
+      <a href="Notes_Lesson_3.html">Chapter 3</a>
+      <a href="Notes_Lesson_4.html">Chapter 4</a>
+      <a href="Notes_Lesson_5.html">Chapter 5</a>
+      <a href="Notes_Lesson_6.html">Chapter 6</a>
+      <a href="Notes_Lesson_7.html">Chapter 7</a>
+      <a href="Notes_Lesson_8.html">Chapter 8</a>
+      <a href="Notes_Lesson_9.html">Chapter 9</a>
+      <a href="Notes_Lesson_10.html">Chapter 10</a>
+      <a href="Notes_Lesson_11.html">Chapter 11</a>
+      <a href="Notes_Lesson_12.html">Chapter 12</a>
+    </nav>
+    <h1>Getting to Know CSS</h1>
+    <h2>The Cascade</h2>
+    <p>All styles cascade from the top to the bottom of the style sheet. This will allow styles near the top to be overwritten by styles farther down.</p>
+    <h2>Calculating Specificity</h2>
+    <p>Every selector in CSS has a specificity weight.</p>
+    <table>
+      <tr>
+        <td>Type selector</td>
+        <td> | lowest specificity</td>
+        <td> | 0-0-1</td>
+      </tr>
+      <tr>
+        <td>Class selector</td>
+        <td> | medium specificity</td>
+        <td> | 0-1-0</td>
+      </tr>
+      <tr>
+        <td>ID selector</td>
+        <td> | high specificity</td>
+        <td> | 1-0-0</td>
+      </tr>
+    </table>
+    <h3>Specificity Points</h3>
+    <p>Values are not computed in base 10. ID selectors do not have a value of "100" and class selector don't count as "10". (We'll talk about this later.)</p>
+    <p>The specificity weight will override the cascading top-to-bottom nature. Ex: an ID selector will always overrule a type selector regardless of where it is place in the style sheet.</p>
+    <h2>Combining Selectors</h2>
+    <h3>Specificity Within Combined Selectors</h3>
+    <p>When selectors are combined, so are the specificity weights of the individual selectors. Count each different type of selector.</p>
+    <p>A selector of <span class="codeInline">#id1.class1 type1.class2 type2</span> will have a specificity weight of <span class="codeInline">1-2-2</span></p>
+    <h2>Layering Styles with Multiple Classes</h2>
+    <p>One way to keep the specificity weights of selectors to a minimum is to be as modular as possible. Share similar style between similar elements as much as possible.</p>
+    <p>Example: For some buttons maybe they all are desired to have a font size of 16 pixels but the background color needs to vary depending on where the buttons are used.</p>
+    <pre><code>&lt;!-- HTML --&gt;
+&lt;a class="btn btn-danger"&gt;...&lt;/a&gt;
+&lt;a class="btn btn-success"&gt;...&lt;/a&gt;</code></pre>
+    <pre><code>/* CSS */
+.btn {
+  font-size: 16px;
+}
+.btn-danger {
+  background: red;
+}
+.btn-success {
+  background: green;
+}</code></pre>
+  </body>
+</html>
