@@ -34,7 +34,7 @@ h3 {
 	line-height: 20px;
 	color: #68B54F;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 16px;
 }
 h4 {
 	height: 16px;
@@ -61,9 +61,14 @@ var {
 	font-weight: bold;
 }
 ul, ol {
+	max-width: 600px;
 	margin: 5px 0;
 	padding-left: 40px;
 	font-size: 14px;
+}
+li.col-1-2 {
+	width: 275px;
+	float: left;
 }
 a {
 	color: #0087cc;
@@ -104,6 +109,6 @@ nav > a {
 	background-color: #E0F0DB;
 
 }
-.clearFloat {
+.clearfix {
 	clear: both;
 }

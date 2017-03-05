@@ -23,6 +23,110 @@
       <a href="Notes_Lesson_11.html">Chapter 11</a>
       <a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 6</h1>
+    <h1>Working with Typography</h1>
+    <p><a href="http://webtypography.net/">Web typography</a> is now a complex subject. We needed the development of a system for embedding our own web fonts on a website.</p>
+    <div class="note">
+      <h4>Typeface vs. Font</h4>
+      <p>Often they are interchangeable words.</p>
+      <p>Typeface: what we see - the look, feel, readability of type.</p>
+      <p>Font: a file that contains a typeface.</p>
+    </div>
+    <h2>Adding Color to Text</h2>
+    <p>One of the first decisions to make when building a website is deciding on the primary typeface and text color. Color of text is easily changed:</p>
+    <pre><code>html {
+  color: #555;
+}</code></pre>
+    <h2>Changing Font Properties</h2>
+    <p>There are two categories of properties to do so: font-based and text-based. These are accessed using <span class="codeInline">font-*</span> and <span class="codeInline">text-*</span></p>
+    <h3>Font Family</h3>
+    <p>Declare the font and the fallback font in case the primary font does not work using the <span class="codeInline">font-family</span> property.</p>
+    <h3>Font Size</h3>
+    <p>Self-explanatory</p>
+    <h3>Font Style</h3>
+    <p>Values: <span class="codeInline">normal</span>, <span class="codeInline">italic</span>, <span class="codeInline">oblique</span>, and <span class="codeInline">inherit</span></p>
+    <h3>Font Variant</h3>
+    <p>Values: <span class="codeInline">normal</span>, <span class="codeInline">small-caps</span>, and <span class="codeInline">inherit</span></p>
+    <h3>Font Weight</h3>
+    <p>Values: <span class="codeInline">normal</span>, <span class="codeInline">bold</span>, <span class="codeInline">bolder</span>, <span class="codeInline">lighter</span>, and <span class="codeInline">inherit</span></p>
+    <p>For bold, can use 100, 200, 300, 400, 500, 600, 700, 800, and 900 where 400 is normal and 700 is bold. Can only be used for fonts that provide the typeface in the desired weight.</p>
+    <h3>Line Height</h3>
+    <p>This is the distance between two lines of text and is set using the <span class="codeInline">line-height</span> property.</p>
+    <p>The best practice is the set the line height to ~1.5 times the font-size property value. This can be done by setting the line-heighth to 150%, or just 1.5.</p>
+    <p>Line height may also be used to vertically center text within an element by setting the line-height and height properties to the same value.</p>
+    <h2>Applying Text Properties</h2>
+    <p>These properties assist to align, decorate, indent, transform, and space text.</p>
+    <h3>Text Align</h3>
+    <p>Values: <span class="codeInline">left</span>, <span class="codeInline">right</span>, <span class="codeInline">center</span>, <span class="codeInline">justify</span>, and <span class="codeInline">inherit</span></p>
+    <h3>Text Decoration</h3>
+    <p>Values: <span class="codeInline">none</span>, <span class="codeInline">underline</span>, <span class="codeInline">overline</span>, <span class="codeInline">line-through</span>, and <span class="codeInline">inherit</span></p>
+    <h3>Text Indent</h3>
+    <p>Used to indent the first line of text within an element. Negative values will outdent, positive values will indent.</p>
+    <h3>Text Shadow</h3>
+    <p>Adds a shadow (or multiple shadows) to text. Takes usually 4 values - 3 lengths and a color - horizontal offset, vertical offset, blur radius, color.</p>
+    <pre><code>/* The text-shadow property here is casting a 30% opaque black shadow 3 pixels towards the right, 6 pixels down, and blurred 2 pixels off all &lt;p&gt; element text: */
+
+p {
+  text-shadow: 3px 6px 2px rgba(0, 0, 0, .3);
+}</code></pre>
+    <h3>Text Transform</h3>
+    <p>Values: <span class="codeInline">none</span>, <span class="codeInline">capitalize</span>, <span class="codeInline">uppercase</span>, <span class="codeInline">lowercase</span>, and <span class="codeInline">inherit</span></p>
+    <h3>Letter Spacing</h3>
+    <p>The larger the value, the farther apart the letters will be from each other</p>
+    <h3>Word Spacing</h3>
+    <p>I think you can guess what this does.</p>
+    <h2>Using Web-Safe Fonts</h2>
+    <p>There are only a few fonts pre-installed on every computer, table, etc. These are the only truly safe fonts to use freely since they will always render properly.</p>
+    <ul>
+      <li class="col-1-2">Arial</li>
+      <li class="col-1-2">Courier New, Courier</li>
+      <li class="col-1-2">Garamond</li>
+      <li class="col-1-2">Georgia</li>
+      <li class="col-1-2">Lucdia Sans, Lucida Grande, Lucida</li>
+      <li class="col-1-2">Palatino Linotype</li>
+      <li class="col-1-2">Tahoma</li>
+      <li class="col-1-2">Times New Roman, Times</li>
+      <li class="col-1-2">Trebuchet</li>
+      <li class="col-1-2">Verdana</li>
+    </ul>
+    <h2 class="clearfix">Embedding Web Fonts</h2>
+    <p>We can upload fonts to a server and include them on a website using <span class="codeInline">@font-face</span>.</p>
+    <p>In the CSS, identify the font's name using the <span class="codeInline">font-family</span> property and then the source using the <span class="codeInline">src</span> property.</p>
+    <pre><code>@font-face {
+  font-family: "Lobster";
+  src: local("Lobster"), url("lobster.woff") format("woff");
+}
+body {
+  font-family: "Lobster", "Comic Sans", cursive;
+}
+</code></pre>
+    <div class="note">
+      <h4>Warning</h4>
+      <p>The ability to embed any typeface on a website does not mean we are legally able to do so. We must abide by the licensing we have been warranted.</p>
+      <p>However, some companies use subscriptions (e.g. <a href="https://typekit.com/">Typekit</a>) to deal out fonts and others are completely free (e.g. <a href="https://fonts.google.com/">Google Fonts</a>).</p>
+    </div>
+    <h2>Including Citations &amp; Quotes</h2>
+    <ul>
+      <li><span class="codeInline">&lt;cite&gt;</span>: Used to reference a creative work, author, or resource</li>
+      <li><span class="codeInline">&lt;q&gt;</span>: Used for short, inline quotations</li>
+      <li><span class="codeInline">&lt;blockquote&gt;</span>: Used for longer external quotations</li>
+    </ul>
+    <h3>Citing a Creative Work</h3>
+    <p>The element must include either the title of the work, the author's name, or a URL reference to the work. By default it will appear in italics.</p>
+    <h3>Dialogue &amp; Prose Quotation</h3>
+    <p>Often quoted inline. Used to indicate the prose shouldn't be used for any other purpose.</p>
+    <h3>Dialogue &amp; Prose Citation</h3>
+    <p>Optionally you can include a <span class="codeInline">cite</span> attribute on the <span class="codeInline">q</span> element. This will add value to screen readers but does not show on the page.</p>
+    <pre><code>&lt;p&gt;&lt;a href="http://www.businessweek.com/magazine/content/06_06/b3970001.htm"&gt;Steve Jobs&lt;/a&gt; once said, &lt;q cite="http://www.businessweek.com/magazine/content/06_06/b3970001.htm"&gt;One home run is much better than two doubles.&lt;/q&gt;&lt;/p&gt;</code></pre>
+    <h3>External Quotation</h3>
+    <p>Large text that comes from an external source. It can even have headings and paragraphs included inside it.</p>
+    <pre><code>&lt;blockquote&gt;
+  &lt;p&gt;&#8220;In most people&#8217;s vocabularies, design is a veneer. It&#8217;s interior decorating. It&#8217;s the fabric of the curtains, of the sofa. But to me, nothing could be further from the meaning of design. Design is the fundamental soul of a human-made creation that ends up expressing itself in successive outer layers of the product.&#8221;&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+    <h3>External Citation</h3>
+    <p>Often the quote will include a citation.</p>
+    <pre><code>&lt;blockquote cite="http://money.cnn.com/magazines/fortune/fortune_archive/2000/01/24/272277/index.htm"&gt;
+  &lt;p&gt;&#8220;In most people&#8217;s vocabularies, design is a veneer. It&#8217;s interior decorating. It&#8217;s the fabric of the curtains, of the sofa. But to me, nothing could be further from the meaning of design. Design is the fundamental soul of a human-made creation that ends up expressing itself in successive outer layers of the product.&#8221;&lt;/p&gt;
+  &lt;p&gt;&lt;cite&gt;&#8212; Steve Jobs in &lt;a href="http://money.cnn.com/ magazines/fortune/fortune_archive/2000/01/24/272277/index.htm"&gt; Fortune Magazine&lt;/a&gt;&lt;/cite&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
   </body>
 </html>
