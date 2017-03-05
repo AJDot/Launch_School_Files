@@ -23,6 +23,79 @@
       <a href="Notes_Lesson_11.html">Chapter 11</a>
       <a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 7</h1>
+    <h1>Setting Backgrounds &amp; Gradients</h1>
+    <p>Backgrounds have more of an impact than you think on web design. Backgrounds can:
+      <ul>
+        <li>create look and feel</li>
+        <li>establish groupings</li>
+        <li>assign priority</li>
+        <li>influence usability</li>
+      </ul>
+    </p>
+    <p>Element backgrounds can be a solid color, an image, a gradients or a combination of these. The goal is to place everything with a purpose. If you don't know why you are adding that background or that image, then don't.</p>
+    <h2>Adding a Background Color</h2>
+    <p>Use the <span class="codeInline">background</span> or <span class="codeInline">background-color</span> property. Background is for colors and images while background-color is only for colors.</p>
+    <p>We can use keywords, hexadecimal codes, and RGB, RGBa, HSL, and HSLa values.</p>
+    <div class="note">
+      <h4>Transparent Backgrounds</h4>
+      <p>When using these it's a good idea to provide a fallback coolor because not all browsers recognize RGBa and HSLa values. Since CSS is cascading, add the fallback color on top of the more advanced RGBa/HSLa color. The advanced color will be ignored if it is not recognized by the browser.</p>
+    </div>
+    <h2>Adding a Background Image</h2>
+    <p>Must include the image source url using "url()". This can reference local paths as well as absolute. Using just this method is typically undesirable. Need to use <span class="codeInline">background-repeat</span> and <span class="codeInline">background-position</span> to control the image.</p>
+    <h3>Shorthand Background Image Values</h3>
+    <pre><code>div {
+  background: #b2b2b2 url("alert.png") 20px 10px no-repeat;
+}</code></pre>
+    <h2>Designing Gradient Backgrounds</h2>
+    <p>Introduced in CSS3, they are not backwards compatible. Gradient backgrounds are treated as background images. We create them using the <span class="codeInline">background</span> or <span class="codeInline">background-image</span> properties just like a regular background image. Vendor prefixes are still needed for this.</p>
+    <h3>Linear Gradient Background</h3>
+    <div class="note">
+      <h4>Linear Gradient Example</h4>
+      <pre><code>div {
+  background: #466368;
+  background: -webkit-linear-gradient(#648880, #293f50);
+  background:    -moz-linear-gradient(#648880, #293f50);
+  background:         linear-gradient(#648880, #293f50);
+}</code></pre>
+      <div class="ex ex7-lin-grad"></div>
+    </div>
+    <div class="note">
+      <h4>Changing the Direction of a Gradient Background</h4>
+      <pre><code>div {
+  background: #466368;
+  background: linear-gradient(to right bottom, #648880, #293f50);
+}</code></pre>
+      <div class="ex ex7-lin-grad-dir"></div>
+      <p>If an element isn't exactly square, the background gradient will not proceed directly from one corner to the other. It uses something called "magic corners." A description of what this is can be found here, "<a href="http://meyerweb.com/eric/thoughts/2012/04/26/lineargradient-keywords/">Linear Gradient Keywords</a>", by Eric Meyer.</p>
+    </div>
+    <p>Beside keywords, degress can be used. Ex: 135deg will move to teh right bottom of an element.</p>
+    <h3>Radial Gradient Background</h3>
+    <p>They work just like linear gradients just with a different property.</p>
+    <div class="note">
+      <h4>Radial Gradient Background Demo</h4>
+      <pre><code>div {
+  background: #466368;
+  background: radial-gradient(#648880, #293f50);
+}</code></pre>
+      <div class="ex ex7-rad-grad"></div>
+    </div>
+    <p>Radial gradients are more complex. You can change values for location, size, radius and others. Read <a href="http://dev.opera.com/articles/css3-radial-gradients/">radial gradients</a> for more info. There are even <a href="http://www.cssmatic.com/gradient-generator">CSS3 gradient generators</a> you can use to create these gradients.</p>
+    <h3>Gradient Color Stops</h3>
+    <p>We can add multiple colors to transition between. To do this we add color stops to the given gradients function, with commas separating each color stop from the next.</p>
+    <div class="note">
+      <h4>Gradient Color Stops Demo</h4>
+      <pre><code>div {
+  background: #648880;
+  background: linear-gradient(to right, #f6f1d3, #648880, #293f50);
+}</code></pre>
+      <div class="ex ex7-grad-col-stop"></div>
+    </div>
+    <h2>Using Multiple Background Images</h2>
+    <p>With CSS3, multiple backgrounds can be used. Just comma-separate multiple background values within a background or background-image property.</p>
+    <pre><code>div {
+  background:  url("foreground.png") 0 0 no-repeat, url("middle-ground.png") 0 0 no-repeat, url("background.png") 0 0 no-repeat;
+}</code></pre>
+    <h2>Exploring New Background Properties</h2>
+    <p><a href="http://css3files.com/background/">new CSS properties</a> were introduced in CSS3. You can now use <span class="codeInline">background-size</span>, <span class="codeInline">background-clip</span>, and <span class="codeInline">background-origin</span>. Look them up!</p>
   </body>
 </html>
