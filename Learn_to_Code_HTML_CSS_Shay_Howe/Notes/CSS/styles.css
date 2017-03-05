@@ -85,10 +85,11 @@ nav {
 }
 nav > a {
 	padding-right: 5px;
+	display: inline-block;
 }
 .note {
 	max-width: 500px;
-	margin: 0 20px;
+	margin: 10px 20px;
 	padding: 5px 20px;
 	border: 1px solid #aaa;
 	border-radius: 5px;
@@ -111,4 +112,41 @@ nav > a {
 }
 .clearfix {
 	clear: both;
+}
+
+/*
+===================================
+Examples
+===================================
+*/
+.ex {
+	min-width: 500px;
+	height: 100px;
+}
+
+/*
+	===================================
+	Chapter 7 Examples
+	===================================
+*/
+
+.ex7-lin-grad {
+	background: #466368;
+  background: -webkit-linear-gradient(#648880, #293f50);
+  background:    -moz-linear-gradient(#648880, #293f50);
+  background:         linear-gradient(#648880, #293f50);
+}
+.ex7-lin-grad-dir {
+	background: #466368;
+  background: linear-gradient(to right bottom, #648880, #293f50);
+}
+.ex7-rad-grad {
+	background: #466368;
+  background: -webkit-radial-gradient(#648880, #293f50);
+  background:    -moz-radial-gradient(#648880, #293f50);
+  background:         radial-gradient(#648880, #293f50);
+}
+.ex7-grad-col-stop {
+	background: #648880;
+	background: linear-gradient(to right, #f6f1d3, #648880, #293f50);
 }
