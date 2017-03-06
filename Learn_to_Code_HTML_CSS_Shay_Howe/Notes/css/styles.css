@@ -56,6 +56,7 @@ pre {
 }
 code {
 	font-family: monospace;
+	font-size: 12px;
 }
 var {
 	font-weight: bold;
@@ -94,13 +95,18 @@ nav > a {
 	border: 1px solid #aaa;
 	border-radius: 5px;
 }
-.note p {
+.note * {
 	font-size: 12px;
 }
+.note h4 {
+	font-size: 14px;
+}
 .codeInline {
-	color: #999999;
+	color: #AA3333;
 	font-family: monospace;
 	background-color: #E0F0DB;
+	background-color: #eee;
+	font-size: 12px;
 }
 .clearfix {
 	clear: both;

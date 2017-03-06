@@ -23,6 +23,83 @@
       <a href="Notes_Lesson_11.html">Chapter 11</a>
       <a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 9</h1>
+    <h1>Adding Media</h1>
+    <p>Video, audio, and images. In the past, the process to add images and inline frames has always been relatively while incorporating video and audio... not so much. Now video and audio are easier to work with thanks to native support directly from HTML.</p>
+    <h2>Adding Images</h2>
+    <p>Use the <span class="codeInline">&lt;img&gt;</span> inline element. It is a self-containing element. Specify the image to be used with the <span class="codeInline">src</span> attribute to supply the url (relative or absolute).</p>
+    <p>To be used equally as often is the <span class="codeInline">alt</span> attribute. This describes the contents of an image and will help screen readers describe the image, search engines to find info and may be displayed if the image does not load for whatever reason.</p>
+    <pre><code>&lt;img src="dog.jpg" alt="A black, brown, and white dog wearing a kerchief"&gt;</code></pre>
+    <div class="note">
+      <h4>Supported Image Formats</h4>
+      <p>The most commonly supports formats online are <span class="codeInline">gif</span>, <span class="codeInline">jpg</span>, and <span class="codeInline">png</span> images.</p>
+      <ul>
+        <li>jpg: quality images with high color counts and decent file size. Commonly used for photographs.</li>
+        <li>png: great for images with transparencies or low color counts. Commonly used for icons or background patterns.</li>
+      </ul>
+    </div>
+    <h3>Sizing Images</h3>
+    <p>We can tell the browser how large an image will be before it is loaded so the browser may reserve space for it before it loads in. The helps increase the loading speed of a page. One simple way to do this is give the image a <span class="codeInline">width</span> and <span class="codeInline">height</span> directly in the <span class="codeInline">img</span> html.</p>
+    <p>The width and height can also be set using CSS. If <span class="codeInline">width</span> and <span class="codeInline">height</span> are declared in both HTML and CSS then CSS will take precedence.</p>
+    <p>Specifying <strong>either</strong> a <span class="codeInline">width</span> or <span class="codeInline">height</span> will cause the other dimension to adjust in order to maintain the native aspect ratio. If <strong>both</strong> the <span class="codeInline">width</span> and <span class="codeInline">height</span> are set then the default aspect ratio will not be maintained.</p>
+    <h3>Positioning Images</h3>
+    <p>By default, images are inline-level elements. We may change this by using CSS - <span class="codeInline">float</span>, <span class="codeInline">display</span>, and box model properties including <span class="codeInline">padding</span>, <span class="codeInline">border</span>, and <span class="codeInline">margin</span>.</p>
+    <h3>Inline Positioning Images</h3>
+    <p>Simply loading an image will cause it to be placed inline with whatever other elements are there. This may affect the height of the line the image is place on. This is usually undesirable. Images are typically display as block-level or floated.</p>
+    <h3>Block Positioning Images</h3>
+    <p>Add the <span class="codeInline">display: block</span> property: value to an image will make the image appear on its own line. Tada.</p>
+    <h3>Positioning Images Flush Left or Right</h3>
+    <p>Float an image to do this. This is in fact the original intention for the creation of the float property. Once done, everything will flow <i>right</i> up next to the image. Use <span class="codeInline">margin</span>, <span class="codeInline">padding</span>, <span class="codeInline">border</span>, and <span class="codeInline">background</span> to build a frame and give it some breathing room.</p>
+    <div class="note">
+      <h4>When to Use an Image Element vs. a Background Image</h4>
+      <p>The <span class="codeInline">&lt;img&gt;</span> element within HTML is preferred when the image being used holds semantic value and its content is relevant to the content of the page.</p>
+      <p>The <span class="codeInline">background</span> or <span class="codeInline">background-image</span> property within CSS is preferred when the image is part of teh design/user interface and semantics aren't a factor.</p>
+    </div>
+    <h2>Adding Audio</h2>
+    <p>Now with HTML5 it is easy to add audio using the <span class="codeInline">&lt;audio&gt;</span> element. It accepts a <span class="codeInline">src</span> and requires a closing tag (unlike <span class="codeInline">&lt;img&gt;</span>).</p>
+    <h3>Audio Attributes</h3>
+    <p>The most popular ones are <span class="codeInline">autoplay</span>, <span class="codeInline">controls</span>, <span class="codeInline">loop</span>, and <span class="codeInline">preload</span>.</p>
+    <p>The <span class="codeInline">autoplay</span>, <span class="codeInline">controls</span>, and <span class="codeInline">loop</span> attributes are all Boolean attributes, meaning they don't require a stated value. Just type the word if you want it. The functions of most attributes are obvious. </p>
+    <p>The <span class="codeInline">preload</span> attribute can take three values:</p>
+      <ul>
+        <li><span class="codeInline">none</span>: nothing will preload</li>
+        <li><span class="codeInline">auto</span>: info about the audio file will preload</li>
+        <li><span class="codeInline">metadata</span>: any available metadata info will preload</li>
+        <li>attribute not present: all info about the audio file will load</li>
+      </ul>
+    <p>Using a value of metadata or none is a good idea when the audio file is not essential to the page. It will conserve bandwidth and allow pages to load faster.</p>
+    <h3>Audio Fallbacks & Multiple Sources</h3>
+    <p>The most commonly supported file formats are <span class="codeInline">ogg</span>, <span class="codeInline">mp3</span>, and <span class="codeInline">wav</span>. For the best browser support we'll need to use some fallbacks. This is a little complex to do.</p>
+    <ol>
+      <li>Remove the <span class="codeInline">src</span> attribute form the <span class="codeInline">audio</span> element to define a new source.</li>
+      <li>Use the <span class="codeInline">&lt;source&gt;</span> with a nested <span class="codeInline">src</span> attribute.</li>
+      <li>Use the <span class="codeInline">type</span> attribute to quickly help the browser identify which audio types are available.</li>
+    </ol>
+    <pre><code>&lt;audio controls&gt;
+  &lt;source src="jazz.ogg" type="audio/ogg"&gt;
+  &lt;source src="jazz.mp3" type="audio/mpeg"&gt;
+  &lt;source src="jazz.wav" type="audio/wav"&gt;
+  Please &lt;a href="jazz.mp3" download&gt;download&lt;/a&gt; the audio file.
+&lt;/audio&gt;
+</code></pre>
+    <h2>Adding Video</h2>
+    <p>Since HTML5, this is very similar to adding audio. Use the <span class="codeInline">&lt;video&gt;</span> element. All of the same attributes (<span class="codeInline">src</span>, <span class="codeInline">autoplay</span>, <span class="codeInline">controls</span>, <span class="codeInline">loop</span>, and <span class="codeInline">preload</span>) and fallbacks apply here, too.</p>
+    <p>In general, the best practice here is to include the <span class="codeInline">controls</span> Boolean attribute unless there is a good reason not to allow users to start, stop, or replay the video.</p>
+    <p>It's always good to specify and <span class="codeInline">width</span> and <span class="codeInline">height</span> using CSS as well. This will make sure you have the correct size to fit on the page and pages will load faster because space is allocated meaning the rest of the page doesn't have to wait for the entire video to load in order to render.</p>
+    <div class="note">
+      <h4>Customizing Audio &amp; Video Controls</h4>
+      <p>By default, each browser has its own controls used for audio and video. With a little JavaScript, these can be customized to fit your needs.</p>
+    </div>
+    <h3>Poster Attribute</h3>
+    <p>For video there is an additional <span class="codeInline">poster</span> attribute. We can specify an image, in teh form of a URL, to be shown before the video is played. Basically you can take a screen capture from the video itself that best represents the video. When used as a poster, it will be the image displayed before the play button is clicked.</p>
+    <h2>Adding Inline Frames</h2>
+    <p><span class="codeInline">iframe</span>. This element accepts the URL (relative or absolute) of another HTML page within the <span class="codeInline">src</span> attribute value. It's like loading a page within your page. Often Google maps, YouTube, and others will be used inside an iframe to embed info on the page.</p>
+    <pre><code><iframe src="https://www.google.com/maps/embed?..."></iframe></code></pre>
+    <p>there are a few default values that can be adjusted using <span class="codeInline">frameborder</span>, <span class="codeInline">width</span>, and <span class="codeInline">height</span> in the HTML or <span class="codeInline">border</span>, <span class="codeInline">width</span>, and <span class="codeInline">height</span> in the CSS.</p>
+    <h2>Semantically Identifying Figures &amp; Captions</h2>
+    <p>Do this using <span class="codeInline">&lt;figure&gt;</span> and <span class="codeInline">&lt;figcaption&gt;</span> elements. Use this when elements that are grouped together are self-contained and would not disrupt the page if the group was moved to a different location on the page. Ex: moving the image and its caption to the bottom of the page does not disrupt the content/meaning of the page.</p>
+    <pre><code>&lt;figure&gt;
+  &lt;img src="dog.jpg"&gt;
+  &lt;figcaption&gt;A beautiful black, brown, and white hound dog wearing kerchief.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
   </body>
 </html>
