@@ -97,18 +97,10 @@ nav > a {
 .note p {
 	font-size: 12px;
 }
-.veryLarge {
-	font-weight: bold;
-	font-size: 20px;
-}
-.inline {
-	display: inline-block ; important!
-}
 .codeInline {
 	color: #999999;
 	font-family: monospace;
 	background-color: #E0F0DB;
-
 }
 .clearfix {
 	clear: both;
@@ -121,15 +113,17 @@ Examples
 */
 .ex {
 	min-width: 500px;
-	height: 100px;
 }
 
 /*
-	===================================
-	Chapter 7 Examples
-	===================================
+===================================
+Chapter 7 Examples
+===================================
 */
 
+.ex7 {
+	height: 100px;
+}
 .ex7-lin-grad {
 	background: #466368;
   background: -webkit-linear-gradient(#648880, #293f50);
@@ -149,4 +143,16 @@ Examples
 .ex7-grad-col-stop {
 	background: #648880;
 	background: linear-gradient(to right, #f6f1d3, #648880, #293f50);
+}
+
+/*
+===================================
+Chapter 8 Examples
+===================================
+*/
+
+.ex8 dl,
+.ex8 dd,
+.ex8 dt {
+	width: inherit;
 }

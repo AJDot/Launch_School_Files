@@ -23,6 +23,76 @@
       <a href="Notes_Lesson_11.html">Chapter 11</a>
       <a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 8</h1>
+    <h1>Creating Lists</h1>
+    <p>There are 3 types of lists: unordered, ordered, and description. The choice between them is made semantically.</p>
+    <h2>Unordered</h2>
+    <p>Order obviously doesn't matter. Nothing here that you don't already know.</p>
+    <h2>Ordered Lists</h2>
+    <p>Order does matter here. Ordered lists also have unique attributes available to them including <span class="codeInline">start</span> and <span class="codeInline">reversed</span>.</p>
+    <h3>Start Attribute</h3>
+    <p>Defines the number from which an ordered list should start. Default is 1. The <span class="codeInline">start</span> attribute is used on the <span class="codeInline">&lt;ol&gt;</span> element.</p>
+    <pre><code>&lt;ol start="30"&gt;
+  &lt;li&gt;Head north on N Halsted St&lt;/li&gt;
+  &lt;li&gt;Turn right on W Diversey Pkwy&lt;/li&gt;
+  &lt;li&gt;Turn left on N Orchard St&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    <h3>Reversed Attribute</h3>
+    <p>Does what you think, counts down instead of up. The attribute doesn't accept any value. It is ether true or false where false is the default value. Just type "reversed" into the ordered list tag to make it so.</p>
+    <pre><code>&lt;ol reversed&gt;
+  &lt;li&gt;Head north on N Halsted St&lt;/li&gt;
+  &lt;li&gt;Turn right on W Diversey Pkwy&lt;/li&gt;
+  &lt;li&gt;Turn left on N Orchard St&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    <h3>Value Attribute</h3>
+    <p>This can be used on any <span class="codeInline">&lt;li&gt;</span> element within an ordered list to change its value.</p>
+    <pre><code>&lt;ol&gt;
+  &lt;li&gt;Head north on N Halsted St&lt;/li&gt;
+  &lt;li value="9"&gt;Turn right on W Diversey Pkwy&lt;/li&gt;
+  &lt;li&gt;Turn left on N Orchard St&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    <h2>Description Lists</h2>
+    <p>Used to outline multiple terms and their descriptions, like a glossary. Use the <span class="codeInline">&lt;dl&gt;</span> element then instead of using <span class="codeInline">&lt;li&gt;</span> elements inside it, use the <span class="codeInline">&lt;dt&gt;</span> elements for each term and the <span class="codeInline">&lt;dd&gt;</span> for each description.</p>
+    <p>A description can have multiple terms. A term can have multiple descriptions. A <span class="codeInline">&lt;dt&gt;</span> element, however, must always come before a <span class="codeInline">&lt;dd&gt;</span> element.</p>
+    <div class="note">
+      <h4>Description Lists Demo</h4>
+      <pre><code>&lt;dl&gt;
+  &lt;dt&gt;study&lt;/dt&gt;
+  &lt;dd&gt;The devotion of time and attention to acquiring knowledge on an academic subject, especially by means of books&lt;/dd&gt;
+  &lt;dt&gt;design&lt;/dt&gt;
+  &lt;dd&gt;A plan or drawing produced to show the look and function or workings of a building, garment, or other object before it is built or made&lt;/dd&gt;
+  &lt;dd&gt;Purpose, planning, or intention that exists or is thought to exist behind an action, fact, or material object&lt;/dd&gt;
+  &lt;dt&gt;business&lt;/dt&gt;
+  &lt;dt&gt;work&lt;/dt&gt;
+  &lt;dd&gt;A person's regular occupation, profession, or trade&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+      <div class="ex ex8">
+        <dl>
+          <dt>study</dt>
+          <dd>The devotion of time and attention to acquiring knowledge on an academic subject, especially by means of books</dd>
+          <dt>design</dt>
+          <dd>A plan or drawing produced to show the look and function or workings of a building, garment, or other object before it is built or made</dd>
+          <dd>Purpose, planning, or intention that exists or is thought to exist behind an action, fact, or material object</dd>
+          <dt>business</dt>
+          <dt>work</dt>
+          <dd>A person's regular occupation, profession, or trade</dd>
+        </dl>
+      </div>
+    </div>
+    <h2>List Style Properties</h2>
+    <p>Know that these exist:</p>
+    <ul>
+      <li><span class="codeInline">list-style-type</span> (can even use an image)</li>
+      <li><span class="codeInline">list-style-position</span></li>
+    </ul>
+    <h2>Horizontally Displaying List</h2>
+    <p>there are a few ways to display lists as a single line:</p>
+    <ul>
+      <li>making the <span class="codeInline">display</span> property value of <span class="codeInline">&lt;li&gt;</span> element <span class="codeInline">inline</span> or <span class="codeInline">inline-block</span></li>
+      <li>floating the <span class="codeInline">&lt;li&gt;</span> elements</li>
+    </ul>
+    <p>Note: Changing to inline or inline-block will remove the item marker.</p>
+    <h3>Floating List</h3>
+    <p>If the item marked is needed, floating each list item is necessary. Will need horizontal margin and padding to make the item markers stop displaying on top of the previous list item.</p>
+    
   </body>
 </html>
