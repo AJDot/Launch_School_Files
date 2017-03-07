@@ -1,7 +1,6 @@
 body, h1, h2, h3, h4, h5, h6, p, ul, dl, ol, form, fieldset, input, label, table, tbody, tfoot, th, tr, td, textarea, select, code, pre, samp, kbd, var {
-	font-family: "helvetica neue", helvetica, "lucinda sans unicode", "sans serif";
+	font-family: "helvetica neue", helvetica, "lucinda sans unicode", sans-serif;
 	font-weight: normal;
-	color: #333;
 	padding: 0;
 	border: 0;
 	margin: 0;
@@ -10,6 +9,10 @@ body, h1, h2, h3, h4, h5, h6, p, ul, dl, ol, form, fieldset, input, label, table
 }
 body {
 	/*padding: 10px;*/
+}
+.main {
+	margin: 60px 20px 0 20px;
+
 }
 h1, h2, h3, h4, h5, h6 {
 	margin: 10px 0;
@@ -22,13 +25,6 @@ h1 {
 	font-weight: bold;
 	font-size: 32px;
 	text-align: center;
-	margin-bottom: 60px;
-}
-h1:before {
-	content: "";
-	height: 60px;
-	width: 100%;
-	display: table;
 }
 h2 {
 	height: 32px;
@@ -99,7 +95,7 @@ a {
 	color: #0087cc;
 	text-decoration: none;
 }
-a:hover, a:active {
+a:hover {
 	color: #68B54F;
 }
 nav > a {
@@ -108,7 +104,8 @@ nav > a {
 	/*border: 1px solid #AA3333;*/
 	height: 40px;
 	line-height: 40px;
-	padding: 0 5px;
+	padding: 0 20px;
+	font-size: 24px;
 }
 .note {
 	max-width: 500px;
@@ -183,4 +180,132 @@ Chapter 8 Examples
 .ex8 dd,
 .ex8 dt {
 	width: inherit;
+}
+
+/*
+===================================
+Chapter 11 Examples
+===================================
+*/
+
+
+
+.ex11-tab-dat {
+	width: inherit;
+}
+.ex11-align-text table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: #4a4a4d;
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.ex11-align-text th,
+.ex11-align-text td {
+  padding: 10px 15px;
+  vertical-align: middle;
+}
+.ex11-align-text thead {
+  background: #395870;
+  color: #fff;
+}
+.ex11-align-text th:first-child {
+  text-align: left;
+}
+.ex11-align-text tbody tr:nth-child(even) {
+  background: #f0f0f2;
+}
+.ex11-align-text td {
+  border-bottom: 1px solid #cecfd5;
+  border-right: 1px solid #cecfd5;
+}
+.ex11-align-text td:first-child {
+  border-left: 1px solid #cecfd5;
+}
+.ex11-align-text .book-title {
+  color: #395870;
+  display: block;
+}
+.ex11-align-text .item-stock,
+.ex11-align-text .item-qty {
+  text-align: center;
+}
+.ex11-align-text .item-price {
+  text-align: right;
+}
+.ex11-align-text .item-multiple {
+  display: block;
+}
+.ex11-align-text tfoot {
+  text-align: right;
+}
+.ex11-align-text tfoot tr:last-child {
+  background: #f0f0f2;
+}
+
+.ex11-table-complete table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: #4a4a4d;
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.ex11-table-complete th,
+.ex11-table-complete td {
+  padding: 10px 15px;
+  vertical-align: middle;
+}
+.ex11-table-complete thead {
+  background: #395870;
+  background: linear-gradient(#49708f, #293f50);
+  color: #fff;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.ex11-table-complete th:first-child {
+  border-top-left-radius: 5px;
+  text-align: left;
+}
+.ex11-table-complete th:last-child {
+  border-top-right-radius: 5px;
+}
+.ex11-table-complete tbody tr:nth-child(even) {
+  background: #f0f0f2;
+}
+.ex11-table-complete td {
+  border-bottom: 1px solid #cecfd5;
+  border-right: 1px solid #cecfd5;
+}
+.ex11-table-complete td:first-child {
+  border-left: 1px solid #cecfd5;
+}
+.ex11-table-complete .book-title {
+  color: #395870;
+  display: block;
+}
+.ex11-table-complete .text-offset {
+  color: #7c7c80;
+  font-size: 12px;
+}
+.ex11-table-complete .item-stock,
+.ex11-table-complete .item-qty {
+  text-align: center;
+}
+.ex11-table-complete .item-price {
+  text-align: right;
+}
+.ex11-table-complete .item-multiple {
+  display: block;
+}
+.ex11-table-complete tfoot {
+  text-align: right;
+}
+.ex11-table-complete tfoot tr:last-child {
+  background: #f0f0f2;
+  color: #395870;
+  font-weight: bold;
+}
+.ex11-table-complete tfoot tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.ex11-table-complete tfoot tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
 }

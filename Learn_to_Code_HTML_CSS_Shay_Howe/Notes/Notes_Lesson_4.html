@@ -10,20 +10,21 @@
   </head>
   <body>
     <nav>
-      <a href="Notes_Lesson_1.html">Chapter 1</a><!--
-      --><a href="Notes_Lesson_2.html">Chapter 2</a><!--
-      --><a href="Notes_Lesson_3.html">Chapter 3</a><!--
-      --><a id="active" href="Notes_Lesson_4.html">Chapter 4</a><!--
-      --><a href="Notes_Lesson_5.html">Chapter 5</a><!--
-      --><a href="Notes_Lesson_6.html">Chapter 6</a><!--
-      --><a href="Notes_Lesson_7.html">Chapter 7</a><!--
-      --><a href="Notes_Lesson_8.html">Chapter 8</a><!--
-      --><a href="Notes_Lesson_9.html">Chapter 9</a><!--
-      --><a href="Notes_Lesson_10.html">Chapter 10</a><!--
-      --><a href="Notes_Lesson_11.html">Chapter 11</a><!--
-      --><a href="Notes_Lesson_12.html">Chapter 12</a>
+      <a href="Notes_Lesson_1.html">1</a><!--
+      --><a href="Notes_Lesson_2.html">2</a><!--
+      --><a href="Notes_Lesson_3.html">3</a><!--
+      --><a id="active" href="Notes_Lesson_4.html">4</a><!--
+      --><a href="Notes_Lesson_5.html">5</a><!--
+      --><a href="Notes_Lesson_6.html">6</a><!--
+      --><a href="Notes_Lesson_7.html">7</a><!--
+      --><a href="Notes_Lesson_8.html">8</a><!--
+      --><a href="Notes_Lesson_9.html">9</a><!--
+      --><a href="Notes_Lesson_10.html">10</a><!--
+      --><a href="Notes_Lesson_11.html">11</a><!--
+      --><a href="Notes_Lesson_12.html">12</a>
     </nav>
-    <h1>Opening the Box Model</h1>
+    <div class="main">
+		<h1>Opening the Box Model</h1>
     <h2>How Are Elements Displayed?</h2>
     <ul>
       <li>Block-level elements: occupy any available width, regardless of their content, and begin on a new line. Usually used for larger pieces of content like headings and structure elements.</li>
@@ -76,5 +77,6 @@
     <h3>Picking a Box Size</h3>
     <p><span class="codeInline">border-box</span> is generally the best to use. It makes our math easy to do. If we want an element to be 400px wide then set the width to 400px. Then whatever the padding and border are change to, the width of the element will remain 400px.</p>
     <p>This has the added advantage of being able to mix values of different kinds. We can have a width of 40% and a padding of 20px and a border of 10px. So the border and padding will remain constant while the width will remain 40% of its parent.</p>
-  </body>
+  	</div>
+	</body>
 </html>
