@@ -10,19 +10,173 @@
   </head>
   <body>
     <nav>
-      <a href="Notes_Lesson_1.html">Chapter 1</a>
-      <a href="Notes_Lesson_2.html">Chapter 2</a>
-      <a href="Notes_Lesson_3.html">Chapter 3</a>
-      <a href="Notes_Lesson_4.html">Chapter 4</a>
-      <a href="Notes_Lesson_5.html">Chapter 5</a>
-      <a href="Notes_Lesson_6.html">Chapter 6</a>
-      <a href="Notes_Lesson_7.html">Chapter 7</a>
-      <a href="Notes_Lesson_8.html">Chapter 8</a>
-      <a href="Notes_Lesson_9.html">Chapter 9</a>
-      <a href="Notes_Lesson_10.html">Chapter 10</a>
-      <a href="Notes_Lesson_11.html">Chapter 11</a>
-      <a href="Notes_Lesson_12.html">Chapter 12</a>
+      <a href="Notes_Lesson_1.html">Chapter 1</a><!--
+      --><a href="Notes_Lesson_2.html">Chapter 2</a><!--
+      --><a href="Notes_Lesson_3.html">Chapter 3</a><!--
+      --><a href="Notes_Lesson_4.html">Chapter 4</a><!--
+      --><a href="Notes_Lesson_5.html">Chapter 5</a><!--
+      --><a href="Notes_Lesson_6.html">Chapter 6</a><!--
+      --><a href="Notes_Lesson_7.html">Chapter 7</a><!--
+      --><a href="Notes_Lesson_8.html">Chapter 8</a><!--
+      --><a href="Notes_Lesson_9.html">Chapter 9</a><!--
+      --><a id="active" href="Notes_Lesson_10.html">Chapter 10</a><!--
+      --><a href="Notes_Lesson_11.html">Chapter 11</a><!--
+      --><a href="Notes_Lesson_12.html">Chapter 12</a>
     </nav>
-    <h1>Chapter 10</h1>
+    <h1>Building Forms</h1>
+    <p>We need forms to acquire input from users. this input could be anything from a name, to a job application, to... lots of other things. Here we will discuss how to create a form but not how to process a form as that is beyond the realm of this book.</p>
+    <h2>Initializing a Form</h2>
+    <p>To add a <a href="http://htmldog.com/guides/html/beginner/forms/">form</a> to a page, use the <span class="codeInline">&lt;form&gt;</span> element. This identifies where on the page control elements will appear; it will also wrap all elements included with the form, like a div element.</p>
+    <p>The most common attributes for a form are the <span class="codeInline">action</span> and <span class="codeInline">method</span>. the action will contain the URL to which information included in the form will be sent for processing. The method attribute is the HTTP method browsers should use to submit the pform data.</p>
+    <h2>Text Fields &amp; Textareas</h2>
+    <h3>Text Fields</h3>
+    <p>The primary element for this is the <span class="codeInline">input</span> element and denotes a single line of text. we will always set a <span class="codeInline">type</span> attribute to define what type of information is to be captured and the <span class="codeInline">name</span> attribute which is used as the name of the control for the server to use.</p>
+    <pre><code>&lt;input type="text" name="username" /&gt;</code></pre>
+    <p>For the longest time <span class="codeInline">text</span> and <span class="codeInline">password</span> were the only two values for <span class="codeInline">type</span>. In HTML5 there are <a href="http://diveinto.html5doctor.com/forms.html">new</a> values to choose. This add semantic meaning to a larger variety of inputs. Below are some input types:</p>
+    <ul>
+      <li class="col-1-3">color</li>
+      <li class="col-1-3">date</li>
+      <li class="col-1-3">datetime</li>
+      <li class="col-1-3">email</li>
+      <li class="col-1-3">month</li>
+      <li class="col-1-3">number</li>
+      <li class="col-1-3">range</li>
+      <li class="col-1-3">search</li>
+      <li class="col-1-3">tel</li>
+      <li class="col-1-3">time</li>
+      <li class="col-1-3">url</li>
+      <li class="col-1-3">week</li>
+    </ul>
+    <pre class="clearfix"><code>&lt;input type="date" name="birthday"&gt;
+&lt;input type="time" name="game-time"&gt;
+&lt;input type="email" name="email-address"&gt;
+&lt;input type="url" name="website"&gt;
+&lt;input type="number" name="cost"&gt;
+&lt;input type="tel" name="phone-number"&gt;</code></pre>
+    <h3>Textarea</h3>
+    <p>Accepts larger passages from user - multi-line. It has start and end tags (<span class="codeInline">input</span> is self-closing) but there is no <span class="codeInline">type</span> since <span class="codeInline">textarea</span> accepts only plain text.</p>
+    <h2>Multiple Choice Inputs &amp; Menus</h2>
+    <p>The are:</p>
+    <ul>
+      <li>Radio Buttons: need <span class="codeInline">type</span>, <span class="codeInline">name</span>, <span class="codeInline">value</span>, and <span class="codeInline">checked</span> item should be checked by default
+        <pre><code>&lt;input type="radio" name="day" value="Friday" checked&gt; Friday
+&lt;input type="radio" name="day" value="Saturday"&gt; Saturday
+&lt;input type="radio" name="day" value="Sunday"&gt; Sunday</code></pre>
+      </li>
+      <li>Check Boxes: need <span class="codeInline">type</span>, <span class="codeInline">name</span>, <span class="codeInline">value</span>, and <span class="codeInline">checked</span> item should be checked by default
+        <pre><code>&lt;input type="checkbox" name="day" value="Friday" checked&gt; Friday
+&lt;input type="checkbox" name="day" value="Saturday"&gt; Saturday
+&lt;input type="checkbox" name="day" value="Sunday"&gt; Sunday</code></pre>
+      </li>
+      <li>Drop-Down Lists: use the <span class="codeInline">&lt;select&gt;</span> and <span class="codeInline">&lt;option&gt;</span> elements.
+        <pre><code>&lt;select name="day"&gt;
+  &lt;option value="Friday" selected&gt;Friday&lt;/option&gt;
+  &lt;option value="Saturday"&gt;Saturday&lt;/option&gt;
+  &lt;option value="Sunday"&gt;Sunday&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+      </li>
+      <li>Multiple Selections: Use the Boolean attribute <span class="codeInline">multiple</span> on a <span class="codeInline">select</span> element.</li>
+    </ul>
+    <h2>Form Buttons</h2>
+    <p>Most commonly a form button is used to submit the form.</p>
+    <ul>
+      <li>Submit Input: created using the <span class="codeInline">&lt;input&gt;</span> element with a <span class="codeInline">type</span> value of <span class="codeInline">submit</span>. The <span class="codeInline">value</span> will be what is displayed on the button.
+      <pre><code>&lt;button name="submit"&gt;
+  &lt;strong&gt;Send Us&lt;/strong&gt; a Message
+&lt;/button&gt;</code></pre></li>
+      <li>Submit Button: is not self-contained unlike an input and is used if more control over the structure and design is desired. Since it has opening and closing tags it can wrap other elements.
+      <pre><code>&lt;button name="submit"&gt;
+  &lt;strong&gt;Send Us&lt;/strong&gt; a Message
+&lt;/button&gt;</code></pre></li>
+    </ul>
+    <h2>Other Inputs</h2>
+    <p>The input element has other uses as well</p>
+    <ul>
+      <li>Hidden Input
+        <pre><code>&lt;input type="hidden" name="tracking-code" value="abc-123"&gt;</code></pre>
+      </li>
+      <li>File Input
+        <pre><code>&lt;input type="file" name="file"&gt;</code></pre>
+      </li>
+    </ul>
+    <h2>Organizing Form Elements</h2>
+    <p>labels, fieldsets, and legends</p>
+    <h3>Label</h3>
+    <p>Provides captions or heading for form controls and ties them together for screen readers etc to use.</p>
+    <p>Labels may include a <span class="codeInline">for</span> attribute which should be the same as the <span class="codeInline">id</span> attribute on the form control the <span class="codeInline">label</span> corresponds to. In this way users can click on a <span class="codeInline">label</span> element to bring focus to the proper form control.</p>
+    <pre><code>&lt;label for="username"&gt;Username&lt;/label&gt;
+&lt;input type="text" name="username" id="username"&gt;</code></pre>
+    <p>The <span class="codeInline">label</span> element may wrap its intended form controls. In this case the <span class="codeInline">for</span> and <span class="codeInline">id</span> attributes are not needed.</p>
+    <pre><code>&lt;label&gt;
+  &lt;input type="radio" name="day" value="Friday" checked&gt; Friday
+&lt;/label&gt;
+&lt;label&gt;
+  &lt;input type="radio" name="day" value="Saturday"&gt; Saturday
+&lt;/label&gt;
+&lt;label&gt;
+  &lt;input type="radio" name="day" value="Sunday"&gt; Sunday
+&lt;/label&gt;</code></pre>
+    <h3>Fieldset</h3>
+    <p>Group form controls and labels much like a <span class="codeInline">&lt;section&gt;</span> element. It is a block-level element used specifically inside a <span class="codeInline">&lt;form&gt;</span>.</p>
+    <pre><code>&lt;fieldset&gt;
+  &lt;label&gt;
+    Username
+    &lt;input type="text" name="username"&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Password
+    &lt;input type="text" name="password"&gt;
+  &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+    <h3>Legend</h3>
+    <p>Provides a caption, or heading, for the <span class="codeInline">&lt;fieldset&gt;</span> element. This element should come directly after the fieldset tag.</p>
+    <pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Login&lt;/legend&gt;
+  &lt;label&gt;
+    Username
+    &lt;input type="text" name="username"&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Password
+    &lt;input type="text" name="password"&gt;
+  &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+    <h2>Form &amp; Input Attributes</h2>
+    <ul>
+      <li><span class="codeInline">disabled</span>: Boolean value used to turn of a control/element to make it unavailable for interaction. Disabled elements will not send any value to the server for form processing. If it is applied to a <span class="codeInline">fieldset</span> element then all form controls within it will be disabled.
+      <pre><code>&lt;label&gt;
+  Username
+  &lt;input type="text" name="username" disabled&gt;
+&lt;/label&gt;</code></pre></li>
+      <li><span class="codeInline">placeholder</span>: used on inputs or textareas. It is text that will disappear once the element is in focus.
+      <pre><code>&lt;label&gt;
+  Email Address
+  &lt;input type="email" name="email-address" placeholder="name@domain.com"&gt;
+&lt;/label&gt;</code></pre></li>
+      <li><span class="codeInline">required</span>: a Boolean attribute that enfores an element or form control must contain a value upon being submitted to the server. An error message will pop up if a form is submitted without a value in all its required fields. This message is controlled entirely by the browser. However, invalid elements and form controls can be styled using the <span class="codeInline">:optional</span> and <span class="codeInline">:required</span> CSS psuedo-classes.
+      <pre><code>&lt;label&gt;
+  Email Address
+  &lt;input type="email" name="email-address" required&gt;
+&lt;/label&gt;</code></pre></li>
+      <li>Additional Attibutes:
+        <ul>
+          <li class="col-1-3">accept</li>
+          <li class="col-1-3">autocomplete</li>
+          <li class="col-1-3">autofocus</li>
+          <li class="col-1-3">formaction</li>
+          <li class="col-1-3">formenctype</li>
+          <li class="col-1-3">formmethod</li>
+          <li class="col-1-3">formnovalidate</li>
+          <li class="col-1-3">formtarget</li>
+          <li class="col-1-3">max</li>
+          <li class="col-1-3">maxlength</li>
+          <li class="col-1-3">min</li>
+          <li class="col-1-3">pattern</li>
+          <li class="col-1-3">readonly</li>
+          <li class="col-1-3">selectionDirection</li>
+          <li class="col-1-3">step</li>
+        </ul>
+      </li>
+    </ul>
   </body>
 </html>
