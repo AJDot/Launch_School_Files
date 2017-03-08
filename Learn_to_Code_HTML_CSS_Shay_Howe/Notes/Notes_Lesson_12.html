@@ -24,7 +24,242 @@
       --><a id="active" href="Notes_Lesson_12.html">12</a>
     </nav>
     <div class="main">
-		<h1>12</h1>
-  	</div>
+  		<h1>Writing Your Best Code</h1>
+      <p>This chapter will focus on the best coding practices for HTMl and CSS. This is about the overarching framework for writing HTML and CSS.</p>
+      <h2>HTML Coding Practices</h2>
+      <p>Best coding practices keep code lean and well-organized. We need to write well-structured and standards-compliant markup.</p>
+      <h3>Write Standards-Compliant Markup</h3>
+      <p>Unfortunately, HTML allows poor code to execute and render with varying accuracy. And even when it renders correctly, it doesn't mean it is semantically correct or compliant. Some things to watch keep straight:
+        <ul>
+          <li>nest and close all elements correctly</li>
+          <li>use IDs and classes appropriately</li>
+          <li>always validate your code</li>
+        </ul>
+      </p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>&lt;p id="intro"&gt;New items on the menu today include &lt;strong&gt;caramel apple cider and breakfast crepes&lt;/p&gt;.&lt;/strong&gt;
+&lt;p id="intro"&gt;The caramel apple cider is delicious.</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre ><code class="html">&lt;p class="intro"&gt;New items on the menu today include &lt;strong&gt;caramel apple cider and breakfast crepes&lt;/strong&gt;.&lt;/p&gt;
+&lt;p class="intro"&gt;The caramel apple cider is delicious.&lt;/p&gt;</code></pre>
+      </div>
+      <h3>Make Use of Semantic Elements</h3>
+      <p>With well over 100 elements, it's tough to know which element is the right one to use to make your code semantically accurate. Need to research and double-check code to ensure we're using the right elements. This will make our website more accessible... and arguably easier to style. If you aren't sure if you're doing it right, recruit a friend to do a code review.</p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>&lt;span class="heading"&gt;&lt;strong&gt;Welcome Back&lt;/span&gt;&lt;/strong&gt;
+&lt;br&gt;&lt;br&gt;
+It has been a while. What have you been up to lately?
+&lt;br&gt;&lt;br&gt;
+</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code>&lt;h1&gt;Welcome Back&lt;/h1&gt;
+&lt;p&gt;It has been a while. What have you been up to lately?&lt;/p&gt;
+</code></pre>
+      </div>
+      <h3>Use the Proper Document Structure</h3>
+      <p>HTML is forgiving and will render without the use of the <span class="codeInline">&lt;DOCTYPE html&gt;</span> doctype or <span class="codeInline">&lt;html&gt;</span>, <span class="codeInline">&lt;head&gt;</span>, and <span class="codeInline">&lt;body&gt;</span>. But without them we can't be sure exactly how the page will render in every browser.</p>
+      <p>We must ALWAYS include these elements. This keeps code fully semantic and compliant, leaving code to render predictably.</p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>&lt;html&gt;
+  &lt;h1&gt;Hello World&lt;/h1&gt;
+  &lt;p&gt;This is a web page.&lt;/p&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello World&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is a web page.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <h3>Keep the Syntax Organized</h3>
+      <p>What to do what to do when thish task gets large. Here are some rules to follow:
+        <ul>
+          <li>Use lowercase letters within element names, attributes, and values</li>
+          <li>Indent nested elements</li>
+          <li>Strictly use double quotes, not single or completely omitted quotes</li>
+          <li>Remove the forward slash at the end of self-closing elements</li>
+          <li>Omit the values on Boolean attributes</li>
+        </ul>
+      </p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>&lt;Aside&gt;
+&lt;h3&gt;Chicago&lt;/h3&gt;
+&lt;H5 HIDDEN='HIDDEN'&gt;City in Illinois&lt;/H5&gt;
+&lt;img src=chicago.jpg alt="Chicago, the third most populous city in the United States" /&gt;
+&lt;ul&gt;
+&lt;li&gt;234 square miles&lt;/li&gt;
+&lt;li&gt;2.715 million residents&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ASIDE&gt;</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code>&lt;aside&gt;
+  &lt;h3&gt;Chicago&lt;/h3&gt;
+  &lt;h5 hidden&gt;City in Illinois&lt;/h5&gt;
+  &lt;img src="chicago.jpg" alt="Chicago, the third most populous city in the United States"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;234 square miles&lt;/li&gt;
+    &lt;li&gt;2.715 million residents&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/aside&gt;</code></pre>
+      </div>
+      <h3>Use Practical ID &amp; Class Values</h3>
+      <p>This is actually a difficult task when writing HTML. The values need to be practical and relate to the content itself (not the style of the content)</p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code class="html">&lt;p class="red"&gt;Error! Please try again.&lt;/p&gt;</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code class="html">&lt;p class="alert"&gt;Error! Please try again.&lt;/p&gt;</code></pre>
+      </div>
+      <h3>Use the Alternative Text Attribute on Images</h3>
+      <p>ALWAYS include the <span class="codeInline">alt</span> attribute on images. Screen readers and other software rely on it completely for image context. It should be very descriptive of what the image contains.</p>
+      <p>Even if the image isn't relevant the <span class="codeInline">alt</span> should still be included and the value should be left blank so that screen readers will ignore it rather than read the name of the image file..</p>
+      <p>If an image doesn't have meaningful value (part of the interface), then it should be included as a CSS background image if possible, not as an <span class="codeInline">&lt;img&gt;</span> element.</p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>&lt;img src="puppy.jpg"&gt;</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code>&lt;img src="puppy.jpg" alt="A beautiful, two-year-old hound mix puppy"&gt;</code></pre>
+      </div>
+      <h3>Separate Content from Style</h3>
+      <p>NEVER, EVER< usu inline styles within HTML. These pages take longer to load, are very difficult to maintain, and cause headaches for designer and developers. Instead, use external style sheets.</p>
+      <h3>Avoid a Case of "Divitis"</h3>
+      <p>It's easy to just keep using div for every element but this will bloat the code. After a while, you won't know what each div actually does. To keep code lean and reduce markup, tie multiple styles to a single element whenever possible. And use HTML5 structural elements instead of divs when it is semantically appropriate to do so.</p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code class="html">&lt;div class="container"&gt;
+  &lt;div class="article"&gt;
+    &lt;div class="headline"&gt;Headlines Across the World&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code class="html">&lt;div class="container"&gt;
+  &lt;article&gt;
+    &lt;h1&gt;Headlines Across the World&lt;/h1&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <h3>Continually Refactor Code</h3>
+      <p>Over time website and code bases evolve and grow. Be diligent and remove old/outdated code and styles when possible. AFter you write code, reevaluate it and look for ways to condense it and make it more manageable.</p>
+      <h2>CSS Coding Practices</h2>
+      <p>The goal here is the goal for HTML, lean and well-organized code.</p>
+      <h3>Organize Code with Comments</h3>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code class="css">header { ... }
+article { ... }
+.btn { ... }</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code class="css">/* Primary header */
+header { ... }
+
+/* Featured article */
+article { ... }
+
+/* Buttons */
+.btn { ... }</code></pre>
+      </div>
+      <h3>Write CSS Using Multiple Lines &amp; Spaces</h3>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>a,.btn{background:#aaa;color:#f60;font-size:18px;padding:6px;}</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code>a,
+.btn {
+background: #aaa;
+color: #f60;
+font-size: 18px;
+padding: 6px;
+}</code></pre>
+      </div>
+      <div class="note">
+        <h4>Comments &amp; Spacing</h4>
+        <p>These are two recommendation that should be taken to heart when programming in any language, not just CSS and HTML. The more complex our code becomes the more we need comments to understand/remember what the code is doing. In this way, others will be able to work on your code and not be completely lost. The "other" person could be you 6 months from now.</p>
+      </div>
+      <h3>Use Proper Class Names</h3>
+      <p>Class name (or values) should be modular and should pertain to content with an element, not appearance. They should be written in a way that resembles the CSS language. Use a class like ".alert-message" instead of "Red_Box".</p>
+      <h3>Build Proficient Selectors</h3>
+      <p>CSS selector can get out of control like divs in HTML. They can easily become too long and too location-specific.</p>
+      <p>The longer a selector is and the more prequalifiers it includes, the higher the specificity it will contain. And higher specificity meeans more likely a slector is to break the CSS cascade and cause undesirable issues.</p>
+      <p>DO NOT use IDs within selectors. IDs are already as specific as it gets.</p>
+      <p>Use shorter and primarily direct selectors. Nest them only two to three levels deep, and remove as many location-based qualifying selectors as possible.</p>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code class="css">#aside #featured ul.news li a { ... }
+#aside #featured ul.news li a em.special { ... }</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code class="css">.news a { ... }
+.news .special { ... }</code></pre>
+      </div>
+      <h3>Use Specific Classes When Necessary</h3>
+      <p>When a CSS selector so long and specific that it no longer make sense then use a class name to sum it all up. This will create more HTMl code but will actually allow faster rendering of the page.</p>
+      <h3>Use Shorthand Properties &amp; Values</h3>
+      <p>It is simply to quickly setup and identify styles. Keeps code minimal as well.</p>
+      <h3>Use Shorthand Hexadecimal Color Values</h3>
+      <p>When available, use the three-charactor shorthand color values andn ALWAYS use lowercase characters with any color value.</p>
+      <h3>Drop Units from Zero Values</h3>
+      <p>A value of 0 is unitless anyway, units don't belong. Zero is always zero. This is eliminate some unnecessary code as well.</p>
+      <h3>Group &amp; Align Vendor Preixes</h3>
+      <div class="note">
+        <h4>Bad Code</h4>
+        <pre><code>div {
+  background: -webkit-linear-gradient(#a1d3b0, #f6f1d3);
+  background: -moz-linear-gradient(#a1d3b0, #f6f1d3);
+  background: linear-gradient(#a1d3b0, #f6f1d3);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}</code></pre>
+      </div>
+      <div class="note">
+        <h4>Good Code</h4>
+        <pre><code>div {
+background: -webkit-linear-gradient(#a1d3b0, #f6f1d3);
+background:    -moz-linear-gradient(#a1d3b0, #f6f1d3);
+background:         linear-gradient(#a1d3b0, #f6f1d3);
+-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}</code></pre>
+      </div>
+      <h3>Modularize Styles for Reuse</h3>
+      <p>CSS is built to do this. Styles are all about specificity. If a section of news is presented in a box, use a .news class, if there is a featured article, maybe use a .feat-article class.</p>
+      <h2>Summary</h2>
+      <p>Always do these things:
+        <ul>
+          <li>Be well-organized, so that it is easy to read, edit, and maintain</li>
+          <li>Be modular and flexible, allowing us to reuse code and patterns as necessary</li>
+          <li>Look as if one person wrote it, even if several people contributed</li>
+        </ul>
+      </p>
+    </div>
 	</body>
 </html>
