@@ -3,15 +3,20 @@
 # perform the operation on the two numbers
 # output the result
 
-# answer = Kernel.gets()
-# Kernel.puts(answer)
-
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def valid_number?(num)
-  num.to_i != 0
+def integer?(num)
+  num == num.to_i.to_s
+end
+
+def float?(num)
+  num == num.to_f.to_s
+end
+
+def number?(num)
+  integer?(num) || float?(num)
 end
 
 prompt("Welcome to Calculator! Enter your name:")
@@ -28,16 +33,17 @@ loop do
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  message = case op
+            when '1'
+              'Adding'
+            when '2'
+              'Subtracting'
+            when '3'
+              'Multiplying'
+            when '4'
+              'Dividing'
+            end
+  message
 end
 
 prompt("Hi #{name}!")
@@ -48,7 +54,7 @@ loop do # main loop
     prompt("What's the first number?")
     number1 = Kernel.gets.chomp
 
-    if valid_number?(number1)
+    if number?(number1)
       break
     else
       prompt("Hmm... that doesn't look like a valid number.")
@@ -60,7 +66,7 @@ loop do # main loop
     prompt("What's the second number?")
     number2 = Kernel.gets.chomp
 
-    if valid_number?(number2)
+    if number?(number2)
       break
     else
       prompt("Hmm... that doesn't look like a valid number.")
