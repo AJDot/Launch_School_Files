@@ -1,0 +1,92 @@
+1. Write a method that returns the sum of two integers.
+
+# INFORMAL
+
+Given two numbers.
+
+Add them together and call it "sum"
+
+Print sum
+
+
+# FORMAL
+
+START
+
+# Given two numbers num1 and num2
+
+SET sum = num1 + num2
+
+PRINT sum
+
+END
+
+
+2. Write a method that takes an array of strings, and returns a string that is
+all those strings concatenated together.
+
+# INFORMAL
+
+Given an array of strings.
+
+Iterate over the array one by one.
+  - Save the first string as the starting value
+  - for each iteration add the string to the starting value
+
+After iterating, return the saved value.
+
+
+# FORMAL
+
+START
+
+# Given as array of strings called "strings"
+
+SET strings_concat = first string in strings
+SET iterator = 1
+
+WHILE iterator < length of strings
+  SET current_string = value of strings at space "iterator"
+  strings_concat += current_string
+  iterator += 1
+
+PRINT strings_concat
+
+end
+
+
+3. Write a method that takes an array of integers and returns a new array with
+every other element.
+
+# INFORMAL
+
+Given an array of integers
+
+Create a new array
+Iterate over array one by one
+  - If the index is even then add it to a new array
+  - otherwise do nothing
+
+After iterating, return the new array.
+
+
+# FORMAL
+
+START
+
+Given an array of integers called "integers"
+
+SET iterator = 0
+SET integers_every_other = []
+
+WHILE iterator < length of integers
+  SET current_integer = value within integers at space "iterator"
+
+  IF iterator % 2 == 0
+    push current_integer to integers_every_other
+  ELSE
+    do nothing
+
+  iterator += 1
+
+PRINT integers_every_other
