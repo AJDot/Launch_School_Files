@@ -7,7 +7,19 @@ require 'yaml'
 
 MESSAGES = YAML.load_file('calculator_messages.yml')
 
-def prompt(message)
+LANGUAGE = "es"
+
+def messages(message, lang="en")
+  MESSAGES[lang][message]
+end
+
+def prompt(key)
+  message = if messages(key, LANGUAGE)
+              messages(key, LANGUAGE)
+            else
+              key
+            end
+
   Kernel.puts("=> #{message}")
 end
 
@@ -23,14 +35,14 @@ def number?(num)
   integer?(num) || float?(num)
 end
 
-prompt(MESSAGES["welcome"])
+prompt("welcome")
 
 name = ''
 loop do
   name = Kernel.gets.chomp
 
   if name.empty?
-    prompt(MESSAGES["valid_name"])
+    prompt("valid_name")
   else
     break
   end
@@ -61,7 +73,7 @@ loop do # main loop
     if number?(number1)
       break
     else
-      prompt(MESSAGES["valid_number"])
+      prompt("valid_number")
     end
   end
 
@@ -73,18 +85,11 @@ loop do # main loop
     if number?(number2)
       break
     else
-      prompt(MESSAGES["valid_number"])
+      prompt("valid_number")
     end
   end
 
-  # operator_prompt = <<-MSG
-  #   What operation would you like to perform?
-  #   1) add
-  #   2) subtract
-  #   3) multiply
-  #   4) divide
-  # MSG
-  prompt(MESSAGES["operator_prompt"])
+  prompt("operator_prompt")
 
   operator = ''
   loop do
@@ -93,7 +98,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt(MESSAGES["valid_operator"])
+      prompt("valid_operator")
     end
   end
 
@@ -112,9 +117,9 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt(MESSAGES["another_calculation?"])
+  prompt("another_calculation?")
   answer = Kernel.gets.chomp
   break unless answer.downcase().start_with?('y')
 end
 
-prompt(MESSAGES["exit"])
+prompt("exit")

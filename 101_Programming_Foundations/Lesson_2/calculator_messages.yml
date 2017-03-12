@@ -1,14 +1,27 @@
 # Calculator messages
-
-welcome:          "Welcome to Calculator! Enter your name:"
-valid_name:       "Make sure to use a valid name."
-valid_number:     "Hmm... that doesn't look like a valid number."
-operator_prompt:  |
-  What operation would you like to perform?
-  1) add
-  2) subtract
-  3) multiply
-  4) divide
-valid_operator:    "Must choose 1, 2, 3, or 4"
-another_calculation?: "Do you want to perform another calculation? (Y to calculate again)"
-exit:             "Thank you for using the calculator. Good bye!"
+en:
+    welcome:          "Welcome to Calculator! Enter your name:"
+    valid_name:       "Make sure to use a valid name."
+    valid_number:     "Hmm... that doesn't look like a valid number."
+    operator_prompt:  |
+      What operation would you like to perform?
+      1) add
+      2) subtract
+      3) multiply
+      4) divide
+    valid_operator:    "Must choose 1, 2, 3, or 4"
+    another_calculation?: "Do you want to perform another calculation? (Y to calculate again)"
+    exit:             "Thank you for using the calculator. Good bye!"
+es:
+    welcome:                "Bienvenido a Calculadora! Introduzca su nombre:"
+    valid_name:             "Asegúrese de utilizar un nombre válido."
+    valid_number:           "Hmm ... eso no parece un número válido."
+    operator_prompt:   |
+        ¿Qué operación le gustaría realizar?
+          1) añadir
+          2) restar
+          3) multiplicar
+          4) dividir
+    valid_operator:         "Debe elegir 1, 2, 3 o 4"
+    another_calculation?:   "¿Desea realizar otro cálculo? (Y para calcular de nuevo)"
+    exit:                   "Gracias por usar la calculadora. ¡Adiós!"
