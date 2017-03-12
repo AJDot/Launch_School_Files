@@ -52,7 +52,7 @@ WHILE iterator < length of strings
 
 PRINT strings_concat
 
-end
+END
 
 
 3. Write a method that takes an array of integers and returns a new array with
@@ -90,3 +90,5 @@ WHILE iterator < length of integers
   iterator += 1
 
 PRINT integers_every_other
+
+END
