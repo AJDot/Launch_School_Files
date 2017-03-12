@@ -54,7 +54,6 @@ puts
 
 # main loop
 loop do
-
   amt = ''
   loop do
     prompt("What is the loan amount? (in $)")
@@ -97,9 +96,12 @@ loop do
 
   rate_month = apr_dec / 12       # monthly interest rate
 
-  monthly_payment = amt.to_i * (rate_month / (1 - (1 + rate_month)**(-dur_month))) # monthly payment
+  monthly_payment = amt.to_i *
+                    (rate_month /
+                    (1 - (1 + rate_month)**-dur_month)) # monthly payment
 
-  prompt("Your monthly payment is $#{format('%02.2f', monthly_payment)} for #{dur_month} months.")
+  prompt("Your monthly payment is $#{format('%02.2f', monthly_payment)}
+          for #{dur_month} months.")
   prompt("Would you like to calculate another loan? (Y for yes)")
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
