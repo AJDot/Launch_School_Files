@@ -5,10 +5,6 @@ def display_q(num)
   Kernel.puts("=> Question \##{num}:")
 end
 
-def display_a(num)
-  Kernel.puts("=> \##{num}.")
-end
-
 display_q(1)
 # Question 1
 # What would you expect the code below to print out?
