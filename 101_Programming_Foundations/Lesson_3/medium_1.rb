@@ -114,6 +114,7 @@ display_q(5)
 
 display_q(6)
 # Question 6
+# Answer 6
 def tricky_method(a_string_param, an_array_param)
   a_string_param += "rutabaga"
   an_array_param << "rutabaga"
@@ -127,24 +128,35 @@ my_string, my_array = tricky_method(my_string, my_array)
 
 puts "My string looks like this now: #{my_string}"
 puts "My array looks like this now: #{my_array}"
-# Answer 6
 
 display_q(7)
 # Question 7
+# answer = 42
+#
+# def mess_with_it(some_number)
+#   some_number += 8
+# end
+#
+# new_answer = mess_with_it(answer)
+#
+# p answer - 8
 
 # Answer 7
+# 34
 
 display_q(8)
 # Question 8
 
 # Answer 8
-
+# Yes. demo_hash.values will be a collection of the values which would make
+# 'family_member' the hash for each family member. This code will increase
+# the age of each member by 42 and change their gender to "other"
 display_q(9)
 # Question 9
-
 # Answer 9
+# paper
 
 display_q(10)
 # Question 10
-
 # Answer 10
+# no
