@@ -31,6 +31,22 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
+def joinor(arr, delimiter=', ', conjuction='or')
+  # joined_arr = []
+  # arr.each do |num|
+  #   joined_arr << num
+  # end
+  case arr.size
+  when 0 then ''
+  when 1 then arr.first
+  when 2 then arr.join(' or ')
+  else
+    # This will mutate arr but in this program the arr will always be calculated
+    # again before being passed into this method
+    arr[-1] = "#{conjuction} #{arr[-1]}"
+    arr.join(delimiter)
+  end
+end
 # rubocop:disable Metrics/AbcSize
 def display_board(brd)
   system 'clear'
@@ -64,7 +80,7 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a square (#{empty_squares(brd).join(',')}):"
+    prompt "Choose a square (#{joinor(empty_squares(brd), ', ', 'or')}):"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that's not a valid choice."
