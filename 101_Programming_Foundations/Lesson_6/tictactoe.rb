@@ -145,18 +145,16 @@ def display_scores(scores_hsh)
   scores_hsh.map { |k, v| "#{k}: #{v.to_s}"}.join(' | ')
 end
 
-def place_piece!(player, brd, wins_arr)
+def place_piece!(player, brd)
   case player
   when 'player'
-    display_board(brd)
-    prompt "The score is --> #{display_scores(wins_arr)}"
     player_places_piece!(brd)
   when 'computer' then computer_places_piece!(brd)
   when 'choose' then prompt_play_order
   end
 end
 
-def play_first(first_player)
+def play_order(first_player)
   case first_player
   when 'player'
     ['player', 'computer']
@@ -178,11 +176,18 @@ def play_first(first_player)
   end
 end
 
-
+def alternate_player(current_player, player1, player2)
+  if current_player == player1
+    player2
+  else
+    player1
+  end
+end
 
 prompt "Welcome to Tic Tac Toe!"
 loop do # play again loop
-  player1, player2 = play_first(FIRST_MOVE)
+  player1, player2 = play_order(FIRST_MOVE)
+  current_player = player1
   prompt "First to win 5 games wins the match."
   wins_count = {'Player' => 0, 'Computer' => 0}
   game_count = 1
@@ -190,10 +195,11 @@ loop do # play again loop
     board = initialize_board
 
     loop do # game loop
-      place_piece!(player1, board, wins_count)
-      break if someone_won?(board) || board_full?(board)
+      display_board(board)
+      prompt "The score is --> #{display_scores(wins_count)}"
 
-      place_piece!(player2, board, wins_count)
+      place_piece!(current_player, board)
+      current_player = alternate_player(current_player, player1, player2)
       break if someone_won?(board) || board_full?(board)
     end
 
