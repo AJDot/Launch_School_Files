@@ -77,19 +77,15 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
-def find_at_risk_square(brd)
+def find_at_risk_square(brd, marker)
   at_risk_lines = WINNING_LINES.select do |line|
-    brd.values_at(*line).count(PLAYER_MARKER) == 2 &&
+    brd.values_at(*line).count(marker) == 2 &&
     brd.values_at(*line).count(INITIAL_MARKER) == 1
   end
-  # binding.pry
-  # if at_risk_lines == []
-    # empty_squares(brd).sample
-  # else
-    at_risk_squares = empty_squares(brd).select { |square| at_risk_lines.flatten.include?(square) }
 
-    at_risk_squares.sample
-  # end
+  at_risk_squares = empty_squares(brd).select { |square| at_risk_lines.flatten.include?(square) }
+
+  at_risk_squares.sample
 end
 
 def player_places_piece!(brd)
@@ -104,11 +100,14 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  if find_at_risk_square(brd)
-    square = find_at_risk_square(brd)
-  else
-    square = empty_squares(brd).sample
-  end
+  square = if find_at_risk_square(brd, COMPUTER_MARKER)
+             find_at_risk_square(brd, COMPUTER_MARKER)
+           elsif find_at_risk_square(brd, PLAYER_MARKER)
+             find_at_risk_square(brd, PLAYER_MARKER)
+           else
+             empty_squares(brd).sample
+           end
+
   brd[square] = COMPUTER_MARKER
 end
 
@@ -154,8 +153,6 @@ loop do # play again loop
       prompt "The score is --> #{display_scores(wins_count)}"
 
       player_places_piece!(board)
-      p find_at_risk_square(board)
-      gets
       break if someone_won?(board) || board_full?(board)
 
       computer_places_piece!(board)
