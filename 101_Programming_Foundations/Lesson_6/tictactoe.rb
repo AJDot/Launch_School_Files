@@ -112,26 +112,46 @@ def detect_winner(brd)
   nil
 end
 
-loop do
-  board = initialize_board
+def increment_win_count(brd, win_hsh)
+  win_hsh[detect_winner(brd)] += 1
+end
 
-  loop do
+prompt "Welcome to Tic Tac Toe!"
+loop do # play again loop
+  prompt "First to win 5 games wins the match."
+  wins_count = {'Player' => 0, 'Computer' => 0}
+  game_count = 1
+  loop do # match loop
+    board = initialize_board
+
+    loop do # game loop
+
+      display_board(board)
+      prompt "The score is --> #{wins_count.map { |k, v| "#{k}: #{v.to_s}" }.join(' | ')}"
+
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
+
     display_board(board)
 
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    if someone_won?(board)
+      increment_win_count(board, wins_count)
+      prompt "#{detect_winner(board)} won the game!"
+    else
+      prompt "It's a tie!"
+    end
 
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    game_count += 1
+    break if wins_count.values.include?(5)
+    prompt "Ready to play game \##{game_count}? Press any key to continue..."
+    gets
   end
 
-  display_board(board)
-
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
-  else
-    prompt "It's a tie!"
-  end
+  prompt "#{wins_count.key(5)} won the match!"
 
   prompt "Play again? (y or n)"
   answer = gets.chomp
