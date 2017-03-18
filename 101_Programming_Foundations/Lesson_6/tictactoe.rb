@@ -26,6 +26,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
+FIRST_MOVE = 'choose' # select "player", "computer", or "choose"
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -77,6 +78,10 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
+def is_5_available?(brd)
+  empty_squares(brd).include?(5)
+end
+
 def find_at_risk_square(brd, marker)
   at_risk_lines = WINNING_LINES.select do |line|
     brd.values_at(*line).count(marker) == 2 &&
@@ -104,6 +109,8 @@ def computer_places_piece!(brd)
              find_at_risk_square(brd, COMPUTER_MARKER)
            elsif find_at_risk_square(brd, PLAYER_MARKER)
              find_at_risk_square(brd, PLAYER_MARKER)
+           elsif is_5_available?(brd)
+             5
            else
              empty_squares(brd).sample
            end
@@ -138,9 +145,44 @@ def display_scores(scores_hsh)
   scores_hsh.map { |k, v| "#{k}: #{v.to_s}"}.join(' | ')
 end
 
+def place_piece!(player, brd, wins_arr)
+  case player
+  when 'player'
+    display_board(brd)
+    prompt "The score is --> #{display_scores(wins_arr)}"
+    player_places_piece!(brd)
+  when 'computer' then computer_places_piece!(brd)
+  when 'choose' then prompt_play_order
+  end
+end
+
+def play_first(first_player)
+  case first_player
+  when 'player'
+    ['player', 'computer']
+  when 'computer'
+    ['computer', 'player']
+  when 'choose'
+    loop do
+      prompt "Who goes first? Choose '(P)layer' or '(C)omputer':"
+      choice = gets.chomp
+      case choice.downcase[0]
+      when 'p'
+        break ['player', 'computer']
+      when 'c'
+        break ['computer', 'player']
+      else
+        prompt "That is not a valid choice."
+      end
+    end
+  end
+end
+
+
 
 prompt "Welcome to Tic Tac Toe!"
 loop do # play again loop
+  player1, player2 = play_first(FIRST_MOVE)
   prompt "First to win 5 games wins the match."
   wins_count = {'Player' => 0, 'Computer' => 0}
   game_count = 1
@@ -148,14 +190,10 @@ loop do # play again loop
     board = initialize_board
 
     loop do # game loop
-
-      display_board(board)
-      prompt "The score is --> #{display_scores(wins_count)}"
-
-      player_places_piece!(board)
+      place_piece!(player1, board, wins_count)
       break if someone_won?(board) || board_full?(board)
 
-      computer_places_piece!(board)
+      place_piece!(player2, board, wins_count)
       break if someone_won?(board) || board_full?(board)
     end
 
