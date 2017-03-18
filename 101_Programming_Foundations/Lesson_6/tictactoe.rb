@@ -48,6 +48,7 @@ def joinor(arr, delimiter=', ', conjuction='or')
     arr.join(delimiter)
   end
 end
+
 # rubocop:disable Metrics/AbcSize
 def display_board(brd)
   system 'clear'
@@ -78,17 +79,19 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
-def is_5_available?(brd)
+def middle_square_available?(brd)
   empty_squares(brd).include?(5)
 end
 
 def find_at_risk_square(brd, marker)
   at_risk_lines = WINNING_LINES.select do |line|
     brd.values_at(*line).count(marker) == 2 &&
-    brd.values_at(*line).count(INITIAL_MARKER) == 1
+      brd.values_at(*line).count(INITIAL_MARKER) == 1
   end
 
-  at_risk_squares = empty_squares(brd).select { |square| at_risk_lines.flatten.include?(square) }
+  at_risk_squares = empty_squares(brd).select do |square|
+    at_risk_lines.flatten.include?(square)
+  end
 
   at_risk_squares.sample
 end
@@ -109,7 +112,7 @@ def computer_places_piece!(brd)
              find_at_risk_square(brd, COMPUTER_MARKER)
            elsif find_at_risk_square(brd, PLAYER_MARKER)
              find_at_risk_square(brd, PLAYER_MARKER)
-           elsif is_5_available?(brd)
+           elsif middle_square_available?(brd)
              5
            else
              empty_squares(brd).sample
@@ -142,7 +145,7 @@ def increment_win_count(brd, win_hsh)
 end
 
 def display_scores(scores_hsh)
-  scores_hsh.map { |k, v| "#{k}: #{v.to_s}"}.join(' | ')
+  scores_hsh.map { |k, v| "#{k}: #{v}" }.join(' | ')
 end
 
 def place_piece!(player, brd)
@@ -156,21 +159,16 @@ end
 
 def play_order(first_player)
   case first_player
-  when 'player'
-    ['player', 'computer']
-  when 'computer'
-    ['computer', 'player']
+  when 'player'   then ['player', 'computer']
+  when 'computer' then ['computer', 'player']
   when 'choose'
     loop do
       prompt "Who goes first? Choose '(P)layer' or '(C)omputer':"
       choice = gets.chomp
       case choice.downcase[0]
-      when 'p'
-        break ['player', 'computer']
-      when 'c'
-        break ['computer', 'player']
-      else
-        prompt "That is not a valid choice."
+      when 'p' then break ['player', 'computer']
+      when 'c' then break ['computer', 'player']
+      else prompt "That is not a valid choice."
       end
     end
   end
@@ -187,12 +185,12 @@ end
 prompt "Welcome to Tic Tac Toe!"
 loop do # play again loop
   player1, player2 = play_order(FIRST_MOVE)
-  current_player = player1
   prompt "First to win 5 games wins the match."
-  wins_count = {'Player' => 0, 'Computer' => 0}
+  wins_count = { 'Player' => 0, 'Computer' => 0 }
   game_count = 1
   loop do # match loop
     board = initialize_board
+    current_player = player1
 
     loop do # game loop
       display_board(board)
