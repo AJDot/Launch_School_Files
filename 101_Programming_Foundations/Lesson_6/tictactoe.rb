@@ -77,6 +77,21 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
+def find_at_risk_square(brd)
+  at_risk_lines = WINNING_LINES.select do |line|
+    brd.values_at(*line).count(PLAYER_MARKER) == 2 &&
+    brd.values_at(*line).count(INITIAL_MARKER) == 1
+  end
+  # binding.pry
+  # if at_risk_lines == []
+    # empty_squares(brd).sample
+  # else
+    at_risk_squares = empty_squares(brd).select { |square| at_risk_lines.flatten.include?(square) }
+
+    at_risk_squares.sample
+  # end
+end
+
 def player_places_piece!(brd)
   square = ''
   loop do
@@ -89,7 +104,11 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  if find_at_risk_square(brd)
+    square = find_at_risk_square(brd)
+  else
+    square = empty_squares(brd).sample
+  end
   brd[square] = COMPUTER_MARKER
 end
 
@@ -116,6 +135,11 @@ def increment_win_count(brd, win_hsh)
   win_hsh[detect_winner(brd)] += 1
 end
 
+def display_scores(scores_hsh)
+  scores_hsh.map { |k, v| "#{k}: #{v.to_s}"}.join(' | ')
+end
+
+
 prompt "Welcome to Tic Tac Toe!"
 loop do # play again loop
   prompt "First to win 5 games wins the match."
@@ -127,9 +151,11 @@ loop do # play again loop
     loop do # game loop
 
       display_board(board)
-      prompt "The score is --> #{wins_count.map { |k, v| "#{k}: #{v.to_s}" }.join(' | ')}"
+      prompt "The score is --> #{display_scores(wins_count)}"
 
       player_places_piece!(board)
+      p find_at_risk_square(board)
+      gets
       break if someone_won?(board) || board_full?(board)
 
       computer_places_piece!(board)
@@ -147,7 +173,7 @@ loop do # play again loop
 
     game_count += 1
     break if wins_count.values.include?(5)
-    prompt "Ready to play game \##{game_count}? Press any key to continue..."
+    prompt "Ready to play game \##{game_count}? Press ENTER to continue..."
     gets
   end
 
