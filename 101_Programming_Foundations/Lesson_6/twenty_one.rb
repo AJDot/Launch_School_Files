@@ -20,8 +20,8 @@
 # Program
 require 'pry'
 
-SUITS = %w(H D C S)
-VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+SUITS = %w[H D C S]
+VALUES = %w[2 3 4 5 6 7 8 9 10 J Q K A]
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -33,7 +33,7 @@ end
 
 def initialize_deck
   deck = []
-  SUITS.each { |suit| VALUES.each { |value| deck << [suit, value] }}
+  SUITS.each { |suit| VALUES.each { |value| deck << [suit, value] } }
   deck
 end
 
@@ -58,14 +58,21 @@ def total(hand)
   values = hand.map { |card| card[1] }
   sum = 0
   values.each do |value|
-    if %w(J Q K).include?(value)
-      sum += 10
-    elsif %w(1 2 3 4 5 6 7 8 9 10).include?(value)
-      sum += value.to_i
-    else # if the card is an Ace
-      sum += 11
-    end
+    sum += if %w[J Q K].include?(value)
+             10
+           elsif %w[1 2 3 4 5 6 7 8 9 10].include?(value)
+             value.to_i
+           else # if the card is an Ace
+             11
+           end
   end
+  # correct for Aces
+  values.select { |value| value == 'A' }.count.times do
+    sum -= 10 if sum > 21
+  end
+
+  sum
+end
 
 def make_card(card, rows, show_card=true)
   suit = case card[0]
@@ -80,52 +87,52 @@ def make_card(card, rows, show_card=true)
     suit = '?'
     value = '?'
   end
-
-  rows[0] += "----------- "
-  rows[1] += "| #{value.ljust(3)} #{value.rjust(3)} | "
-  rows[2] += "| #{suit}     #{suit} | "
-  rows[3] += "|         | "
-  rows[4] += "|   #{value.center(3)}   | "
-  rows[5] += "|         | "
-  rows[6] += "| #{suit}     #{suit} | "
-  rows[7] += "| #{value.ljust(3)} #{value.rjust(3)} | "
-  rows[8] += "----------- "
-
+  rows_to_add = [
+    "----------- ",
+    "| #{value.ljust(3)} #{value.rjust(3)} | ",
+    "| #{suit}     #{suit} | ",
+    "|         | ",
+    "|   #{value.center(3)}   | ",
+    "|         | ",
+    "| #{suit}     #{suit} | ",
+    "| #{value.ljust(3)} #{value.rjust(3)} | ",
+    "----------- "
+  ]
+  rows.each_with_index do |row, index|
+    row << rows_to_add[index]
+  end
   rows
+end
+
+def make_cards(hand, rows, show_card=true)
+  hand.each { |card| rows = make_card(card, rows, show_card) }
+end
+
+def create_cards_display(player_rows, dealer_rows,
+                         player_hand, dealer_hand, turn)
+  puts "Your Cards: Total = #{total(player_hand)}"
+  puts player_rows
+  puts "Dealer's Cards: Total = #{turn == 'player' ? '??' : total(dealer_hand)}"
+  puts dealer_rows
 end
 
 def display_cards(player_hand, dealer_hand, turn)
   system 'clear'
   player_rows = ['', '', '', '', '', '', '', '', '']
   dealer_rows = ['', '', '', '', '', '', '', '', '']
+
   if turn == 'player'
-    player_hand.each do |card|
-      player_rows = make_card(card, player_rows)
-    end
-    dealer_rows = make_card(dealer_hand[0], dealer_rows)
-    dealer_rows = make_card(dealer_hand[0], dealer_rows, false)
+    # player_hand.each { |card| player_rows = make_card(card, player_rows) }
+    make_cards(player_hand, player_rows)
+    dealer_rows = make_card(dealer_hand[0],
+                            make_card(dealer_hand[1],
+                                      dealer_rows),
+                            false)
   else # dealer's turn
-    player_hand.each do |card|
-      player_rows = make_card(card, player_rows)
-    end
-    dealer_hand.each do |card|
-      dealer_rows = make_card(card, dealer_rows)
-    end
+    make_cards(player_hand, player_rows)
+    make_cards(dealer_hand, dealer_rows)
   end
-  puts "Your Cards: Total = #{total(player_hand)}"
-  puts player_rows
-  puts "Dealer's Cards: Total = #{turn == 'player' ? "??" : total(dealer_hand)}"
-  puts dealer_rows
-
-end
-
-
-  # correct for Aces
-  values.select { |value| value == 'A' }.count.times do
-    sum -= 10 if sum > 21
-  end
-
-  sum
+  create_cards_display(player_rows, dealer_rows, player_hand, dealer_hand, turn)
 end
 
 def busted?(hand)
@@ -139,7 +146,7 @@ end
 def decide_winner(player1_hand, player2_hand)
   if total(player1_hand) >= total(player2_hand)
     'player'
-  else total(player2_hand) > total(player1_hand)
+  else
     'dealer'
   end
 end
@@ -157,7 +164,7 @@ def play_again?
   loop do
     prompt "Would you like to play again? (y or n)"
     answer = gets.chomp
-    break if valid_input?(answer, %w(y n))
+    break if valid_input?(answer, %w[y n])
     prompt "That is not a valid choice."
   end
   answer.downcase.start_with?('y') ? true : false
@@ -173,10 +180,8 @@ loop do # Game loop
   player_hand = []
   dealer_hand = []
   initialize_hands!(deck, player_hand, dealer_hand)
-
-
-  player_total = total(player_hand)
-  dealer_total = total(dealer_hand)
+  # player_total = total(player_hand)
+  # dealer_total = total(dealer_hand)
 
   turn = 'player'
   # Player turn
@@ -186,16 +191,15 @@ loop do # Game loop
     loop do # get 'hit' or 'stay' from player
       puts "hit or stay"
       answer = gets.chomp
-      break if valid_input?(answer, %w(h s))
+      break if valid_input?(answer, %w[h s])
       prompt "That is not a valid choice."
     end
 
     deal_card!(deck, player_hand) if answer.downcase.start_with?('h')
 
-    break if valid_input?(answer, %w(s)) || busted?(player_hand)
+    break if valid_input?(answer, %w[s]) || busted?(player_hand)
   end
 
-  answer = nil
   if busted?(player_hand)
     display_cards(player_hand, dealer_hand, turn)
     prompt "You busted!"
