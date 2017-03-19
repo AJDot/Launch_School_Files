@@ -19,7 +19,7 @@
 # 9. If yes, go to #1
 # 10. Good bye!
 require 'pry'
-
+require 'rainbow/ext/string'
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
                 [[1, 5, 9], [3, 5, 7]]              # diagonals
@@ -52,18 +52,26 @@ end
 # rubocop:disable Metrics/AbcSize
 def display_board(brd)
   system 'clear'
+  brd_help = brd.map do |k, v| 
+    if v == ' '
+      [k, "-#{k}-".color(:red)]
+    else
+      [k, v]
+    end
+  end
+  brd_help = brd_help.to_h
   puts "You're a #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
   puts "     |     |"
-  puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
+  puts " #{brd_help[7].to_s.center(3)} | #{brd_help[8].to_s.center(3)} | #{brd_help[9].to_s.center(3)}"
   puts "     |     |"
   puts "-----+-----+-----"
   puts "     |     |"
-  puts "  #{brd[4]}  |  #{brd[5]}  |  #{brd[6]}"
+  puts " #{brd_help[4].to_s.center(3)} | #{brd_help[5].to_s.center(3)} | #{brd_help[6].to_s.center(3)}"
   puts "     |     |"
   puts "-----+-----+-----"
   puts "     |     |"
-  puts "  #{brd[7]}  |  #{brd[8]}  |  #{brd[9]}"
+  puts " #{brd_help[1].to_s.center(3)} | #{brd_help[2].to_s.center(3)} | #{brd_help[3].to_s.center(3)}"
   puts "     |     |"
   puts ""
 end
