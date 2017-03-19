@@ -19,6 +19,7 @@
 
 # Program
 require 'pry'
+require 'rainbow/ext/string'
 
 SUITS = %w[H D C S]
 VALUES = %w[2 3 4 5 6 7 8 9 10 J Q K A]
@@ -74,10 +75,10 @@ end
 
 def make_card(card, rows, show_card=true)
   suit = case card[0]
-         when 'S' then "\u2660"
-         when 'H' then "\u2665"
-         when 'D' then "\u2666"
-         when 'C' then "\u2663"
+         when 'S' then "\u2660".color(:white)
+         when 'H' then "\u2665".color(:red)
+         when 'D' then "\u2666".color(:red)
+         when 'C' then "\u2663".color(:white)
          end
   value = card[1]
 
@@ -108,9 +109,9 @@ end
 
 def create_cards_display(player_rows, dealer_rows,
                          player_hand, dealer_hand, turn)
-  puts "Your Cards: Total = #{total(player_hand)}"
+  puts "Your Cards: Total = #{total(player_hand).to_s.color(:green)}"
   puts player_rows
-  puts "Dealer's Cards: Total = #{turn == 'player' ? '??' : total(dealer_hand)}"
+  puts "Dealer's Cards: Total = #{turn == 'player' ? '??' : total(dealer_hand).to_s.color(:green)}"
   puts dealer_rows
 end
 
@@ -141,19 +142,37 @@ def hit?(hand)
   total(hand) < 17
 end
 
-def decide_winner(player1_hand, player2_hand)
-  if total(player1_hand) >= total(player2_hand)
-    'player'
+def detect_winner(player1_hand, player2_hand)
+  player_total = total(player1_hand)
+  dealer_total = total(player2_hand)
+  
+  if player_total > 21
+    :player_busted
+  elsif dealer_total > 21
+    :dealer_busted
+  elsif dealer_total < player_total
+    :player
+  elsif dealer_total > player_total
+    :dealer
   else
-    'dealer'
+    :tie
   end
 end
-
-def display_winner(winning_player)
-  if winning_player == 'player'
-    prompt "Congratulations! You won!"
-  else
+           
+def display_winner(player1_hand, player2_hand)
+  result = detect_winner(player1_hand, player2_hand)
+  
+  case result
+  when :player_busted
+    prompt "You busted! Dealer wins!"
+  when :dealer_busted
+    prompt "Dealer busted! You win!"
+  when :player
+    prompt "Congratulations! You win!"
+  when :dealer
     prompt "You lose! The dealer out-played you!"
+  when :tie
+    prompt "It's a tie!"
   end
 end
 
@@ -166,7 +185,7 @@ def play_again?
     prompt "That is not a valid choice."
   end
   answer.downcase.start_with?('y') ? true : false
-end
+end        
 
 loop do # Game loop
   system 'clear'
@@ -202,13 +221,13 @@ loop do # Game loop
 
   if busted?(player_hand)
     display_cards(player_hand, dealer_hand, turn)
-    prompt "You busted! The dealer won!"
+    display_winner(player_hand, dealer_hand)
 
     # if yes, go back to the top to start the game over
     # if no, break the loop to exit the game
     play_again? ? next : break
   else
-    prompt "You chose to stay at #{total(player_hand)}!"
+    prompt "You chose to stay at #{total(player_hand).to_s.color(:green)}!"
     sleep(1)
   end
 
@@ -224,15 +243,11 @@ loop do # Game loop
   end
 
   # if dealer does not draw another card
-  if busted?(dealer_hand)
-    prompt "The dealer busted!"
-    prompt "You win!"
-  else # dealer stayed - declare winner
-    prompt "The dealer chose to stay!"
-    winner = decide_winner(player_hand, dealer_hand)
-    display_winner(winner)
+  if !busted?(dealer_hand)
+    prompt "The dealer chose to stay at #{total(dealer_hand).to_s.color(:green)}."
   end
 
+  display_winner(player_hand, dealer_hand)
   break unless play_again?
 end
 
