@@ -32,9 +32,7 @@ def valid_input?(input, first_letter_of_valid_answers)
 end
 
 def initialize_deck
-  deck = []
-  SUITS.each { |suit| VALUES.each { |value| deck << [suit, value] } }
-  deck
+  SUITS.product(VALUES).shuffle
 end
 
 def shuffle_deck!(current_deck)
@@ -124,8 +122,8 @@ def display_cards(player_hand, dealer_hand, turn)
   if turn == 'player'
     # player_hand.each { |card| player_rows = make_card(card, player_rows) }
     make_cards(player_hand, player_rows)
-    dealer_rows = make_card(dealer_hand[0],
-                            make_card(dealer_hand[1],
+    dealer_rows = make_card(dealer_hand[1],
+                            make_card(dealer_hand[0],
                                       dealer_rows),
                             false)
   else # dealer's turn
@@ -172,49 +170,51 @@ end
 
 loop do # Game loop
   system 'clear'
+  prompt "Welcome to Twenty-One!"
   # Start game
   deck = initialize_deck
-  shuffle_deck!(deck)
 
   # Deal cards
   player_hand = []
   dealer_hand = []
   initialize_hands!(deck, player_hand, dealer_hand)
-  # player_total = total(player_hand)
-  # dealer_total = total(dealer_hand)
 
-  turn = 'player'
   # Player turn
+  turn = 'player'
   loop do
     display_cards(player_hand, dealer_hand, turn)
-    answer = nil
+    player_turn = nil
     loop do # get 'hit' or 'stay' from player
-      puts "hit or stay"
-      answer = gets.chomp
-      break if valid_input?(answer, %w[h s])
-      prompt "That is not a valid choice."
+      puts "Would you like to (h)it or (s)tay?"
+      player_turn = gets.chomp.downcase
+      break if valid_input?(player_turn, ['h', 's'])
+      prompt "That is not a valid choice. Must enter 'h' or 's'."
     end
 
-    deal_card!(deck, player_hand) if answer.downcase.start_with?('h')
+    if player_turn == 'h'
+      prompt "You chose to hit!"
+      sleep(1)
+      deal_card!(deck, player_hand)
+    end
 
-    break if valid_input?(answer, %w[s]) || busted?(player_hand)
+    break if player_turn == 's' || busted?(player_hand)
   end
 
   if busted?(player_hand)
     display_cards(player_hand, dealer_hand, turn)
-    prompt "You busted!"
-    prompt "The dealer won!"
+    prompt "You busted! The dealer won!"
 
     # if yes, go back to the top to start the game over
     # if no, break the loop to exit the game
     play_again? ? next : break
   else
-    prompt "You chose to stay!"
+    prompt "You chose to stay at #{total(player_hand)}!"
+    sleep(1)
   end
 
   # Dealer turn
+  turn = 'dealer'
   loop do
-    turn = 'dealer'
     display_cards(player_hand, dealer_hand, turn)
     break if busted?(dealer_hand) || !hit?(dealer_hand)
 
