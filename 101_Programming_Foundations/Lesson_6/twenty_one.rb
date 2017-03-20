@@ -185,70 +185,111 @@ def play_again?
     prompt "That is not a valid choice."
   end
   answer.downcase.start_with?('y') ? true : false
-end        
-
-loop do # Game loop
-  system 'clear'
-  prompt "Welcome to Twenty-One!"
-  # Start game
-  deck = initialize_deck
-
-  # Deal cards
-  player_hand = []
-  dealer_hand = []
-  initialize_hands!(deck, player_hand, dealer_hand)
-
-  # Player turn
-  turn = 'player'
-  loop do
-    display_cards(player_hand, dealer_hand, turn)
-    player_turn = nil
-    loop do # get 'hit' or 'stay' from player
-      puts "Would you like to (h)it or (s)tay?"
-      player_turn = gets.chomp.downcase
-      break if valid_input?(player_turn, ['h', 's'])
-      prompt "That is not a valid choice. Must enter 'h' or 's'."
-    end
-
-    if player_turn == 'h'
-      prompt "You chose to hit!"
-      sleep(1)
-      deal_card!(deck, player_hand)
-    end
-
-    break if player_turn == 's' || busted?(player_hand)
-  end
-
-  if busted?(player_hand)
-    display_cards(player_hand, dealer_hand, turn)
-    display_winner(player_hand, dealer_hand)
-
-    # if yes, go back to the top to start the game over
-    # if no, break the loop to exit the game
-    play_again? ? next : break
-  else
-    prompt "You chose to stay at #{total(player_hand).to_s.color(:green)}!"
-    sleep(1)
-  end
-
-  # Dealer turn
-  turn = 'dealer'
-  loop do
-    display_cards(player_hand, dealer_hand, turn)
-    break if busted?(dealer_hand) || !hit?(dealer_hand)
-
-    prompt "The dealer chose to hit!"
-    sleep(2)
-    deal_card!(deck, dealer_hand)
-  end
-
-  # if dealer does not draw another card
-  if !busted?(dealer_hand)
-    prompt "The dealer chose to stay at #{total(dealer_hand).to_s.color(:green)}."
-  end
-
-  display_winner(player_hand, dealer_hand)
-  break unless play_again?
 end
 
+def match_winner?(score)
+  score.values.include?(5)
+end
+           
+def update_score!(player_hand, dealer_hand, score)
+  result = detect_winner(player_hand, dealer_hand)
+  
+  case result
+  when :player_busted, :dealer
+    score[:dealer] += 1
+  when :dealer_busted, :player
+    score[:player] += 1
+  end  
+end
+
+def display_score(score)
+  prompt "Player: #{score[:player]} | Dealer: #{score[:dealer]}"
+end
+
+
+loop do # Match loop
+  score = {:player => 0, :dealer => 0}
+  loop do # Game loop
+    system 'clear'
+    prompt "Welcome to Twenty-One!"
+    # Start game
+    deck = initialize_deck
+
+    # Deal cards
+    player_hand = []
+    dealer_hand = []
+    initialize_hands!(deck, player_hand, dealer_hand)
+
+    # Player turn
+    turn = 'player'
+    loop do
+      display_cards(player_hand, dealer_hand, turn)
+      player_turn = nil
+      loop do # get 'hit' or 'stay' from player
+        puts "Would you like to (h)it or (s)tay?"
+        player_turn = gets.chomp.downcase
+        break if valid_input?(player_turn, ['h', 's'])
+        prompt "That is not a valid choice. Must enter 'h' or 's'."
+      end
+
+      if player_turn == 'h'
+        prompt "You chose to hit!"
+        sleep(1)
+        deal_card!(deck, player_hand)
+      end
+
+      break if player_turn == 's' || busted?(player_hand)
+    end
+
+    if busted?(player_hand)
+      display_cards(player_hand, dealer_hand, turn)
+      display_winner(player_hand, dealer_hand)
+      update_score!(player_hand, dealer_hand, score)
+      display_score(score)
+      
+      prompt "Press ENTER to continue..."
+      gets
+      # if yes, go back to the top to start the game over
+      # if no, break the loop to exit the game
+#      play_again? ? next : break
+      match_winner?(score) ? break : next
+    else
+      prompt "You chose to stay at #{total(player_hand).to_s.color(:green)}!"
+      sleep(1)
+    end
+
+    # Dealer turn
+    turn = 'dealer'
+    loop do
+      display_cards(player_hand, dealer_hand, turn)
+      break if busted?(dealer_hand) || !hit?(dealer_hand)
+
+      prompt "The dealer chose to hit!"
+      sleep(2)
+      deal_card!(deck, dealer_hand)
+    end
+
+    # if dealer does not draw another card
+    if !busted?(dealer_hand)
+      prompt "The dealer chose to stay at #{total(dealer_hand).to_s.color(:green)}."
+    end
+
+    update_score!(player_hand, dealer_hand, score)
+    display_winner(player_hand, dealer_hand)
+    display_score(score)
+    prompt "Press ENTER to continue..."
+    gets
+#    break unless play_again?
+    match_winner?(score) ? break : next
+  end
+  
+  prompt "-----------------------"
+  prompt "The match is over!"
+  if score.key(5) == :player
+          prompt "You won!"
+         else
+           prompt "The dealer won!"
+         end
+  break unless play_again?
+end
 prompt "Thanks for playing Twenty-One! Good bye!"
