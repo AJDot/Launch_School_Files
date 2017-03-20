@@ -13,7 +13,7 @@
 #   3-3. otherwise, go to #3-1
 # 4. If player busts, then dealer wins.
 # 5. Dealer turn: hit or stay
-#   - repeat until total >= 17
+#   - repeat until total >= DEALER_STAY_VALUE
 # 6. If dealer busts, then player wins.
 # 7. Compare cards and declare winner
 
@@ -23,6 +23,9 @@ require 'rainbow/ext/string'
 
 SUITS = %w[H D C S]
 VALUES = %w[2 3 4 5 6 7 8 9 10 J Q K A]
+
+HIGHEST_TOTAL = 21
+DEALER_STAY_VALUE = 17
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -67,7 +70,7 @@ def total(hand)
   end
   # correct for Aces
   values.select { |value| value == 'A' }.count.times do
-    sum -= 10 if sum > 21
+    sum -= 10 if sum > HIGHEST_TOTAL
   end
 
   sum
@@ -135,20 +138,20 @@ def display_cards(player_hand, dealer_hand, turn)
 end
 
 def busted?(hand)
-  total(hand) > 21
+  total(hand) > HIGHEST_TOTAL
 end
 
 def hit?(hand)
-  total(hand) < 17
+  total(hand) < DEALER_STAY_VALUE
 end
 
 def detect_winner(player1_hand, player2_hand)
   player_total = total(player1_hand)
   dealer_total = total(player2_hand)
   
-  if player_total > 21
+  if player_total > HIGHEST_TOTAL
     :player_busted
-  elsif dealer_total > 21
+  elsif dealer_total > HIGHEST_TOTAL
     :dealer_busted
   elsif dealer_total < player_total
     :player
@@ -265,7 +268,7 @@ loop do # Match loop
       break if busted?(dealer_hand) || !hit?(dealer_hand)
 
       prompt "The dealer chose to hit!"
-      sleep(2)
+      sleep(1)
       deal_card!(deck, dealer_hand)
     end
 
