@@ -34,12 +34,20 @@ puts square(-8) == 64
 
 #Further Exploration
 def raise_to_power(num, power=2)
-  if power > 0
-    raise_to_power(num, power - 1)
-    binding.pry
-    multiply(num, num)
+  product = 1
+  power.times { |_| product = multiply(product, num) }
+  product
+end
+
+puts "Raise to any power: 3 ** 5 = #{raise_to_power(3, 5)}"
+
+#Recursion Exercise
+def raise_to_power_recursive(num, power=2)
+  if power > 1
+    num * raise_to_power_recursive(num, power - 1)
   else
+    num
   end
 end
 
-puts raise_to_power(5, 7)
+puts "Using recursion: 3 ** 5 = #{raise_to_power_recursive(3, 5) }"
