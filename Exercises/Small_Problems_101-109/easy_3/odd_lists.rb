@@ -2,7 +2,7 @@
 
 #Understand the problem
 #  - write a method that returns an Array that contains every other element
-#  - of an Array that is passed in as an argument, starting with the 1st 
+#  - of an Array that is passed in as an argument, starting with the 1st
 #  - element
 #  - Input: list of elements
 #  - Output: smaller list of element, containing every other element

@@ -34,6 +34,6 @@ puts xor?(5.even?, 4.odd?) == false
 #  - xor does not perform short-circuit evaluation. This type of evaluation
 #  - always needs to check both arguments to make sure only one of the two
 #  - arguments is true.
-#  - In this case you are not looking to find a true value somewhere, you are 
-#  - looking to find only one true value. To find only, one you have to check 
+#  - In this case you are not looking to find a true value somewhere, you are
+#  - looking to find only one true value. To find only, one you have to check
 #  - all of them.
