@@ -50,12 +50,22 @@ puts "\n-------------------"
 puts "Further Exploration"
 puts "-------------------"
 
-# using #each_char or #char would not allow us to easily access the index beyond the length of the array.
+# using #each_char or #char would not allow us to easily access the index
+# beyond the length of the array.
 # to use such methods, each iteration would need a record of the previous value,
-# compare to that, if they are different then add it to the array. If they argument
+# compare to that, if they are different then add it to the array. If they
+# argument
 # the same, then do nothing.
 
 # Using regex
 def crunch_regex(text)
-
+  # (?=) is a positive look ahead. Looks ahead and matches but does not include
+  # it in the result.
+  text.gsub(/(.)(?=\1)/,"")
 end
+
+puts crunch_regex('ddaaiillyy ddoouubbllee') == 'daily double'
+puts crunch_regex('4444abcabccba') == '4abcabcba'
+puts crunch_regex('ggggggggggggggg') == 'g'
+puts crunch_regex('a') == 'a'
+puts crunch_regex('') == ''
