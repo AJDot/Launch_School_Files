@@ -102,8 +102,125 @@
 puts "\n-------"
 puts "Program"
 puts "-------"
+def minilang(program)
+  register = 0
+  stack = []
+  orders = program.split
+  orders.each do |order|
+    case order
+    when 'ADD'    then register += stack.pop
+    when 'SUB'    then register -= stack.pop
+    when 'MULT'   then register *= stack.pop
+    when 'DIV'    then register /= stack.pop
+    when 'MOD'    then register %= stack.pop
+    when 'POP'    then register = stack.pop
+    when 'PUSH'   then stack.push(register)
+    when 'PRINT'  then puts register
+    else               register = order.to_i
+    end
+  end
+  orders[-1] == 'GET' ? register : nil
+end
 
+minilang('PRINT')
+puts "minilang('5 PRINT PUSH 3 PRINT ADD PRINT')"
+minilang('5 PRINT PUSH 3 PRINT ADD PRINT')
+puts "minilang('5 PUSH POP PRINT')"
+minilang('5 PUSH POP PRINT')
+puts "minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')"
+minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
+puts "minilang('3 PUSH PUSH 7 DIV MULT PRINT ')"
+minilang('3 PUSH PUSH 7 DIV MULT PRINT ')
+puts "minilang('4 PUSH PUSH 7 MOD MULT PRINT ')"
+minilang('4 PUSH PUSH 7 MOD MULT PRINT ')
+puts "minilang('-3 PUSH 5 SUB PRINT')"
+minilang('-3 PUSH 5 SUB PRINT')
+puts "minilang('6 PUSH')"
+minilang('6 PUSH')
 
 puts "\n-------------------"
 puts "Further Exploration"
 puts "-------------------"
+DICTIONARY = {
+  '+' => 'ADD',
+  '-' => 'SUB',
+  '*' => 'MULT',
+  '/' => 'DIV',
+  '%' => 'MOD',
+  ' ' => ' ',
+  '(' => '(',
+  ')' => ')'
+}
+PRECEDENCE = {
+  'ADD' => 3,
+  'SUB' => 3,
+  'MULT' => 2,
+  'DIV' => 2,
+  'MOD' => 2
+}
+require 'pry'
+def integer?(n)
+  n.to_i.to_s == n
+end
+
+def Minilang(program)
+  orders  = program.split(' ')
+  # separate out the parentheses
+  orders = orders.map do |i|
+    i[0] == '(' ? [i[0], i[1..-1]] : i
+  end.flatten
+  orders = orders.map do |i|
+    i[-1] == ')' ? [i[0..-2], i[-1]] : i
+  end.flatten
+  orders = orders.map do |token|
+    if integer?(token)
+      token
+    else
+      DICTIONARY[token]
+    end
+  end
+  numbers = []
+  operators = []
+  operator = nil
+  orders.each do |token|
+    binding.pry
+    if integer?(token)
+      numbers << token
+    elsif token == '('
+      operators << token
+    elsif token == ')'
+      if operators[-1] != '('
+        operator = operators.pop
+        n2 = numbers.pop
+        n1 = numbers.pop
+        numbers << minilang("#{n1} #{operator} #{n2} GET")
+      else
+        # discard unnessecary left parenthesis
+        operator.pop
+      end
+    else #DICTIONARY.keys.include?(token)
+      while !operators.empty? && (PRECEDENCE[operators[-1]] >= PRECEDENCE[token])
+        operator = operators.pop
+        n2 = numbers.pop
+        n1 = numbers.pop
+        numbers << minilang("#{n1} #{operator} #{n2} GET")
+      end
+      operators.push(operator)
+    end
+  end
+  p numbers
+  p operators
+#   # numbers = numbers.map { |n| n += " PUSH"}
+#   # tokens = tokens.map { |token| token.gsub(/./, DICTIONARY) }
+#   # # 5 PUSH 4 PUSH POP MULT
+#   # orders = numbers + ['POP'] + tokens + ['PRINT']
+#   # p orders.join(' ')
+#   # minilang(orders.join(' '))
+
+end
+
+# Minilang('4 * 5 + 2')
+# Minilang('4 * (5 + 3) - 7')
+Minilang('(3 + (4 * 5) - 7) / (5 % 3)')
+
+# puts (4 * 5 + 3 - 7) / (5 % 3)
