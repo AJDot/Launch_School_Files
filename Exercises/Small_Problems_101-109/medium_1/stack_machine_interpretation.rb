@@ -119,7 +119,6 @@ def minilang(program)
     else               register = order.to_i
     end
   end
-  orders[-1] == 'GET' ? register : nil
 end
 
 minilang('PRINT')
@@ -141,86 +140,5 @@ minilang('6 PUSH')
 puts "\n-------------------"
 puts "Further Exploration"
 puts "-------------------"
-DICTIONARY = {
-  '+' => 'ADD',
-  '-' => 'SUB',
-  '*' => 'MULT',
-  '/' => 'DIV',
-  '%' => 'MOD',
-  ' ' => ' ',
-  '(' => '(',
-  ')' => ')'
-}
-PRECEDENCE = {
-  'ADD' => 3,
-  'SUB' => 3,
-  'MULT' => 2,
-  'DIV' => 2,
-  'MOD' => 2
-}
-require 'pry'
-def integer?(n)
-  n.to_i.to_s == n
-end
+minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 5 PUSH 4 MULT ADD SUB DIV PRINT')
 
-def Minilang(program)
-  orders  = program.split(' ')
-  # separate out the parentheses
-  orders = orders.map do |i|
-    i[0] == '(' ? [i[0], i[1..-1]] : i
-  end.flatten
-  orders = orders.map do |i|
-    i[-1] == ')' ? [i[0..-2], i[-1]] : i
-  end.flatten
-  orders = orders.map do |token|
-    if integer?(token)
-      token
-    else
-      DICTIONARY[token]
-    end
-  end
-  numbers = []
-  operators = []
-  operator = nil
-  orders.each do |token|
-    binding.pry
-    if integer?(token)
-      numbers << token
-    elsif token == '('
-      operators << token
-    elsif token == ')'
-      if operators[-1] != '('
-        operator = operators.pop
-        n2 = numbers.pop
-        n1 = numbers.pop
-        numbers << minilang("#{n1} #{operator} #{n2} GET")
-      else
-        # discard unnessecary left parenthesis
-        operator.pop
-      end
-    else #DICTIONARY.keys.include?(token)
-      while !operators.empty? && (PRECEDENCE[operators[-1]] >= PRECEDENCE[token])
-        operator = operators.pop
-        n2 = numbers.pop
-        n1 = numbers.pop
-        numbers << minilang("#{n1} #{operator} #{n2} GET")
-      end
-      operators.push(operator)
-    end
-  end
-  p numbers
-  p operators
-#   # numbers = numbers.map { |n| n += " PUSH"}
-#   # tokens = tokens.map { |token| token.gsub(/./, DICTIONARY) }
-#   # # 5 PUSH 4 PUSH POP MULT
-#   # orders = numbers + ['POP'] + tokens + ['PRINT']
-#   # p orders.join(' ')
-#   # minilang(orders.join(' '))
-
-end
-
-# Minilang('4 * 5 + 2')
-# Minilang('4 * (5 + 3) - 7')
-Minilang('(3 + (4 * 5) - 7) / (5 % 3)')
-
-# puts (4 * 5 + 3 - 7) / (5 % 3)
