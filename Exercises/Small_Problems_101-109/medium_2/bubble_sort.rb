@@ -101,7 +101,7 @@ puts "\n-------------------"
 puts "Animation"
 puts "-------------------"
 
-def animate(array)
+def display_array(array)
   system "clear"
   sort_display = []
   array.each do |n|
@@ -109,7 +109,7 @@ def animate(array)
   end
   sort_display.reverse!
   puts sort_display
-  sleep(0.02)
+  sleep(0.2)
 end
 
 def bubble_sort_animation!(array)
@@ -122,13 +122,14 @@ loop do
     array[index], array[index - 1] = array[index - 1], array[index]
     swapped = true
 
-    animate(array)
   end
+  display_array(array)
   stop -= 1
   break unless swapped
   end
 end
 
+numbers = (0..50).map { |i| rand(80) }
 numbers = (0..50).to_a.shuffle
 
 bubble_sort_animation!(numbers)
