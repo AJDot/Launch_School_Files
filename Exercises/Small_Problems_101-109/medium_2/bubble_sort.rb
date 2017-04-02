@@ -102,7 +102,11 @@ puts "Animation"
 puts "-------------------"
 
 def display_array(array, rate)
-  system "clear"
+  if RUBY_PLATFORM =~ /win32|win64|\.NET|windows|cygwin|mingw32/i
+      system('cls')
+    else
+      system('clear')
+   end
   sort_display = []
   array.each do |n|
     sort_display << " " * n + "#{n}"
@@ -121,9 +125,8 @@ loop do
     next if array[index] >= array[index - 1]
     array[index], array[index - 1] = array[index - 1], array[index]
     swapped = true
-
-    display_array(array, 0.025)
   end
+  display_array(array, 0.025)
   stop -= 1
   break unless swapped
   end
