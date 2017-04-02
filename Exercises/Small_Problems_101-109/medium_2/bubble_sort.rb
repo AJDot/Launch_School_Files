@@ -101,7 +101,7 @@ puts "\n-------------------"
 puts "Animation"
 puts "-------------------"
 
-def display_array(array)
+def display_array(array, rate)
   system "clear"
   sort_display = []
   array.each do |n|
@@ -109,7 +109,7 @@ def display_array(array)
   end
   sort_display.reverse!
   puts sort_display
-  sleep(0.2)
+  sleep(rate)
 end
 
 def bubble_sort_animation!(array)
@@ -122,8 +122,8 @@ loop do
     array[index], array[index - 1] = array[index - 1], array[index]
     swapped = true
 
+    display_array(array, 0.025)
   end
-  display_array(array)
   stop -= 1
   break unless swapped
   end
