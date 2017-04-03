@@ -63,3 +63,11 @@ madlib('madlibs_text.txt')
 puts "\n-------------------"
 puts "Further Exploration"
 puts "-------------------"
+File.open('madlibs_text_2.txt') do |file|
+  file.each do |line|
+    puts format(line, noun:       NOUNS.sample,
+                      verb:       VERBS.sample,
+                      adjective:  ADJECTIVES.sample,
+                      adverb:     ADVERBS.sample)
+  end
+end
