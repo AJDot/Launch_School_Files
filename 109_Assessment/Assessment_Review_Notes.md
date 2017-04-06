@@ -178,3 +178,155 @@ prefix!(name)
 puts name   # => 'joe'
 ```
 __Do not__ create a method that makes a permanent change to a variable ( a side-effect) and has an important return value.
+## Beginning Ruby - Part 3
+### Outline
+- Arrays and Hashes
+- Common mistakes when using `select` and `map`, and the `Enumerable` module
+
+### Collections
+What is a "data structure" or "collection?"
+- A collection is a type of data structure that refers to a group of objects.
+  - Array - a series of elements retrievable by an integer index
+    - ex: [4, 3, 2, 1]
+  - Hash -  a series of elements retrievable by a key:value pair
+    - ex: {:a => 1} or {a: 1}
+    - remember anything can be a key but if symbols are used as keys know that they are immutable.
+
+What is the difference between an Array and Hash
+- order
+- index vs key retrieval
+- arrays can have duplicates, but hash keys are unique
+
+### Array
+- iterate over an array of number, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], and print out each value (loop vs iteration)
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+idx = 0
+loop do
+  puts arr[idx]
+  idx += 1
+  break if idx == arr.size
+end
+# outputs the array sequentially
+# returns nil
+```
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+array.each do |n|
+  puts arr[idx]
+end
+# outputs the array sequentially
+# return the original array
+```
+- same as above  except print out the number only if the value is greater than 5
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+array.each do |n|
+  puts arr[idx] if n > 5
+end
+```
+Append 12 to the end of the array
+```ruby
+arr << 12
+
+p arr
+```
+Prepend 0 to the beginning of the array
+```ruby
+arr.unshift(0)
+```
+Remove the 12, and append a 3
+```ruby
+arr.pop
+arr << 3
+p arr
+```
+Remove duplicates using 1 method (i.e., don't loop or iterate)
+```ruby
+arr.uniq! # => mutates the caller (#uniq does not mutate caller)
+p arr
+```
+Extract all odd numbers into a new array
+```ruby
+# select returns a new array that meets the criteria specified in the block
+arr.select { |n| n.odd? }
+
+odd = arr.select do |n|
+  n + 1
+end
+# this should print out every number since (n + 1) is always truthy
+# definition of select #2
+# select returns a new array when the block evaluate to true
+
+odds = arr.select do |n|
+  n + 1
+  puts n
+end
+# this code will evaluate to false on every occasion (the return value of puts)
+
+# select returns a new array based on the block's *return value*. If the return value evaluates to true, then the element is selected.
+```
+__select__ returns a new array based on the block's *return value*. If the return value evaluates to true, then the element is selected.
+Increment all numbers by 1 (transformation - new vs mutation)
+```ruby
+# map returns a new array based on the transformation specified in the block
+incremented = arr.map { |n| n + 1 }
+
+# map returns a new array based on the block's *return value*. Each element is transformed based on the return value
+incremented = arr.map do |n|
+  n > 1
+
+end
+```
+__map__ returns a new array based on the block's *return value*. Each element is transformed based on the return value
+### Hash
+Suppose you have a hash `hsh = {a:1, b:2, c:3, d:4}`
+Get the value of "b"
+```ruby
+hsh["b"] # => it's nil since :b is a symbol
+hsh[:b]
+```
+Add this key/value pair to the hash: {e: 5}
+```ruby
+hsh[:e] = 5
+```
+iterate over the hash and print out the keys and values
+```ruby
+hsh.each do |k, v|
+  puts "key is #{k}, value is #{v}"
+end
+```
+print out key/value pairs where the value is less than 3.5
+```ruby
+hsh.each do |k, v|
+  puts "key is #{k}, value is #{v}" if v < 3.5
+end
+```
+return a new hash where value is less than 3.5
+```ruby
+small_vals = hsh.select do |k, v|
+  v < 3.5
+end
+```
+delete all key/value pairs where value is less than 3.5
+```ruby
+small_vals = hsh.delete_if do |k, v|
+  v < 3.5
+end
+```
+### Other
+- can an array contain hashes? vice versa?
+  - of course
+- modifying an array value in a hash
+- modifying a hash element in an array
+- both of these can be tricky. Modifying a variable that is a value of a hash or an array will change the hash or array as well since variables are simply pointers to objects.
+
+### Common Methods
+- `#all?`
+- `#any?`
+- `#first`
+- `#max`
+- `#min`
+- `#reject`
