@@ -127,3 +127,9 @@ p a     # => 'a'
 ![Variables as Pointers 2](https://d2aw5xe2jldque.cloudfront.net/books/ruby/images/variables_pointers2.jpg)
 
 Some operations will mutate the actual address space in memory, thereby affecting all variables that point to that address space. Some operations will not mutate the address space in memory, and instead will re-point the variable to a new address space in memory.
+```ruby
+a = [1, 2, 3, 3]
+b = a
+c = a.uniq!
+```
+In this code, `a.uniq!` changes the object itself therefore any variable pointing to that object will change. This means `c = [1, 2, 3]`, `a = [1, 2, 3]`, and also `b = [1, 2, 3]` since `b` is pointing to the same object `a` is pointing to.
