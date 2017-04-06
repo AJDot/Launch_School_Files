@@ -99,7 +99,7 @@ p str # => str is now "hello world"
 ```
 ```ruby
 def amethod(param)
-  param += " world" # => param = param + " world" (no mutation)
+  param += " world" # => param = param + " world" (reassignment) (no mutation)
   param + " world"  # => string concatenation - param.+(" world")
   param << " world" # => (mutation)
 end
@@ -110,16 +110,15 @@ def amethod(param)
   param + " universe"  # => string concatenation - param.+(" world")
   param << " world" # => (mutation)
 end
-p str
+p str # => "hello world"
 ```
-This prints "hello world"
 ```ruby
 def amethod(param)      # param = str
   param += " universe"  # => param = param + " universe" (no mutation) - This is reassignment, creates as a new object
   # => param is no longer pointing to the same object that str is pointing to
   param << " world"     # => (mutation)
 end
-p str
+p str # => "hello"
 ```
 This will output "hello". This is because param is now reassigned to a new object. It is now pointing to a new location in memory. Then on the next line, `param << " world"` is adds " world" to the new location, a new string object. But the original object was not mutated.
 

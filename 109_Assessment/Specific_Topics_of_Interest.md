@@ -120,6 +120,7 @@ p a     # => 'a'
 - fetch
 - to_a
 - keys and values
+
 ### Variables as Pointers
 #### Variable reassignment using `=`
 ![Variables as Pointers 1](https://d2aw5xe2jldque.cloudfront.net/books/ruby/images/variables_pointers1.jpg)
@@ -133,3 +134,50 @@ b = a
 c = a.uniq!
 ```
 In this code, `a.uniq!` changes the object itself therefore any variable pointing to that object will change. This means `c = [1, 2, 3]`, `a = [1, 2, 3]`, and also `b = [1, 2, 3]` since `b` is pointing to the same object `a` is pointing to.
+### Puts vs Return
+#### Return
+__Ruby methods ALWAYS return the evaluated result of the last line of the expression unless an explicit return comes before it.__
+#### Puts
+Puts will call `#to_s` on its argument and output it. The `return` of `puts` is always `nil`
+#### Examples
+```ruby
+def add_three(number)
+  return number + 3
+end
+puts add_three(4)  # => 7
+```
+```ruby
+def add_three(number)
+  return number + 3
+  number + 4
+end
+puts add_three(4) # => 7
+```
+In the code above the last line of the method does not get evaluated because a `return` was implemented earlier in the method.
+
+### False vs nil and the idea of "truthiness"
+#### Truthiness
+Truthiness is the concept that if some kind of comparison in Ruby does not evaluate to false (or somehow nil) then the result is used as if the value of it was the explicit boolean value of true. For example:
+```ruby
+a = 5
+if a
+  puts true
+else
+  puts false
+end
+
+# => true
+```
+The `if` statement above will execute the "true" side of the statement because the value of 5 is a "truthy" value. Remember, a truthy value is anything besides `false` and `nil`.
+#### nil
+`nil` is how "nothing" is represented in Ruby. Something with a value of `nil` is considered to be "completely empty", "not of any specific type"
+#### false
+`false` is a boolean value (like `true`). `false` is the result of comparison or evaluation is not true. `false` and `nil` are not the same thing. `false` is a successful evaluation/determination from the code while `nil` is nothing at all.
+
+In comparisons, both `false` and `nil` will evaluate as false, but know that they are not equal. The statement `false = nil` will evaluate to `false`.
+
+### Implicit return value of method definitions and method invocation with blocks
+The explicit reserved word `return` does not need to be written for a method or block to return a value. Without the reserved word, the evaluation of the last line of the method will be returned. With the reserved word explicitly written, the method or block will abort and return the value of the return, no matter where it is placed in the method or block.
+
+### General
+In programming we are always concerned with the output and the return value and mutations to objects. We need to speak of them with specific vocabulary. Avoid using words like "results" as this is too vague. Do you consider the output or the return value the result of a method? It will always depend on the method you are talking about.
