@@ -330,3 +330,28 @@ end
 - `#max`
 - `#min`
 - `#reject`
+
+## Debugging
+- temperament
+- code with intention
+- fanatical attention to details
+
+### General Approach
+- reproduce the error consistently
+- figure out a solution
+- pay attention to "code smells"
+
+### Tool
+- puts vs print vs p
+- paying attention to return val vs output, and terminal vs irb
+- pry
+- rubber duck
+- walking away (after loading problem into brain)
+- debugger
+
+### Methods
+- extract to method
+- consistent naming scheme
+  - methods may all be verbs
+- if method outputs, prepend the name (ex: print_names or display_names)
+- if mutating, append name with !

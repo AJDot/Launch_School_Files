@@ -42,6 +42,7 @@ def search(query)
     brand = name.split.first.downcase
     brand == query[:q] && price >= query[:price_min] && price <= query[:price_max]
   end
+  p result
 end
 
 search(query)
