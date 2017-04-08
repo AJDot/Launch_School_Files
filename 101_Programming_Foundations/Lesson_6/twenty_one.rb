@@ -90,7 +90,7 @@ def make_card(card, rows, show_card=true)
     value = '?'
   end
   rows_to_add = [
-    "----------- ",
+    "+---------+ ",
     "| #{value.ljust(3)} #{value.rjust(3)} | ",
     "| #{suit}     #{suit} | ",
     "|         | ",
@@ -98,7 +98,7 @@ def make_card(card, rows, show_card=true)
     "|         | ",
     "| #{suit}     #{suit} | ",
     "| #{value.ljust(3)} #{value.rjust(3)} | ",
-    "----------- "
+    "+---------+ "
   ]
   rows.each_with_index do |row, index|
     row << rows_to_add[index]
