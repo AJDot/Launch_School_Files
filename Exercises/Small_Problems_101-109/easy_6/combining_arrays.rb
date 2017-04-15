@@ -23,10 +23,15 @@
 # Program
 def merge(array1, array2)
   # array1 | array2
-  array1 + array2.select { |element| !array1.include?(element) }
+  result = []
+  (array1 + array2).each do |element|
+    result << element if !result.include?(element)
+  end
+  result
 end
 
 puts merge([1, 3, 5], [3, 6, 9]) == [1, 3, 5, 6, 9]
+puts merge([1, 1, 2], [2, 2, 3]) == [1, 2, 3]
 
 
 puts "\n-------------------"
