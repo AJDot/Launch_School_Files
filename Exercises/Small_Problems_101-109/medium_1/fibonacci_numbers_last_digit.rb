@@ -39,7 +39,7 @@ puts fibonacci_last(20)
 puts fibonacci_last(100)
 puts fibonacci_last(100_001)
 puts fibonacci_last(1_000_007)
-# puts fibonacci_last(123456789)
+puts fibonacci_last(123456789)
 
 
 puts "\n-------------------"
@@ -70,8 +70,8 @@ def fibonacci_last_instant(nth)
   fibonacci_last(nth % 60)
 end
 
-puts "Fibonacci number 123 end in: #{fibonacci_last_instant(123)}"
-puts "Fibonacci number 123_456 end in: #{fibonacci_last_instant(123_456)}"
-puts "Fibonacci number 123_456_789 end in: #{fibonacci_last_instant(123_456_789)}"
-puts "Fibonacci number 123_456_789_987 end in: #{fibonacci_last_instant(123_456_789_987)}"
-puts "Fibonacci number 123_456_789_987_745 end in: #{fibonacci_last_instant(123_456_789_987_745)}"
+puts "Fibonacci number 123 ends in: #{fibonacci_last_instant(123)}"
+puts "Fibonacci number 123_456 ends in: #{fibonacci_last_instant(123_456)}"
+puts "Fibonacci number 123_456_789 ends in: #{fibonacci_last_instant(123_456_789)}"
+puts "Fibonacci number 123_456_789_987 ends in: #{fibonacci_last_instant(123_456_789_987)}"
+puts "Fibonacci number 123_456_789_987_745 ends in: #{fibonacci_last_instant(123_456_789_987_745)}"
