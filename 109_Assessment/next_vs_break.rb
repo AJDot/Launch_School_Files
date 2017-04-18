@@ -16,13 +16,13 @@ end
 def first_primes(n)
   result = []
   number = 1
-  loop do 
+  loop do
     number += 1
     # next moves to next iteration if number is not prime
     # this prevents the execution of 'result << number' unless number is prime
     next if !prime?(number)
     result << number
-    # break will stop the loop if the number of primes collected is equal to 
+    # break will stop the loop if the number of primes collected is equal to
     # the method argument
     break if result.size == n
   end
