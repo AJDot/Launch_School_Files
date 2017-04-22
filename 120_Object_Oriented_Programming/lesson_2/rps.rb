@@ -1,5 +1,5 @@
 class Move
-  VALUES = ['rock', 'paper', 'scissors']
+  VALUES = %w(rock paper scissors).freeze
 
   def initialize(value)
     @value = value
@@ -17,32 +17,16 @@ class Move
     @value == 'paper'
   end
 
-  def >(other_move)
-
-    if rock?
-      return true if other_move.scissors?
-      return false
-    elsif paper?
-      return true if other_move.rock?
-      return false
-    elsif scissors?
-      return true if other_move.paper?
-      return false
-    end
+  def >(other)
+    (rock? && other.scissors?) ||
+      (paper? && other.rock?) ||
+      (scissors? && other.paper?)
   end
 
-  def <(other_move)
-
-    if rock?
-      return true if other_move.paper?
-      return false
-    elsif paper?
-      return true if other_move.scissors?
-      return false
-    elsif scissors?
-      return true if other_move.rock?
-      return false
-    end
+  def <(other)
+    (rock? && other.paper?) ||
+      (paper? && other.scissors?) ||
+      (scissors? && other.rock?)
   end
 
   def to_s
@@ -60,12 +44,12 @@ end
 
 class Human < Player
   def set_name
-    n = ""
+    n = ''
     loop do
       puts "What's your name?"
       n = gets.chomp
       break unless n.empty?
-      puts "Sorry, must enter a value."
+      puts 'Sorry, must enter a value.'
     end
     self.name = n
   end
@@ -73,10 +57,10 @@ class Human < Player
   def choose
     choice = nil
     loop do
-      puts "Please choose rock, paper, or scissors:"
+      puts 'Please choose rock, paper, or scissors:'
       choice = gets.chomp
       break if Move::VALUES.include? choice
-      puts "sorry, invalid choice."
+      puts 'sorry, invalid choice.'
     end
     self.move = Move.new(choice)
   end
@@ -102,17 +86,19 @@ class RPSGame
   end
 
   def display_welcome_message
-    puts "Welcome to Rock, Paper, Scissors!"
+    puts 'Welcome to Rock, Paper, Scissors!'
   end
 
   def display_goodbye_message
-    puts "Thanks for playing Rock, Paper, Scissors. Good bye!"
+    puts 'Thanks for playing Rock, Paper, Scissors. Good bye!'
+  end
+
+  def display_moves
+    puts "#{human.name} chose #{human.move}."
+    puts "#{computer.name} chose #{computer.move}."
   end
 
   def display_winner
-    puts "#{human.name} chose #{human.move}."
-    puts "#{computer.name} chose #{computer.move}."
-
     if human.move > computer.move
       puts "#{human.name} won!"
     elsif human.move < computer.move
@@ -125,14 +111,13 @@ class RPSGame
   def play_again?
     answer = nil
     loop do
-      puts "Would you like to play again? (y/n)"
+      puts 'Would you like to play again? (y/n)'
       answer = gets.chomp
-      break if ['y', 'n'].include? answer.downcase
-      puts "Sorry, must be y or n."
+      break if %w(y n).include? answer.downcase
+      puts 'Sorry, must be y or n.'
     end
-
-    return true if answer == 'y'
-    return false
+    return false if answer.downcase == 'n'
+    return true if answer.downcase == 'y'
   end
 
   def play
@@ -140,6 +125,7 @@ class RPSGame
     loop do
       human.choose
       computer.choose
+      display_moves
       display_winner
       break unless play_again?
     end
@@ -148,9 +134,3 @@ class RPSGame
 end
 
 RPSGame.new.play
-
-# Compare this design with the one in the previous assignment.
-# What is the primary improvement of this new design?
-# What is the primary drawback of this new design?
-# => The code is more modular this way. The redesign any part of the code, the entire code base does not have to be altered. It's more modular.
-# => On the flip side, abstracting code like this can make if tougher to read and follow the logic when debugging. Yet it makes the code look more like English which makes the higher level logic easier to understand.
