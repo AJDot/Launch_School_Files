@@ -23,74 +23,55 @@
 class Player
   attr_accessor :move, :name
 
-  def initialize(player_type = :human)
-    @player_type = player_type
-    @move = nil
+  def initialize
     set_name
   end
+end
 
+class Human < Player
   def set_name
-    if human?
-      n = ""
-      loop do
-        puts "What's your name?"
-        n = gets.chomp
-        break unless n.empty?
-        puts "Sorry, must enter a value."
-      end
-      self.name = n
-    else
-      self.name = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
+    n = ""
+    loop do
+      puts "What's your name?"
+      n = gets.chomp
+      break unless n.empty?
+      puts "Sorry, must enter a value."
     end
+    self.name = n
   end
 
   def choose
-    if human?
-      choice = nil
-      loop do
-        puts "Please choose rock, paper, or scissors:"
-        choice = gets.chomp
-        break if ['rock', 'paper', 'scissors'].include? choice
-        puts "sorry, invalid choice."
-      end
-      self.move = choice
-    else
-      self.move = ['rock', 'paper', 'scissors'].sample
+    choice = nil
+    loop do
+      puts "Please choose rock, paper, or scissors:"
+      choice = gets.chomp
+      break if ['rock', 'paper', 'scissors'].include? choice
+      puts "sorry, invalid choice."
     end
-  end
-
-  def human?
-    @player_type == :human
+    self.move = choice
   end
 end
 
-class Move
-  def initialize
-    # seems like we need something to keep track
-    # of the choice... a move object can be "paper", "rock", or "scissors"
+class Computer < Player
+  def set_name
+    self.name = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
   end
-end
 
-class Rule
-  def initialize
-    # not sure what the "state" of a rule object should be
+  def choose
+    self.move = ['rock', 'paper', 'scissors'].sample
   end
-end
-
-# not sure where "compare" goes yet
-def compare(move1, move2)
-
 end
 
 # After the noun/verb organization, we need an "engine" of some sort to orchestrate the objects.
 # The "Engine" is where the procedural program flow should be.
 
-class RPSGame # The Engine
+# Game Orchestration Engine
+class RPSGame
   attr_accessor :human, :computer
 
   def initialize
-    @human = Player.new
-    @computer = Player.new(:computer)
+    @human = Human.new
+    @computer = Computer.new
   end
 
   def display_welcome_message
@@ -133,6 +114,7 @@ class RPSGame # The Engine
     return true if answer == 'y'
     return false
   end
+
   def play
     display_welcome_message
     loop do
@@ -146,3 +128,9 @@ class RPSGame # The Engine
 end
 
 RPSGame.new.play
+
+# is this design, with Human and Computer sub-classes, better? Why, or why not?
+# what is the primary improvement of this new design?
+# what is the primary drawback of this new design?
+# => This is a better design because there is less repeated code. The if/else logic before the refactoring was bulky and harder to read than the current code.
+# => I'm not sure there is a drawback. Code seems simpler and just as functional. It's easier to read. To instantiate a human player using Human.new, and a computer player using Computer.new, is completely transparent. There is no question as to what is happening.
