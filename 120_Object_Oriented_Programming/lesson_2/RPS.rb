@@ -1,25 +1,55 @@
-# Step 1
-# Rock, Paper, Scissors is a two-player game where each player chooses one of three possible moves: rock, paper, or scissors. The chosen moves will then be compared to see who wins, according to the following rules:
+class Move
+  VALUES = ['rock', 'paper', 'scissors']
 
-# - rock beats scissors
-# - scissors beats paper
-# - paper beats rock
+  def initialize(value)
+    @value = value
+  end
 
-# If the players chose the same move, then it's a tie.
+  def scissors?
+    @value == 'scissors'
+  end
 
-# Step 2
-# Nouns: player, move, rule
-# Verbs: choose, compare
+  def rock?
+    @value == 'rock'
+  end
 
-# Step 3
-# Player
-# - choose
-# Move
-# Rule
+  def paper?
+    @value == 'paper'
+  end
 
-# - compare
+  def >(other_move)
 
-# Step 4
+    if rock?
+      return true if other_move.scissors?
+      return false
+    elsif paper?
+      return true if other_move.rock?
+      return false
+    elsif scissors?
+      return true if other_move.paper?
+      return false
+    end
+  end
+
+  def <(other_move)
+
+    if rock?
+      return true if other_move.paper?
+      return false
+    elsif paper?
+      return true if other_move.scissors?
+      return false
+    elsif scissors?
+      return true if other_move.rock?
+      return false
+    end
+  end
+
+  def to_s
+    @value
+  end
+end
+
 class Player
   attr_accessor :move, :name
 
@@ -45,10 +75,10 @@ class Human < Player
     loop do
       puts "Please choose rock, paper, or scissors:"
       choice = gets.chomp
-      break if ['rock', 'paper', 'scissors'].include? choice
+      break if Move::VALUES.include? choice
       puts "sorry, invalid choice."
     end
-    self.move = choice
+    self.move = Move.new(choice)
   end
 end
 
@@ -58,12 +88,9 @@ class Computer < Player
   end
 
   def choose
-    self.move = ['rock', 'paper', 'scissors'].sample
+    self.move = Move.new(Move::VALUES.sample)
   end
 end
-
-# After the noun/verb organization, we need an "engine" of some sort to orchestrate the objects.
-# The "Engine" is where the procedural program flow should be.
 
 # Game Orchestration Engine
 class RPSGame
@@ -86,19 +113,12 @@ class RPSGame
     puts "#{human.name} chose #{human.move}."
     puts "#{computer.name} chose #{computer.move}."
 
-    case human.move
-    when 'rock'
-      puts "It's a tie!" if computer.move == 'rock'
-      puts "#{human.name} won!" if computer.move == 'scissors'
-      puts "#{computer.name} won!" if computer.move == 'paper'
-    when 'paper'
-      puts "It's a tie!" if computer.move == 'paper'
-      puts "#{human.name} won!" if computer.move == 'rock'
-      puts "#{computer.name} won!" if computer.move == 'scissors'
-    when 'scissors'
-      puts "It's a tie!" if computer.move == 'scissors'
-      puts "#{human.name} won!" if computer.move == 'paper'
-      puts "#{computer.name} won!" if computer.move == 'rock'
+    if human.move > computer.move
+      puts "#{human.name} won!"
+    elsif human.move < computer.move
+      puts "#{computer.name} won!"
+    else
+      puts "It's a tie!"
     end
   end
 
@@ -129,8 +149,8 @@ end
 
 RPSGame.new.play
 
-# is this design, with Human and Computer sub-classes, better? Why, or why not?
-# what is the primary improvement of this new design?
-# what is the primary drawback of this new design?
-# => This is a better design because there is less repeated code. The if/else logic before the refactoring was bulky and harder to read than the current code.
-# => I'm not sure there is a drawback. Code seems simpler and just as functional. It's easier to read. To instantiate a human player using Human.new, and a computer player using Computer.new, is completely transparent. There is no question as to what is happening.
+# Compare this design with the one in the previous assignment.
+# What is the primary improvement of this new design?
+# What is the primary drawback of this new design?
+# => The code is more modular this way. The redesign any part of the code, the entire code base does not have to be altered. It's more modular.
+# => On the flip side, abstracting code like this can make if tougher to read and follow the logic when debugging. Yet it makes the code look more like English which makes the higher level logic easier to understand.
