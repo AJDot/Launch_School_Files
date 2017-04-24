@@ -1,3 +1,7 @@
+def prompt(msg)
+  puts "=> #{msg}"
+end
+
 class Move
   VALUES = %w(rock paper scissors).freeze
 
@@ -35,10 +39,11 @@ class Move
 end
 
 class Player
-  attr_accessor :move, :name
+  attr_accessor :move, :name, :score
 
   def initialize
     set_name
+    @score = Score.new
   end
 end
 
@@ -46,10 +51,10 @@ class Human < Player
   def set_name
     n = ''
     loop do
-      puts "What's your name?"
-      n = gets.chomp
+      prompt "What's your name?"
+      n = gets.chomp.strip
       break unless n.empty?
-      puts 'Sorry, must enter a value.'
+      prompt 'Sorry, must enter a value.'
     end
     self.name = n
   end
@@ -57,10 +62,10 @@ class Human < Player
   def choose
     choice = nil
     loop do
-      puts 'Please choose rock, paper, or scissors:'
+      prompt 'Please choose rock, paper, or scissors:'
       choice = gets.chomp
       break if Move::VALUES.include? choice
-      puts 'sorry, invalid choice.'
+      prompt 'sorry, invalid choice.'
     end
     self.move = Move.new(choice)
   end
@@ -76,8 +81,35 @@ class Computer < Player
   end
 end
 
+class Score
+  attr_reader :value
+
+  def initialize
+    @value = 0
+  end
+
+  def reset
+    @value = 0
+  end
+
+  def ==(other)
+    @value == other
+  end
+
+  def +(other)
+    @value += other
+    self
+  end
+
+  def to_s
+    @value.to_s
+  end
+end
+
 # Game Orchestration Engine
 class RPSGame
+  MAX_SCORE = 3
+
   attr_accessor :human, :computer
 
   def initialize
@@ -85,49 +117,82 @@ class RPSGame
     @computer = Computer.new
   end
 
+  private
+
   def display_welcome_message
-    puts 'Welcome to Rock, Paper, Scissors!'
+    prompt '---------------------------------'
+    prompt 'Welcome to Rock, Paper, Scissors!'
+    prompt '---------------------------------'
   end
 
   def display_goodbye_message
-    puts 'Thanks for playing Rock, Paper, Scissors. Good bye!'
+    prompt '---------------------------------------------------'
+    prompt 'Thanks for playing Rock, Paper, Scissors. Good bye!'
+    prompt '---------------------------------------------------'
   end
 
   def display_moves
-    puts "#{human.name} chose #{human.move}."
-    puts "#{computer.name} chose #{computer.move}."
+    prompt "#{human.name} chose #{human.move}."
+    prompt "#{computer.name} chose #{computer.move}."
   end
 
   def display_winner
     if human.move > computer.move
-      puts "#{human.name} won!"
+      prompt "#{human.name} won!"
     elsif human.move < computer.move
-      puts "#{computer.name} won!"
+      prompt "#{computer.name} won!"
     else
-      puts "It's a tie!"
+      prompt "It's a tie!"
     end
+  end
+
+  def update_score
+    if human.move > computer.move
+      human.score += 1
+    elsif human.move < computer.move
+      computer.score += 1
+    end
+  end
+
+  def display_score
+    prompt 'SCORE'
+    prompt "#{human.name}: #{human.score} " \
+    "#{computer.name}: #{computer.score}\n\n"
+  end
+
+  def reset_scores
+    human.score.reset
+    computer.score.reset
   end
 
   def play_again?
     answer = nil
     loop do
-      puts 'Would you like to play again? (y/n)'
-      answer = gets.chomp
-      break if %w(y n).include? answer.downcase
-      puts 'Sorry, must be y or n.'
+      prompt 'Would you like to play again? (y/n)'
+      answer = gets.chomp.downcase
+      break if %w(y n).include? answer
+      prompt 'Sorry, must be y or n.'
     end
-    return false if answer.downcase == 'n'
-    return true if answer.downcase == 'y'
+    answer == 'y'
   end
+
+  def play_round
+    human.choose
+    computer.choose
+    display_moves
+    display_winner
+    update_score
+    display_score
+  end
+
+  public
 
   def play
     display_welcome_message
     loop do
-      human.choose
-      computer.choose
-      display_moves
-      display_winner
+      play_round until [human.score, computer.score].include? MAX_SCORE
       break unless play_again?
+      reset_scores
     end
     display_goodbye_message
   end
