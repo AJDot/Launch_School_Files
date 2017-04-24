@@ -2,8 +2,26 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
+def join_or(array)
+  case array.size
+  when 1
+    array.first
+  when 2
+    "#{array.first} or #{array.last}"
+  else
+    "#{array[0..-2].join(', ')} or #{array.last}"
+  end
+end
+
 class Move
-  VALUES = %w(rock paper scissors).freeze
+  VALUES = %w(rock paper scissors Spock lizard).freeze
+  WINS = {
+    'rock' => %w(scissors lizard),
+    'paper' => %w(rock Spock),
+    'scissors' => %w(paper lizard),
+    'Spock' => %w(rock scissors),
+    'lizard' => %w(paper Spock)
+  }.freeze
 
   def initialize(value)
     @value = value
@@ -21,16 +39,20 @@ class Move
     @value == 'paper'
   end
 
+  def spock?
+    @value == 'Spock'
+  end
+
+  def lizard?
+    @value == 'lizard'
+  end
+
   def >(other)
-    (rock? && other.scissors?) ||
-      (paper? && other.rock?) ||
-      (scissors? && other.paper?)
+    WINS[@value].include?(other.to_s)
   end
 
   def <(other)
-    (rock? && other.paper?) ||
-      (paper? && other.scissors?) ||
-      (scissors? && other.rock?)
+    WINS[other.to_s].include?(@value)
   end
 
   def to_s
@@ -62,12 +84,22 @@ class Human < Player
   def choose
     choice = nil
     loop do
-      prompt 'Please choose rock, paper, or scissors:'
+      prompt "Please choose #{join_or(Move::VALUES)}:"
       choice = gets.chomp
-      break if Move::VALUES.include? choice
+      break if valid_choices.keys.include? choice
       prompt 'sorry, invalid choice.'
     end
-    self.move = Move.new(choice)
+    self.move = Move.new(valid_choices[choice])
+  end
+
+  private
+
+  def valid_choices
+    { 'rock' => 'rock', 'r' => 'rock', 'R' => 'rock',
+      'paper' => 'paper', 'p' => 'paper', 'P' => 'paper',
+      'scissors' => 'scissors', 's' => 'scissors',
+      'Spock' => 'Spock', 'S' => 'Spock',
+      'lizard' => 'lizard', 'l' => 'lizard', 'L' => 'lizard' }
   end
 end
 
@@ -120,15 +152,16 @@ class RPSGame
   private
 
   def display_welcome_message
-    prompt '---------------------------------'
-    prompt 'Welcome to Rock, Paper, Scissors!'
-    prompt '---------------------------------'
+    prompt '------------------------------------------------'
+    prompt 'Welcome to Rock, Paper, Scissors, Spock, Lizard!'
+    prompt "First to #{MAX_SCORE} wins!"
+    prompt '------------------------------------------------'
   end
 
   def display_goodbye_message
-    prompt '---------------------------------------------------'
-    prompt 'Thanks for playing Rock, Paper, Scissors. Good bye!'
-    prompt '---------------------------------------------------'
+    prompt '------------------------------------------------------------------'
+    prompt 'Thanks for playing Rock, Paper, Scissors, Spock, Lizard. Good bye!'
+    prompt '------------------------------------------------------------------'
   end
 
   def display_moves
@@ -155,9 +188,11 @@ class RPSGame
   end
 
   def display_score
-    prompt 'SCORE'
-    prompt "#{human.name}: #{human.score} " \
-    "#{computer.name}: #{computer.score}\n\n"
+    prompt '------------Score------------'
+    prompt "#{human.name.to_s.center(11)} |||||" \
+    "#{computer.name.to_s.center(11)}"
+    prompt "#{format('%7.3d', human.score.value)}" \
+    "#{format('%18.3d', computer.score.value)}\n\n"
   end
 
   def reset_scores
