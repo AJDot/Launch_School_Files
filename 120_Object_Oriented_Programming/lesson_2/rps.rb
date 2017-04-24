@@ -1,3 +1,5 @@
+require 'pry'
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -13,50 +15,74 @@ def join_or(array)
   end
 end
 
+def clear_screen
+  system('clear') || system('cls')
+end
+
+def pause
+  prompt 'Press ENTER to continue'
+  gets
+end
+
 class Move
   VALUES = %w(rock paper scissors Spock lizard).freeze
-  WINS = {
-    'rock' => %w(scissors lizard),
-    'paper' => %w(rock Spock),
-    'scissors' => %w(paper lizard),
-    'Spock' => %w(rock scissors),
-    'lizard' => %w(paper Spock)
-  }.freeze
 
   def initialize(value)
     @value = value
   end
 
-  def scissors?
-    @value == 'scissors'
+  def to_s
+    @value
   end
+end
 
-  def rock?
-    @value == 'rock'
-  end
-
-  def paper?
-    @value == 'paper'
-  end
-
-  def spock?
-    @value == 'Spock'
-  end
-
-  def lizard?
-    @value == 'lizard'
-  end
-
+class Rock < Move
   def >(other)
-    WINS[@value].include?(other.to_s)
+    [Scissors, Lizard].include?(other.class)
   end
 
   def <(other)
-    WINS[other.to_s].include?(@value)
+    [Spock, Paper].include?(other.class)
+  end
+end
+
+class Paper < Move
+  def >(other)
+    [Rock, Spock].include?(other.class)
   end
 
-  def to_s
-    @value
+  def <(other)
+    [Scissors, Lizard].include?(other.class)
+  end
+end
+
+class Scissors < Move
+  def >(other)
+    [Paper, Lizard].include?(other.class)
+  end
+
+  def <(other)
+    [Rock, Spock].include?(other.class)
+  end
+end
+
+class Spock < Move
+  def >(other)
+    [Rock, Scissors].include?(other.class)
+  end
+
+  def <(other)
+    [Paper, Lizard].include?(other.class)
+  end
+end
+
+class Lizard < Move
+  def >(other)
+    [Paper, Spock].include?(other.class)
+  end
+
+  def <(other)
+    [Rock, Scissors].include?(other.class)
   end
 end
 
@@ -66,6 +92,14 @@ class Player
   def initialize
     set_name
     @score = Score.new
+  end
+
+  def make_choice(choice)
+    { 'rock' => Rock,
+      'paper' => Paper,
+      'scissors' => Scissors,
+      'Spock' => Spock,
+      'lizard' => Lizard }[choice].new(choice)
   end
 end
 
@@ -89,7 +123,8 @@ class Human < Player
       break if valid_choices.keys.include? choice
       prompt 'sorry, invalid choice.'
     end
-    self.move = Move.new(valid_choices[choice])
+    choice = valid_choices[choice]
+    self.move = make_choice(choice)
   end
 
   private
@@ -109,7 +144,7 @@ class Computer < Player
   end
 
   def choose
-    self.move = Move.new(Move::VALUES.sample)
+    self.move = make_choice(Move::VALUES.sample)
   end
 end
 
@@ -145,6 +180,7 @@ class RPSGame
   attr_accessor :human, :computer
 
   def initialize
+    clear_screen
     @human = Human.new
     @computer = Computer.new
   end
@@ -213,11 +249,13 @@ class RPSGame
 
   def play_round
     human.choose
+    clear_screen
     computer.choose
     display_moves
     display_winner
     update_score
     display_score
+    # pause
   end
 
   public
@@ -228,6 +266,7 @@ class RPSGame
       play_round until [human.score, computer.score].include? MAX_SCORE
       break unless play_again?
       reset_scores
+      clear_screen
     end
     display_goodbye_message
   end
