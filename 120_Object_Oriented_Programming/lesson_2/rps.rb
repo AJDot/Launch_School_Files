@@ -1,5 +1,3 @@
-require 'pry'
-
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -17,11 +15,6 @@ end
 
 def clear_screen
   system('clear') || system('cls')
-end
-
-def pause
-  prompt 'Press ENTER to continue'
-  gets
 end
 
 class Move
@@ -87,11 +80,14 @@ class Lizard < Move
 end
 
 class Player
-  attr_accessor :move, :name, :score
+  attr_accessor :move, :name, :score, :history, :game_count, :round_count
 
   def initialize
     set_name
     @score = Score.new
+    @history = []
+    @game_count = 1
+    @round_count = 0
   end
 
   def make_choice(choice)
@@ -100,6 +96,14 @@ class Player
       'scissors' => Scissors,
       'Spock' => Spock,
       'lizard' => Lizard }[choice].new(choice)
+  end
+
+  def update_history
+    @history << [move.to_s, @game_count, @round_count]
+  end
+
+  def display_in_header
+    name.center(12)
   end
 end
 
@@ -125,6 +129,7 @@ class Human < Player
     end
     choice = valid_choices[choice]
     self.move = make_choice(choice)
+    update_history
   end
 
   private
@@ -145,52 +150,44 @@ class Computer < Player
 
   def choose
     self.move = make_choice(Move::VALUES.sample)
+    update_history
   end
 end
 
+# Collaborator class for Player
 class Score
-  attr_reader :value
+  attr_reader :round
+  attr_accessor :game
 
   def initialize
-    @value = 0
+    @round = 0
+    @game = 0
   end
 
   def reset
-    @value = 0
+    @round = 0
   end
 
   def ==(other)
-    @value == other
+    @round == other
   end
 
   def +(other)
-    @value += other
+    @round += other
     self
   end
 
   def to_s
-    @value.to_s
+    @round.to_s
   end
 end
 
-# Game Orchestration Engine
-class RPSGame
-  MAX_SCORE = 3
-
-  attr_accessor :human, :computer
-
-  def initialize
-    clear_screen
-    @human = Human.new
-    @computer = Computer.new
-  end
-
-  private
-
+# Most items displayed to screen
+module Displayable
   def display_welcome_message
     prompt '------------------------------------------------'
     prompt 'Welcome to Rock, Paper, Scissors, Spock, Lizard!'
-    prompt "First to #{MAX_SCORE} wins!"
+    prompt "First to #{self.class::MAX_SCORE} wins!"
     prompt '------------------------------------------------'
   end
 
@@ -206,14 +203,82 @@ class RPSGame
   end
 
   def display_winner
-    if human.move > computer.move
-      prompt "#{human.name} won!"
-    elsif human.move < computer.move
-      prompt "#{computer.name} won!"
+    human_move = human.move
+    computer_move = computer.move
+    if human_move > computer_move
+      prompt "#{human.name} won the round!"
+    elsif human_move < computer_move
+      prompt "#{computer.name} won the round!"
     else
       prompt "It's a tie!"
     end
   end
+
+  def format_history
+    result = []
+    human_history = human.history
+    computer_history = computer.history
+    human_history.size.times do |move_num|
+      line = ''
+      line << human_history[move_num][0].center(12) + '     '
+      line << computer_history[move_num][0].center(12)
+      line << human_history[move_num][1].to_s.center(4)
+      line << human_history[move_num][2].to_s.center(10)
+      result << line
+    end
+    result
+  end
+
+  def display_history
+    prompt '-----------History----------Game---Round---'
+    format_history.each { |line| prompt line }
+    prompt '-------------------------------------------'
+  end
+
+  def display_game_winner
+    winner = human.score == self.class::MAX_SCORE ? human : computer
+    prompt "#{winner.name} won the game!"
+  end
+
+  def display_score
+    prompt '---------Round Score---------'
+    prompt "#{human.score.round}#{' ' * 16}#{computer.score.round}".center(29)
+    prompt '---------Game Score----------'
+    prompt "#{human.score.game}#{' ' * 16}#{computer.score.game}".center(29)
+    prompt ''
+  end
+
+  def display_header
+    prompt human.display_in_header + '-----' + computer.display_in_header
+  end
+
+  def show_display
+    clear_screen
+    display_moves
+    display_winner
+    display_header
+    display_score
+    display_history
+  end
+end
+
+# Game Orchestration Engine
+class RPSGame
+  include Displayable
+
+  MAX_SCORE = 3
+
+  attr_accessor :human, :computer
+
+  def initialize
+    clear_screen
+    @human = Human.new
+    @computer = Computer.new
+    @game = 1
+    @round = 1
+  end
+
+  private
 
   def update_score
     if human.move > computer.move
@@ -223,17 +288,29 @@ class RPSGame
     end
   end
 
-  def display_score
-    prompt '------------Score------------'
-    prompt "#{human.name.to_s.center(11)} |||||" \
-    "#{computer.name.to_s.center(11)}"
-    prompt "#{format('%7.3d', human.score.value)}" \
-    "#{format('%18.3d', computer.score.value)}\n\n"
-  end
-
-  def reset_scores
+  def next_game
     human.score.reset
     computer.score.reset
+    human.game_count += 1
+    computer.game_count += 1
+    human.round_count = 0
+    computer.round_count = 0
+  end
+
+  def update_round
+    human.round_count += 1
+    computer.round_count += 1
+  end
+
+  def show_after_game_display
+    display_game_winner
+    update_game_count
+    show_display
+  end
+
+  def update_game_count
+    winner = human.score == MAX_SCORE ? human : computer
+    winner.score.game += 1
   end
 
   def play_again?
@@ -248,14 +325,12 @@ class RPSGame
   end
 
   def play_round
+    update_round
     human.choose
-    clear_screen
     computer.choose
-    display_moves
-    display_winner
+    clear_screen
     update_score
-    display_score
-    # pause
+    show_display
   end
 
   public
@@ -264,8 +339,9 @@ class RPSGame
     display_welcome_message
     loop do
       play_round until [human.score, computer.score].include? MAX_SCORE
+      show_after_game_display
       break unless play_again?
-      reset_scores
+      next_game
       clear_screen
     end
     display_goodbye_message
