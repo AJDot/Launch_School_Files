@@ -1,3 +1,5 @@
+require 'pry'
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -80,14 +82,11 @@ class Lizard < Move
 end
 
 class Player
-  attr_accessor :move, :name, :score, :history, :game_count, :round_count
+  attr_accessor :move, :name, :score
 
   def initialize
     set_name
     @score = Score.new
-    @history = []
-    @game_count = 1
-    @round_count = 0
   end
 
   def make_choice(choice)
@@ -96,10 +95,6 @@ class Player
       'scissors' => Scissors,
       'Spock' => Spock,
       'lizard' => Lizard }[choice].new(choice)
-  end
-
-  def update_history
-    @history << [move.to_s, @game_count, @round_count]
   end
 
   def display_in_header
@@ -129,7 +124,6 @@ class Human < Player
     end
     choice = valid_choices[choice]
     self.move = make_choice(choice)
-    update_history
   end
 
   private
@@ -150,7 +144,6 @@ class Computer < Player
 
   def choose
     self.move = make_choice(Move::VALUES.sample)
-    update_history
   end
 end
 
@@ -216,14 +209,13 @@ module Displayable
 
   def format_history
     result = []
-    human_history = human.history
-    computer_history = computer.history
-    human_history.size.times do |move_num|
+    @history[:human].size.times do |move_num|
       line = ''
-      line << human_history[move_num][0].center(12) + '     '
-      line << computer_history[move_num][0].center(12)
-      line << human_history[move_num][1].to_s.center(4)
-      line << human_history[move_num][2].to_s.center(10)
+      # binding.pry
+      line << @history[:human][move_num].center(12) + '     '
+      line << @history[:computer][move_num].center(12)
+      line << @history[:game][move_num].center(4)
+      line << @history[:round][move_num].center(10)
       result << line
     end
     result
@@ -241,10 +233,14 @@ module Displayable
   end
 
   def display_score
+    human_score = human.score
+    computer_score = computer.score
+    spacing = ' ' * 16
+
     prompt '---------Round Score---------'
-    prompt "#{human.score.round}#{' ' * 16}#{computer.score.round}".center(29)
+    prompt "#{human_score}#{spacing}#{computer_score}".center(29)
     prompt '---------Game Score----------'
-    prompt "#{human.score.game}#{' ' * 16}#{computer.score.game}".center(29)
+    prompt "#{human_score.game}#{spacing}#{computer_score.game}".center(29)
     prompt ''
   end
 
@@ -275,7 +271,8 @@ class RPSGame
     @human = Human.new
     @computer = Computer.new
     @game = 1
-    @round = 1
+    @round = 0
+    @history = { human: [], computer: [], game: [], round: [] }
   end
 
   private
@@ -291,15 +288,22 @@ class RPSGame
   def next_game
     human.score.reset
     computer.score.reset
-    human.game_count += 1
-    computer.game_count += 1
-    human.round_count = 0
-    computer.round_count = 0
+    @game += 1
+    @round = 0
   end
 
   def update_round
-    human.round_count += 1
-    computer.round_count += 1
+    @round += 1
+  end
+
+  def update_history
+    @history[:human] << human.move.to_s
+    @history[:computer] << computer.move.to_s
+  end
+
+  def update_game_round
+    @history[:game] << @game.to_s
+    @history[:round] << @round.to_s
   end
 
   def show_after_game_display
@@ -328,7 +332,8 @@ class RPSGame
     update_round
     human.choose
     computer.choose
-    clear_screen
+    update_history
+    update_game_round
     update_score
     show_display
   end

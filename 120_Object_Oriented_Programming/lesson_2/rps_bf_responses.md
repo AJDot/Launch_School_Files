@@ -18,6 +18,8 @@ __As long as the user doesn't quit, keep track of a history of moves by both the
 
 I did not use a new class to keep track of the history. I thought of it like each player having a history; it is part of the state of the player. I created an array `history` instance variable in the `Person` class. After every move is made, `[choice, game_number, round_number]` are added to `history`. The output is a table with player choice, computer choice, game number, and round number displayed in columns.
 
+__Revision:__ I thought more about it and ultimately didn't like the code I wrote. Instead, I took history out of the player class because there was duplicate information about the game as a whole. Instead, I made `history` an instance variable of the `RPSGame` class. It is a hash with 4 keys: `:human`, `:computer`, `:game`, `:round`. These are each an array where the new moves for each turn and the game and round numbers are pushed onto their respective keys. This proved to be much simpler and easier to understand.
+
 ### Adjust computer choice based on history
 
 __Come up with some rules based on the history of moves in order for the computer to make a future move. For example, if the human tends to win over 60% of his hands when the computer chooses "rock", then decrease the likelihood of choosing "rock". You'll have to first come up with a rule (like the one in the previous sentence), then implement some analysis on history to see if the history matches that rule, then adjust the weight of each choice, and finally have the computer consider the weight of each choice when making the move. Right now, the computer has a 33% chance to make any of the 3 moves.__
