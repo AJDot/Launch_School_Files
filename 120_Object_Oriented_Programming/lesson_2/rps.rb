@@ -32,24 +32,24 @@ module Displayable
     end
   end
 
-  def format_history
-    result = []
-    history.human_moves.size.times do |move_num|
-      line = ''
-      line << history.human_moves[move_num].to_s.center(12) + '     '
-      line << history.computer_moves[move_num].to_s.center(12)
-      line << history.game_num[move_num].center(4)
-      line << history.round_num[move_num].center(10)
-      result << line
-    end
-    result
-  end
+  # def format_history
+  #   result = []
+  #   history.human_moves.size.times do |move_num|
+  #     line = ''
+  #     line << history.human_moves[move_num].to_s.center(12) + '     '
+  #     line << history.computer_moves[move_num].to_s.center(12)
+  #     line << history.game_num[move_num].center(4)
+  #     line << history.round_num[move_num].center(10)
+  #     result << line
+  #   end
+  #   result
+  # end
 
-  def display_history
-    prompt '-----------History----------Game---Round---'
-    format_history.each { |line| prompt line }
-    prompt '-------------------------------------------'
-  end
+  # def display_history
+  #   prompt '-----------History----------Game---Round---'
+  #   format_history.each { |line| prompt line }
+  #   prompt '-------------------------------------------'
+  # end
 
   def display_game_winner
     winner = human.score == self.class::MAX_SCORE ? human : computer
@@ -78,7 +78,6 @@ module Displayable
     display_winner
     display_header
     display_score
-    display_history
   end
 
   def clear_screen
@@ -189,6 +188,7 @@ end
 
 class Human < Player
   include Formatting
+
   def set_name
     n = ''
     loop do
@@ -233,13 +233,6 @@ class Computer < Player
   end
 end
 
-class WeightedChoice < Computer
-  def choose
-    super
-  end
-
-end
-
 # Collaborator class for Player
 class Score
   attr_reader :round
@@ -268,58 +261,6 @@ class Score
   end
 end
 
-class History
-  attr_reader :human_moves, :computer_moves, :game_num, :round_num
-  attr_accessor :round, :game
-
-  def initialize(human, computer)
-    @human = human
-    @computer = computer
-    @human_moves = []
-    @computer_moves = []
-    @game_num = []
-    @round_num = []
-    @game = 1
-    @round = 0
-  end
-
-  def update
-    @human_moves << @human.move
-    @computer_moves << @computer.move
-    @game_num << @game.to_s
-    @round_num << @round.to_s
-  end
-
-  def total_rounds
-    @round_num.size
-  end
-end
-
-class Rule
-  def initialize(history)
-    @win_counts = { 'rock' => 0, 'paper' => 0, 'scissors' => 0, 'Spock' => 0, 'lizard' => 0 }
-    @win_percents = { 'rock' => 0, 'paper' => 0, 'scissors' => 0, 'Spock' => 0, 'lizard' => 0 }
-    @history = history
-  end
-
-  def update_percents
-    human_move = @history.human_moves.last
-    computer_move = @history.computer_moves.last
-    @win_counts[computer_move.to_s] += 1 if computer_move > human_move
-    update_win_percents
-    p @history.total_rounds
-    p @win_counts
-    p @win_percents
-  end
-
-  def update_win_percents
-    @win_percents.keys.each do |move|
-      @win_percents[move] = @win_counts[move].to_f / @history.total_rounds * 100
-    end
-  end
-end
-
-
 # Game Orchestration Engine
 class RPSGame
   include Displayable, Formatting
@@ -331,9 +272,7 @@ class RPSGame
   def initialize
     clear_screen
     @human = Human.new
-    @computer = WeightedChoice.new # Computer.new
-    @history = History.new(@human, @computer)
-    @rule = Rule.new(history)
+    @computer = Computer.new
   end
 
   private
@@ -349,16 +288,6 @@ class RPSGame
   def next_game
     human.score.reset
     computer.score.reset
-    history.game += 1
-    history.round = 0
-  end
-
-  def update_round
-    history.round += 1
-  end
-
-  def update_history
-    history.update
   end
 
   def show_after_game_display
@@ -384,13 +313,10 @@ class RPSGame
   end
 
   def play_round
-    update_round
     human.choose
     computer.choose
-    update_history
     update_score
     show_display
-    @rule.update_percents
   end
 
   public
