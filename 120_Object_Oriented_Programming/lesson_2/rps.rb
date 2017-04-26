@@ -20,37 +20,6 @@ module Displayable
     prompt "#{computer.name} chose #{computer.move}."
   end
 
-  def display_winner
-    human_move = human.move
-    computer_move = computer.move
-    if human_move > computer_move
-      prompt "#{human.name} won the round!"
-    elsif human_move < computer_move
-      prompt "#{computer.name} won the round!"
-    else
-      prompt "It's a tie!"
-    end
-  end
-
-  # def format_history
-  #   result = []
-  #   history.human_moves.size.times do |move_num|
-  #     line = ''
-  #     line << history.human_moves[move_num].to_s.center(12) + '     '
-  #     line << history.computer_moves[move_num].to_s.center(12)
-  #     line << history.game_num[move_num].center(4)
-  #     line << history.round_num[move_num].center(10)
-  #     result << line
-  #   end
-  #   result
-  # end
-
-  # def display_history
-  #   prompt '-----------History----------Game---Round---'
-  #   format_history.each { |line| prompt line }
-  #   prompt '-------------------------------------------'
-  # end
-
   def display_game_winner
     winner = human.score == self.class::MAX_SCORE ? human : computer
     prompt "#{winner.name} won the game!"
@@ -173,6 +142,10 @@ class Player
     @score = Score.new
   end
 
+  def set_name
+    self.name = 'Tie'
+  end
+
   def make_choice(choice)
     { 'rock' => Rock,
       'paper' => Paper,
@@ -183,6 +156,10 @@ class Player
 
   def display_in_header
     name.center(12)
+  end
+
+  def to_s
+    name
   end
 end
 
@@ -261,44 +238,137 @@ class Score
   end
 end
 
+class History
+  include Formatting
+
+  attr_reader :human_moves, :computer_moves, :winners, :game_num, :round_num
+
+  def initialize
+    @human_moves = []
+    @computer_moves = []
+    @winners = []
+    @game_num = []
+    @round_num = []
+  end
+
+  def add_human_move(move)
+    human_moves.push(move.to_s)
+  end
+
+  def add_computer_move(move)
+    computer_moves.push(move.to_s)
+  end
+
+  def add_winner(winner)
+    winners.push(winner.to_s)
+  end
+
+  def add_game_num(num)
+    game_num.push(num.to_s)
+  end
+
+  def add_round_num(num)
+    round_num.push(num.to_s)
+  end
+
+  def append(human_move, computer_move, winner, game, round)
+    add_human_move(human_move)
+    add_computer_move(computer_move)
+    add_winner(winner)
+    add_game_num(game)
+    add_round_num(round)
+  end
+
+  def format_line(round)
+    human_moves[round].center(12) +
+      '     ' +
+      computer_moves[round].center(12) +
+      game_num[round].center(6) +
+      round_num[round].center(8) +
+      winners[round].center(12)
+  end
+
+  def format_history
+    result = []
+    human_moves.size.times do |round|
+      result << format_line(round)
+    end
+    result
+  end
+
+  def display
+    prompt '-----------History------------Game--Round-----Winner---'
+    format_history.each { |line| prompt line }
+    prompt '-------------------------------------------------------'
+  end
+end
+
 # Game Orchestration Engine
 class RPSGame
   include Displayable, Formatting
 
   MAX_SCORE = 3
 
-  attr_accessor :human, :computer, :history
+  attr_accessor :human, :computer
+  attr_reader :history
 
   def initialize
     clear_screen
     @human = Human.new
     @computer = Computer.new
+    @history = History.new
+    @game = 1
+    @round = 0
   end
 
   private
 
   def update_score
-    if human.move > computer.move
-      human.score += 1
-    elsif human.move < computer.move
-      computer.score += 1
-    end
+    @winner.score += 1 unless @winner.to_s == 'Tie'
+  end
+
+  def log_history
+    history.append(human.move, computer.move, @winner, @game, @round)
+  end
+
+  def display_winner
+    msg = @winner.to_s == 'Tie' ? "It's a tie!" : "#{@winner} won the round!"
+    prompt msg
+  end
+
+  def determine_winner
+    human_move = human.move
+    computer_move = computer.move
+    @winner = if human_move > computer_move
+                human
+              elsif human_move < computer_move
+                computer
+              else
+                'Tie'
+              end
+  end
+
+  def next_round
+    @round += 1
   end
 
   def next_game
     human.score.reset
     computer.score.reset
+    @game += 1
+    @round = 0
   end
 
   def show_after_game_display
     display_game_winner
     update_game_count
     show_display
+    history.display
   end
 
   def update_game_count
-    winner = human.score == MAX_SCORE ? human : computer
-    winner.score.game += 1
+    game_winner = human.score == MAX_SCORE ? human : computer
+    game_winner.score.game += 1
   end
 
   def play_again?
@@ -313,10 +383,15 @@ class RPSGame
   end
 
   def play_round
+    next_round
     human.choose
     computer.choose
+    determine_winner
+    display_winner
+    log_history
     update_score
     show_display
+    history.display
   end
 
   public
@@ -328,7 +403,6 @@ class RPSGame
       show_after_game_display
       break unless play_again?
       next_game
-      clear_screen
     end
     display_goodbye_message
   end
