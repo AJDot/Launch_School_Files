@@ -75,16 +75,16 @@ end
 class Move
   VALUES = %w(rock paper scissors Spock lizard).freeze
 
-  def initialize(value)
-    @value = value
-  end
-
   def to_s
     @value
   end
 end
 
 class Rock < Move
+  def initialize
+    @value = 'rock'
+  end
+
   def >(other)
     [Scissors, Lizard].include?(other.class)
   end
@@ -95,6 +95,10 @@ class Rock < Move
 end
 
 class Paper < Move
+  def initialize
+    @value = 'paper'
+  end
+
   def >(other)
     [Rock, Spock].include?(other.class)
   end
@@ -105,6 +109,10 @@ class Paper < Move
 end
 
 class Scissors < Move
+  def initialize
+    @value = 'scissors'
+  end
+
   def >(other)
     [Paper, Lizard].include?(other.class)
   end
@@ -115,6 +123,10 @@ class Scissors < Move
 end
 
 class Spock < Move
+  def initialize
+    @value = 'Spock'
+  end
+
   def >(other)
     [Rock, Scissors].include?(other.class)
   end
@@ -125,6 +137,10 @@ class Spock < Move
 end
 
 class Lizard < Move
+  def initialize
+    @value = 'lizard'
+  end
+
   def >(other)
     [Paper, Spock].include?(other.class)
   end
@@ -147,11 +163,7 @@ class Player
   end
 
   def make_choice(choice)
-    { 'rock' => Rock,
-      'paper' => Paper,
-      'scissors' => Scissors,
-      'Spock' => Spock,
-      'lizard' => Lizard }[choice].new(choice)
+    self.move = Object.const_get(choice.capitalize).new
   end
 
   def display_in_header
@@ -164,6 +176,12 @@ class Player
 end
 
 class Human < Player
+  VALID_INPUTS = { 'rock' => 'Rock', 'r' => 'Rock', 'R' => 'Rock',
+      'paper' => 'Paper', 'p' => 'Paper', 'P' => 'Paper',
+      'scissors' => 'Scissors', 's' => 'Scissors',
+      'Spock' => 'Spock', 'S' => 'Spock',
+      'lizard' => 'Lizard', 'l' => 'Lizard', 'L' => 'Lizard' }
+
   include Formatting
 
   def set_name
@@ -182,31 +200,29 @@ class Human < Player
     loop do
       prompt "Please choose #{join_or(Move::VALUES)}:"
       choice = gets.chomp
-      break if valid_choices.keys.include? choice
+      break if VALID_INPUTS.keys.include? choice
       prompt 'sorry, invalid choice.'
     end
-    choice = valid_choices[choice]
-    self.move = make_choice(choice)
+    choice = VALID_INPUTS[choice]
+    make_choice(choice)
   end
 
   private
 
-  def valid_choices
-    { 'rock' => 'rock', 'r' => 'rock', 'R' => 'rock',
-      'paper' => 'paper', 'p' => 'paper', 'P' => 'paper',
-      'scissors' => 'scissors', 's' => 'scissors',
-      'Spock' => 'Spock', 'S' => 'Spock',
-      'lizard' => 'lizard', 'l' => 'lizard', 'L' => 'lizard' }
-  end
 end
 
 class Computer < Player
+  def initialize
+    super
+  end
+
   def set_name
     self.name = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
   end
 
   def choose
-    self.move = make_choice(Move::VALUES.sample)
+    choice = Move::VALUES.sample
+    make_choice(choice)
   end
 end
 
