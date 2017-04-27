@@ -26,6 +26,10 @@ __Revision 2:__ After another thought, I didn't like the history implementation 
 
 __Come up with some rules based on the history of moves in order for the computer to make a future move. For example, if the human tends to win over 60% of his hands when the computer chooses "rock", then decrease the likelihood of choosing "rock". You'll have to first come up with a rule (like the one in the previous sentence), then implement some analysis on history to see if the history matches that rule, then adjust the weight of each choice, and finally have the computer consider the weight of each choice when making the move. Right now, the computer has a 33% chance to make any of the 3 moves.__
 
+This one has given me a tremendous amount of trouble. I tried for the longest time to create a `Rule` class but I could never make it work. Then I realized that each type of computer player would play by his own rules. So I created subclasses of the `Computer` class to represent each type of computer. So far I have created `Random` - randomly picks a move, `Last Move` - always chooses the humans last move, and `Weighted` - a crude system for choosing a computer move based on the move/wins history. In `Weighted`, every time the computer loses the weights for choosing each move are altered to decrease weight of the move that lost and increase the weight of the 4 other moves evenly. It works ok...
+
+This has taken me a very long time and I think I have lost sight of the fundamentals of OOP; I made this particular exercise too in-depth and basically lost focus.
+
 ### Computer personalities
 
 __We have a list of robot names for our Computer class, but other than the name, there's really nothing different about each of them. It'd be interesting to explore how to build different personalities for each robot. For example, R2D2 can always choose "rock". Or, "Hal" can have a very high tendency to choose "scissors", and rarely "rock", but never "paper". You can come up with the rules or personalities for each robot. How would you approach a feature like this?__

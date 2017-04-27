@@ -42,7 +42,6 @@ module Displayable
   end
 
   def show_display
-    clear_screen
     display_moves
     display_winner
     display_header
@@ -176,11 +175,13 @@ class Player
 end
 
 class Human < Player
-  VALID_INPUTS = { 'rock' => 'Rock', 'r' => 'Rock', 'R' => 'Rock',
-      'paper' => 'Paper', 'p' => 'Paper', 'P' => 'Paper',
-      'scissors' => 'Scissors', 's' => 'Scissors',
-      'Spock' => 'Spock', 'S' => 'Spock',
-      'lizard' => 'Lizard', 'l' => 'Lizard', 'L' => 'Lizard' }
+  VALID_INPUTS = {
+    'rock' => 'Rock', 'r' => 'Rock', 'R' => 'Rock',
+    'paper' => 'Paper', 'p' => 'Paper', 'P' => 'Paper',
+    'scissors' => 'Scissors', 's' => 'Scissors',
+    'Spock' => 'Spock', 'S' => 'Spock',
+    'lizard' => 'Lizard', 'l' => 'Lizard', 'L' => 'Lizard'
+  }.freeze
 
   include Formatting
 
@@ -206,23 +207,104 @@ class Human < Player
     choice = VALID_INPUTS[choice]
     make_choice(choice)
   end
-
-  private
-
 end
 
 class Computer < Player
+  def set_name
+    self.name = 'Random'
+    # ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
+  end
+
+  def choose(_history)
+    choice = Move::VALUES.sample
+    make_choice(choice)
+  end
+end
+
+class LastMove < Computer
+  def set_name
+    self.name = 'Last Mover'
+  end
+
+  def choose(history)
+    choice = history.game_num.empty? ? super : history.human_moves[-1]
+    make_choice(choice)
+  end
+end
+
+class Weighted < Computer
   def initialize
     super
+    @choice_weights = { 'rock' => 20, 'paper' => 20, 'scissors' => 20,
+                        'Spock' => 20, 'lizard' => 20 }
+    @computer_losses = { 'rock' => 0, 'paper' => 0, 'scissors' => 0,
+                         'Spock' => 0, 'lizard' => 0 }
+    @computer_losses_percent = { 'rock' => 0, 'paper' => 0, 'scissors' => 0,
+                                 'Spock' => 0, 'lizard' => 0 }
   end
 
   def set_name
-    self.name = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
+    self.name = 'Weighted'
   end
 
-  def choose
-    choice = Move::VALUES.sample
-    make_choice(choice)
+  # compute # of times when computer's choice loses or ties
+  def update_losses
+    winner = @history.winners.last
+    move = @history.computer_moves.last
+    @computer_losses[move] += 1 if winner != name
+  end
+
+  # compute percent of times computer choice loses or ties
+  def update_losses_percent
+    total_losses = @computer_losses.values.inject(:+).to_f
+    @computer_losses.each do |move, count|
+      @computer_losses_percent[move] = count / total_losses * 100
+    end
+  end
+
+  def calc_weights
+    computer_move = @history.computer_moves.last
+    shift = @choice_weights[computer_move] * 0.20
+    @choice_weights.keys.each do |move|
+      @choice_weights[move] += (move == computer_move ? -shift : shift / 4)
+    end
+  end
+
+  # adjust the weight of each move being chosen depending on loss percent
+  def update_choice_weights
+    computer_move = @history.computer_moves.last
+    loss_percent = @computer_losses_percent[computer_move]
+    return unless loss_percent > 20 && @history.winners.last != name
+    calc_weights
+  end
+
+  def choice_ranges
+    sum = 0
+    @choice_weights.values.map { |item| sum += item }
+  end
+
+  def choice
+    ranges = choice_ranges
+    random = rand(0...100)
+    case random
+    when (0...ranges[0]) then 'rock'
+    when (ranges[0]...ranges[1]) then 'paper'
+    when (ranges[1]...ranges[2]) then 'scissors'
+    when (ranges[2]...ranges[3]) then 'Spock'
+    when (ranges[3]...ranges[4]) then 'lizard'
+    end
+  end
+
+  def choose(history)
+    @history = history
+    if history.game_num.empty?
+      super
+    else
+      update_losses
+      update_losses_percent
+      update_choice_weights
+      make_choice(choice)
+    end
   end
 end
 
@@ -323,16 +405,16 @@ end
 class RPSGame
   include Displayable, Formatting
 
-  MAX_SCORE = 3
+  MAX_SCORE = 10
 
   attr_accessor :human, :computer
   attr_reader :history
 
   def initialize
     clear_screen
-    @human = Human.new
-    @computer = Computer.new
     @history = History.new
+    @human = Human.new
+    @computer = [Weighted, Computer, LastMove].sample.new
     @game = 1
     @round = 0
   end
@@ -401,13 +483,15 @@ class RPSGame
   def play_round
     next_round
     human.choose
-    computer.choose
+    computer.choose(@history)
     determine_winner
     display_winner
     log_history
     update_score
-    show_display
+    clear_screen
+
     history.display
+    show_display
   end
 
   public
