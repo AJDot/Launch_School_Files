@@ -53,6 +53,35 @@ module Displayable
   end
 end
 
+module Construct_Weighted_Choice
+
+
+  # adjust the weight of each move being chosen depending on loss percent
+  def update_choice_weights(move_list, percent_hash, threshold, name_false_cond=nil)
+    desired_move = move_list.last
+    percent = percent_hash[desired_move]
+    return unless percent > threshold && @history.winners.last != name_false_cond
+    calc_weights
+  end
+
+  def choice_ranges
+    sum = 0
+    @choice_weights.values.map { |item| sum += item }
+  end
+
+  def choice
+    ranges = choice_ranges
+    random = rand(0...100)
+    case random
+    when (0...ranges[0]) then 'rock'
+    when (ranges[0]...ranges[1]) then 'paper'
+    when (ranges[1]...ranges[2]) then 'scissors'
+    when (ranges[2]...ranges[3]) then 'Spock'
+    when (ranges[3]...ranges[4]) then 'lizard'
+    end
+  end
+end
+
 # Methods to help format basic objects
 module Formatting
   def prompt(msg)
@@ -221,6 +250,128 @@ class Computer < Player
   end
 end
 
+# R2D2 always chooses rock
+class R2D2 < Computer
+  def set_name
+    self.name = 'R2D2'
+  end
+
+  def choose(_history)
+    make_choice('rock')
+  end
+end
+
+# Chappie always tries to tie based on the history of the human's choices
+class Chappie < Computer
+  include Construct_Weighted_Choice
+
+  def initialize
+    super
+    @choice_weights = { 'rock' => 20.0, 'paper' => 20.0, 'scissors' => 20.0,
+                        'Spock' => 20.0, 'lizard' => 20.0 }
+    # @computer_losses = { 'rock' => 0, 'paper' => 0, 'scissors' => 0,
+                        #  'Spock' => 0, 'lizard' => 0 }
+    # @computer_losses_percent = { 'rock' => 0, 'paper' => 0, 'scissors' => 0,
+                                #  'Spock' => 0, 'lizard' => 0 }
+    @human_wins = { 'rock' => 0, 'paper' => 0, 'scissors' => 0,
+                         'Spock' => 0, 'lizard' => 0 }
+    @human_wins_percent = { 'rock' => 0.0, 'paper' => 0.0, 'scissors' => 0.0,
+                                 'Spock' => 0.0, 'lizard' => 0.0 }
+  end
+
+  def set_name
+    self.name = 'Chappie'
+  end
+
+  # compute # of times when computer's choice loses or ties
+  def update_losses
+    winner = @history.winners.last
+    move = @history.human_moves.last
+    @human_wins[move] += 1 if winner != nil
+  end
+
+  # compute percent of times computer choice loses or ties
+  def update_losses_percent
+    total_wins = @human_wins.values.inject(:+).to_f
+    return if total_wins == 0
+    @human_wins.each do |move, count|
+      @human_wins_percent[move] = count / total_wins * 100
+    end
+  end
+
+  def calc_weights
+    move_list = @history.human_moves
+    shift_percent = 0.15
+
+    move_focus = move_list.last
+    shift = @choice_weights[move_focus] * shift_percent
+
+    weight_focus = @choice_weights[move_focus]
+    weight_others = @choice_weights.select { |k, v| k != move_focus }
+
+    puts "#{weight_others}"
+    return_cond = weight_focus - shift >= 100
+    return if return_cond
+
+    weight_others_total = weight_others.values.inject(:+)
+    @choice_weights.keys.each do |move|
+      # binding.pry
+      @choice_weights[move] += if move == move_focus
+          shift
+        else
+          -weight_others[move] / weight_others_total * shift
+        end
+    end
+  end
+
+  # def update_choice_weights
+  #   human_move = @history.human_moves.last
+  #   win_percent = @human_wins_percent[human_move]
+  #   winner = @history.winners.last
+  #   # return unless win_percent > 20 && winner != name
+  #   calc_weights
+  # end
+
+  def choose(history)
+    @history = history
+    if history.game_num.empty?
+      super
+    else
+      update_losses
+      update_losses_percent
+      update_choice_weights(@history.human_moves, @human_wins_percent, 0)
+      puts "@choice_weights == #{@choice_weights}"
+      temp = choice
+      puts temp
+      gets
+      # binding.pry
+      make_choice(temp)
+    end
+  end
+
+end
+
+# Hal has a very high tendency to choose 'scissors', rarely 'rock', and never
+# 'paper'
+class Hal < Computer
+  include Construct_Weighted_Choice
+
+  def initialize
+    super
+    @choice_weights = { 'rock' => 4, 'paper' => 0, 'scissors' => 60,
+                        'Spock' => 18, 'lizard' => 18 }
+  end
+
+  def set_name
+    self.name = 'Hal'
+  end
+
+  def choose(_history)
+    make_choice(choice)
+  end
+end
+
+# Last Move always chooses the human's last move
 class LastMove < Computer
   def set_name
     self.name = 'Last Mover'
@@ -232,7 +383,13 @@ class LastMove < Computer
   end
 end
 
+# Weighted chooses based on history of losses.
+# Each move starts with an equal probability of being chosen.
+# If the computer loses a round, the chance of choosing the move that lost
+# decreases and the others increase.
 class Weighted < Computer
+  include Construct_Weighted_Choice
+
   def initialize
     super
     @choice_weights = { 'rock' => 20, 'paper' => 20, 'scissors' => 20,
@@ -263,35 +420,25 @@ class Weighted < Computer
   end
 
   def calc_weights
-    computer_move = @history.computer_moves.last
-    shift = @choice_weights[computer_move] * 0.20
+    move_list = @history.computer_moves
+    shift_percent = -0.15
+
+    move_focus = move_list.last
+    shift = @choice_weights[move_focus] * shift_percent
+
+    weight_focus = @choice_weights[move_focus]
+    weight_others = @choice_weights.select { |k, v| k != move_focus }
+
+    return_cond = nil
+    return if return_cond
+
+    weight_others_total = weight_others.values.inject(:+)
     @choice_weights.keys.each do |move|
-      @choice_weights[move] += (move == computer_move ? -shift : shift / 4)
-    end
-  end
-
-  # adjust the weight of each move being chosen depending on loss percent
-  def update_choice_weights
-    computer_move = @history.computer_moves.last
-    loss_percent = @computer_losses_percent[computer_move]
-    return unless loss_percent > 20 && @history.winners.last != name
-    calc_weights
-  end
-
-  def choice_ranges
-    sum = 0
-    @choice_weights.values.map { |item| sum += item }
-  end
-
-  def choice
-    ranges = choice_ranges
-    random = rand(0...100)
-    case random
-    when (0...ranges[0]) then 'rock'
-    when (ranges[0]...ranges[1]) then 'paper'
-    when (ranges[1]...ranges[2]) then 'scissors'
-    when (ranges[2]...ranges[3]) then 'Spock'
-    when (ranges[3]...ranges[4]) then 'lizard'
+      @choice_weights[move] += if move == move_focus
+          shift
+        else
+          -weight_others[move] / weight_others_total * shift
+        end
     end
   end
 
@@ -302,7 +449,7 @@ class Weighted < Computer
     else
       update_losses
       update_losses_percent
-      update_choice_weights
+      update_choice_weights(@history.computer_moves, @computer_losses_percent, 20, name)
       make_choice(choice)
     end
   end
@@ -414,7 +561,8 @@ class RPSGame
     clear_screen
     @history = History.new
     @human = Human.new
-    @computer = [Weighted, Computer, LastMove].sample.new
+    # @computer = [Weighted, Computer, LastMove, R2D2].sample.new
+    @computer = Chappie.new
     @game = 1
     @round = 0
   end
