@@ -33,3 +33,7 @@ This has taken me a very long time and I think I have lost sight of the fundamen
 ### Computer personalities
 
 __We have a list of robot names for our Computer class, but other than the name, there's really nothing different about each of them. It'd be interesting to explore how to build different personalities for each robot. For example, R2D2 can always choose "rock". Or, "Hal" can have a very high tendency to choose "scissors", and rarely "rock", but never "paper". You can come up with the rules or personalities for each robot. How would you approach a feature like this?__
+
+After completing this last bonus feature I have redeemed myself a bit. Though the code may be more convoluted than desired, it does work as intended. I have implemented a couple of complex strategies and a couple of easy ones. One strategy (EVE) adjusts the computer's choice based on the history of wins for the human play with the goal of winning each round. Another strategy (Chappie) attempts to tie every round based off of the human's history of moves made. A much simpler version of this is Number 5 - he always chooses the humans last move in an attempt to tie. R2D2 always chooses rock. Hal chooses scissors  a lot, rarely rock, and never paper. Sonny is default - always choose a random move.
+
+After implementing all of these personalities and refactoring the code as best as I could, I feel a bit better. I am certain this is in no way optimized but I am satisfied for now.
