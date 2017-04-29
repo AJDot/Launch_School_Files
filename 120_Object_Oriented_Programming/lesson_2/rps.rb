@@ -1,5 +1,3 @@
-require 'pry'
-
 # Most items displayed to screen
 module Displayable
   def display_welcome_message
@@ -139,7 +137,7 @@ module Formatting
     when 2
       "#{array.first} or #{array.last}"
     else
-      "#{array[0..-2].join(', ')} or #{array.last}"
+      "#{array[0..-2].join(', ')}, or #{array.last}"
     end
   end
 end

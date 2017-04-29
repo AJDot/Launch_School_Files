@@ -8,17 +8,17 @@ class GoodDog
     @height = h
     @weight = w
   end
-  
+
   def speak
     "#{@name} says arf!"
   end
-  
+
   def change_info(n, h, w)
     self.name = n
     self.height = h
     self.weight = w
   end
-    
+
   def info
     "#{name} weighs #{weight} and is #{height} tall."
   end
