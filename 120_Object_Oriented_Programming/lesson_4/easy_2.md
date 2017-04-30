@@ -1,6 +1,4 @@
 # Exercises: Easy 2
-
-
 #### Question 1
 
 You are given the following code:

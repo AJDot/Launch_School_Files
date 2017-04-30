@@ -1,3 +1,4 @@
+# Exercises: Easy 3
 #### Question 1
 If we have this code:
 ```ruby
