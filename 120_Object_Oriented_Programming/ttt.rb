@@ -1,4 +1,78 @@
-require 'pry'
+module Displayable
+  def display_welcome_message
+    puts 'Welcome to Tic Tac Toe!'
+    puts "The first to #{TTTGame::ROUNDS_TO_WIN}"
+    puts ''
+  end
+
+  def display_goodbye_message
+    puts 'Thanks for playing Tic Tac Toe! Goodbye!'
+  end
+
+  def clear_screen_and_display_board
+    clear
+    display_board
+  end
+
+  def clear_screen_and_display_board_score
+    clear_screen_and_display_board
+    display_score
+  end
+
+  def display_board
+    puts "#{human} is #{human.marker}. #{computer} is #{computer.marker}."
+    puts ''
+    board.draw
+    puts ''
+  end
+
+  def display_board_score
+    display_board
+    display_score
+  end
+
+  def display_score
+    puts "#{human}: #{human.score} | #{computer}: #{computer.score}"
+  end
+
+  def display_result
+    clear_screen_and_display_board
+    display_score
+
+    case board.winning_marker
+    when human.marker    then puts "#{human} won!"
+    when computer.marker then puts "#{computer} won!"
+    else                      puts "It's a tie!"
+    end
+    press_enter_to_continue
+  end
+
+  def display_play_again_message
+    puts "Let's play again!"
+    puts ''
+  end
+end
+
+module Helpers
+  def press_enter_to_continue
+    puts 'Press ENTER to continue'
+    gets
+  end
+
+  def joinor(array, delimiter = ', ', conjunction = 'or')
+    case array.size
+    when 0 then ''
+    when 1 then array.first
+    when 2 then array.join(" #{conjunction} ")
+    else
+      "#{array[0..-2].join(delimiter)} #{conjunction} #{array.last}"
+    end
+  end
+
+  def clear
+    system('clear') || system('cls')
+  end
+end
 
 class Board
   WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +  # rows
@@ -161,6 +235,8 @@ class Score
 end
 
 class TTTGame
+  include Displayable, Helpers
+
   MARKER_1 = 'X'.freeze
   MARKER_2 = 'O'.freeze
   FIRST_TO_MOVE = MARKER_1
@@ -242,50 +318,8 @@ class TTTGame
     [human.score.value, computer.score.value].include? ROUNDS_TO_WIN
   end
 
-  def joinor(array, delimiter = ', ', conjunction = 'or')
-    case array.size
-    when 0 then ''
-    when 1 then array.first
-    when 2 then array.join(" #{conjunction} ")
-    else
-      "#{array[0..-2].join(delimiter)} #{conjunction} #{array.last}"
-    end
-  end
-
-  def display_welcome_message
-    puts 'Welcome to Tic Tac Toe!'
-    puts "The first to #{ROUNDS_TO_WIN}"
-    puts ''
-  end
-
-  def display_goodbye_message
-    puts 'Thanks for playing Tic Tac Toe! Goodbye!'
-  end
-
-  def clear_screen_and_display_board
-    clear
-    display_board
-  end
-
-  def clear_screen_and_display_board_score
-    clear_screen_and_display_board
-    display_score
-  end
-
   def human_turn?
     @current_marker == human.marker
-  end
-
-  def display_board
-    puts "#{human} is #{human.marker}. #{computer} is #{computer.marker}."
-    puts ''
-    board.draw
-    puts ''
-  end
-
-  def display_board_score
-    display_board
-    display_score
   end
 
   def human_moves
@@ -328,10 +362,6 @@ class TTTGame
     end
   end
 
-  def display_score
-    puts "#{human}: #{human.score} | #{computer}: #{computer.score}"
-  end
-
   def update_score
     case board.winning_marker
     when human.marker
@@ -339,23 +369,6 @@ class TTTGame
     when computer.marker
       computer.score.increment
     end
-  end
-
-  def display_result
-    clear_screen_and_display_board
-    display_score
-
-    case board.winning_marker
-    when human.marker    then puts "#{human} won!"
-    when computer.marker then puts "#{computer} won!"
-    else                      puts "It's a tie!"
-    end
-    press_enter_to_continue
-  end
-
-  def press_enter_to_continue
-    puts 'Press ENTER to continue'
-    gets
   end
 
   def play_again?
@@ -370,19 +383,10 @@ class TTTGame
     answer == 'y'
   end
 
-  def clear
-    system('clear') || system('cls')
-  end
-
   def reset
     board.reset
     @current_marker = FIRST_TO_MOVE
     clear
-  end
-
-  def display_play_again_message
-    puts "Let's play again!"
-    puts ''
   end
 end
 
