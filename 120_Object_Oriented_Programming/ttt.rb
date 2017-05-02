@@ -107,7 +107,7 @@ class Board
   def winning_marker
     WINNING_LINES.each do |line|
       squares = @squares.values_at(*line)
-      return squares.first.marker if three_identical_markers?(squares)
+      return squares.first.marker if identical_markers?(squares, 3)
     end
     nil
   end
@@ -135,27 +135,21 @@ class Board
   def at_risk_marker_keys
     WINNING_LINES.each_with_object({}) do |line, result|
       squares = @squares.select { |k, _| line.include? k }
-      next unless two_identical_markers?(squares.values)
+      next unless identical_markers?(squares.values, 2)
 
-      marker = marked_marker(squares, :marked?).marker
+      risk_marker = marked_marker(squares, :marked?).marker
       risk_square = marked_marker(squares, :unmarked?)
       risk_key = @squares.key(risk_square)
 
-      append_to_hash_value_array(result, marker, risk_key)
+      append_to_hash_value_array(result, risk_marker, risk_key)
     end
   end
 
   private
 
-  def three_identical_markers?(squares)
+  def identical_markers?(squares, count)
     markers = squares.select(&:marked?).collect(&:marker)
-    return false if markers.size != 3
-    markers.min == markers.max
-  end
-
-  def two_identical_markers?(squares)
-    markers = squares.select(&:marked?).collect(&:marker)
-    return false if markers.size != 2
+    return false if markers.size != count
     markers.min == markers.max
   end
 
@@ -200,7 +194,7 @@ class Player
   end
 
   def reset
-    score.value = 0
+    score.reset
   end
 
   def pick_name
@@ -219,7 +213,7 @@ class Player
 end
 
 class Score
-  attr_accessor :value
+  attr_reader :value
 
   def initialize
     @value = 0
@@ -227,6 +221,10 @@ class Score
 
   def increment
     @value += 1
+  end
+
+  def reset
+    @value = 0
   end
 
   def to_s
@@ -353,13 +351,12 @@ class TTTGame
   end
 
   def current_player_moves
-    if human_turn?
-      human_moves
-      @current_marker = computer.marker
-    else
-      computer_moves
-      @current_marker = human.marker
-    end
+    human_turn? ? human_moves : computer_moves
+    switch_player
+  end
+
+  def switch_player
+    @current_marker = human_turn? ? computer.marker : human.marker
   end
 
   def update_score
