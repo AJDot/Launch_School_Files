@@ -33,6 +33,8 @@
 # - start
 
 # Spike
+require 'pry'
+
 class Card
   SUITS = %w(C H S D)
   VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A)
@@ -60,6 +62,22 @@ class Card
     when 'A' then 'Ace'
     else @face
     end
+  end
+
+  def ace?
+    face == 'Ace'
+  end
+
+  def king?
+    face == 'King'
+  end
+
+  def queen?
+    face == 'Queen'
+  end
+
+  def jack?
+    face == 'Jack'
   end
 
   def to_s
@@ -100,6 +118,32 @@ module Hand
     puts "----- #{name}'s Hand -----"
     cards.each { |card| puts "=> #{card}" }
     puts ""
+    puts "=> Total: #{total}"
+    puts ""
+  end
+
+  def total
+    total = 0
+    cards.each do |card|
+      if card.ace?
+        total += 11
+      elsif card.king? || card.queen? || card.jack?
+        total += 10
+      else
+        total += card.face.to_i
+      end
+    end
+
+    cards.select(&:ace?).count.times do
+      break if total <= 21
+      total -= 10
+    end
+
+    total
+  end
+
+  def busted?
+    total > 21
   end
 end
 
@@ -111,38 +155,36 @@ class Participant
   def initialize
     @cards = []
     set_name
+    @stop = false
+  end
+
+  def hit(new_card)
+    @stop = false
+    add_card(new_card)
+  end
+
+  def stay
+    @stop = true
+  end
+
+  def stay?
+    @stop == true
   end
 end
 
 class Player < Participant
   def set_name
-    @name = 'Player'
+    self.name = 'Player'
   end
 
   def show_flop
     show_hand
   end
-
-  def hit
-
-  end
-
-  def stay
-
-  end
-
-  def busted?
-
-  end
-
-  def total
-    # definitely looks like we need to know about "cards" to produce some total
-  end
 end
 
 class Dealer < Participant
   def set_name
-    @name = 'Dealer'
+    self.name = 'Dealer'
   end
 
   def show_flop
@@ -150,22 +192,6 @@ class Dealer < Participant
     puts "=> #{cards.first}"
     puts "=> ??"
     puts ""
-  end
-
-  def deal
-    # does the dealer or the deck deal?
-  end
-
-  def hit
-  end
-
-  def stay
-  end
-
-  def busted?
-  end
-
-  def total
   end
 end
 
@@ -183,7 +209,7 @@ class Game
     deal_cards
     show_initial_cards
     player_turn
-    dealer_turn
+    dealer_turn unless player.busted?
     show_result
   end
 
@@ -200,6 +226,26 @@ class Game
   end
 
   def player_turn
+    loop do
+      choice = nil
+      loop do
+        puts '(H)it or (S)tay?'
+        choice = gets.chomp.downcase
+        break if %w(h s).include? choice
+        puts "Sorry, must enter 'H' or 'S'."
+      end
+      # binding.pry
+      if choice == 'h'
+        player.hit(deck.deal_card)
+        puts "#{player.name} hits!"
+        show_initial_cards
+      else
+        puts "#{player.name} stays!"
+        player.stay
+      end
+      break if player.busted? || player.stay?
+    end
+    puts "You're out of the loop."
 
   end
 
@@ -208,7 +254,11 @@ class Game
   end
 
   def show_result
-
+    if player.busted?
+      puts "You busted! Dealer won!"
+    else
+      puts "You Stayed!"
+    end
   end
 
 
