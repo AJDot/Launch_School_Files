@@ -91,7 +91,11 @@ class Deck
   def initialize
     # obviously, we need some data structure to keep track of cards
     # array, hash, something else? (I think array)
-    @cards = setup_cards
+    reset
+  end
+
+  def reset
+    self.cards = setup_cards
     shuffle_cards
   end
 
@@ -170,6 +174,10 @@ class Participant
   def stay?
     @stop == true
   end
+
+  def reset
+    self.cards = []
+  end
 end
 
 class Player < Participant
@@ -205,12 +213,17 @@ class Game
   end
 
   def start
-    # what's the sequence of steps to execute the game play?
-    deal_cards
-    show_initial_cards
-    player_turn
-    dealer_turn unless player.busted?
-    show_result
+    clear
+    puts "Welcome to Twenty-One!"
+    loop do
+      clear
+      deal_cards
+      show_player_turn_cards
+      player_turn
+      dealer_turn unless player.busted?
+      show_result
+      play_again? ? reset : break
+    end
   end
 
   def deal_cards
@@ -220,9 +233,14 @@ class Game
     end
   end
 
-  def show_initial_cards
+  def show_player_turn_cards
     player.show_flop
     dealer.show_flop
+  end
+
+  def show_dealer_turn_cards
+    player.show_hand
+    dealer.show_hand
   end
 
   def player_turn
@@ -236,32 +254,76 @@ class Game
       end
       # binding.pry
       if choice == 'h'
+        clear
         player.hit(deck.deal_card)
+        show_player_turn_cards
         puts "#{player.name} hits!"
-        show_initial_cards
       else
         puts "#{player.name} stays!"
         player.stay
       end
       break if player.busted? || player.stay?
     end
-    puts "You're out of the loop."
-
   end
 
   def dealer_turn
-
+    clear
+    show_dealer_turn_cards
+    puts '(Press ENTER to continue)'
+    gets
+    loop do
+      if dealer.total < 17
+        clear
+        dealer.hit(deck.deal_card)
+        show_dealer_turn_cards
+        puts "#{dealer.name} hits!"
+        puts '(Press ENTER to continue)'
+        gets
+      else
+        puts "#{dealer.name} stays!"
+        dealer.stay
+      end
+      break if dealer.busted? || dealer.stay?
+    end
   end
 
   def show_result
     if player.busted?
-      puts "You busted! Dealer won!"
+      puts "#{player.name} busted! Dealer won!"
+    elsif dealer.busted?
+      puts "#{dealer.name} busted! #{player.name} won!"
     else
-      puts "You Stayed!"
+      case player.total <=> dealer.total
+      when -1
+        puts "#{dealer.name} won!"
+      when 0
+        puts "It's a tie!"
+      when 1
+        puts "#{player.name} won!"
+      end
     end
   end
 
+  def reset
+    deck.reset
+    player.reset
+    dealer.reset
+  end
 
+  def clear
+    system('clear') || system('cls')
+  end
+
+  def play_again?
+    answer = nil
+    loop do
+      puts "Would you like to play again? (y/n)"
+      answer = gets.chomp.downcase
+      break if %w(y n).include? answer
+      puts "Sorry, must choose 'y' or 'n'."
+    end
+    answer == 'y'
+  end
 end
 
 Game.new.start
