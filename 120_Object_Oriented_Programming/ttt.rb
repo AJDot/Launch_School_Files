@@ -10,6 +10,10 @@ class Board
     reset
   end
 
+  def [](key)
+    @squares[key]
+  end
+
   def []=(key, marker)
     @squares[key].marker = marker
   end
@@ -54,12 +58,40 @@ class Board
   end
   # rubocop:enable Metrics/AbcSize
 
+  def at_risk_marker_keys
+    WINNING_LINES.each_with_object({}) do |line, result|
+      squares = @squares.select { |k, _| line.include? k }
+      next unless two_identical_markers?(squares.values)
+
+      marker = marked_marker(squares, :marked?).marker
+      risk_square = marked_marker(squares, :unmarked?)
+      risk_key = @squares.key(risk_square)
+
+      append_to_hash_value_array(result, marker, risk_key)
+    end
+  end
+
   private
 
   def three_identical_markers?(squares)
     markers = squares.select(&:marked?).collect(&:marker)
     return false if markers.size != 3
     markers.min == markers.max
+  end
+
+  def two_identical_markers?(squares)
+    markers = squares.select(&:marked?).collect(&:marker)
+    return false if markers.size != 2
+    markers.min == markers.max
+  end
+
+  def marked_marker(squares, is_marked)
+    squares.values.select(&is_marked).first
+  end
+
+  def append_to_hash_value_array(hash, key, value)
+    hash[key] = [value] if hash[key].nil?
+    hash[key] << value unless hash[key].include? value
   end
 end
 
@@ -96,6 +128,20 @@ class Player
   def reset
     score.value = 0
   end
+
+  def pick_name
+    name = nil
+    loop do
+      name = gets.chomp.strip
+      break unless name.empty?
+      puts 'Sorry, name cannot be empty. Try again.'
+    end
+    @name = name
+  end
+
+  def to_s
+    @name.to_s
+  end
 end
 
 class Score
@@ -115,23 +161,22 @@ class Score
 end
 
 class TTTGame
-  HUMAN_MARKER = 'X'.freeze
-  COMPUTER_MARKER = 'O'.freeze
-  FIRST_TO_MOVE = HUMAN_MARKER
+  MARKER_1 = 'X'.freeze
+  MARKER_2 = 'O'.freeze
+  FIRST_TO_MOVE = MARKER_1
   ROUNDS_TO_WIN = 5
 
   attr_reader :board, :human, :computer
 
   def initialize
     @board = Board.new
-    @human = Player.new(HUMAN_MARKER)
-    @computer = Player.new(COMPUTER_MARKER)
+    @human = Player.new(pick_human_marker)
+    @computer = Player.new(pick_computer_marker)
     @current_marker = FIRST_TO_MOVE
   end
 
   def play
-    clear
-    display_welcome_message
+    setup_game
 
     loop do
       reset
@@ -140,10 +185,7 @@ class TTTGame
       play_round
       next unless someone_won_game?
       break unless play_again?
-      display_play_again_message
-
-      human.reset
-      computer.reset
+      setup_next_game
     end
 
     display_goodbye_message
@@ -162,17 +204,51 @@ class TTTGame
     display_result
   end
 
+  def setup_game
+    clear
+    display_welcome_message
+    pick_names
+  end
+
+  def setup_next_game
+    display_play_again_message
+    human.reset
+    computer.reset
+  end
+
+  def pick_human_marker
+    marker = nil
+    loop do
+      puts "Choose your marker (#{MARKER_1} or #{MARKER_2})"
+      marker = gets.chomp.upcase!
+      break if [MARKER_1, MARKER_2].include? marker
+      'Marker invalid. Please choose again.'
+    end
+    marker
+  end
+
+  def pick_computer_marker
+    [MARKER_1, MARKER_2].reject { |marker| marker == human.marker }.first
+  end
+
+  def pick_names
+    puts 'Choose your name:'
+    human.pick_name
+    puts "Choose the computer's name"
+    computer.pick_name
+  end
+
   def someone_won_game?
     [human.score.value, computer.score.value].include? ROUNDS_TO_WIN
   end
+
   def joinor(array, delimiter = ', ', conjunction = 'or')
     case array.size
     when 0 then ''
     when 1 then array.first
     when 2 then array.join(" #{conjunction} ")
     else
-      array[-1] = "#{conjunction} #{array.last}"
-      array.join(delimiter)
+      "#{array[0..-2].join(delimiter)} #{conjunction} #{array.last}"
     end
   end
 
@@ -197,11 +273,11 @@ class TTTGame
   end
 
   def human_turn?
-    @current_marker == HUMAN_MARKER
+    @current_marker == human.marker
   end
 
   def display_board
-    puts "You're a #{human.marker}. Computer is a #{computer.marker}."
+    puts "#{human} is #{human.marker}. #{computer} is #{computer.marker}."
     puts ''
     board.draw
     puts ''
@@ -213,11 +289,13 @@ class TTTGame
   end
 
   def human_moves
-    puts "Choose a square (#{joinor(board.unmarked_keys)}): "
+    unmarked_keys = board.unmarked_keys
+
+    puts "Choose a square (#{joinor(unmarked_keys)}): "
     square = nil
     loop do
       square = gets.chomp.to_i
-      break if board.unmarked_keys.include?(square)
+      break if unmarked_keys.include?(square)
       puts "Sorry, that's not a valid choice."
     end
 
@@ -225,21 +303,33 @@ class TTTGame
   end
 
   def computer_moves
-    board[board.unmarked_keys.sample] = computer.marker
+    keys = computer_key_choices
+    board[keys.sample] = computer.marker
+  end
+
+  def computer_key_choices
+    board.at_risk_marker_keys[computer.marker] ||
+      board.at_risk_marker_keys[human.marker] ||
+      ([5] if center_available?) ||
+      board.unmarked_keys
+  end
+
+  def center_available?
+    board.unmarked_keys.include? 5
   end
 
   def current_player_moves
     if human_turn?
       human_moves
-      @current_marker = COMPUTER_MARKER
+      @current_marker = computer.marker
     else
       computer_moves
-      @current_marker = HUMAN_MARKER
+      @current_marker = human.marker
     end
   end
 
   def display_score
-    puts "You: #{human.score} | Computer: #{computer.score}"
+    puts "#{human}: #{human.score} | #{computer}: #{computer.score}"
   end
 
   def update_score
@@ -256,10 +346,14 @@ class TTTGame
     display_score
 
     case board.winning_marker
-    when human.marker    then puts 'You won!'
-    when computer.marker then puts 'Computer won!'
+    when human.marker    then puts "#{human} won!"
+    when computer.marker then puts "#{computer} won!"
     else                      puts "It's a tie!"
     end
+    press_enter_to_continue
+  end
+
+  def press_enter_to_continue
     puts 'Press ENTER to continue'
     gets
   end
