@@ -224,6 +224,7 @@ class Game
       show_result
       play_again? ? reset : break
     end
+    puts "Thanks for playing Twenty-One! Goodbye!"
   end
 
   def deal_cards
@@ -269,16 +270,14 @@ class Game
   def dealer_turn
     clear
     show_dealer_turn_cards
-    puts '(Press ENTER to continue)'
-    gets
+    press_enter_to_continue
     loop do
       if dealer.total < 17
         clear
         dealer.hit(deck.deal_card)
         show_dealer_turn_cards
         puts "#{dealer.name} hits!"
-        puts '(Press ENTER to continue)'
-        gets
+        press_enter_to_continue
       else
         puts "#{dealer.name} stays!"
         dealer.stay
@@ -312,6 +311,11 @@ class Game
 
   def clear
     system('clear') || system('cls')
+  end
+
+  def press_enter_to_continue
+    puts '(Press ENTER to continue)'
+    gets
   end
 
   def play_again?
