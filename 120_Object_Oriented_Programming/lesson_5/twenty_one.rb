@@ -1,48 +1,23 @@
-# Twenty-One is a card game consisting of a dealer and a player, where the participants tr tp get as close to 21 as possible without going over.
+# Twenty-One is a card game consisting of a dealer and a player, where the
+# participants tr tp get as close to 21 as possible without going over.
 # Overview:
 # - Both participants are initially dealt 2 cards from a 52-card deck.
 # - The player takes the first turn, and can "hit" or "stay".
 # - If the player busts, he loses. If he stays, it's the dealer's turn.
 # - The dealer must hit until his cards add up to at least 17.
-# - If he busts, the player wins. If both player and dealer stays, then the highest total wins.
+# - If he busts, the player wins. If both player and dealer stays, then the
+# highest total wins.
 # - If both totals are equals, then it's a tie, and nobody wins.
 
-# Nouns: card, player, dealer, deck, game, totals
-# Verbs: deal, bust, stay, hit
-
-# can actually think of total as a verb "calculate_total"
-# "bust" is not an action any performs. It is a state, "busted?"
-
-# Classes and Methods
-# Player
-# - hit
-# - stay
-# - busted?
-# - total
-# Dealer
-# - hit
-# - stay
-# - busted?
-# - total
-# - deal (should this be here, or in Deck?)
-# Participant (superclass of Player and Dealer?)
-# Deck
-# - deal (should this be here, or in Deck?)
-# Card
-# Game
-# - start
-
-# Spike
 require 'pry'
 
 class Card
-  SUITS = %w(C H S D)
-  VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+  SUITS = %w(C H S D).freeze
+  FACES = %w(2 3 4 5 6 7 8 9 10 J Q K A).freeze
 
   def initialize(suit, face)
     @suit = suit
     @face = face
-    # what are the "states" of a card?
   end
 
   def suit
@@ -89,8 +64,6 @@ class Deck
   attr_accessor :cards
 
   def initialize
-    # obviously, we need some data structure to keep track of cards
-    # array, hash, something else? (I think array)
     reset
   end
 
@@ -100,8 +73,9 @@ class Deck
   end
 
   def setup_cards
-    Card::SUITS.product(Card::VALUES).map do |suit, face| Card.new(suit, face)
-    end
+    suits = Card::SUITS
+    faces = Card::FACES
+    suits.product(faces).map { |suit, face| Card.new(suit, face) }
   end
 
   def deal_card
@@ -121,21 +95,15 @@ module Hand
   def show_hand
     puts "----- #{name}'s Hand -----"
     cards.each { |card| puts "=> #{card}" }
-    puts ""
+    puts ''
     puts "=> Total: #{total}"
-    puts ""
+    puts ''
   end
 
   def total
     total = 0
     cards.each do |card|
-      if card.ace?
-        total += 11
-      elsif card.king? || card.queen? || card.jack?
-        total += 10
-      else
-        total += card.face.to_i
-      end
+      total += card_value(card)
     end
 
     cards.select(&:ace?).count.times do
@@ -144,6 +112,13 @@ module Hand
     end
 
     total
+  end
+
+  def card_value(card)
+    if card.ace? then 11
+    elsif card.king? || card.queen? || card.jack? then 10
+    else card.face.to_i
+    end
   end
 
   def busted?
@@ -192,46 +167,36 @@ end
 
 class Dealer < Participant
   def set_name
-    self.name = 'Dealer'
+    self.name = %w(EVE Number\ 5 Hal R2D2 Chappie).sample
   end
 
   def show_flop
     puts "----- #{name}'s Hand -----"
     puts "=> #{cards.first}"
-    puts "=> ??"
-    puts ""
+    puts '=> ??'
+    puts ''
   end
 end
 
-class Game
-  attr_accessor :deck, :player, :dealer
-
-  def initialize
-    @deck = Deck.new
-    @player = Player.new
-    @dealer = Dealer.new
+module Helpers
+  def clear
+    system('clear') || system('cls')
   end
 
-  def start
+  def press_enter_to_continue
+    puts '(Press ENTER to continue)'
+    gets
+  end
+end
+
+module Displayable
+  def display_welcome_message
     clear
-    puts "Welcome to Twenty-One!"
-    loop do
-      clear
-      deal_cards
-      show_player_turn_cards
-      player_turn
-      dealer_turn unless player.busted?
-      show_result
-      play_again? ? reset : break
-    end
-    puts "Thanks for playing Twenty-One! Goodbye!"
+    puts 'Welcome to Twenty-One!'
   end
 
-  def deal_cards
-    2.times do
-      player.add_card(deck.deal_card)
-      dealer.add_card(deck.deal_card)
-    end
+  def display_goodbye_message
+    puts 'Thanks for playing Twenty-One! Goodbye!'
   end
 
   def show_player_turn_cards
@@ -244,62 +209,123 @@ class Game
     dealer.show_hand
   end
 
+  def clear_and_show_player_turn_cards
+    clear
+    show_player_turn_cards
+  end
+
+  def clear_and_show_dealer_turn_cards
+    clear
+    show_dealer_turn_cards
+  end
+
+  def show_result
+    clear
+    show_dealer_turn_cards
+    puts result_output
+  end
+end
+
+class Game
+  include Helpers, Displayable
+
+  attr_accessor :deck, :player, :dealer
+
+  def initialize
+    @deck = Deck.new
+    @player = Player.new
+    @dealer = Dealer.new
+  end
+
+  def start
+    display_welcome_message
+    loop do
+      clear_and_deal_cards
+      show_player_turn_cards
+      player_turn
+      dealer_turn unless player.busted?
+      show_result
+      play_again? ? reset : break
+    end
+    display_goodbye_message
+  end
+
+  def deal_cards
+    2.times do
+      player.add_card(deck.deal_card)
+      dealer.add_card(deck.deal_card)
+    end
+  end
+
+  def clear_and_deal_cards
+    clear
+    deal_cards
+  end
+
   def player_turn
     loop do
-      choice = nil
-      loop do
-        puts '(H)it or (S)tay?'
-        choice = gets.chomp.downcase
-        break if %w(h s).include? choice
-        puts "Sorry, must enter 'H' or 'S'."
-      end
-      # binding.pry
-      if choice == 'h'
-        clear
-        player.hit(deck.deal_card)
-        show_player_turn_cards
-        puts "#{player.name} hits!"
-      else
-        puts "#{player.name} stays!"
-        player.stay
-      end
+      make_player_decision
       break if player.busted? || player.stay?
     end
   end
 
+  def make_player_decision
+    name = player.name
+    if hit_or_stay == 'h'
+      player.hit(deck.deal_card)
+      puts "#{name} hits!"
+    else
+      player.stay
+      puts "#{name} stays!"
+    end
+    clear_and_show_player_turn_cards
+  end
+
   def dealer_turn
-    clear
-    show_dealer_turn_cards
+    clear_and_show_dealer_turn_cards
     press_enter_to_continue
     loop do
-      if dealer.total < 17
-        clear
-        dealer.hit(deck.deal_card)
-        show_dealer_turn_cards
-        puts "#{dealer.name} hits!"
-        press_enter_to_continue
-      else
-        puts "#{dealer.name} stays!"
-        dealer.stay
-      end
+      make_dealer_decision
       break if dealer.busted? || dealer.stay?
     end
   end
 
-  def show_result
-    if player.busted?
-      puts "#{player.name} busted! Dealer won!"
-    elsif dealer.busted?
-      puts "#{dealer.name} busted! #{player.name} won!"
+  def hit_or_stay
+    choice = nil
+    loop do
+      puts '(H)it or (S)tay?'
+      choice = gets.chomp.downcase
+      break if %w(h s).include? choice
+      puts "Sorry, must enter 'H' or 'S'."
+    end
+    choice
+  end
+
+  def make_dealer_decision
+    name = dealer.name
+    if dealer.total < 17
+      dealer.hit(deck.deal_card)
+      clear_and_show_dealer_turn_cards
+      puts "#{name} hits!"
+      press_enter_to_continue
     else
-      case player.total <=> dealer.total
-      when -1
-        puts "#{dealer.name} won!"
-      when 0
-        puts "It's a tie!"
-      when 1
-        puts "#{player.name} won!"
-      end
+      puts "#{name} stays!"
+      dealer.stay
+    end
+  end
+
+  def result_output
+    if player.busted? then "#{player.name} busted! #{dealer.name} won!"
+    elsif dealer.busted? then "#{dealer.name} busted! #{player.name} won!"
+    else winner ? "#{winner} won!" : "It's a tie!"
+    end
+  end
+
+  def winner
+    case player.total <=> dealer.total
+    when -1 then dealer.name
+    when 0 then nil
+    when 1 then player.name
     end
   end
 
@@ -309,19 +335,10 @@ class Game
     dealer.reset
   end
 
-  def clear
-    system('clear') || system('cls')
-  end
-
-  def press_enter_to_continue
-    puts '(Press ENTER to continue)'
-    gets
-  end
-
   def play_again?
     answer = nil
     loop do
-      puts "Would you like to play again? (y/n)"
+      puts 'Would you like to play again? (y/n)'
       answer = gets.chomp.downcase
       break if %w(y n).include? answer
       puts "Sorry, must choose 'y' or 'n'."
@@ -330,4 +347,5 @@ class Game
   end
 end
 
-Game.new.start
+game = Game.new
+game.start
