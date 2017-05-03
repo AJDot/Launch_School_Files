@@ -1,5 +1,5 @@
-# If you have the rainbox gem then uncomment lines 15 and 79-82 to add
-# colors to the hearts and diamonds on the cards.
+# If you have the rainbox gem then uncomment the following line and the
+# code in the #suit_and_face_icons method
 #require 'rainbow/ext/string'
 
 class Card
