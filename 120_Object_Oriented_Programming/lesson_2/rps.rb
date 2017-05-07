@@ -51,6 +51,7 @@ module Displayable
   end
 end
 
+# Used for computers that dynamically weight their choices based on move history
 module WeightedChoiceConstructor
   def moves_hash(rock, paper, scissors, spock, lizard)
     { 'rock' => rock, 'paper' => paper, 'scissors' => scissors,
@@ -64,10 +65,10 @@ module WeightedChoiceConstructor
   end
 
   def update_wins_losses_percent(wins_losses, wins_losses_percent)
-    total_wins_losses = wins_losses.values.inject(:+).to_f
-    return if total_wins_losses.zero?
+    wins_losses_total = wins_losses.values.inject(:+).to_f
+    return if wins_losses_total.zero?
     wins_losses.each do |move, count|
-      wins_losses_percent[move] = count / total_wins_losses * 100
+      wins_losses_percent[move] = count / wins_losses_total * 100
     end
   end
 
@@ -235,10 +236,6 @@ class Player
     @score = Score.new
   end
 
-  def set_name
-    self.name = 'Tie'
-  end
-
   def make_choice(choice)
     self.move = Object.const_get(choice.capitalize).new
   end
@@ -288,6 +285,8 @@ class Human < Player
 end
 
 class Computer < Player
+  attr_reader :history
+
   def initialize(history)
     super()
     @history = history
@@ -344,10 +343,10 @@ class Chappie < Computer
   end
 
   def choose
-    return super if @history.games.empty?
-    update_wins_losses(@history.human_moves, @human_wins)
+    return super if history.games.empty?
+    update_wins_losses(history.human_moves, @human_wins)
     update_wins_losses_percent(@human_wins, @human_wins_percent)
-    update_choice_weights(@history.human_moves, @human_wins_percent)
+    update_choice_weights(history.human_moves, @human_wins_percent)
     make_choice(choice)
   end
 end
@@ -378,7 +377,7 @@ class Number5 < Computer
   end
 
   def choose
-    @history.games.empty? ? super : make_choice(@history.human_moves[-1])
+    history.games.empty? ? super : make_choice(history.human_moves[-1])
   end
 end
 
@@ -409,10 +408,10 @@ class EVE < Computer
   end
 
   def choose
-    return super if @history.games.empty?
-    update_wins_losses(@history.computer_moves, @computer_losses, name)
+    return super if history.games.empty?
+    update_wins_losses(history.computer_moves, @computer_losses, name)
     update_wins_losses_percent(@computer_losses, @computer_losses_percent)
-    update_choice_weights(@history.computer_moves,
+    update_choice_weights(history.computer_moves,
                           @computer_losses_percent, 20, name)
     make_choice(choice)
   end
@@ -567,28 +566,28 @@ class RPSGame
   end
 
   def update_score
-    @winner.score += 1 unless @winner.to_s == 'Tie'
+    winner.score += 1
   end
 
   def log_history
-    history.append(human.move, computer.move, @winner, @game, @round)
+    history.append(human.move, computer.move, winner, @game, @round)
   end
 
   def display_winner
-    msg = @winner.to_s == 'Tie' ? "It's a tie!" : "#{@winner} won the round!"
+    msg = winner == 'Tie' ? "It's a tie!" : "#{winner} won the round!"
     prompt msg
   end
 
-  def determine_winner
+  def winner
     human_move = human.move
     computer_move = computer.move
-    @winner = if human_move > computer_move
-                human
-              elsif human_move < computer_move
-                computer
-              else
-                'Tie'
-              end
+    if human_move > computer_move
+      human
+    elsif human_move < computer_move
+      computer
+    else
+      'Tie'
+    end
   end
 
   def next_round
@@ -629,10 +628,9 @@ class RPSGame
     next_round
     human.choose
     computer.choose
-    determine_winner
     display_winner
     log_history
-    update_score
+    update_score unless winner == 'Tie'
     clear_screen
 
     history.display
