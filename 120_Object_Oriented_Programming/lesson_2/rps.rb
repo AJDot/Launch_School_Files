@@ -57,22 +57,22 @@ module WeightedChoiceConstructor
       'Spock' => spock, 'lizard' => lizard }
   end
 
-  def update_wins_losses(move_list, wins_losses_hash, not_winner)
+  def update_wins_losses(moves, wins_losses, not_winner = nil)
     winner = @history.winners.last
-    move = move_list.last
-    wins_losses_hash[move] += 1 if winner != not_winner
+    move = moves.last
+    wins_losses[move] += 1 if winner != not_winner
   end
 
-  def update_wins_losses_percent(wins_losses_hash, wins_losses_percent_hash)
-    total_wins_losses = wins_losses_hash.values.inject(:+).to_f
+  def update_wins_losses_percent(wins_losses, wins_losses_percent)
+    total_wins_losses = wins_losses.values.inject(:+).to_f
     return if total_wins_losses.zero?
-    wins_losses_hash.each do |move, count|
-      wins_losses_percent_hash[move] = count / total_wins_losses * 100
+    wins_losses.each do |move, count|
+      wins_losses_percent[move] = count / total_wins_losses * 100
     end
   end
 
-  def shift(shift_percent = 0)
-    @shift = @choice_weights[@move_focus] * shift_percent
+  def shift(percent = 0)
+    @shift = @choice_weights[@move_focus] * percent
   end
 
   def calc_weights?
@@ -98,7 +98,7 @@ module WeightedChoiceConstructor
 
   # adjust the weight of each move being chosen depending on loss percent
   def update_choice_weights(move_list, percent_hash,
-                            threshold, name_false_cond = nil)
+                            threshold = 0, name_false_cond = nil)
     desired_move = move_list.last
     percent = percent_hash[desired_move]
     return unless percent > threshold &&
@@ -132,17 +132,19 @@ module Formatting
 
   def join_or(array)
     case array.size
-    when 1
-      array.first
-    when 2
-      "#{array.first} or #{array.last}"
+    when 1 then array.first
+    when 2 then "#{array.first} or #{array.last}"
     else
       result = "#{array[0..-2].join(', ')}, or #{array.last}"
-      match_num = 0
-      result.gsub(/(\w+\s*\w+)(?=,)|\w+\z/) do |match|
-        match_num += 1
-        "(#{match_num})#{match}"
-      end
+      add_item_num(result)
+    end
+  end
+
+  def add_item_num(string)
+    match_num = 0
+    string.gsub(/(\w+\s*\w+)(?=,)|\w+\z/) do |match|
+      match_num += 1
+      "(#{match_num})#{match}"
     end
   end
 end
@@ -285,17 +287,24 @@ class Human < Player
   end
 end
 
-# Sonny is the default Computer - chooses a random move
 class Computer < Player
+  def initialize(history)
+    super()
+    @history = history
+  end
+
   def set_name
     self.name = 'Sonny'
   end
 
-  def choose(_history)
+  def choose
     choice = Move::VALUES.sample
     make_choice(choice)
   end
 end
+
+# Sonny is the default Computer - chooses a random move
+class Sonny < Computer; end
 
 # R2D2 always chooses rock
 class R2D2 < Computer
@@ -303,7 +312,7 @@ class R2D2 < Computer
     self.name = 'R2D2'
   end
 
-  def choose(_history)
+  def choose
     make_choice('rock')
   end
 end
@@ -317,7 +326,7 @@ class Chappie < Computer
 
   attr_reader :choice_weights
 
-  def initialize
+  def initialize(history)
     super
     @choice_weights = moves_hash(20.0, 20.0, 20.0, 20.0, 20.0)
     @human_wins = moves_hash(0, 0, 0, 0, 0)
@@ -334,16 +343,12 @@ class Chappie < Computer
     weight_focus + @shift <= 100
   end
 
-  def choose(history)
-    @history = history
-    if history.games.empty?
-      super
-    else
-      update_wins_losses(@history.human_moves, @human_wins, nil)
-      update_wins_losses_percent(@human_wins, @human_wins_percent)
-      update_choice_weights(@history.human_moves, @human_wins_percent, 0)
-      make_choice(choice)
-    end
+  def choose
+    return super if @history.games.empty?
+    update_wins_losses(@history.human_moves, @human_wins)
+    update_wins_losses_percent(@human_wins, @human_wins_percent)
+    update_choice_weights(@history.human_moves, @human_wins_percent)
+    make_choice(choice)
   end
 end
 
@@ -352,7 +357,7 @@ end
 class Hal < Computer
   include WeightedChoiceConstructor
 
-  def initialize
+  def initialize(history)
     super
     @choice_weights = moves_hash(4, 0, 60, 18, 18)
   end
@@ -361,7 +366,7 @@ class Hal < Computer
     self.name = 'Hal'
   end
 
-  def choose(_history)
+  def choose
     make_choice(choice)
   end
 end
@@ -372,8 +377,8 @@ class Number5 < Computer
     self.name = 'Number 5'
   end
 
-  def choose(history)
-    history.games.empty? ? super : make_choice(history.human_moves[-1])
+  def choose
+    @history.games.empty? ? super : make_choice(@history.human_moves[-1])
   end
 end
 
@@ -387,7 +392,7 @@ class EVE < Computer
 
   attr_reader :choice_weights
 
-  def initialize
+  def initialize(history)
     super
     @choice_weights = moves_hash(20.0, 20.0, 20.0, 20.0, 20.0)
     @computer_losses = moves_hash(0, 0, 0, 0, 0)
@@ -403,17 +408,13 @@ class EVE < Computer
     true
   end
 
-  def choose(history)
-    @history = history
-    if history.games.empty?
-      super
-    else
-      update_wins_losses(@history.computer_moves, @computer_losses, name)
-      update_wins_losses_percent(@computer_losses, @computer_losses_percent)
-      update_choice_weights(@history.computer_moves,
-                            @computer_losses_percent, 20, name)
-      make_choice(choice)
-    end
+  def choose
+    return super if @history.games.empty?
+    update_wins_losses(@history.computer_moves, @computer_losses, name)
+    update_wins_losses_percent(@computer_losses, @computer_losses_percent)
+    update_choice_weights(@history.computer_moves,
+                          @computer_losses_percent, 20, name)
+    make_choice(choice)
   end
 end
 
@@ -486,6 +487,7 @@ class History
     add_round(round)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def format_line(round)
     human_moves[round].center(12) +
       '     ' +
@@ -494,6 +496,7 @@ class History
       rounds[round].center(8) +
       winners[round].center(12)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def format_history
     result = []
@@ -521,7 +524,7 @@ class RPSGame
     'Chappie' => 'Chappie', '4' => 'Chappie',
     'Sonny' => 'Sonny', '5' => 'Sonny',
     'Hal' => 'Hal', '6' => 'Hal'
-  }
+  }.freeze
 
   MAX_SCORE = 10
 
@@ -537,6 +540,17 @@ class RPSGame
     @round = 0
   end
 
+  def play
+    display_welcome_message
+    loop do
+      play_round until [human.score, computer.score].include? MAX_SCORE
+      show_after_game_display
+      break unless play_again?
+      next_game
+    end
+    display_goodbye_message
+  end
+
   private
 
   def choose_opponent
@@ -545,11 +559,11 @@ class RPSGame
     loop do
       puts "Choose Opponent: #{join_or(opponents)}"
       choice = OPPONENTS[gets.chomp]
-      break if opponents.include?(choice)
+      break unless choice.nil?
       prompt 'Input invalid. Please choose again.'
     end
     choice.delete!(' ')
-    @computer = choice == 'Sonny' ? Computer.new : Object.const_get(choice).new
+    self.computer = Object.const_get(choice).new(history)
   end
 
   def update_score
@@ -614,7 +628,7 @@ class RPSGame
   def play_round
     next_round
     human.choose
-    computer.choose(@history)
+    computer.choose
     determine_winner
     display_winner
     log_history
@@ -623,19 +637,6 @@ class RPSGame
 
     history.display
     show_display
-  end
-
-  public
-
-  def play
-    display_welcome_message
-    loop do
-      play_round until [human.score, computer.score].include? MAX_SCORE
-      show_after_game_display
-      break unless play_again?
-      next_game
-    end
-    display_goodbye_message
   end
 end
 
