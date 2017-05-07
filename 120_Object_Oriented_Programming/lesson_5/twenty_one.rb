@@ -1,6 +1,6 @@
-# If you have the rainbox gem then uncomment the following line and the
+# If you have the rainbow gem then uncomment the following line and the
 # code in the #suit_and_face_icons method
-#require 'rainbow/ext/string'
+# require 'rainbow/ext/string'
 
 class Card
   SUITS = %w(C H S D).freeze
@@ -46,6 +46,7 @@ class Card
     face == 'Jack'
   end
 
+  # rubocop:disable MethodLength
   def pic_array(hide: false)
     suit_icon, face_icon = suit_and_face_icons
     suit_icon = '?' if hide
@@ -61,13 +62,14 @@ class Card
      "| #{face_icon.ljust(3)} #{face_icon.rjust(3)} | ",
      '+---------+ ']
   end
+  # rubocop:enable MethodLength
 
   def suit_and_face_icons
     suit_icon = case @suit
-                when 'S' then "\u2660"#.color(:white)
-                when 'H' then "\u2665"#.color(:red)
-                when 'D' then "\u2666"#.color(:red)
-                when 'C' then "\u2663"#.color(:white)
+                when 'S' then "\u2660" # .color(:white)
+                when 'H' then "\u2665" # .color(:red)
+                when 'D' then "\u2666" # .color(:red)
+                when 'C' then "\u2663" # .color(:white)
                 end
     face_icon = @face
     [suit_icon, face_icon]
@@ -180,7 +182,14 @@ end
 
 class Player < Participant
   def set_name
-    self.name = 'Player'
+    name = ''
+    loop do
+      puts "What's your name?"
+      name = gets.chomp.strip
+      break unless name.empty?
+      puts 'Sorry, must enter a value.'
+    end
+    self.name = name
   end
 
   def show_flop
@@ -248,7 +257,7 @@ module Displayable
   end
 end
 
-class Game
+class TwentyOne
   include Helpers, Displayable
 
   attr_accessor :deck, :player, :dealer
@@ -262,6 +271,11 @@ class Game
   def start
     display_welcome_message
     press_enter_to_continue
+    play_round
+    display_goodbye_message
+  end
+
+  def play_round
     loop do
       clear_and_deal_cards
       show_player_turn_cards
@@ -270,7 +284,6 @@ class Game
       show_result
       play_again? ? reset : break
     end
-    display_goodbye_message
   end
 
   def deal_cards
@@ -370,5 +383,5 @@ class Game
   end
 end
 
-game = Game.new
+game = TwentyOne.new
 game.start
