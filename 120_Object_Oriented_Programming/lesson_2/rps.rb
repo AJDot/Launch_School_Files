@@ -137,7 +137,12 @@ module Formatting
     when 2
       "#{array.first} or #{array.last}"
     else
-      "#{array[0..-2].join(', ')}, or #{array.last}"
+      result = "#{array[0..-2].join(', ')}, or #{array.last}"
+      match_num = 0
+      result.gsub(/(\w+\s*\w+)(?=,)|\w+\z/) do |match|
+        match_num += 1
+        "(#{match_num})#{match}"
+      end
     end
   end
 end
@@ -247,11 +252,11 @@ end
 
 class Human < Player
   VALID_INPUTS = {
-    'rock' => 'Rock', 'r' => 'Rock', 'R' => 'Rock',
-    'paper' => 'Paper', 'p' => 'Paper', 'P' => 'Paper',
-    'scissors' => 'Scissors', 's' => 'Scissors',
-    'Spock' => 'Spock', 'S' => 'Spock',
-    'lizard' => 'Lizard', 'l' => 'Lizard', 'L' => 'Lizard'
+    'rock' => 'Rock', 'r' => 'Rock', 'R' => 'Rock', '1' => 'Rock',
+    'paper' => 'Paper', 'p' => 'Paper', 'P' => 'Paper', '2' => 'Paper',
+    'scissors' => 'Scissors', 's' => 'Scissors', '3' => 'Scissors',
+    'Spock' => 'Spock', 'S' => 'Spock', '4' => 'Spock',
+    'lizard' => 'Lizard', 'l' => 'Lizard', 'L' => 'Lizard', '5' => 'Lizard'
   }.freeze
 
   include Formatting
@@ -509,6 +514,15 @@ end
 class RPSGame
   include Displayable, Formatting
 
+  OPPONENTS = {
+    'EVE' => 'EVE', '1' => 'EVE',
+    'Number 5' => 'Number 5', '2' => 'Number 5',
+    'R2D2' => 'R2D2', '3' => 'R2D2',
+    'Chappie' => 'Chappie', '4' => 'Chappie',
+    'Sonny' => 'Sonny', '5' => 'Sonny',
+    'Hal' => 'Hal', '6' => 'Hal'
+  }
+
   MAX_SCORE = 10
 
   attr_accessor :human, :computer
@@ -530,7 +544,7 @@ class RPSGame
     choice = nil
     loop do
       puts "Choose Opponent: #{join_or(opponents)}"
-      choice = gets.chomp
+      choice = OPPONENTS[gets.chomp]
       break if opponents.include?(choice)
       prompt 'Input invalid. Please choose again.'
     end
