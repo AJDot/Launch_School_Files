@@ -53,8 +53,7 @@ module Formatting
     when 0 then ''
     when 1 then array.first
     when 2 then "#{array.first} or #{array.last}"
-    else
-      result = "#{array[0..-2].join(', ')}, or #{array.last}"
+    else "#{array[0..-2].join(', ')}, or #{array.last}"
     end
   end
 end
@@ -65,10 +64,7 @@ class Grid
   def initialize
     # model the 6x7 grid using 'squares'
     # probably using a hash of square object to keep track of them
-    @squares = {}
-    (1..6).to_a.product((1..7).to_a).each do |row, column|
-      @squares[[row, column]] = Square.new
-    end
+    reset
   end
 
   def display
@@ -107,6 +103,13 @@ class Grid
 
   def full?
     available_cols.empty?
+  end
+
+  def reset
+    @squares = {}
+    (1..6).to_a.product((1..7).to_a).each do |row, column|
+      @squares[[row, column]] = Square.new
+    end
   end
 
   def someone_won?
@@ -237,6 +240,18 @@ class Connect4
     display_welcome_message
     press_enter_to_continue
     loop do
+      reset
+      play_round
+      clear_screen
+      display_grid
+      display_result
+      break unless play_again?
+    end
+      display_goodbye_message
+  end
+
+  def play_round
+    loop do
       clear_screen
       display_grid
       first_player_moves
@@ -244,9 +259,20 @@ class Connect4
       second_player_moves
       break if grid.someone_won? || grid.full?
     end
-    display_grid
-    display_result
-    display_goodbye_message
+  end
+
+  def play_again?
+    choice = nil
+    loop do
+      puts "Would you like to play again? (y/n)"
+      choice = gets.chomp.downcase
+      break if %(y n).include? choice
+    end
+    choice == 'y'
+  end
+
+  def reset
+    grid.reset
   end
 
   def display_welcome_message
