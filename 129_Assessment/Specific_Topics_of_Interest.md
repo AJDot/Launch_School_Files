@@ -180,8 +180,122 @@ Here is the general lookup path for a method:
 
 ## self
 ### Calling methods with self
+To use setter methods inside a class, `self` must be prepended to the variable name. If this is not done, then Ruby will think we are trying to create new local variables. Ex:
+```ruby
+# Bad
+def update_info(new_name, new_age, new_mood)
+  name = new_name
+  age = new_age
+  mood = new_mood
+end
+
+# Good
+def update_info(new_name, new_age, new_mood)
+  self.name = new_name
+  self.age = new_age
+  self.mood = new_mood
+end
+```
+In the bad example, new local variables are created which do not change the state of the object.
+In the good example, the instance variables of the object are changed and the instance method works as intended.
+***
+This could be used to call the getter methods as well but it is not necessary.
+***
+Lasty, `self` can be used with any instance method. The point is that it is required only for setter methods.
 ### More about self
+Two clear use cases for `self`:
+1. `self` must be used when calling setter methods from within a class.
+  __From within a class__, when an __instance method__ calls `self`, it is returning the _calling object_. For our code above:
+```ruby
+class Cat
+  # ... rest of code
+
+  def what_is_self
+    self
+  end
+end
+
+chester = Cat.new('Chester', 15, 'frumpy')
+p chester.what_is_self
+  # => #<Cat:0x320c538 @name="Chester", @age=15, @mood="frumpy">
+```
+2. Use `self` for class method definitions.
+  __From within a class but outside an instance method__, `self` refers to the class itself - not a particular instance of the class.
+```ruby
+  class Cat
+    # ... rest of code
+    puts self
+  end
+  Cat # => Cat
+```
 ## Reading OO code
 ## Fake operators and equality
+### Equality
+#### The == method
+Can be called using `str1.==(str2)` or just `str1 == str2`. Compares the two variables' values. The default implementation for `==` is the `equal?` method (see below) but every class should override this. To make sure `==` does what we want, we need to create our own:
+```ruby
+class Cat
+  # ... rest of code
+
+  attr_accessor :name
+
+  def =(other)
+    name == other.name
+  end
+end
+
+chester = Cat.new('Chester', 15, 'frumpy')
+chester2 = Cat.new('Chester', 12, 'pissy')
+
+chester == chester2 # => true (since their names are the same)
+```
+The above `==` method uses the `==` method from the `String` class to compare the names of the cats.
+***
+`object_id`
+Every object has a unique identifier. We can use this to see if two variables are pointing to the same object. Symbols and Integers have slightly different behavior in that there will only ever be one object with a particular value.
+#### The equal? method
+Determines whether two variables point to the same object.
+#### The === method
+This is used implicitly by the `case` statement.
+#### The eql? method
+Determines if two objects contain the same value and if they're of the same class.
+#### Summary
+`==`
+* the `==` operator compares two objects' values, and is frequently used.
+* the `==` operator is actually a method. Most built-in Ruby class, like `Array`, `String`, `Fixnum`, etc override the `==` method to specify how to compare objects of those class.
+* if you need to compare custom objects, you should override the `==` method.
+
+`equal?`
+* the `equal?` method goes one level deeper than `==` and determines whether two variables not only have the same value, but also whether they point to the same object.
+* do not override `equal?`.
+* the `equal?` method is not used very often.
+* calling `object_id` on an object will return the object's unique numerical value. Comparing two objects' `object_id` has the same effect as comparing them with `equal?`.
+
+`===`
+* used implicitly in `case` statements.
+* like `==`, the `===` operator is actually a method.
+* you rarely need to call this method explicitly, and only need to implement it in your custom classes if you anticipate your objects will be used in `case` statements, which is probably pretty rare.
+
+`eql?`
+* use implicitly by `Hash`.
+* very rarely used explicitly.
+### Fake Operators
+| Method | Operator | Description |
+| ------ | -------- | ----------- |
+| yes | `[]`, `[]=` | Collection element getter and setter |
+| yes | `**` | Exponential Operator |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+| yes | `` |  |
+
 ## Truthiness
 ## Working with collaborator objects
