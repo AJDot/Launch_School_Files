@@ -73,7 +73,7 @@ module WeightedChoiceConstructor
   end
 
   def shift(percent = 0)
-    @shift = @choice_weights[@move_focus] * percent
+    @choice_weights[@move_focus] * percent
   end
 
   def calc_weights?
@@ -95,16 +95,6 @@ module WeightedChoiceConstructor
     @choice_weights.each_key do |move|
       @choice_weights[move] += weight_shifts[move]
     end
-  end
-
-  # adjust the weight of each move being chosen depending on loss percent
-  def update_choice_weights(move_list, percent_hash,
-                            threshold = 0, name_false_cond = nil)
-    desired_move = move_list.last
-    percent = percent_hash[desired_move]
-    return unless percent > threshold &&
-                  @history.winners.last != name_false_cond
-    calc_weights(move_list)
   end
 
   def choice_ranges
@@ -346,7 +336,7 @@ class Chappie < Computer
     return super if history.games.empty?
     update_wins_losses(history.human_moves, @human_wins)
     update_wins_losses_percent(@human_wins, @human_wins_percent)
-    update_choice_weights(history.human_moves, @human_wins_percent)
+    calc_weights(history.human_moves)
     make_choice(choice)
   end
 end
@@ -394,8 +384,8 @@ class EVE < Computer
   def initialize(history)
     super
     @choice_weights = moves_hash(20.0, 20.0, 20.0, 20.0, 20.0)
-    @computer_losses = moves_hash(0, 0, 0, 0, 0)
-    @computer_losses_percent = moves_hash(0.0, 0.0, 0.0, 0.0, 0.0)
+    @losses = moves_hash(0, 0, 0, 0, 0)
+    @loss_percentages = moves_hash(0.0, 0.0, 0.0, 0.0, 0.0)
   end
 
   def set_name
@@ -409,11 +399,20 @@ class EVE < Computer
 
   def choose
     return super if history.games.empty?
-    update_wins_losses(history.computer_moves, @computer_losses, name)
-    update_wins_losses_percent(@computer_losses, @computer_losses_percent)
-    update_choice_weights(history.computer_moves,
-                          @computer_losses_percent, 20, name)
+    update_wins_losses(history.computer_moves, @losses, name)
+    update_wins_losses_percent(@losses, @loss_percentages)
+    if last_loss_percent > 20 && last_winner != name
+      calc_weights(history.computer_moves)
+    end
     make_choice(choice)
+  end
+
+  def last_loss_percent
+    @loss_percentages[history.computer_moves.last]
+  end
+
+  def last_winner
+    @history.winners.last
   end
 end
 
@@ -478,7 +477,7 @@ class History
     rounds.push(num.to_s)
   end
 
-  def append(human_move, computer_move, winner, game, round)
+  def update(human_move, computer_move, winner, game, round)
     add_human_move(human_move)
     add_computer_move(computer_move)
     add_winner(winner)
@@ -570,7 +569,7 @@ class RPSGame
   end
 
   def log_history
-    history.append(human.move, computer.move, winner, @game, @round)
+    history.update(human.move, computer.move, winner, @game, @round)
   end
 
   def display_winner
