@@ -1,7 +1,7 @@
 # If you have the rainbow gem then uncomment the following line and the
 # code in the #suit_and_face_icons method
 # require 'rainbow/ext/string'
-
+require 'pry'
 class Card
   SUITS = %w(C H S D).freeze
   FACES = %w(2 3 4 5 6 7 8 9 10 J Q K A).freeze
@@ -108,7 +108,7 @@ module Hand
     cards << new_card
   end
 
-  def show_hand
+  def display_hand
     puts "----- #{name}'s Hand -----"
     display_cards
     puts ''
@@ -192,8 +192,8 @@ class Player < Participant
     self.name = name
   end
 
-  def show_flop
-    show_hand
+  def display_flop
+    display_hand
   end
 end
 
@@ -202,7 +202,7 @@ class Dealer < Participant
     self.name = %w(EVE Number\ 5 Hal R2D2 Chappie).sample
   end
 
-  def show_flop
+  def display_flop
     puts "----- #{name}'s Hand -----"
     puts display_cards(hide: true)
     puts ''
@@ -210,7 +210,7 @@ class Dealer < Participant
 end
 
 module Helpers
-  def clear
+  def clear_screen
     system('clear') || system('cls')
   end
 
@@ -220,45 +220,8 @@ module Helpers
   end
 end
 
-module Displayable
-  def display_welcome_message
-    clear
-    puts 'Welcome to Twenty-One!'
-  end
-
-  def display_goodbye_message
-    puts 'Thanks for playing Twenty-One! Goodbye!'
-  end
-
-  def show_player_turn_cards
-    player.show_flop
-    dealer.show_flop
-  end
-
-  def show_dealer_turn_cards
-    player.show_hand
-    dealer.show_hand
-  end
-
-  def clear_and_show_player_turn_cards
-    clear
-    show_player_turn_cards
-  end
-
-  def clear_and_show_dealer_turn_cards
-    clear
-    show_dealer_turn_cards
-  end
-
-  def show_result
-    clear
-    show_dealer_turn_cards
-    puts result_output
-  end
-end
-
 class TwentyOne
-  include Helpers, Displayable
+  include Helpers
 
   attr_accessor :deck, :player, :dealer
 
@@ -278,10 +241,10 @@ class TwentyOne
   def play_round
     loop do
       clear_and_deal_cards
-      show_player_turn_cards
+      display_cards({turn: 'player', clear: true})
       player_turn
       dealer_turn unless player.busted?
-      show_result
+      display_result
       play_again? ? reset : break
     end
   end
@@ -294,7 +257,7 @@ class TwentyOne
   end
 
   def clear_and_deal_cards
-    clear
+    clear_screen
     deal_cards
   end
 
@@ -314,11 +277,11 @@ class TwentyOne
       player.stay
       puts "#{name} stays!"
     end
-    clear_and_show_player_turn_cards
+    display_cards({turn: 'player', clear: true})
   end
 
   def dealer_turn
-    clear_and_show_dealer_turn_cards
+    display_cards({turn: 'dealer', clear: true})
     press_enter_to_continue
     loop do
       make_dealer_decision
@@ -341,7 +304,7 @@ class TwentyOne
     name = dealer.name
     if dealer.total < 17
       dealer.hit(deck.deal_card)
-      clear_and_show_dealer_turn_cards
+      display_cards({turn: 'dealer', clear: true})
       puts "#{name} hits!"
       press_enter_to_continue
     else
@@ -350,9 +313,35 @@ class TwentyOne
     end
   end
 
+  def display_cards(options = {})
+    clear_screen if options[:clear]
+    if options[:turn] == 'player'
+      player.display_flop
+      dealer.display_flop
+    else
+      player.display_hand
+      dealer.display_hand
+    end
+  end
+
+  def display_result
+    display_cards({turn: 'dealer', clear: true})
+    puts result_output
+  end
+
+  def display_welcome_message
+    clear_screen
+    puts 'Welcome to Twenty-One!'
+  end
+
+  def display_goodbye_message
+    puts 'Thanks for playing Twenty-One! Goodbye!'
+  end
+
   def result_output
-    if player.busted? then "#{player.name} busted! #{dealer.name} won!"
-    elsif dealer.busted? then "#{dealer.name} busted! #{player.name} won!"
+    case
+    when player.busted? then "#{player.name} busted! #{dealer.name} won!"
+    when dealer.busted? then "#{dealer.name} busted! #{player.name} won!"
     else winner ? "#{winner} won!" : "It's a tie!"
     end
   end
