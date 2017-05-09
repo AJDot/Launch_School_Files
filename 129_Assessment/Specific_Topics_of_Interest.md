@@ -150,13 +150,34 @@ to set an instance variable using a setter method inside a class, define the set
 
 ## Class inheritance, encapsulation, and polymorphism
 #### Class inheritance
+This is where a `subclass` inherits methods/classes from a `superclass`. Ex: `class Cat < Animal` shows that `Cat` inherits the behaviors from its superclass `Animal`. __A class may only sub-class from one super class__.
 
 #### Encapsulation
+This is the concept of hiding data so it is only accessed or manipulated with intent. It is what defines the boundaries of an application - it is the interface in which users interact. On one side of the interface, users have a set of tools/functions/methods they can use/invoke while the other side of the interface contains all the private and protected methods and variables the user should never (or does not need to) see.
+
+By grouping data in this manner, code can be abstracted to a higher level. When you use a method called `display_total` you do not have to guess what it will do. This means the logic inside `display_total` doesn't even need to be understood, only how to call it is important.
 
 #### Polymorphism
+This is the concept of being able to reuse code for different purposes.
+
+__Inheritance__ is one way to exercise the polymorphic nature of classes. Code from a `superclass` is given to its `subclass` to use as its own.
+
+__Modules__ are another way to apply polymorphism. To do this, connect methods/variable are grouped into a module. This module is then included in one or more classes to use as their own. This is called a __mixin__.
+
 
 ## Modules
+As described above, modules are used to mixin a group of methods into a class for it use.
 ## Method lookup path
+Here is the general lookup path for a method:
+1. The class itself
+2. The modules mixed in (in reverse order listed)
+3. The super class
+4. The super class's modules mixed in
+5. (repeat steps 3 & 4 if super class has a super class)
+5. Object
+6. Kernel
+7. BasicObject
+
 ## self
 ### Calling methods with self
 ### More about self

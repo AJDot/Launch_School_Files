@@ -91,6 +91,7 @@ class Grid
     (1..7).each do |row|
       return row if squares[[row, col]].marker == Square::INITIAL_MARKER
     end
+    nil
   end
 
   def available_cols
@@ -99,6 +100,12 @@ class Grid
       result << col if squares[[6, col]].marker == Square::INITIAL_MARKER
     end
     result
+  end
+
+  def next_row(col)
+    (1..7).each do |row|
+      return row if squares[[row, col]].marker == Square::INITIAL_MARKER
+    end
   end
 
   def full?
@@ -140,8 +147,8 @@ class Grid
       end
     end
     # Get all winning lines vertical
-    (1..7).each do |col|
-      (1..3).each do |row|
+    (1..3).each do |row|
+      (1..7).each do |col|
         line = []
         line << [row, col]
         line << [row + 1, col]
@@ -200,22 +207,37 @@ class Square
 end
 
 class Player
-  attr_reader :name
+  attr_reader :name, :marker
 
-  def initialize
+  @@player_count = 0
+
+  def initialize(marker)
     # set player's name, marker
+    @marker = marker
+    @@player_count += 1
+    @player_num = @@player_count
     set_name
   end
 
   def set_name
     name = nil
     loop do
+      # binding.pry
+      puts "What is the name of Player #{@player_num}?"
       name = gets.chomp.strip
       break unless name.empty?
       puts "Sorry, you must enter a value."
     end
     @name = name
   end
+end
+
+class Human < Player
+
+end
+
+class Computer < Player
+
 end
 
 class Connect4
@@ -229,10 +251,9 @@ class Connect4
   def initialize
     # start the grid and each player
     @grid = Grid.new
-    puts "Player 1, what is your name?"
-    @player1 = Player.new
-    puts "Player 2, what is your name?"
-    @player2 = Player.new
+    @player1 = Human.new(PLAYER1_MARKER)
+    choose_player2
+    @current_player = @player1
   end
 
   def play
@@ -254,9 +275,7 @@ class Connect4
     loop do
       clear_screen
       display_grid
-      first_player_moves
-      break if grid.someone_won? || grid.full?
-      second_player_moves
+      player_moves
       break if grid.someone_won? || grid.full?
     end
   end
@@ -273,6 +292,7 @@ class Connect4
 
   def reset
     grid.reset
+    @current_player = @player1
   end
 
   def display_welcome_message
@@ -284,48 +304,72 @@ class Connect4
     HEREDOC
   end
 
+  def choose_player2
+    choice = nil
+    loop do
+      puts "Play against another (h)uman or a (c)omputer?"
+      choice = gets.chomp.downcase
+      break if %w(h c).include? choice
+    end
+    @player2 = (choice == 'h' ? Human : Computer).new(PLAYER2_MARKER)
+  end
+
   def display_grid
     grid.display
   end
 
-  def first_player_moves
-    available_cols = grid.available_cols
-    choice = nil
-    loop do
-      puts "Choose a column (#{join_or(available_cols)}):"
-      choice = gets.chomp.to_i
-      break if available_cols.include? choice
-      puts "Sorry, must choose from available columns."
+  def player_moves
+    case @current_player
+    when Human then human_player_moves(@current_player)
+    when Computer then computer_player_moves(@current_player)
     end
-
-    grid[next_row_in_col(choice), choice].marker = PLAYER1_MARKER
   end
 
-  def second_player_moves
-    choice = grid.available_cols.sample
+  def human_player_moves(player)
+    available_cols = grid.available_cols
+    col = nil
+    row = nil
+    loop do
+      puts "Choose a column (#{join_or(available_cols)}):"
+      col = gets.chomp.to_i
+      break if available_cols.include? col
+      puts "Sorry, must choose from available columns."
+    end
+    row = grid.next_row(col)
+    grid[row, col].marker = player.marker
+    change_player
+  end
 
-    grid[next_row_in_col(choice), choice].marker = PLAYER2_MARKER
+  def computer_player_moves(player)
+    col = grid.available_cols.sample
+    row = grid.next_row(col)
+    grid[row, col].marker = player.marker
+    change_player
+  end
+
+  def change_player
+    @current_player = @current_player == @player1 ? @player2 : @player1
   end
 
   def display_result
     return puts "It's a draw" if grid.full?
     case grid.winning_marker
-    when PLAYER1_MARKER
+    when player1.marker
       puts "#{player1.name} won!"
-    when PLAYER2_MARKER
+    when player2.marker
       puts "#{player2.name} won!"
     end
+  end
+
+  def winner
+
   end
 
   def display_goodbye_message
     puts "Thank you for playing Connect 4! Goodbye!"
   end
 
-  def next_row_in_col(col)
-    (1..7).each do |row|
-      return row if grid[row, col].marker == Square::INITIAL_MARKER
-    end
-  end
+
 end
 
 game = Connect4.new
