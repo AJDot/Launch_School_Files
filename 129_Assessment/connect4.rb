@@ -230,15 +230,15 @@ class Player
     end
     @name = name
   end
+
+  def to_s
+    name
+  end
 end
 
-class Human < Player
+class Human < Player; end
 
-end
-
-class Computer < Player
-
-end
+class Computer < Player; end
 
 class Connect4
   include Formatting
@@ -249,7 +249,7 @@ class Connect4
   PLAYER2_MARKER = 'O'
 
   def initialize
-    # start the grid and each player
+    clear_screen
     @grid = Grid.new
     @player1 = Human.new(PLAYER1_MARKER)
     choose_player2
@@ -270,6 +270,8 @@ class Connect4
     end
       display_goodbye_message
   end
+
+  private
 
   def play_round
     loop do
@@ -292,7 +294,7 @@ class Connect4
 
   def reset
     grid.reset
-    @current_player = @player1
+    @current_player = player1
   end
 
   def display_welcome_message
@@ -316,6 +318,7 @@ class Connect4
 
   def display_grid
     grid.display
+    puts "#{@current_player}'s Turn"
   end
 
   def player_moves
@@ -328,7 +331,6 @@ class Connect4
   def human_player_moves(player)
     available_cols = grid.available_cols
     col = nil
-    row = nil
     loop do
       puts "Choose a column (#{join_or(available_cols)}):"
       col = gets.chomp.to_i
@@ -348,7 +350,11 @@ class Connect4
   end
 
   def change_player
-    @current_player = @current_player == @player1 ? @player2 : @player1
+    @current_player = player1_turn? ? player2 : player1
+  end
+
+  def player1_turn?
+    @current_player == player1
   end
 
   def display_result
@@ -361,15 +367,9 @@ class Connect4
     end
   end
 
-  def winner
-
-  end
-
   def display_goodbye_message
     puts "Thank you for playing Connect 4! Goodbye!"
   end
-
-
 end
 
 game = Connect4.new
