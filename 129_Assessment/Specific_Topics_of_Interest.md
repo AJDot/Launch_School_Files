@@ -281,21 +281,156 @@ Determines if two objects contain the same value and if they're of the same clas
 * very rarely used explicitly.
 ### Fake Operators
 | Method | Operator | Description |
-| ------ | -------- | ----------- |
+| --- | --- | --- |
 | yes | `[]`, `[]=` | Collection element getter and setter |
 | yes | `**` | Exponential Operator |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
-| yes | `` |  |
+| yes | `!`, `~`, `+`, `-` | Not, complement, unary plus and minus (method names for the last two are +@ and -@ |
+| yes |	`*`, `/`, `%`	| Multiply, divide, and modulo |
+| yes |	`+`, `-` | Plus, minus |
+| yes |	`>>`, `<<` | Right and left shift |
+| yes |	`&`	| Bitwise "and" |
+| yes |	`^`, <code>&#124;</code> | Bitwise inclusive "or" and regular "or"
+| yes |	`<=`, `<`, `>`, `>=` | Less than/equal to, less than, greater than, greater than/equal to |
+| yes |	`<=>`, `==`, `===`, `!=`, `=~`, `!~` | Equality and pattern matching (`!=` and `!~` cannot be directly defined)
+| no | `&&` | Logical "and"
+| no | <code>&#124;&#124;</code> | Logical "or"
+| no | `..`, `...` |	Inclusive range, exclusive range |
+| no | `?` `:`	| Ternary if-then-else |
+| no | `=`, `%=`, `/=`, `-=`, `+=`, <code>&#124;=</code>, `&=`, `>>=`, `<<=`, `*=`, `&&=`, <code>&#124;&#124;=</code>, `**=`, `{` | Assignment (and shortcuts) and block delimiter |
 
+#### Comparison methods
+Overriding these makes the syntax nice for comparing objects.
+The code below will compare `Cat` objects based on their age
+```ruby
+class Cat
+  attr_accessor :name, :age
+
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+
+  def >(other)
+    age > other.age
+  end
+end
+
+chester = Cat.new('Chester', 15)
+bill = Cat.new('Bill', 13)
+
+chester > bill # => true
+```
+
+#### The `>>` and `<<` shift methods
+Override these to again make the syntax nice for adding objects to a class.
+```ruby
+class Team
+  attr_accessor :name, :members
+
+  def initialize(name)
+    @name = name
+    @members = []
+  end
+
+  def <<(cat)
+    @members.push cat
+  end
+
+  def to_s
+    members.collect(&:to_s).to_s
+  end
+end
+
+class Cat
+  attr_accessor :name, :age
+
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+
+  def >(other)
+    age > other.age
+  end
+
+  def to_s
+    @name.to_s
+  end
+end
+
+furballs = Team.new('Furballs')
+chester = Cat.new('Chester', 15)
+bill = Cat.new('Bill', 13)
+furballs << chester
+furballs << bill
+puts furballs # => ["Chester", "Bill"]
+```
+
+#### Element setter and getter methods
+The following code will give the `Team` class functionality to easily set and get its members.
+```ruby
+class Team
+  # ... rest of code omitted for brevity
+
+  def [](idx)
+    members[idx]
+  end
+
+  def []=(idx, obj)
+    members[idx] = obj
+  end
+end
+```
 ## Truthiness
+A boolean is an object whose only purpose is to convey whether it is "true" or "false".
+In Ruby, booleans are represented by `true` and `false` objects. Since they are objects, they have a class behind them - the `TrueClass` and `FalseClass`.
+```ruby
+true.class # => TrueClass
+true.nil? # => false
+true.to_s # => "true"
+true.methods # => list of methods you can call on the true object
+
+false.class # => FalseClass
+false.nil? # => false
+false.to_s # => "false"
+false.methods # => list of methods you can call on the false object
+```
+Truthiness is the concept that objects that are not `true` or `false` may be used in conditionals, etc as if they were a true or false. The question is, what should evaluate as if it was `true` and what should evaluate as if it was `false`? Ruby _considers everything to be truthy other than `false` and `nil`_.
+
+This means that any expression can be used in a conditional.
+```ruby
+num = 5
+
+if num
+  puts "valid number"
+else
+  puts "error!"
+end
+```
+This will print "valid number" as long as `num` is anything but `false` or `nil`.
 ## Working with collaborator objects
+Class group common behaviors and objects encapsulate state. the object's state is saved in an object's instance variables. Instance methods can operate on the instance variables. Usually, the state is a string or number. Usually the state is a string or number.
+
+A collaborator object is an objects assigned to an instance (or class) variable. Essentially all instance variables are assigned to collaborator objects since everything in Ruby is an object. What this reveals is that custom objects may also be used as the collaborator object to a class.
+```ruby
+class Person
+  def initialize(name)
+    @name = name
+  end
+end
+
+class Cat
+  attr_reader :name, :owner
+
+  def initialize(name, owner)
+    @name = name
+    @owner = owner
+  end
+end
+
+bill = Person.new("Bill")
+chester = Cat.new("Chester", bill)
+
+chester.owner # => #<Person:0x32eb750 @name="Bill">
+```
+Now we can see that the owner of Chester the `Cat` is a `Person` object with the name of "Bill".
