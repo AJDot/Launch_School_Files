@@ -10,6 +10,31 @@
 # 4. A player will have a secret_person. A List can be used as a collaborator object for each person.
 
 require 'pry'
+require 'yaml'
+
+module Formattable
+  def title_case(string)
+    string.split.map(&:capitalize).join(' ')
+  end
+
+  def to_trait_sym(string)
+    string.to_s.gsub(/\s+/, '_').to_sym
+  end
+
+  def to_trait_string(string)
+    string.to_s.gsub(/_/, ' ')
+  end
+
+  def clear_screen
+    system('clear') || system('cls')
+  end
+
+  def press_enter_to_continue
+    puts "Press ENTER to continue..."
+    gets
+  end
+end
+
 class Person
   attr_reader :traits, :name
 
@@ -25,68 +50,69 @@ class Person
   def display_traits
     traits.values.each { |value| print value.center(10) }
     puts
+  end
 
+  def [](trait)
+    traits[trait]
+  end
+
+  def size
+    traits.keys.size
+  end
+
+  def has_trait?(trait, desc)
+    traits[trait] == desc
+  end
+
+  def ==(other)
+    name == other.name
   end
 end
 
 class List
-  attr_accessor :dosier
+  include Formattable
+
+  attr_accessor :dosiers
 
   def initialize
-    @dosier = [
-      Person.new({name: 'Alex', bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Black', hat: 'No', moustache: 'Yes', nose: "Small"}),
-      Person.new({name: "Alfred", bald: 'No', beard: 'No', eye_color: 'Blue', gender: 'Male', glasses: 'No', hair_color: 'Red', hat: 'No', moustache: 'Yes', nose: "Small"}),
-      Person.new({name: "Anita", bald: 'No', beard: 'No', eye_color: 'Blue', gender: 'Female', glasses: 'No', hair_color: 'Blonde', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Anne", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Female', glasses: 'No', hair_color: 'Black', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Bernard", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Brown', hat: 'Yes', moustache: 'No', nose: "Large"}),
-      Person.new({name: "Bill", bald: 'Yes', beard: 'Yes', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Red', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Charles", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Blonde', hat: 'No', moustache: 'Yes', nose: "Small"}),
-      Person.new({name: "Claire", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Female', glasses: 'Yes', hair_color: 'Red', hat: 'Yes', moustache: 'No', nose: "Small"}),
-      Person.new({name: "David", bald: 'No', beard: 'Yes', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Blonde', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Eric", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Blonde', hat: 'Yes', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Frans", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Red', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "George", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'White', hat: 'Yes', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Herman", bald: 'Yes', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Red', hat: 'No', moustache: 'No', nose: "Large"}),
-      Person.new({name: "Joe", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'Yes', hair_color: 'Blonde', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Maria", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Female', glasses: 'No', hair_color: 'Brown', hat: 'Yes', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Max", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Black', hat: 'No', moustache: 'Yes', nose: "Large"}),
-      Person.new({name: "Paul", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'Yes', hair_color: 'White', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Peter", bald: 'No', beard: 'No', eye_color: 'Blue', gender: 'Male', glasses: 'No', hair_color: 'White', hat: 'No', moustache: 'No', nose: "Large"}),
-      Person.new({name: "Philip", bald: 'No', beard: 'Yes', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Black', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Richard", bald: 'Yes', beard: 'Yes', eye_color: 'Brown', gender: 'Male', glasses: 'No', hair_color: 'Brown', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Robert", bald: 'No', beard: 'No', eye_color: 'Blue', gender: 'Male', glasses: 'No', hair_color: 'Brown', hat: 'No', moustache: 'No', nose: "Large"}),
-      Person.new({name: "Sam", bald: 'Yes', beard: 'No', eye_color: 'Brown', gender: 'Male', glasses: 'Yes', hair_color: 'White', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Susan", bald: 'No', beard: 'No', eye_color: 'Brown', gender: 'Female', glasses: 'No', hair_color: 'White', hat: 'No', moustache: 'No', nose: "Small"}),
-      Person.new({name: "Tom", bald: 'Yes', beard: 'No', eye_color: 'Blue', gender: 'Male', glasses: 'Yes', hair_color: 'Black', hat: 'No', moustache: 'No', nose: "Small"})
-      ]
+    make_dosiers
+  end
+
+  def make_dosiers
+    dosier_data = File.read "./guess_who_person_traits.yml"
+    @dosiers = YAML::load dosier_data
+    @dosiers.map! { |dosier| Person.new(dosier)}
   end
 
   def display
-    # display all people left and their traits
-    # binding.pry
-    @dosier.first.traits.keys.each do |key|
-      value = key.to_s.gsub(/_/, ' ').split.map(&:capitalize).join(' ')
-      print value.to_s.center(10)
+    dosiers.first.traits.keys.each do |key|
+      value = to_trait_string(key)
+      value = title_case(value)
+      print value.center(10)
     end
     puts
-    puts '-' * 10 * @dosier.first.traits.keys.size
-    @dosier.each { |person| person.display_traits }
+    puts '-' * 10 * self[0].traits.size
+    dosiers.each { |person| person.display_traits }
   end
 
   def size
-    @dosier.size
+    dosiers.size
   end
 
   def [](idx)
-    @dosier[idx]
+    dosiers[idx]
   end
 
   def []=(idx, value)
-    @dosier[idx] = value
+    dosiers[idx] = value
   end
 
   def first
     self[0]
+  end
+
+  def delete(person)
+    dosiers.delete(person)
   end
 end
 
@@ -94,44 +120,33 @@ class Player
   attr_reader :list, :secret_person
 
   def initialize(name)
-
     @list = List.new
     @name = name
-    @secret_person = @list.dosier.sample
-
+    @secret_person = @list.dosiers.sample
   end
 
-  def get_people_with_trait(trait, desc)
-    @list.dosier.select do |person|
-      person.traits[trait] == desc
+  def get_people(trait, desc, options)
+    if options[:with] == true
+      list.dosiers.select { |person| person[trait] == desc }
+    else
+      list.dosiers.select { |person| person[trait] != desc }
     end
   end
 
-  def get_people_without_trait(trait, desc)
-    @list.dosier.select do |person|
-      person.traits[trait] != desc
-    end
-  end
-
-  def remove_people_with_trait(trait, desc)
-    get_people_with_trait(trait, desc).each do |person|
-      list.dosier.delete(person)
-    end
-  end
-
-  def remove_people_without_trait(trait, desc)
-    get_people_without_trait(trait, desc).each do |person|
-      list.dosier.delete(person)
+  def remove_people(trait, desc, options)
+    get_people(trait, desc, options).each do |person|
+      list.delete(person)
     end
   end
 
   def to_s
     @name.to_s
   end
-
 end
 
 class GuessWho
+  include Formattable
+
   attr_reader :player1, :player2
 
   def initialize
@@ -144,7 +159,7 @@ class GuessWho
     display_welcome_message
     press_enter_to_continue
     loop do
-      system('clear')
+      clear_screen
       player1.list.display
       puts
       player1_ask
@@ -165,27 +180,32 @@ class GuessWho
       puts "Guess a trait of player 2's secret person:"
       print "Trait: "
       trait = gets.chomp.strip
-      trait.gsub!(/\s+/, '_')
-      trait = trait.to_sym
+      trait = to_trait_sym(trait)
       print "Description: "
       desc = gets.chomp.capitalize.strip
-      break unless player1.get_people_with_trait(trait, desc).empty?
+      break unless player1.get_people(trait, desc, with: true).empty?
     end
 
     puts "You chose to check for #{trait}: #{desc}."
-    if player2.get_people_with_trait(trait, desc).include? player2.secret_person
-      player1.remove_people_without_trait(trait, desc)
+    if player2.get_people(trait, desc, with: true).include? player2.secret_person
+      player1.remove_people(trait, desc, with: false)
     else
-      player1.remove_people_with_trait(trait, desc)
+      player1.remove_people(trait, desc, with: true)
     end
   end
 
+  def player2_ask
+
+  end
+
   def player1_won?
-    player1.list.size == 1
+    return unless player1.list.size == 1
+    player1.list.first == player2.secret_person
   end
 
   def player2_won?
-    player2.list.size == 1
+    return unless player2.list.size == 1
+    player2.list.first == player1.secret_person
   end
 
   def display_welcome_message
@@ -196,20 +216,14 @@ class GuessWho
     if player1_won?
       puts "You won!"
       puts "#{player2}'s secret person was #{player1.list.first}."
+    else
+      puts "#{player2} won!"
+      puts "#{player1}'s secret person was #{player2.list.first}."
     end
   end
 
   def display_goodbye_message
     "Thank you for playing Guess Who! Goodbye!"
-  end
-
-  def clear_screen
-    system('clear') || system('cls')
-  end
-
-  def press_enter_to_continue
-    puts "Press ENTER to continue..."
-    gets
   end
 end
 
