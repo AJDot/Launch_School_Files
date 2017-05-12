@@ -60,10 +60,6 @@ class Person
     traits.keys.size
   end
 
-  def has_trait?(trait, desc)
-    traits[trait] == desc
-  end
-
   def ==(other)
     name == other.name
   end
@@ -163,8 +159,20 @@ class GuessWho
       player1.list.display
       puts
       player1_ask
+      clear_screen
+      player1.list.display
+      puts "player 1"
+      press_enter_to_continue
       break if player1_won?
+
+      clear_screen
+      player2.list.display
+      puts
       player2_ask
+      clear_screen
+      player2.list.display
+      puts "player 2"
+      press_enter_to_continue
       break if player2_won?
     end
     display_result
@@ -187,7 +195,7 @@ class GuessWho
     end
 
     puts "You chose to check for #{trait}: #{desc}."
-    if player2.get_people(trait, desc, with: true).include? player2.secret_person
+    if player2.secret_person[trait] == desc
       player1.remove_people(trait, desc, with: false)
     else
       player1.remove_people(trait, desc, with: true)
@@ -195,7 +203,21 @@ class GuessWho
   end
 
   def player2_ask
+    all_options = Hash.new([])
+    player2.list.dosiers.each do |dosier|
+      dosier.traits.each do |trait, desc|
+        # binding.pry
+        all_options[trait] += [desc]
+      end
+    end
+    trait = all_options.select { |k, v| v.uniq.size > 1 && k != :name }.keys.sample
+    desc = all_options[trait].sample
 
+    if player1.secret_person[trait] == desc
+      player2.remove_people(trait, desc, with: false)
+    else
+      player2.remove_people(trait, desc, with: true)
+    end
   end
 
   def player1_won?
