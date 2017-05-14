@@ -18,11 +18,11 @@ module Formattable
   end
 
   def to_trait_sym(string)
-    string.to_s.gsub(/\s+/, '_').to_sym
+    string.to_s.gsub(/\s+/, '_').downcase.to_sym
   end
 
   def to_trait_string(string)
-    string.to_s.gsub(/_/, ' ')
+    title_case(string.to_s.gsub(/_/, ' '))
   end
 
   def clear_screen
@@ -144,7 +144,7 @@ class Player
   end
 
   def flip_down(trait, desc, other)
-    puts "#{self} chose to check for #{trait}: #{desc}."
+    puts "#{self} chose to check for #{to_trait_string(trait)}: #{desc}."
     if other.secret_person[trait] == desc
       puts "#{other}'s secret person matches that description!"
       self.remove_people(trait, desc, with: false)
@@ -169,6 +169,16 @@ class Player
       puts "Sorry, that person is not on the list."
     end
     @secret_person = list.dosiers.select { |person| person[:name] == choice }.first
+  end
+
+  def all_options
+    result = Hash.new([])
+    list.dosiers.each do |dosier|
+      dosier.traits.each do |trait, desc|
+        result[trait] += [desc]
+      end
+    end
+    result
   end
 
   def to_s
@@ -230,15 +240,8 @@ class GuessWho
   end
 
   def player2_ask
-    all_options = Hash.new([])
-    player2.list.dosiers.each do |dosier|
-      dosier.traits.each do |trait, desc|
-        # binding.pry
-        all_options[trait] += [desc]
-      end
-    end
-    trait = all_options.select { |k, v| v.uniq.size > 1 && k != :name }.keys.sample
-    desc = all_options[trait].sample
+    trait = player2.all_options.select { |k, v| v.uniq.size > 1 && k != :name }.keys.sample
+    desc = player2.all_options[trait].sample
 
     player2.flip_down(trait, desc, player1)
   end

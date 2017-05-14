@@ -2,10 +2,10 @@
   :name: 'Alex'
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Black'
+  :hair: 'Black'
   :hat: 'No'
   :moustache: 'Yes'
   :nose: "Small"
@@ -13,10 +13,10 @@
   :name: "Alfred"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Blue'
+  :eyes: 'Blue'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Red'
+  :hair: 'Red'
   :hat: 'No'
   :moustache: 'Yes'
   :nose: "Small"
@@ -24,10 +24,10 @@
   :name: "Anita"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Blue'
+  :eyes: 'Blue'
   :gender: 'Female'
   :glasses: 'No'
-  :hair_color: 'Blonde'
+  :hair: 'Blonde'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -35,10 +35,10 @@
   :name: "Anne"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Female'
   :glasses: 'No'
-  :hair_color: 'Black'
+  :hair: 'Black'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -46,10 +46,10 @@
   :name: "Bernard"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Brown'
+  :hair: 'Brown'
   :hat: 'Yes'
   :moustache: 'No'
   :nose: "Large"
@@ -57,10 +57,10 @@
   :name: "Bill"
   :bald: 'Yes'
   :beard: 'Yes'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Red'
+  :hair: 'Red'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -68,10 +68,10 @@
   :name: "Charles"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Blonde'
+  :hair: 'Blonde'
   :hat: 'No'
   :moustache: 'Yes'
   :nose: "Small"
@@ -79,10 +79,10 @@
   :name: "Claire"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Female'
   :glasses: 'Yes'
-  :hair_color: 'Red'
+  :hair: 'Red'
   :hat: 'Yes'
   :moustache: 'No'
   :nose: "Small"
@@ -90,10 +90,10 @@
   :name: "David"
   :bald: 'No'
   :beard: 'Yes'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Blonde'
+  :hair: 'Blonde'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -101,10 +101,10 @@
   :name: "Eric"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Blonde'
+  :hair: 'Blonde'
   :hat: 'Yes'
   :moustache: 'No'
   :nose: "Small"
@@ -112,10 +112,10 @@
   :name: "Frans"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Red'
+  :hair: 'Red'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -123,10 +123,10 @@
   :name: "George"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'White'
+  :hair: 'White'
   :hat: 'Yes'
   :moustache: 'No'
   :nose: "Small"
@@ -134,10 +134,10 @@
   :name: "Herman"
   :bald: 'Yes'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Red'
+  :hair: 'Red'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Large"
@@ -145,10 +145,10 @@
   :name: "Joe"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'Yes'
-  :hair_color: 'Blonde'
+  :hair: 'Blonde'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -156,10 +156,10 @@
   :name: "Maria"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Female'
   :glasses: 'No'
-  :hair_color: 'Brown'
+  :hair: 'Brown'
   :hat: 'Yes'
   :moustache: 'No'
   :nose: "Small"
@@ -167,10 +167,10 @@
   :name: "Max"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Black'
+  :hair: 'Black'
   :hat: 'No'
   :moustache: 'Yes'
   :nose: "Large"
@@ -178,10 +178,10 @@
   :name: "Paul"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'Yes'
-  :hair_color: 'White'
+  :hair: 'White'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -189,10 +189,10 @@
   :name: "Peter"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Blue'
+  :eyes: 'Blue'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'White'
+  :hair: 'White'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Large"
@@ -200,10 +200,10 @@
   :name: "Philip"
   :bald: 'No'
   :beard: 'Yes'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Black'
+  :hair: 'Black'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -211,10 +211,10 @@
   :name: "Richard"
   :bald: 'Yes'
   :beard: 'Yes'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Brown'
+  :hair: 'Brown'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -222,10 +222,10 @@
   :name: "Robert"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Blue'
+  :eyes: 'Blue'
   :gender: 'Male'
   :glasses: 'No'
-  :hair_color: 'Brown'
+  :hair: 'Brown'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Large"
@@ -233,10 +233,10 @@
   :name: "Sam"
   :bald: 'Yes'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Male'
   :glasses: 'Yes'
-  :hair_color: 'White'
+  :hair: 'White'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -244,10 +244,10 @@
   :name: "Susan"
   :bald: 'No'
   :beard: 'No'
-  :eye_color: 'Brown'
+  :eyes: 'Brown'
   :gender: 'Female'
   :glasses: 'No'
-  :hair_color: 'White'
+  :hair: 'White'
   :hat: 'No'
   :moustache: 'No'
   :nose: "Small"
@@ -255,10 +255,10 @@
   :name: "Tom"
   :bald: 'Yes'
   :beard: 'No'
-  :eye_color: 'Blue'
+  :eyes: 'Blue'
   :gender: 'Male'
   :glasses: 'Yes'
-  :hair_color: 'Black'
+  :hair: 'Black'
   :hat: 'No'
   :moustache: 'No'
   :nose: 'Small'
