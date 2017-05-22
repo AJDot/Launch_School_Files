@@ -46,13 +46,6 @@ class TodoList
   end
 
   # rest of class needs implementation
-  def add(obj)
-    raise TypeError, "Can only add Todo objects" unless obj.instance_of? Todo
-    @todos.push obj
-  end
-
-  alias_method :<<, :add
-
   def size
     @todos.size
   end
@@ -72,6 +65,17 @@ class TodoList
   def pop
     @todos.pop
   end
+
+  def done?
+    @todos.all? { |todo| todo.done? }
+  end
+
+  def add(obj)
+    raise TypeError, "Can only add Todo objects" unless obj.instance_of? Todo
+    @todos.push obj
+  end
+
+  alias_method :<<, :add
 
   def item_at(idx)
     @todos.fetch(idx)
@@ -104,6 +108,42 @@ class TodoList
   def to_a
     @todos
   end
+
+  def each
+    @todos.each { |todo| yield(todo) }
+    self
+  end
+
+  def select
+    # @todos.select { |todo| yield(todo) }
+    list = TodoList.new(title)
+    each { |todo| list.add(todo) if yield(todo) }
+    list
+  end
+
+  def find_by_title(title)
+    select { |todo| todo.title == title }.first
+  end
+
+  def all_done
+    select { |todo| todo.done? }
+  end
+
+  def all_not_done
+    select { |todo| !todo.done? }
+  end
+
+  def mark_done(title)
+    find_by_title(title) && find_by_title(title).done!
+  end
+
+  def mark_all_done
+    each { |todo| todo.done! }
+  end
+
+  def mark_all_undone
+    each { |todo| todo.undone! }
+  end
 end
 
 # given
@@ -114,84 +154,47 @@ todo4 = Todo.new("Vacuum 4")
 todo5 = Todo.new("Wash dishes 5")
 todo6 = Todo.new("Run 6")
 list = TodoList.new("Today's Todos")
-
-# ---- Adding to the list -----
-
-# add
-list.add(todo1)                 # adds todo1 to end of list, returns list
-list.add(todo2)                 # adds todo2 to end of list, returns list
-list.add(todo3)                 # adds todo3 to end of list, returns list
-list.add(todo4)                 # adds todo3 to end of list, returns list
-list.add(todo5)                 # adds todo3 to end of list, returns list
-list.add(todo6)                 # adds todo3 to end of list, returns list
-# list.add(1)                     # raises TypeError with message "Can only add Todo objects"
-
-# <<
-# same behavior as add
-
-# ---- Interrogating the list -----
-
-# size
-list.size                       # returns 3
-
-# first
-list.first                      # returns todo1, which is the first item in the list
-
-# last
-list.last                       # returns todo3, which is the last item in the list
-
-# ---- Retrieving an item in the list ----
-
-# item_at
-# list.item_at                    # raises ArgumentError
-list.item_at(1)                 # returns 2nd item in list (zero based index)
-# list.item_at(100)               # raises IndexError
-
-# ---- Marking items in the list -----
-
-# mark_done_at
-# list.mark_done_at               # raises ArgumentError
-list.mark_done_at(1)            # marks the 2nd item as done
-# list.mark_done_at(100)          # raises IndexError
-
-# mark_undone_at
-# list.mark_undone_at             # raises ArgumentError
-list.mark_undone_at(1)          # marks the 2nd item as not done,
-# list.mark_undone_at(100)        # raises IndexError
-
-# ---- Deleting from the the list -----
-
-# shift
-list.shift                      # removes and returns the first item in list
-
-# pop
-list.pop                        # removes and returns the last item in list
-
-# remove_at
-# list.remove_at                  # raises ArgumentError
-list.remove_at(1)               # removes and returns the 2nd item
-# list.remove_at(100)             # raises IndexError
-
-# ---- Outputting the list -----
-
-# to_s
-list.to_s                      # returns string representation of the list
-
-todo1 = Todo.new("Buy milk")
-todo2 = Todo.new("Clean room")
-todo3 = Todo.new("Go to gym")
-
-list = TodoList.new("Today's Todos")
 list.add(todo1)
 list.add(todo2)
 list.add(todo3)
+list.add(todo4)
+list.add(todo5)
+list.add(todo6)
 
-puts list
+puts '---#each---'
+list.each { |todo| puts todo }
 
-list.pop
+puts '---#select---'
+list.mark_done_at(0)
+results = list.select { |todo| todo.done? }
 
-puts list
+puts results.inspect
 
+puts '---#find_by_title---'
+puts list.find_by_title 'Buy milk 1'
+puts list.find_by_title 'Eat chicken'
+
+puts '---#all_done---'
+puts list.all_done
+list.mark_done_at(3)
+puts list.all_done
+
+puts '---#all_not_done---'
+puts list.all_not_done
 list.mark_done_at(1)
+puts list.all_not_done
 
+puts '---#mark_done---'
+puts list
+list.mark_done('Go to gym 3')
+puts list
+
+puts '---#mark_all_done---'
+puts list
+list.mark_all_done
+puts list
+
+puts '---#mark_all_undone---'
+puts list
+list.mark_all_undone
 puts list
