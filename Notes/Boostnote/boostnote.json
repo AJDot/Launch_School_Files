@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "key": "6c278bcfe0d2a245919c",
+      "color": "#d0021b",
+      "name": "130 More Topics"
+    },
+    {
+      "key": "9e24b8240be4576e88ba",
+      "color": "#7ed321",
+      "name": "129 Assessment"
+    },
+    {
+      "key": "3ba3bb99555fe4ed6b20",
+      "color": "#FF8E00",
+      "name": "109 Assessment"
+    },
+    {
+      "key": "49ecedbd7edda2358e24",
+      "color": "#E10051",
+      "name": "Book: OOP in Ruby"
+    },
+    {
+      "key": "8765d957a513c326f607",
+      "color": "#E10051",
+      "name": "Feedback"
+    }
+  ],
+  "version": "1.0"
+}

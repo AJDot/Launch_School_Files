@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "9e24b8240be4576e88ba"
+title: "Class vs Module"
+content: '''
+  # Class vs Module
+  #### What is the difference between a class and a module?
+  
+  Here are a few of differences:
+  1. You can only subclass from one class but you can mix in as many modules are you like.
+  2. You cannot instantiate modules - meaning modules cannot create objects. Modules are used only for namespacing and grouping common method together
+  
+'''
+tags: []
+isStarred: false
+createdAt: "2017-05-22T00:03:34.259Z"
+updatedAt: "2017-05-22T00:39:11.427Z"

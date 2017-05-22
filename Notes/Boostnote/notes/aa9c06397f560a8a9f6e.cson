@@ -1,0 +1,51 @@
+type: "MARKDOWN_NOTE"
+folder: "8765d957a513c326f607"
+title: "120 Object Oriented Programming Feedback"
+content: '''
+  ### 120 Object Oriented Programming Feedback
+  #### What I Found Helpful
+  - I enjoyed reworking problems that we solved earlier using procedural programming. This allowed me to directly compare the two approaches to see for myself the benefits of OOP.
+  - The 120 exercises, in general, were very helpful. I never know if I am catching on to something until I can try it out for myself. To name a few:
+    - I enjoyed the card exercises that ended in checking poker hands. I like these exercises that build on each other. This seems like a good way to gradually teach how to code more complex programs.
+    - Not too sure why, but I liked the shelter exercise a lot.
+  
+  #### What Didn't Work Well For Me
+  - The first task in this course was to read the _Object Oriented Programming with Ruby_ book. I was a little disappointed in the depth of the book. I am writing this as I finished the book so I not experienced the next part of the course which may alleviate my discomfort with this LS book. I feel the book could have gone at least one or two more exercises deeper at the end of every part; just when the exercises were getting good, they ended. Maybe a bit more preparation before the coding walk-throughs would have helped.
+  
+  - And what is with the last page in the book? I deduce that this page is the last page a person may see when running through the free material before they officially join Launch School? As this is likely the case, why am I seeing it? Not a crucial problem by any means, but I was confused while reading it until I realized who it was actually meant for.
+  
+  - I ended up spending an exorbitant amount time working on the bonus features for rock, paper scissors. The program ended up be much longer than I anticipated, particularly because I created of a couple of computer players that determined moves based on the move history. These two players used a generalized set of methods I made into a module called `WeightedChoiceConstructor`. Although the code works and the computers display their personalities well, the code is bulky and a bit disorganized. In hindsight, I was not ready to code this task the right way because I lacked the experience to know how the code should be structured. What I'm trying to say with this rambling is that the initial construction of the game belongs where it is in the LS program but the implementation of some of the bonus features were too much for me at the time.
+  
+  - The first time error handling is truly introduced was in the solution to the  Stack Machine Interpretation exercise. I would have preferred for this to have been introduced earlier in course 120.
+  
+  #### How Well I Retained the Concepts
+  I would like to think that I have retained the concepts fairly well. For the majority of the exercises, I did not have to look back at my notes or previous LS course sections.
+  
+  #### Which Parts Were Difficult
+  - Some of the RPS bonus features - "Adjust computer choice based on history"
+  - Some of the later 120 - Exercises
+  
+  #### Which Parts Were Easy
+  Lesson 4, Easy exercises were very easy.
+  
+  #### How Well Do I Feel that I Know and Understand OOP?
+  Not very. I feel like I have beginner's knowledge of OOP. I am able to write success code with it but I am unable to "flow" with the program. When coding, most OOP-oriented decisions are a bit of a struggle for me to make.
+  
+  #### How comfortable are you with your knowledge and skill level of:
+  ##### OOP syntax?
+  I'm comfortable.
+  ##### the differences between classes and modules?
+  I'm comfortable.
+  ##### when to use instance variables, instance methods, and class methods?
+  I haven't dealt with class methods/variables much but I have certainly comfortable with instances methods/variables. However, the coding I _have_ done with class methods/variables has been successful.
+  ##### when to use inheritance, composition (collaborator objects), and mixins?
+  This is still fuzzy. I am comfortable with how to use each topic but I am not certain on when to use each.
+  ##### Do you think we should expand or reduce coverage of any particular topics? Which topics, if any?
+    - As noted above, I thought error handling could have been mentioned before it was used in an exercise solution.
+    - Maybe there could be more work dealing with class methods and variables. I believe class variable were only utilized a couple to times and it was always in the context of counting objects of a class when they were instantiated.
+  
+'''
+tags: []
+isStarred: false
+createdAt: "2017-05-22T00:43:59.132Z"
+updatedAt: "2017-05-22T00:44:02.946Z"
