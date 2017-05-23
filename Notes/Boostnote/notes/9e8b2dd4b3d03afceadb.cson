@@ -1,0 +1,156 @@
+type: "MARKDOWN_NOTE"
+folder: "6c278bcfe0d2a245919c"
+title: "Lesson 2 - Introduction to Testing"
+content: '''
+  # Lesson 2 - Introduction to Testing
+  ## Introduction
+  This lesson will __NOT__ talk about:
+  * Test Driven Development
+  * Test Driven Design
+  * Behavioral Driven Development
+  * Acceptance Test Driven Development
+  * Rspec
+  * Testing with a web framework, like Rails
+  * Test-first vs test-after
+  * How testing helps influence design choices
+  
+  This lesson will focus on the bare essentials. The Ruby testing library, Minitest, will be used.
+  
+  ### Why Write Tests
+  For beginners, write tests to prevent regression. We want to write tests so that when we make changes in our code, we don't have to manually verify everything still works.
+  
+  ### Testing Jargon
+  * "Did the PR pass continous integration tests?"
+  * "I feel our functional tests are getting redundant given our integration tests."
+  * "What ATDD tool do you like?"
+  * "Does your team practice TDD?"
+  * "What's the new matcher syntax in the latest Rspec?"
+  * "I write unit tests, but not controller tests."
+  
+  Ignore them all for now. This will focus on just testing simple classes. If a name must be given to this, think of is as learning _unit testing_.
+  
+  ## Minitest
+  Many people use RSpec, but Minitest is the default testing library that comes with Ruby. The difference is that RSpec bends over backwards to allow developers to write code that reads like English. RSpec is a __Domain Specific Language__ for writing tests.
+  
+  Minitest reads just like normal Ruby code. No DSL, just Ruby.
+  
+  ### Vocabulary
+  * __Test Suite:__ the entire set of tests that accompanies your program or application. _All the tests_ for a project.
+  * __Test:__ the context in which tests are run. This test is to ensure an error for a wrong password. A test may have many assertions.
+  * __Assertion:__ The actual verification step to confirm the data returned by your program is indeed what is expected.
+  
+  ### Your First Test
+  See (/130_Ruby_Foundations_More_Topics/lesson_2/car.rb) and (/130_Ruby_Foundations_More_Topics/lesson_2/car_test.rb)
+  ```ruby
+  require 'minitest/autorun'
+  
+  require_relative 'car'
+  
+  class CarTest < MiniTest::Test
+    def test_wheels
+      car = Car.new
+      assert_equal(4, car.wheels)
+    end
+    
+    def test_bad_wheels
+      car = Car.new
+      assert_equal(3, car.wheels)
+    end
+  end
+  ```
+  * `require 'minitest/autorun'` loads the minitest gem.
+  * `require_relative 'car'` loads the Car class from that file.
+  * `class CarTest < MiniTest::Test` allows our car tests to use the Minitest
+  * create tests using methods that start with __test\\___.
+  * Make assertions inside each test.
+    * setup the data or objects - the particular situation in which the program is in for the test.
+    * `assert_equal` takes two parameters: the expected value and the test or actual value.
+    * If there is a discrepancy, `assert_equal` will save the error and Minitest will report that error to you at the end of the test run.
+  * Multiple assertions can be in one test.
+  
+  Output from above:
+  ```
+  $ ruby car_test.rb
+  
+  Run options: --seed 8732
+  
+  # Running:
+  
+  CarTest F.
+  
+  Finished in 0.001222s, 1636.7965 runs/s, 1636.7965 assertions/s.
+  
+    1) Failure:
+  CarTest#test_bad_wheels [car_test.rb:13]:
+  Expected: 3
+    Actual: 4
+  
+  2 runs, 2 assertions, 1 failures, 0 errors, 0 skips
+  ```
+  The "F" means one test failed. The "." means one test passed.
+  
+  Include the following to have a formatted output.
+  ```ruby
+  require "minitest/reporters"
+  Minitest::Reporters.use!
+  ```
+  
+  ### Skipping Tests
+  Just include `skip` keyword at start of test.
+  ```ruby
+  # ... rest of code
+  def test_bad_wheels
+      skip
+      car = Car.new
+      assert_equal(3, car.wheels)
+    end
+  ```
+  
+  ### Expectation Syntax
+  So far we have been using _assertion_ or _assert-style_ syntax. The other style of syntax is _expectation_ or _spec-style_ syntax.
+  
+  In this, tests are grouped into `describe` blocks, and individual tests are written with the `it` method. Assertions are no longer use - instead use _expectation matchers_. Example:
+  ```ruby
+  require 'minitest/autorun'
+  
+  require_relative 'car'
+  
+  describe 'Car#wheels' do
+    it 'has 4 wheels' do
+      car = Car.new
+      car.wheels.must_equal 4           # this is the expectation
+    end
+  end
+  ```
+  
+  ### Summary
+  * Minitest is an intuitive test library that comes with Ruby
+  * Create a test file by subclassing `MiniTest::Test`.
+  * Create a test by creating an instance method that starts with `text_`.
+  * Create assertions with `assert_equal`, and pass it the expected value and the actual value.
+  * Clorize Minitest output with `minitest-reporters`
+  * You can skip tests with `skip`.
+  * Minitest comes in two syntax flavors: assertion style and expectation style. the latter is the appease RSpec users, but the former is for more intuitive for beginning Ruby developers.
+  
+  ## Assertions
+  `assert_equal` is impressive and a lot can be accomplished with it alone but there are others. Here is a full list of them and below is a table of a select few. [Full Assertions List](http://docs.seattlerb.org/minitest/Minitest/Assertions.html).
+  
+  | Assertion | Desciption |
+  | --- | --- |
+  | `assert(test)` | Fails unless test is truthy |
+  | `assertequal(exp, act)` | Fails unless `exp == act` |
+  | `assert_nil(obj)` | Fails unless `obj` is `nil`. |
+  | `assert_raises(*exp) { ... }` |	Fails unless block raises one of `*exp`. |
+  | `assert_instance_of(cls, obj)` | Fails unless `obj` is an instance of `cls`. |
+  | `assert_includes(collection, obj)` | Fails unless `collection` includes `obj`. |
+  
+  #### Refutations
+  These are the opposite of assertions. They _refute_ rather than _assert_. There is a `refute_equal`, `refute_includes`, etc. These are rarely used.
+  
+  #### Summary
+  Learn the most popular assertoins and you should be good.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-05-22T14:43:32.386Z"
+updatedAt: "2017-05-23T00:05:27.234Z"

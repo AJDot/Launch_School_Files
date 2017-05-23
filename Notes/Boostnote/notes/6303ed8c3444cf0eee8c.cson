@@ -339,8 +339,138 @@ content: '''
   * blocks return a value, just like normal methods.
   * blocks are a way to defer some implementation decisions to method invocation time. It allows method callers to refine a method at invocation time for a specific use case. It allows method implementors to build generic methods that can be used in a variety of ways.
   * blocks are a good use case for "sandwich code" scenarios, like closing a `File` automatically.
+  
+  ## Blocks and Variable Scope
+  #### Refresher
+  Local variable scope was defined in terms of _inner_ and _outer_ scope, determined by where the local variable was initialized. A block creates a new scope for local variables.
+  ```ruby
+  level_1 = "outer-most variable"
+  
+  [1, 2, 3].each do |n|                     # block creates a new scope
+    level_2 = "inner variable"
+  
+    ['a', 'b', 'c'].each do |n2|            # nested block creates a nested scope
+      level_3 = "inner-most variable"
+  
+      # all three level_X variables are accessible here
+    end
+  
+    # level_1 is accessible here
+    # level_2 is accessible here
+    # level_3 is not accessible here
+  
+  end
+  
+  # level_1 is accessible here
+  # level_2 is not accessible here
+  # level_3 is not accessible here
+  ```
+  This is only for _local variables_.
+  * Always look at where the local variable was initialized to determine its scope.
+  * Verify that is it indeed  local variable and not a method.
+  * If it is a method, it does not follow this rule.
+  
+  #### Closure and binding
+  A block implements the idea of a _closure_. In order for this chunk of code to be executed anywhere else, it must understand the surrounding context from when it was initialized. This is represented as a `Proc` object. Example:
+  ```ruby
+  name = 'Robert'
+  chunk_of_code = Proc.new {puts "hi #{name}"}
+  ```
+  `chunk_of_code` can now be passed around and executed whenever. 
+  ```ruby
+  def call_me(some_code)
+    some_code.call        # => call will execute the "chunk of code" that gets passed in
+  end
+  
+  name = "Robert"
+  chunk_of_code = Proc.new {puts "hi #{name}"}
+  
+  call_me(chunk_of_code)
+  
+  # Output:
+  # hi Robert
+  # => nil
+  ```
+  So the `chunk_of_code` knew how to handle `#{name}`. How? Variables must be passed explicitly into a method for it to be used. Take a look at the following:
+  ```ruby
+  def call_me(some_code)
+    some_code.call        # => call will execute the "chunk of code" that gets passed in
+  end
+  
+  name = "Robert"
+  chunk_of_code = Proc.new {puts "hi #{name}"}
+  name = "Griffin III"
+  call_me(chunk_of_code)
+  
+  # Output:
+  # hi Griffin III
+  # => nil
+  ```
+  Hmm. So even re-assigning the variable after the `Proc` is initialized update the `chunk_of_code`. So the `Proc` keeps track of its surrounding context, and drags it around wherever the chunk of code is passed. This is a __binding__ (surrounding environment/context) in Ruby. This includes local variable _and_ method references, constants and other artifacts. Everything the `Proc` needs gets dragged around. Essentially, this is why "inner scopes can access outer scopes".
+  
+  ## Symbol to proc
+  Sometimes we want to transform all item in a collection. This is so common there is a shortcut for it.
+  Before:
+  ```ruby
+  [1, 2, 3, 4, 5].map do |num|
+    num.to_s
+  end
+  
+  # => ["1", "2", "3", "4", "5"]
+  ```
+  After:
+  ```ruby
+  [1, 2, 3, 4, 5].map(&:to_s)     # => ["1", "2", "3", "4", "5"]
+  ```
+  This shortcut... 
+  * __doesn't__ work for methods that take arguments.
+  * works with any collect method that takes a block
+  
+  #### Symbol#to_proc
+  Essentially this...
+  ```ruby
+  (&:to_s)
+  ```
+  ... gets converted to this...
+  ```ruby
+  { |n| n.to_s }
+  ```
+  * The `&` tells Ruby to try to convert the object into a block, which requires a `Proc` object. If the object passed in is not a `Proc` object, it will call `to_proc` on the object to make it one.
+  * If successful, the `&` will turn the `Proc` object into a block.
+  
+  For the code above, Ruby tries to convert `:to_s` into a block, but it's not a `Proc`, it's a `Symbol`. So Ruby will then call the `Symbol#to_proc` method. This returns a `Proc` object. Then the `Proc` is turned into a block and the code is run.
+  
+  Here is one more example:
+  ```ruby
+  def my_method
+    yield(2)
+  end
+  
+  # turns the symbol into a Proc, then & turns the Proc into a block
+  my_method(&:to_s)       # => "2"
+  ```
+  In two steps, the code is written below:
+  ```ruby
+  def my_method
+    yield(2)
+  end
+  
+  a_proc = :to_s.to_proc          # explicitly call to_proc on the symbol
+  my_method(&a_proc)              # convert Proc into block, then pass block in. Returns "2"
+  ```
+  
+  ## Summary
+  * block, Procs and lambdas are ways to implement closures.
+  * closures drag their surrounding context/environment around. This is how variable scope works.
+  * blocks push some decisions to method invocation time
+  * blocks wrap logic - allows for before/after actions
+  * use `yield` in custom methods to utilize blocks
+  * blocks can take arguments
+  * blocks have a return value
+  * common Ruby methods in the standard library can be reimplemented in our own classes.
+  * `Symbol#to_proc` is a shortcut when working with collections.
 '''
 tags: []
 isStarred: false
 createdAt: "2017-05-20T23:20:46.877Z"
-updatedAt: "2017-05-22T00:48:39.380Z"
+updatedAt: "2017-05-22T14:43:04.347Z"
