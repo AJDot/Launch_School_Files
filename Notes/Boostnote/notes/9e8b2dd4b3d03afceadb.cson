@@ -149,8 +149,124 @@ content: '''
   
   #### Summary
   Learn the most popular assertoins and you should be good.
+  
+  ## SEAT Approach
+  Instead of setting up a procedure for each test, we can setup outside of the tests and then just run the assertions on it. This was a new `Car` object doesn't have to be instantiated multiple times since multiple assertions can be run on just one instance of it.
+  
+  There are usually 4 steps to writing a test:
+  1. Set up the necessary objects.
+  2. Execute the code against the object we're testing.
+  3. Assert the results of the execution.
+  4. Tear down and clean up any lingering artifacts.
+  
+  This is the SEAT approach. Take a look at our example.
+  ```ruby
+  require 'minitest/autorun'
+  
+  require_relative 'car'
+  
+  class CarTest < MiniTest::Test
+    def test_car_exists
+      car = Car.new
+      assert(car)
+    end
+  
+    def test_wheels
+      car = Car.new
+      assert_equal(4, car.wheels)
+    end
+  
+    def test_name_is_nil
+      car = Car.new
+      assert_nil(car.name)
+    end
+  
+    def test_raise_initialize_with_arg
+      assert_raises(ArgumentError) do
+        car = Car.new(name: "Joey")   # this code raises ArgumentERror, so this assertion passes
+      end
+    end
+  
+    def test_instance_of_car
+      car = Car.new
+      assert_instance_of(Car, car)
+    end
+  
+    def test_includes_car
+      car = Car.new
+      arr = [1, 2, 3]
+      arr << car
+  
+      assert_includes(arr, car)
+    end
+  end
+  ```
+  We can add a `setup` method and use an instance variable `@car`. A local variable can't be used because the tests themselves are instance methods that won't be able to access it. 
+  ```ruby
+  require 'minitest/autorun'
+  
+  require_relative 'car'
+  
+  class CarTest < MiniTest::Test
+    def setup
+      @car = Car.new
+    end
+  
+    def test_car_exists
+      assert(@car)
+    end
+  
+    def test_wheels
+      assert_equal(4, @car.wheels)
+    end
+  
+    def test_name_is_nil
+      assert_nil(@car.name)
+    end
+  
+    def test_raise_initialize_with_arg
+      assert_raises(ArgumentError) do
+        car = Car.new(name: "Joey")
+      end
+    end
+  
+    def assert_instance_of_car
+      assert_instance_of(Car, @car)
+    end
+  
+    def test_includes_car
+      arr = [1, 2, 3]
+      arr << @car
+  
+      assert_includes(arr, @car)
+    end
+  end
+  ```
+  The `setup` method will be called before running every test, and the `teardown` method (which we don't have yet) will be called after running every test. Teardown may be used for cleaning up files, logging some information, or closing database connection, etc.
+  
+  ## Testing Equality
+  How exactly is `assert_equal` testing for equality? Object equality? Value equality? Both?
+  
+  `assert_equal` tests for _value equality_. It is invoking the `==` method on the object. For _object equality_ use the `assert_same` assertion.
+  
+  #### Equality with a custom class
+  Essentially all we have to do is implement our own `==` method and Minitest will know how to compare objects of a custom class. 
+  
+  ## Code Coverage
+  _Code coverage_ is a measure of how much of our actual program code is tested by the test suite. This can be measured by many different standards and all they can do is check if there is a test for each bit of code. This does not mean that the tests themselves are good, work, or make any sense at all - just that we have at least one test for that line of code.
+  
+  Use the `simplecov` gem to get a basic reports of your code coverage.
+  ```bash
+  gem install simplecov
+  ```
+  Then include
+  ```ruby
+  require 'simplecov'
+  SimpleCov.start
+  ```
+  __at the very top__ of your test file. Next time the test is run, a folder called `coverage` will be created. Open up the `index.html` file and a report should display detailing your code coverage.
 '''
 tags: []
 isStarred: false
 createdAt: "2017-05-22T14:43:32.386Z"
-updatedAt: "2017-05-23T00:05:27.234Z"
+updatedAt: "2017-05-23T06:18:41.549Z"
