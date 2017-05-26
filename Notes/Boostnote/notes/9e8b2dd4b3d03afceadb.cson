@@ -265,8 +265,17 @@ content: '''
   SimpleCov.start
   ```
   __at the very top__ of your test file. Next time the test is run, a folder called `coverage` will be created. Open up the `index.html` file and a report should display detailing your code coverage.
+  
+  ## Summary
+  * Minitest is the default testing library that comes with Ruby.
+  * Minitest test comes in 2 flavors: assert_style and spec-style. Unless you really like RSpec, use assert-style.
+  * A test suite contains many tests. A test can contain many assertions.
+  * Use `assert_equal` liberally, but don't be afraid to use others. Remember `assert_equal` uses `==`.
+  * Use the SEAT approach to writing tests.
+  * Use code coverage as a metric to gauge test quality. (But not the only metric.)
+  * Practice writing tests.
 '''
 tags: []
 isStarred: false
 createdAt: "2017-05-22T14:43:32.386Z"
-updatedAt: "2017-05-23T06:18:41.549Z"
+updatedAt: "2017-05-26T14:45:46.565Z"

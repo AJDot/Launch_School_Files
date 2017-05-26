@@ -1,0 +1,24 @@
+type: "MARKDOWN_NOTE"
+folder: "6c278bcfe0d2a245919c"
+title: "Notes on Challenges"
+content: '''
+  # Notes on Challenges
+  ## 3 Skills to Develop
+  1. problem solving with code
+  2. refactoring
+  3. reading code
+  
+  Programming is always about producing a "draft". There is no such thing as "finished code". Therefore, always consider your first take as a first draft.
+  
+  ## Phases to Writing Code
+  1. Understanding the problem => First draft
+  2. Re-think the problem and refactor #1 => Second draft
+  3. Read other people's code, or brainstorm with others => Third draft
+  4. Analyze for performance bottlenecks => Fourth draft
+  
+  (Don't worry about #4 for now)
+'''
+tags: []
+isStarred: false
+createdAt: "2017-05-26T14:51:09.510Z"
+updatedAt: "2017-05-26T15:04:13.195Z"

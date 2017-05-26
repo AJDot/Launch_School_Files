@@ -1,0 +1,42 @@
+type: "SNIPPET_NOTE"
+folder: "6c278bcfe0d2a245919c"
+title: "Internal vs External Interators"
+description: "Internal vs External Interators"
+snippets: [
+  {
+    name: "internal_vs_external_iterator.rb"
+    mode: "Ruby"
+    content: '''
+      factorial = Enumerator.new do |y|
+        fact = 1
+        idx = 1
+        loop do
+          # y << fact
+          # also could be...
+          # y.yield(fact)
+          fact *= idx
+          idx += 1
+        end
+      end
+      
+      # External Iterator
+      7.times { puts factorial.next }
+      
+      # Go back to start
+      factorial.rewind
+      
+      # Internal Iterator
+      p factorial.take(7)
+      
+      # Internal Iterator
+      factorial.each_with_index do |number, index|
+        puts number
+        break if index == 6
+      end
+    '''
+  }
+]
+tags: []
+isStarred: false
+createdAt: "2017-05-25T14:26:44.741Z"
+updatedAt: "2017-05-25T14:30:06.413Z"

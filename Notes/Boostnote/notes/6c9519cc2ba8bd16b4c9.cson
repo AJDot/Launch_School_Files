@@ -1,0 +1,23 @@
+type: "SNIPPET_NOTE"
+folder: "6c278bcfe0d2a245919c"
+title: "Method to Proc"
+description: "Method to Proc"
+snippets: [
+  {
+    name: "method_to_proc.rb"
+    mode: "Ruby"
+    content: '''
+      def convert_to_base_8(n)
+        n.to_s(8).to_i
+      end
+      
+      base8_proc = method(:convert_to_base_8).to_proc
+      
+      [8,10,12,14,16,33].map(&base8_proc) # => [10, 12, 14, 16, 20, 41]
+    '''
+  }
+]
+tags: []
+isStarred: false
+createdAt: "2017-05-25T14:05:18.740Z"
+updatedAt: "2017-05-25T14:27:56.784Z"
