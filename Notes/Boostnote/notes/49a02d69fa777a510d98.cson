@@ -27,8 +27,56 @@ content: '''
   * Do you needs a `.gemspec` file?
   * What version of Ruby does your program need?
   * What Rubygems does your program use?
+  
+  ## Preparing a Rubygem
+  Most use these as the distribution mechanism. You muse use common directory structure and supply a `.gemspec` file. Most have a `Gemfile` and `Rakefile` as well but don't require them.
+  
+  We have already been using the Rubygems layout (see Setting Up Your Project).
+  
+  To prepare your project for distribution, do the following:
+  * Read the [Rubygems](http://guides.rubygems.org/) documentation.
+  * Prepare any additional directories that you need.
+  * Prepare a README.md file.
+  * Write documentation if necessary.
+  * Prepare your `.gemspec` file. Note that the actual `.gemspec` file has a name like `project.gemspec`, where "project" is your project name. See below for an example `.gemspec`.
+  * Add a `gemspec` statement to your `Gemfile`.
+    ```ruby
+    gemspec
+    ```
+  * Modify your `Rakefile` to include the standard Rubygem tasks. See below.
+  
+  ### A Simple .gemspec
+  For our Todo List Manager project:
+  ```ruby
+  Gem::Specification.new do |s|
+    s.name        = 'todolist_project'
+    s.version     = '1.0.0'
+    s.summary     = 'Todo List Manager!'
+    s.description = 'This is a simple todo list manager!'
+    s.authors     = ['Alex Henegar']
+    s.email       = 'alexjhenegar@example.com'
+    s.homepage    = 'http://example.com/todolist_project'
+    s.files       = ['lib/todolist_project.rb', 'test/todolist_project_test.rb']
+  end
+  ```
+  Name this `todolist_project.gemspec`.
+  
+  ### Modify Rakefile
+  add `require "bundler/gem_tasks"` near the top of the `Rakefile`. This adds several tasks, including:
+  * `rake build`: Constructs a `.gem` file in the `pkg` directory. This contains the actual Rubygem to distribute.
+  * `rake install`: runs `rake build` then installs the program in your Ruby's Gem directory. Now you can test it.
+  * `rake release`: Send your `.gem` file to the remote Rubygems library for the world to download.
+  
+  ## Summary
+  * Rubygems are libraries of code you can run inside your own Ruby programs.
+  * Rubygems allows you to release your own Gems. These are either `require`d into your Ruby programs or are independent Ruby programs (like `bundle` from the Bundler gem).
+  * Ruby projects usually use the Rubygems format.
+  * Ruby Version Managers help you manage multiple versions of Ruby on a single system. Each has its own set of tools (like `gem` and `bundle`).
+  * Bundler provides tools to describe dependencies for Ruby programs. It even ensures that corrects versions of gems are used.
+  * Rake provides a way to easily manage and run repetitive tasks.
+  * `.gemspec` file provides info about a Gem. Need this to release a program or library as a Gem.
 '''
 tags: []
 isStarred: false
 createdAt: "2017-05-29T21:13:30.508Z"
-updatedAt: "2017-05-29T22:32:39.895Z"
+updatedAt: "2017-05-30T12:49:26.035Z"
