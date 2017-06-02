@@ -1,0 +1,14 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "Topics of Discussion"
+content: '''
+  # Topics of Discussion
+  * [ ] What is closure and why is it important/useful?
+  * [ ] Give an example to demonstrate closure
+  * [ ] Give at least 2 examples of how blocks are implemented and explain the importance of block return values and outputs.
+  * [ ] When do we want to use blocks? Name at least 2 situations and give an example of each.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-05-31T12:45:40.745Z"
+updatedAt: "2017-05-31T14:18:31.210Z"

@@ -1,0 +1,332 @@
+type: "MARKDOWN_NOTE"
+folder: "92a6234d034915f8e8b5"
+title: "Regular Expressions"
+content: '''
+  # Regular Expressions
+  ## Basic Matching
+  Most of the examples in this book will use [Rubular](www.rubular.com)
+  ### Alphanumerics
+  The simplest regex just matches an alphanumeric character. Just place that character between the `/` characters. Note that this _is_ case sensitive. `/s/` will not match `"S"` in `"KANSAS"`.
+  
+  To use this in a program (Ruby or JavaScript in this case) we can use the `match` method for the String classes.
+  ```ruby
+  str = 'cast'
+  print "matched 's'" if str.match(/s/)
+  print "matched 'x'" if str.match(/x/)
+  ```
+  
+  ### Special Characters
+  Some special characters have special meaning inside a regex and require special treatment.
+  
+  The following special characters have special meaning in a Ruby or JavaScript regex: These are called _metacharacters_.
+  `$ ^ * + ? . ( ) [ ] { } | \\ /`
+  
+  If you want to literally match one of these, you must _escape_ it with a leading backslash `\\`.
+  
+  ### Concatenation
+  Example - `/cat/` concatenates the patterns of `c`, `a`, and `t` and matches any string that contains `c` followed immediately by `a` then `t`. 
+  
+  Regex are built from patterns, not from characters or strings. Build an expression by concatenating patterns, as many as needed.
+  
+  ### Alternation
+  A very simple way of constructing regex that can match one of several sub-patterns. You write two or more patterns separated by pipe (`|`) characters and surround the entire expression in parentheses. Example: /(cat|dog|rabbit)/
+  ```
+  The lazy cat.
+  The dog barks.
+  Down the rabbit hole.
+  The lazy cat, chased by the barking dog,
+  dives down the rabbit hole.
+  catalog
+  The Yellow Dog
+  My bearded dragon's name is Darwin
+  ```
+  
+  Parentheses are used for "grouping". For now just be aware that this exists.
+  
+  ### Control Characters Escapes
+  These are used to represent certain characters that don't have a visual representation. For example, `\\n`, `\\r`, and `\\t` are nearly universal ways to represent line feeds, carriage returns, and tabs, respectively.
+  
+  So in Ruby
+  ```ruby
+  puts "has tab" if text.match(/\\t/)
+  ```
+  
+  ### Ignoring Case
+  You can make an entire regex case insensitive by appending an `i` after the closing `/`. Example: instead of `/launch/`, use `/launch/i`.
+  ```
+  I love Launch School!
+  LAUNCH SCHOOL! Gotta love it!
+  launchschool.com
+  ```
+  This `i` is called an _option_, _flag_, or _modifier_.
+  
+  ### Exercises
+  1. Write a regex that matches an uppercase `K`.
+      ```ruby
+      /K/
+      ```
+  2. Write a regex that matches an uppercase or lowercase `H`.
+      ```ruby
+      /h/i
+      # OR
+      /(h|H)/
+      ```
+  3. Write a regex that matches the string `"dragon"`.
+      ```ruby
+      /dragon/
+      ```
+  4. Write a regex that matches any of the following fruits: banana, orange, apple, strawberry. The fruits may appear inside other words. Test it with these strings:
+      ```ruby
+      /(banana|orange|apple|strawberry)/
+      ```
+  5. Write a regex that matches a comma or a space.
+      ```ruby
+      /(,| )/
+      ```
+  6. Challenge: Write a regex that matches `"blueberry"` or `"blackberry"`, but do so by writing `berry` only once.
+      ```ruby
+      /(blue|black)berry/
+      ```
+      
+  ## Character Classes
+  They are patterns that specify a set of characters you want to match.
+  
+  ### Set of Characters
+  They are specified as a list of characters between square brackets (e.g. `/[abc]/`). A single occurrence of any of those characters will be matched. These regex on `Four score + seven`.
+  ```
+  /[FX]/
+  /[e+]/
+  /[abAB]/
+  /[*+]/
+  ```
+  A few uses of character classes:
+  1. Validate inputs. e.g. match 1-5 using `/[12345]/` or y/n using `/[nyNY]/`.
+  2. When you can't use `i` flag for case insensitivity. e.g. `/[hH]oover/`.
+  3. e.g. `/[abc][12]/` matches the first character being `a`, `b`, or `c` and the second being `1` or `2`.
+  
+  Inside a character class - and only inside a character class - the rles change a bit for escaped characters. Only the following characters are metacharacters inside a character class:
+  `^ \\ - [ ]`
+  
+  ### Range of Characters
+  Use a hyphen to specify a range of characters inside a character class. e.g. `/[a-z]/` will match all characters `a` through `z`. Combine ranges just by squishing them together in the class. e.g. `/[a-zA-Z0-9]/` will match all alphanumeric characters. 
+  In Ruby we can do the following to match hexadecimal numbers
+  ```ruby
+  def hex_digit?(char)
+    char.match(/[0-9A-Fa-f]/)
+  end
+  ```
+  
+  ### Negated Classes
+  Simply include a `^` as the first character between the brackets. This will match any character that is not specified. e.g. To negate vowels `/[^aeiou]/`.
+  
+  This negation will show true if a match occurs anywhere in the string. So `/[^x]/` will match in the string `"xyx"`.
+  
+  ### Exercises
+  1. Write a regex that matches uppercase or lowercase `K`s or a lowercase `s`.
+      ```ruby
+      /[Kks]/
+      ```
+      
+  2. Write a regex that matches any of the strings `"cat"`, `"cot"`, `"cut"`, `"bat"`, `"bot"`, or `"but"`, regardless of case.
+      ```ruby
+      /[bc][aou]t/i
+      ```
+      
+  3. Base 20 digits include the decimal digits 0 through 9, and the letters A through J in upper or lowercase. Write a regex that matches base 20 digits.
+      ```ruby
+      /[0-9a-jA-J]/
+      ```
+  4. Write a regex that matches any letter except x or X.
+      ```ruby
+      /[a-wA-W]/i
+      ```
+      
+  5. Write a regex that will match any character that is not a letter.
+      ```ruby
+      /[^a-zA-Z]/
+      # OR
+      /[^a-z]/i
+      ```
+      
+  6. Are `/(ABC|abc)/` and `/[Aa][Bb][Cc]/` equivalent regex? If not, how do they differ? Con you provide an example of a string that would match on e of these regex, but not the other?
+      These are not the same. The first one will match only all uppercase or all lowercase while the second one is case insensitive. So `"Abc"` and `"abC"` will be matched by only the second one.
+      
+  7. Are `/abc/i` and `/[Aa][Bb][Cc]/` equivalent regex? If not, how do they differ? Can you provide an example of a string that would match one of these regex, but not the other?
+      Yes, these are equivalent.
+      
+  8. Challenge: write a regex that matches a string that looks like a simple negated character class range, e.g., `'[^a-z]'`. (Your answer should match exactly 6 characters.)
+      ```ruby
+      \\[\\^[0-9A-Za-z]-[0-9A-Za-z]\\]
+      ```
+  
+  ## Character Class Shortcuts
+  ### Any Character
+  `/./` will match any character. The only characters that don't light up are newline characters (which are visible anyway). Use the `m` (multiline) option if you need to match across lines.
+  
+  ### Whitespace
+  `\\s` for whitespace characters and `\\S` for non-whitespace characters. A whitespace characters is any of the following: space (' '), tab ('\\t'), vertical tab ('\\v'), carriage return ('\\r'), line feed ('\\n'), and form feed ('\\f'). 
+  
+  ### Digits and Hex Digits
+  | Shortcut | Meaning |
+  | -------- | ------- |
+  | \\d | Any decimal digit (0-9) |
+  | \\D | any character but a decimal digit |
+  | \\h | Any hexadecimal digit (0-9, A-F, a-f) (__Ruby only__) |
+  | \\H | Any character but a hexadecimal digit (__Ruby only__) |
+  
+  ### Word Characters
+  `/\\w/` matches "word characters" and `/\\W/` matches "non-word characters". What is a "word character"? It is a number, letter, or an __underscore__ (`_`).
+  
+  ### Exercises
+  1. Write a regex that matches any sequence of 3 characters delimited by whitespace characters. Test it with these strings:
+      ```ruby
+      /\\s...\\s/ 
+      ```
+  
+  2. Test the pattern /\\s...\\s/ from the previous exercise against this text (be sure to delete the previous text first):
+      ```ruby
+      
+      ```
+      Observe that only one of the 3 letter words in this text match the pattern, and it also matches "2 3". Why is it that this pattern doesn't include the 3 letter words Doc, red, box, or Hup, but it does match 2 3?
+      This is because a whitespace character is a character, so it will match ' 2 3 '. `Doc ` doesn't start with a space. ` red ` doesn't work because the space is used for ` big `. ` box.` doesn't end in a space. ` Hup!` doesn't end in a space.
+  
+  
+  3. Write a regex that matches any 4 digit hexadecimal number that is both preceded and followed by whitespace. Test it with these strings:
+      ```ruby
+      /\\s\\h\\h\\h\\h\\s/
+      ```
+  
+  4. Write a regex that matches any sequence of 3 letters. Test it with these strings:
+      ```ruby
+      /[a-z][a-z][a-z]/i
+      ```
+  
+  ## Anchors
+  Anchors are a way to limit how a regex matches a particular string by telling the regex engine where matches can begin and end. They don't actually match characters. They ensure that a string only matches at a certain place in the string, the beginning or end, beginning or end of line, or on a word or non-word boundary.
+  
+  ### Start/End of Line
+  `^` and `$` metacharacters are _anchors_ that match the beginning and ending of a line of text respectively.
+  
+  ### Lines vs Strings (only for Ruby)
+  There is a subtlety when there is a newline character not at the end of the of the string. The `^` and `$` anchors will consider each newline character as multiple beginnings of the text. So `/^red/` and `/^blue/` will both match to text in `"red fish\\nblue fish"`.
+  
+  ### Start/End of String (only for Ruby)
+  `\\A`, `\\Z`, and `\\z` anchors are used to match this. Use this almost always as opposed to the above `^` and `$`.
+  
+  `\\A` matches the beginning of string. `\\Z` and `\\z` match the end of string. `\\z` always matches end of string while `\\Z` matches up to but not including a newline at end of string.
+  
+  ### Word Boundaries
+  Use the `\\b` pattern to anchor to a word boundary (as defined by `\\w`). e.g. `/\\b\\w\\w\\w\\b/` will match 3 letter words. It's rare, but use `\\B` if you need a non-word boundary anchor.
+  
+  ### Exercises
+  1. Write a regex that matches the word `The` when it occurs at the beginning of a line.
+      ```ruby
+      /^The\\b/
+      ```
+      
+  2. Write a regex that matches the word `cat` when it occurs at the end of a line.
+      ```ruby
+      /\\bcat$/
+      ```
+  
+  3. Write a regex that matches any 3-letter word, where a word is comprised entirely of letters.
+      ```ruby
+      /\\b[a-z][a-z][a-z]\\b/i
+      ```
+  
+  4. Challenge: Write a regex that matches an entire line of text that begins with the word `A` or `The`, followed by a space, a 4-letter word, another space, and then the word `dog` or `cat`. Test your solution with these strings:
+      ```ruby
+      /^(A|The)\\s[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]\\s(dog|cat)/
+      ```
+  
+  ## Quantifiers
+  ### Zero or More
+  `*` matches zero or more occurrences of the pattern just to its left. The pattern `/\\b\\d\\d\\d\\d*\\b/` matches all numbers with 3 or more digits. __0__ or more truly means that the pattern does not have to be present at all. e.g. `/x*/` will match everything since `x` does not have to appear in the string.
+  
+  ### One or More
+  `+` matches one or more occurrencs of the pattern just to its left. We can represent the same pattern as above using the `+`. e.g. `/\\b\\d\\d\\d+\\b/`. This also means that `/x+/` will require that at least one `x` is in the string.
+  
+  ### Zero or One
+  To allow for an optional pattern (something that occurs zero or one time), you need the `?` quantifier. One place you might use this would be a pattern where you are trying to match a date whose components may or may not be separated by `-`
+  
+  ### Ranges
+  Sometimes you need to specify the quantifier more precisely. Use curly barces, `{}`, with one or two numbers and an optional comma between them. In this way we can match a pattern 5-8 characters long and other such things. `{m}` matches exactly `m` occurrences. `{m,}` matches `m` or more occurrences. `{m,n}` matches the range from `m` to `n` occurrences.
+  
+  ### Greediness
+  Some quantifiers are __greedy__: they always match as many characters as possible. e.g. `/a[abc]*c/` matched against `xabcbcbacy` will matches `abcbcbac`, not `abc` or `abcbc`. The pattern matches as many characters that still satisfy the pattern. __Lazy__ matching is when regex matches the fewest number of characters possible. You can request lazy match by adding a `?` just after the main quantifier. e.g. `/a[abc]*?c/` matches `abc` and `ac` in `xabcbcbacy`. Read [this](https://stackoverflow.com/documentation/regex/429/greedy-and-lazy-quantifiers#t=201702260220098110839) for a more visual description of greediness.
+  
+  ### Exercises
+  
+  1. Write a regex that matches any word that begins with `b` and ends with an `e`, and has any number of letters in-between. You may limit your regex to lowercase letters only.
+      ```ruby
+      /\\bb[a-z]*e\\b/
+      ```
+  
+  2. Write a regex that matches any line of text that ends with a `?`.
+      ```ruby
+      /^.*\\?$/
+      ```
+      
+  3. Write a regex that matches any line of text that ends with a `?`, but does not match a line that includes nothing but a single `?`.
+      ```ruby
+      /^.+\\?$/
+      ```
+      
+  4. Write a regex that matches any line of text that contains nothing but a URL. For the purposes of this exercise, a URL begins with `http://` or `https://`, and continues until a whitespace character or end of line is detected.
+      ```ruby
+      /^https?:\\/\\/\\S*$/
+      ```
+  
+  5. Modify your regex from the previous exercise so the URL can be preceded or followed by whitespace, but is otherwise still on a line by itself. To test your regex with trailing whitespace, you will need to add some spaces to the end of some lines in the sample text.
+      ```ruby
+      /^\\s*https?:\\/\\/\\S*\\s*$/
+      ```
+      
+  6. Modify your regex from the previous exercise so the URL can appear anywhere on each line, so long as it begins at a word boundary.
+      ```ruby
+      /\\bhttps?:\\/\\/\\S*/
+      ```
+  
+  7. Write a regex that matches any word that contains at least 3 occurrences of the letter `i`.
+      ```ruby
+      /\\b\\w*i\\w*i\\w*i\\w*\\b/
+      # OR
+      /\\b(\\w*i){3}\\w*\\b/
+      ```
+  
+  8. Write a regex that matches the last word in each line of text. For the purposes of this exercise, assume that words are comprised of any sequence of non-whitespace characters. 
+      ```ruby
+      /\\b\\S+\\s*$/
+      ```
+  
+  9. Write a regex that matches lines of text that contain at least 3, but no more than 6, consecutive comma separated numbers. You may assume that every number on each line is both preceded by and followed by a comma. 
+      ```ruby
+      /^,(\\d+,){3,6}$/
+      ```
+      
+  10. Write a regex that matches lines of text that contain at least 3, but no more than 6, consecutive comma separated numbers. In this exercise, you can expect that the first number on each line is __not__ preceded by a comma, and the last number is __not__ followed by a comma. 
+      ```ruby
+      /^(\\d+,){2,5}\\d+$/
+      ```
+  
+  11. Challenge: Write a regex that matches lines of text that contain either 3 comma separated numbers or 6 or more comma separated numbers. Test your regex against these strings:
+      ```ruby
+      /(^(\\d+,){2}\\d+$|^(\\d+,){5,}\\d+$)/
+      ```
+  
+  12. Challenge: Write a regex that matches HTML h1 header tags, e.g.,
+      ```html
+      <h1>Main Heading</h1>
+      <h1>Another Main Heading</h1>
+      ```
+      and the content between the opening and closing tags. If multiple header tags appear on one line, your regex should not match any other text on the line: just the opening and closing tags, and the text that makes up the header. You may assume that there are no nested tags in the textual part between `<h1>` and `</h1>`.
+      ```ruby
+      /<h1>.*?<\\/h1>/
+      ```
+  
+  
+'''
+tags: []
+isStarred: false
+createdAt: "2017-05-31T15:01:51.390Z"
+updatedAt: "2017-06-02T05:24:26.011Z"
