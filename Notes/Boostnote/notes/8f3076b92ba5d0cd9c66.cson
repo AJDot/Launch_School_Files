@@ -1,0 +1,120 @@
+type: "MARKDOWN_NOTE"
+folder: "92a6234d034915f8e8b5"
+title: "Conclusion"
+content: '''
+  # Conclusion
+  * __Regex__ are constructed from __patterns__ by using __concatenation__ and __alternation__. Multiple patterns may be used in a single regex.
+  * Some characters are called __metacharacters__ and have special meaning inside a regex. If you literally need these characters, then they must be __escaped__ using `\\`.
+  * A __character class__ is used to match a set of characters or a range of characters.
+  * An __anchor__ can be used to force a regex to only match at a specified point within a string.
+  * A __quantifier__ allows a pattern to be matched multiple times and always apply to the pattern immeditately to the left. Quantifiers are __greedy__ by default, but can be treated as __lazy__.
+  * Parentheses are used to group patterns. They also provide a way to __capture__ parts of patterns for later use. These values are accessed using __backreferences__.
+  
+  ## Cheat Sheet
+  In the following tables, unescaped `a`, `b`, and `z` characters are used to denote regular characters (letters, digits, punctuation), while unescaped `p` and `q` characters are used to denote patterns (each pattern may be arbitrarily complex). Other characters should be taken literally.
+  
+  ### Basic Matching
+  
+  | Pattern | Meaning |
+  | ------- | ------- |
+  | /a/ | Match the character a |
+  | /\\?/, /\\./ | Match a meta-character literally |
+  | /\\n/, /\\t/ | Match a control character (newline, tab, etc) |
+  | /pq/ | Concatenation (p followed by q) |
+  | /(p)/ | Capturing Group |
+  | /(p|q)/ | Alternation (p or q) |
+  | /p/i | Case insensitive match |
+  
+  ### Character Classes and Shortcuts
+  
+  | Pattern | Meaning |
+  | ------- | ------- |
+  | /[ab]/ | a or b |
+  | /[a-z]/ | a through z, inclusive |
+  | /[^ab]/ | Not (a or b) |
+  | /[^a-z]/ | Not (a through z) |
+  | /./ | Any character except newline |
+  | /\\s/, /[\\s]/ | Whitespace character (space, tab, newline, etc) |
+  | /\\S/, /[\\S]/ | Not a whitespace character |
+  | /\\d/, /[\\d]/ | Decimal digit (0-9) |
+  | /\\D/, /[\\D]/ | Not a decimal digit |
+  | /\\w/, /[\\w]/ | Word character (0-9, a-z, A-Z, _) |
+  | /\\W/, /[\\W]/ | Not a word character |
+  
+  ### Anchors
+  
+  | Pattern | Meaning |
+  | ------- | ------- |
+  | /^p/ | Pattern at start of line |
+  | /p$/ | Pattern at end of line |
+  | /\\Ap/ | Pattern at start of string |
+  | /p\\z/ | Pattern at end of string (after newline) |
+  | /p\\Z/ | Pattern at end of string (before newline) |
+  | /\\bp/ | Pattern begins at word boundary |
+  | /p\\b/ | Pattern ends at word boundary |
+  | /\\Bp/ | Pattern begins at non-word boundary |
+  | /p\\B/ | Pattern ends at non-word boundary |
+  
+  ### Quantifiers
+  
+  | Pattern | Meaning |
+  | ------- | ------- |
+  | /p*/ | 0 or more occurrences of pattern |
+  | /p+/ | 1 or more occurrences of pattern |
+  | /p?/ | 0 or 1 occurrence of pattern |
+  | /p{m}/ | m occurrences of pattern |
+  | /p{m,}/ | m or more occurrences of pattern |
+  | /p{m,n}/ | m through n occurrences of pattern |
+  | /p*?/ | 0 or more occurrences (lazy) |
+  | /p+?/ | 1 or more occurrences (lazy) |
+  | /p??/ | 0 or 1 occurrence (lazy) |
+  | /p{m,}?/ | m or more occurrences (lazy) |
+  | /p{m,n}?/ | m through n occurrences (lazy) |
+  
+  ### Common Ruby Methods for Regex
+  
+  | Method | Use |
+  | ------ | --- |
+  | String#match | Determine if regex matches a string |
+  | string =~ regex | Determine if regex matches a string |
+  | String#split | Split string by regex |
+  | String#sub | Replace regex match one time |
+  | String#gsub | Replace regex match globally |
+  
+  ### Common JavaScript Functions for Regex
+  
+  | Method | Use |
+  | ------ | --- |
+  | String.match | Determine if regex matches a string |
+  | String.split | Split string by regex |
+  | String.replace | Replace regex match |
+  
+  ## Variants
+  Regex has different variants. We have learned variants for Ruby and JavaScript. These variants are sometimes called _engines_ and can have noticeable differences.
+  
+  However, every regex engine should support the following features.
+  * basic single character matches, e.g. `/a/`
+  * concatenation, e.g. `/pq/`
+  * escaping of metacharacters, e.g. `/\\*/`
+  * basic character classes, e.g. `/[abc]/` and `/[a-m]/`.
+  * `*` quantifies, e.g. `/a*/`.
+  * `.` to match any character except newline.
+  * `^` and `$` line anchors
+  
+  Aside from the language documentation, here are some additional resources of interest:
+  
+  * [Essential Guide to Regular Expressions: Tools and Tutorials](https://www.smashingmagazine.com/2009/06/essential-guide-to-regular-expressions-tools-tutorials-and-resources/)
+  * [Regular-Expressions.info](http://www.regular-expressions.info/)
+  * [Regex Tutorial - From Regex 101 to Advanced Regex](http://www.rexegg.com/)
+  
+  Use [rubular](http://rubular.com/) and [scriptular](http://scriptular.com/) for testing too.
+  
+  Two books frequently mentioned as good resources for regex:
+  
+  * [Introduing Regular Expressions](http://shop.oreilly.com/product/0636920012337.do)
+  * [mastering Regular Expressions](http://shop.oreilly.com/product/9780596528126.do)
+'''
+tags: []
+isStarred: false
+createdAt: "2017-06-06T12:43:29.740Z"
+updatedAt: "2017-06-06T13:42:51.929Z"
