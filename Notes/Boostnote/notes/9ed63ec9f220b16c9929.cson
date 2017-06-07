@@ -7,8 +7,9 @@ content: '''
   * [ ] Give an example to demonstrate closure
   * [ ] Give at least 2 examples of how blocks are implemented and explain the importance of block return values and outputs.
   * [ ] When do we want to use blocks? Name at least 2 situations and give an example of each.
+  * [ ] How do you pass an argument to a block? How is passing an argument to a block different than passing an argument to a method?
 '''
 tags: []
 isStarred: false
 createdAt: "2017-05-31T12:45:40.745Z"
-updatedAt: "2017-05-31T14:18:31.210Z"
+updatedAt: "2017-06-07T03:56:37.641Z"

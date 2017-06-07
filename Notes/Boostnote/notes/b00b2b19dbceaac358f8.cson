@@ -128,10 +128,83 @@ content: '''
   => nil
   ```
   This not only includes local variables, but method references, constants, and others. This is the core reason behind scoping rules in Ruby. This is why "inner scopes can access outer scopes".
+  
   ### Write methods that use blocks and procs
+  There are two ways to write a method that uses a block.
+  1. Use `yield` inside the method. The block will be called everytime this keyword is used.
+  2. Use `&` before the last argument of the method. Now the block can be passed around like a variable.
+  
+  #### Using `yield`
+  Here is an example of an implementation of the `Array#map` method.
+  ```ruby
+  def map(array)
+    iterator = 0
+  
+    result = []
+    while iterator < array.size
+      result << yield(array[iterator])
+      iterator += 1
+    end
+    result
+  end
+  
+  p map([1, 2, 3, 4, 5]) { |item| item + 2 }
+  p map(['a', 'b', 'c', 'd']) { |item| item * 2 }
+  ```
+  
+  This is a basic implementation of the `#map` method. Be care though, with this code a block is actually _required_ or else a `LocalJumpError` will be thrown.
+  
+  We can handle this by using `block_given?` to handle when a block is not given. Revised code is:
+  ```ruby
+  def map(array)
+    return 'Block was not given.' unless block_given?
+    iterator = 0
+  
+    result = []
+    while iterator < array.size
+      result << yield(array[iterator])
+      iterator += 1
+    end
+    result
+  end
+  
+  p map([1, 2, 3, 4, 5]) { |item| item + 2 }
+  p map(['a', 'b', 'c', 'd']) { |item| item * 2 }
+  p map([1, 2, 3, 4, 5])
+  ```
+  Now we can handle when a block is not supplied. In this case, the string `Block was not given.` is returned instead of the typical `#map` return value.
+  
   ### Arguments and return values with blocks
+  Yielding with an argument is easy to do. See above for an example. Basically you treat the block variable inside the method as a method you can pass arguments to.
+  
+  Every block has a return value as well. In this sense, they behave just like methods.
+  
+  Where blocks differ are the requirements for its arguments. Blocks won't complain when the wrong number of arguments are given. If too few are given, `nil` is used. If too many are given, the extras are simply ignored.
+  
   ### When can you pass a block to a method
+  You can always pass a block to a method. The key is when will the block actually be utilized and when will it be ignored. It will be utilized when there is a `yield` or an argument with `&` prefixed that is called using something like `block.call`.
+  
   ### &:symbol
+  This is a way to convert a symbol to a proc as a short-hand way to pass a block (without an argument) into a method.
+  Example:
+  ```ruby
+  [1, 2, 3, 4, 5].select(&:odd?) # => [1, 3, 5]
+  ```
+  This code gets converted to:
+  ```ruby
+  [1, 2, 3, 4, 5].select { |num| num.odd? } # => [1, 3, 5]
+  ```
+  This short-cut code is using the `Symbol#to_proc` method. To break it down, adding the `&` in front of an object tells Ruby to try to convert the object into a block. To do so, it's expecting a Proc object. If this object is not a Proc object, it will call `to_proc` on the object.
+  
+  Here is a breakdown of what this code is doing:
+  ```ruby
+  def my_method
+    yield(2)
+  end
+  
+  a_proc = :to_s.to_proc    # explicitly call to_proc on the symbol
+  my_method(&a_proc)        # convert Proc into block, then pass block in. Returns "2"
+  ```
   
   ## Testing With Minitest
   
@@ -150,4 +223,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-05-31T12:15:32.412Z"
-updatedAt: "2017-05-31T14:16:20.059Z"
+updatedAt: "2017-06-07T04:14:38.527Z"
