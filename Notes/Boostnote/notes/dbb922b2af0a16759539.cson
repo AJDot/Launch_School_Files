@@ -1,0 +1,28 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "How do you pass an argument to a block? How is passing an argument to a block different than passing an argument to a method?"
+content: '''
+  # How do you pass an argument to a block? How is passing an argument to a block different than passing an argument to a method?
+  
+  The argument of a block is used between the two `|`'s when using the block.
+  ```ruby
+  5.times do |num|
+    ...
+  end
+  ```
+  `num` in the above code is the argument that is passed into the block. This argument is able to be used because it is specified in the method when it yields to this block. So somewhere in the `#times` method there is a bit of code that looks something like `yield(number)` where `number` is the argument that is passed into the block. The `num` in the above code is a special type of local variable called a _block local variable_ where the __scope is constrained to the block__.
+  
+  If too many arguments are passed to the block, then the extra arguments are ignored.
+  If too few arguments are passed to the block, then Ruby will use `nil`.
+  
+  These argument rules are what makes using arguments with blocks different than using arguments with methods.
+  
+  Ruby blocks have lenient arity rules. Procs and lambdas are two other way to implement the idea of _closure_ but behave differently when it comes to arguments.
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-10T19:55:41.520Z"
+updatedAt: "2017-06-10T20:13:19.772Z"

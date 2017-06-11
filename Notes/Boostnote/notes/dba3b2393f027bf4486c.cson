@@ -1,0 +1,30 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "Explain the difference in arity rules between blocks, procs, and lambdas."
+content: '''
+  # Explain the difference in arity rules between blocks, procs, and lambdas.
+  
+  ```ruby
+  proc { |thing| puts "This is a #{thing}." }
+  ```
+  * This is a Proc object.
+  * Outputting it is like outputting any object except it will contain what file it came from. 
+  * It's class is `Proc` and `proc` is used to instantiate a proc object (not `::new`).
+  
+  
+  |   | Block | Proc | Lambda |
+  | - | ----- | ---- | ------ |
+  | Class | Proc - if used explicitly by method. Implicit block is not an Object | Proc | Proc | 
+  |Too few arguments | Will use `nil` for unspecified arguments | Will use `nil` for unspecified arguments | Error will be thrown |
+  |Too many arguments | Will ignore extra arguments | Will ignore extra arguments | Error will be thrown |
+  | puts | can't `puts` an implicit block | Will show file it came from | Same as Proc but contains an extra "(lambda)" |
+  | yield with no block given | JumpError will be thrown | - | - |
+  | no yield with block given | Block will be ignored | - | - |
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-10T20:25:21.073Z"
+updatedAt: "2017-06-10T20:48:04.948Z"

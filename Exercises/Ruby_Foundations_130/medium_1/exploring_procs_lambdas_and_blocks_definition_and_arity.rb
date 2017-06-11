@@ -51,3 +51,7 @@ block_method_2('turtle') { puts "This is a #{animal}."}
 # ANSWER
 # a block will use all the arguments provided and the rest will be nil or ignored.
 # # a block must specify every variable inside it, even if when that block is called, arguments aren't passed into it.
+
+# COMPARISON
+# Lambdas are types of Proc's. Technically they are both Proc objects. An implicit block is a grouping of code, a type of closure, it is not an Object.
+# Lambdas enforce the number of arguments passed to them. Implicit block and Procs do not enforce the number of arguments passed in.

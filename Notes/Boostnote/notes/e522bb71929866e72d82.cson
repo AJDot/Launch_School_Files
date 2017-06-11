@@ -1,0 +1,89 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "What is closure and why is it important/useful?"
+content: '''
+  # What is closure and why is it important/useful?
+  Closure is the concept of being able to save a "chunk of code" and execute it at a later time. In this sense, a closure _encloses_ a section code and effectively saves the state of the program necessary for the proper execution of that code at a later time/place. 
+  
+  One interesting feature of closures is their ability to stay updated even after variables inside of it have been altered after the closure has been defined. A closure is implemented through a `Proc` object.
+  
+  The purpose of closures is to allow for sections of code to be passed around to different parts of the program. For example:
+  ```ruby
+  [1, 2, 3, 4, 5].select do |num|
+    (num ** 2) > 10 # => [4, 5]
+  end
+  ```
+  The block portion of this code (between the `do...end`) is _passed into_ the `#select` method and executed there. Of course with `#select` the return value of the block is used to determine if a number should be selected. We can take this same code and pass it into another method.
+  ```ruby
+  [1, 2, 3, 4, 5].count do |num|
+    (num ** 2) > 10 # => 2
+  end
+  ```
+  Now we are counting numbers that have squares greater than 10 instead of selecting them. 
+  
+  We can set this block up as a `Proc` object and pass it around.
+  ```ruby
+  square_greater_10 = Proc.new do |num|
+    (num ** 2) > 10
+  end
+  
+  [1, 2, 3, 4, 5].count(&square_greater_10)  # => 2
+  [1, 2, 3, 4, 5].select(&square_greater_10) # => [4, 5]
+  ```
+  We have acccomplished reusing code by instantiating a `Proc` object with the code we want to run later. The code above can even work on a hash with numbered keys!
+  ```ruby
+  hash = {1 => 'a', 2 => 'b', 3 => 'c', 4 => 'd', 5 => 'e'}
+  hash.select(&square_greater_10).values # => ["d", "e"]
+  ```
+  
+  So it's powerful. Code can be reused at a later time by passing a block into the method or by setting a `Proc` object to a variable and passing that object into a method.
+  
+  #### Why are closures useful?
+  One great use is when a section of code is used multiple times but may require small tweaks each time. We could write a method for each of these tweaks but that gets tedious and difficult to maintain. A closure allows us to implement that tweak on the fly. Example:
+  ```ruby
+  def minimum(array)
+    min = array[0]
+    array.each do |item|
+      min = item if item < min
+    end
+    min 
+  end
+  ```
+  This code has the ability to find the minimum valued item in an array. But what if we want to compare items based on something besides the item's value. We could create a new method:
+  ```ruby
+  def minimum_length(array)
+    min = array[0]
+    array.each do |item|
+      min = item if item.length < min.length
+    end
+    min
+  end
+  ```
+  This works but it's practically the same as the original method. Wouldn't it be nice if we could implement this `.length` part on the fly without having to create an entirely new method whose name we would have to remember? Of course we can:
+  ```ruby
+  def minimum(array)
+    min = array[0]
+    if block_given?
+      array.each do |item|
+        min = item if yield(item) < yield(min)
+      end
+    else
+      array.each do |item|
+        min = item if item < min
+      end
+    end
+    min
+  end
+  
+  minimum([1, 2, 3, 4, 5])                                                # => 1
+  minimum([1, 2, 3, 4, 5]) { |num| -num}                                  # => 5
+  minimum(['oneee', 'two', 'three', 'four', 'five']) { |str| str.length}  # => "two"
+  ```
+  Amazing! Now we have just one method but can utilized the comparison in many ways.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-09T12:34:08.603Z"
+updatedAt: "2017-06-09T13:32:40.767Z"

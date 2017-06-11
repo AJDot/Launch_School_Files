@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "How to Work with a Code Challenge"
+content: '''
+  # How to Work with a Code Challenge
+  * don't underestimate: resist the urge to dive into code
+  * read the description 3 times; produce an outline if necessary
+  * communicate and clarify
+  * test cases (happy paths, fail paths, edge cases)
+  * have a plan (algorithm), and verify with that
+  * manage your energy
+  * abstraction
+'''
+tags: []
+isStarred: false
+createdAt: "2017-06-07T12:34:01.588Z"
+updatedAt: "2017-06-07T13:43:32.921Z"

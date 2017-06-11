@@ -1,0 +1,18 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "Explain the difference in return values between blocks, procs, and lambdas."
+content: '''
+  # Explain the difference in return values between blocks, procs, and lambdas.
+  
+  |   | Block | Proc | Lambda |
+  | - | ----- | ---- | ------ |
+  | Defined inside method & `return` inside it |  | Will return from method immediately | Will _not_ return from method immediately - following code will execute |
+  | Defined outside method & `return` inside it |  | Error will be thrown - Execution jumps to where Proc was defined and we can't return from top level of program. | Same as above |
+  | `return` inside an implicit block yields to a method | Error will be thrown - Execution jumps to where implicit block is located and we can't return from top level of program.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-10T20:46:44.528Z"
+updatedAt: "2017-06-10T20:59:38.466Z"
