@@ -1,0 +1,18 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "Why do we write tests?"
+content: '''
+  # Why do we write tests?
+  
+  We write tests so that we do not regress.
+  
+  Code is a living document - there is no such thing as a final draft. Code is always evolving to fit new requirements or be more efficient. When changes to code are made, the developer needs to make sure the program still works. Manually verifying a program is tedious and repetitive and prone to error. Writing tests automates the task of program verification and severely reduces the chance of human error in regards to typos, forgotten test routes, etc.
+  
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-13T00:47:14.781Z"
+updatedAt: "2017-06-13T22:21:45.670Z"

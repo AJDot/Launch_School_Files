@@ -3,12 +3,57 @@ folder: "ff77bd190bcb406a1e6c"
 title: "Core Tools/Packaging Code"
 content: '''
   # Core Tools/Packaging Code
+  There are 4 main tools we will use to package code into a distributable project.
+  * Rubygems
+  * RVM and Rbenv
+  * Bundler
+  * Rake
+  
+  Rubygems and RVM are essential and used even when packaging code into a project isn't necessary. Bundler and Rake are additional tools used to basically keep all versions of Ruby and Gems straight from project to project.
   
   ## Purpose of Core Tools
+  ### Rubygems
+  Gems are packages of code you can download, install and use in your Ruby programs or from the command line. Gems can do many things; for example, rubocop, pry, sequel, and rails are all Gems used to make life a bit easier.
   
+  Each version of Ruby has its own set of Gems.
+  
+  ### Ruby Version Managers
+  RVM and Rbenv are the two main managers. Managers let you install, manage, and use multiple versions of Ruby. This is useful when a program requires a specific version of Ruby and you do not want to uninstall your current version just to run it. As features get added or removed from Ruby, previously made programs may not run correctly on the newer versions. 
+  
+  Version managers allow you to easily manage each version of Ruby, the utilities (like irb), and their corresponding set of Gems.
+  
+  ### Bundler
+  Bundler solves the problem of project dependencies. It is a dependency manager. It lets you describe exactly which Ruby and Gems you want to use with your Ruby apps. I lets you install multiple versions of each Gem under a specific version of Ruby and __then use the proper version in your app__.
+  
+  Bundler relies on a `Gemfile` to tell it which version of Ruby and Gems to use. It is the instruction file for Bundler. Bundler will find not only your project's Gem dependencies but also the dependencies of those Gems which may not be explicitly stated in the `Gemfile`.
+  
+  When a `Gemfile.lock` has been created and `bundler/setup` is included at the top of your program, it will do the following: it will remove all Gem directories from Ruby's `$LOAD_PATH` and then add back in the ones listed in the `Gemfile.lock`. This ensures only the correct Gems and their versions are used.
+  
+  ### Rake
+  Rake is a RubyGem used to automate many common functinos required to build, test, package, and install programs. Some common Rake tasks are:
+  * Set up required environment by creatign directories and files
+  * Set up and initialize databases
+  * Run tests
+  * Package your application and all of its files for distribution
+  * Install the application
+  * Perform common Git tasks
+  * Rebuild certain files and directories (assets) basd on chagnes to other files and directories
+  
+  ### Summary (Copied straight from LS)
+  Your Ruby Version Manager is at the top level -- it controls multiple installations of Ruby and all the other tools.
+  
+  Within each installation of Ruby, you can have multiple Gems -- even 1000s of Gems if you want. Each Gem becomes accessible to the Ruby version under which it is installed. If you want to run a Gem in multiple versions of Ruby, you need to install it in all of the versions you want to use it with.
+  
+  Each Gem in a Ruby installation can itself have multiple versions. This frequently occurs naturally as you install updated Gems, but can also be a requirement; sometimes you just need a specific version of a Gem for one project, but want to use another version for your other projects.
+  
+  Ruby projects are programs and libraries that make use of Ruby as the primary development language. Each Ruby project is typically designed to use a specific version (or versions) of Ruby, and may also use a variety of different Gems.
+  
+  The Bundler program is itself a Gem that is used to manage the Gem dependencies of your projects. That is, it determines and controls the Ruby version and Gems that your project uses, and attempts to ensure that the proper items are installed and used when you run the program.
+  
+  Finally, Rake is another Gem. It isn't tied to any one Ruby project, but is, instead, a tool that you use to perform repetitive development tasks, such as running tests, building databases, packaging and releasing the software, etc. The tasks that Rake performs are varied, and frequently change from one project to another; you use the Rakefile file to control which tasks your project needs.
   ## Gemfiles
 '''
 tags: []
 isStarred: false
 createdAt: "2017-06-08T12:31:47.422Z"
-updatedAt: "2017-06-08T12:34:17.419Z"
+updatedAt: "2017-06-12T13:12:07.073Z"

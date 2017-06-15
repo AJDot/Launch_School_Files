@@ -1,0 +1,23 @@
+type: "SNIPPET_NOTE"
+folder: "6c278bcfe0d2a245919c"
+title: "Rake task to list all project files not hidden."
+description: "Rake task to list all project files not hidden."
+snippets: [
+  {
+    name: "rake_list_all_project_files.rb"
+    mode: "Ruby"
+    content: '''
+      desc 'Display inventory of all files'
+      task :inventory do
+        Find.find('.') do |name|
+          next if name.include?('/.') # Excludes files and directories with . names
+          puts name if File.file?(name)
+        end
+      end
+    '''
+  }
+]
+tags: []
+isStarred: false
+createdAt: "2017-06-15T22:41:51.712Z"
+updatedAt: "2017-06-15T22:42:46.633Z"
