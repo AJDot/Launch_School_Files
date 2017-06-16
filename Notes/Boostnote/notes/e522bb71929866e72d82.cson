@@ -13,7 +13,7 @@ content: '''
     (num ** 2) > 10 # => [4, 5]
   end
   ```
-  The block portion of this code (between the `do...end`) is _passed into_ the `#select` method and executed there. Of course with `#select` the return value of the block is used to determine if a number should be selected. We can take this same code and pass it into another method.
+  The block portion of this code (between the `do...end`) is _passed into_ the `#select` method and executed when yielded to. At this moment the program leaves the method and executes the code in the block. Of course with `#select` the return value of the block is used to determine if a number should be selected. We can take this same code and pass it into another method.
   ```ruby
   [1, 2, 3, 4, 5].count do |num|
     (num ** 2) > 10 # => 2
@@ -33,7 +33,7 @@ content: '''
   We have acccomplished reusing code by instantiating a `Proc` object with the code we want to run later. The code above can even work on a hash with numbered keys!
   ```ruby
   hash = {1 => 'a', 2 => 'b', 3 => 'c', 4 => 'd', 5 => 'e'}
-  hash.select(&square_greater_10).values # => ["d", "e"]
+  hash.select(&square_greater_10) # => {4=>"d", 5=>"e"}
   ```
   
   So it's powerful. Code can be reused at a later time by passing a block into the method or by setting a `Proc` object to a variable and passing that object into a method.
@@ -86,4 +86,4 @@ tags: [
 ]
 isStarred: false
 createdAt: "2017-06-09T12:34:08.603Z"
-updatedAt: "2017-06-09T13:32:40.767Z"
+updatedAt: "2017-06-16T19:52:37.068Z"

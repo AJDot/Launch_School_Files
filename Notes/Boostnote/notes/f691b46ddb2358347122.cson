@@ -12,7 +12,7 @@ content: '''
   
   __E__ xecute
   
-  This where additional code is executed before the assertion is made to verify the code. Any additional setup/preparations for the assertion is done at this time.
+  This is where additional code is executed before the assertion is made to verify the code. Any additional setup/preparations for the assertion is done at this time.
   
   This code is inside a test method but before the intended assertion.
   
@@ -27,4 +27,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-13T23:16:12.667Z"
-updatedAt: "2017-06-13T23:32:13.095Z"
+updatedAt: "2017-06-16T20:01:01.870Z"
