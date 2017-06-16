@@ -1,0 +1,14 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "What is a Gemfile and how is it used?"
+content: '''
+  # What is a Gemfile and how is it used?
+  
+  A Gemfile is used by bundler to list some key information about the program it is contained in. One key bit of info is the list of Gems required for the program to run as instended. Bundler will use this list to then ensure the system the program is trying to be run from has all the necessary Gems and files to do it as intended.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-14T19:25:23.232Z"
+updatedAt: "2017-06-14T19:41:44.098Z"

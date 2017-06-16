@@ -1,0 +1,23 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "What is the purpose of Rake?"
+content: '''
+  # What is the purpose of Rake?
+  
+  Rake is used to automate just about anything. It is independent of a project. Some typically uses of rake are:
+  * Set up required environment by creating directories and files
+  * Set up and initalize databases
+  * Run tests
+  * Package your application and all of it files for distribution
+  * Install the application
+  * Perform common Git tasks
+  * Rebuild certain files and directories (assets) based on changes to other files and directories
+  
+  It is used to automate just about anything during the development, testing, and release cycles.`
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-14T19:32:40.118Z"
+updatedAt: "2017-06-14T19:41:50.134Z"

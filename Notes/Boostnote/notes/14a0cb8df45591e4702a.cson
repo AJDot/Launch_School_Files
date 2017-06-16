@@ -1,0 +1,14 @@
+type: "MARKDOWN_NOTE"
+folder: "ff77bd190bcb406a1e6c"
+title: "What is the purpose of Rubygems?"
+content: '''
+  # What is the purpose of Rubygems?
+  
+  Rubygems are packages of code that can be used from the command line or in your own Ruby programs. These can accomplish a huge variety of tasks. Some examples of Gems are `rubocop` and `bundler` which are run from the command line, and also `minitest` and `rainbow` which can be used in your own Ruby programs.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-06-14T19:14:03.904Z"
+updatedAt: "2017-06-14T19:41:48.386Z"
