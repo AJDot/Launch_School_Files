@@ -4,11 +4,11 @@ title: "What is the purpose of RVM and Rbenv?"
 content: '''
   # What is the purpose of RVM and Rbenv?
   
-  RVM and Rbenv allows you to have and run multiple versions of Ruby at the same time without having to alter the currect version of Ruby. These Ruby version managers keep the gems (and their specific versions) and other attributes organized within each version of Ruby.
+  RVM and Rbenv allows you to have multiple versions of Ruby at the same time without having to alter the current version of Ruby. These Ruby version managers keep the gems (and their specific versions) and other attributes organized within each version of Ruby.
 '''
 tags: [
   "QA"
 ]
 isStarred: false
 createdAt: "2017-06-14T19:18:35.207Z"
-updatedAt: "2017-06-14T19:41:51.900Z"
+updatedAt: "2017-06-17T15:07:11.694Z"
