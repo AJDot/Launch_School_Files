@@ -21,9 +21,9 @@ content: '''
   * [x] What is a Gemfile and how is it used?
   * [x] What is the purpose of Rake?
   * [x] Know the ins and outs of regex
-  * [ ] Explain the entire procedure for packaging code into a project.
+  * [x] Explain the entire procedure for packaging code into a project.
 '''
 tags: []
 isStarred: false
 createdAt: "2017-05-31T12:45:40.745Z"
-updatedAt: "2017-06-15T22:59:38.878Z"
+updatedAt: "2017-06-16T02:53:43.440Z"
