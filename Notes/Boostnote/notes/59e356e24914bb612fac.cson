@@ -1,0 +1,68 @@
+type: "MARKDOWN_NOTE"
+folder: "31b03d01eebd38ba7028"
+title: "Working with Sinatra"
+content: '''
+  # Working with Sinatra
+  ## Introduction
+  Sinatra is a web development framework meant to speed up development by automating common tasks. If you find you are having any trouble with some of the fundamentals, review the lesson in course 130 on [Packaging Code Into a Project](https://launchschool.com/lessons/2fdb1ef0/assignments) and the [Core Ruby Tools](https://launchschool.com/books/core_ruby_tools) book.
+  
+  ## Rack
+  Sinatra is Rack compatible so we should understack Rack a bit better.
+  
+  ### Rack Applications
+  We just created and worked with our own TCP server to process requests. However, there are more robust ones; Ruby comes with one call Webrick. Webrick can be cumbersome though - there is a library called Rack that will help with connecting to Webrick for us. Rack is a generic interface to help application developers connect to web servers and can work with more than just Webrick.
+  
+  In our diagram of parts and how they fit together, we will essentially be replacing our TCP server that we used with Webrick and our Ruby code with a Rack application.So now these two components make up our entire application server.
+  
+  ### Blog Series on Rack
+  Notes in this blog series are in the note titled "Blog Series on Rack".
+  
+  ## Sinatra Documentation
+  [Sinatra Documentation](http://www.sinatrarb.com/intro.html) can be found here.
+  
+  ## Sinatra and Web Frameworks
+  Now our mental model of how everything fits together is as follows. The server is comprised of Webrick which communicates with the Sinatra framework that can be thought of as wrapping around Rack.
+  
+  ## How Routes Work
+  Sinatra provides a DSL for defining _routes_. Routes are how a developer maps a URL pattern to some Ruby code. In `book_viewer.rb`:
+  ```ruby
+  require "sinatra"
+  require "sinatra/reloader"
+  
+  get "/" do
+    File.read "public/template.html"
+  end
+  ```
+  
+  `require "sinatra"` and `require "sinatra/reloader"` cause the application to reload its files every time we load a page. (Makes development a lot nicer)
+  
+  `get "/" do` declares a route that matches the URL `"/"`. When a user visits that path the body of the block will be executed by Sinatra. The return value is sent to the user's browser.
+  
+  Change the return value of the block, save the file and refresh the browser (do not restart the server). The browser does update to display the new return value.
+  
+  ## Rendering Templates
+  Templates (or _view templates_) are files that contain text that is converted into HTML before being sent to a user's browser in a response. There are many _templating languages_ but all serve the purpose of defining what HTML to generate and how to embed dynamic values.
+  
+  Dynamic values are anything you want to change on each page, like the `<title>`. The templating language we will use is `ERB` (_embedded Ruby_). This is also the default templating language in Ruby on Rails. 
+  
+  Here's the basics of embedding Ruby code. Printing a dynamic value.
+  
+  ```erb
+  <h1><%= @title %></h1>
+  ```
+  
+  When rendered,this template will look as follows, if `@title = "Book Viewer"`.
+  
+  ```html
+  <h1>Book Viewer</h1>
+  ```
+  
+  Any Ruby code can go between `<%` and `%>`. If you want to display a value you have to use the special start tag `<%=`.
+  
+  ## Table of Contents
+  
+'''
+tags: []
+isStarred: false
+createdAt: "2017-06-22T23:30:53.300Z"
+updatedAt: "2017-06-24T15:31:41.399Z"
