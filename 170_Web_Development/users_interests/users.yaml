@@ -1,0 +1,31 @@
+---
+:jamy:
+  :email: jamy.rustenburg@gmail.com
+  :interests:
+  - woodworking
+  - cooking
+  - reading
+:nora:
+  :email: nora.alnes@yahoo.com
+  :interests:
+  - cycling
+  - basketball
+  - economics
+:hiroko:
+  :email: hiroko.ohara@hotmail.com
+  :interests:
+  - politics
+  - history
+  - birding
+:alex:
+  :email: example@email.com
+  :interests:
+    - running
+    - programming
+    - digital photography
+:jasmine:
+  :email: jasmine@jasmine.com
+  :interests:
+    - sleeping
+    - napping
+    - snoring
