@@ -1,0 +1,127 @@
+type: "MARKDOWN_NOTE"
+folder: "31b03d01eebd38ba7028"
+title: "Securing Applications"
+content: '''
+  # Securing Applications
+  ## Introduction
+  Sinatra can be preferred over larger frameworks like Ruby on Rails because it is much smaller. If you don't need all the functionality, then there is less to learn/understand to get a project going.
+  
+  The problem is it may require you to do some things manually that a larger framework may do automatically. For example, escaping HTML.
+  
+  ### Keeping HTML Safe
+  When pages are created dynamically like in our Sinatra todo app it allows someone to modify the code (through inputs, etc). If they can modify the code, they may have access to steal data or potentially, credentials.
+  
+  ### An Example
+  Our todo app is vulnerable. Add a Todo with the following name:
+  ```html
+  <script>alert("This code was injected!");</script>Pizza
+  ```
+  1. The JavaScript code in the scripttag is being evaluated.
+  2. When you click OK, the page goes back to looking normal.
+  
+  So if the JavaScipt code didn't announce itself then we wouldn't have noticed it. We can do something similar when creating or editing a Todo list. Doing this, however, breaks the Edit form (although it still works).
+  
+  ## Sanitizing HTML
+  The script that was injected in out code is literally inserted into the code and executed as if it were placed there by us. Here is the code after the insertion.
+  ```html
+  <li class="<%= 'complete' if todo[:completed] %>">
+          <form action="/lists/<%= @list_id %>/todos/<%= index %>" method="post" class="check">
+            <input type="hidden" name="completed" value="<%= !todo[:completed] %>" />
+            <button type="submit">Complete</button>
+          </form>
+  
+          <h3><script>alert("This code was injected!");</script>Pizza</h3>
+          <form action="/lists/<%= @list_id %>/todos/<%= index %>/destroy" method="post" class="delete">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+  ```
+  
+  ### Escaping HTML
+  The solution: _escape_ any values that have come from an untrusted source (which mean all users, even well-meaning ones). This involves replacing text with HTML entities that the browser won't interpret as code. Quotes, greater than, less than, and others need to be escaped.
+  
+  The Rack library, which Sinatra is built on top of, has a built in method call `Rack::Utils.escape_html`:
+  ```irb
+  >> require "rack"
+  => true
+  >> Rack::Utils.escape_html "test"
+  => "test"
+  >> Rack::Utils.escape_html %{<script>alert("This code was injected!");</script>Pizza}
+  => "&lt;script&gt;alert(&quot;This code was injected!&quot;);&lt;&#x2F;script&gt;Pizza"
+  ```
+  
+  this method is available anywhere within a Sinatra application but a helper method is nice to use:
+  ```ruby
+  helpers do
+    def h(content)
+      Rack:Utils.escape_html(content)
+    end
+  end
+  ```
+  We can use it easily like so:
+  ```html
+  <h3><%=h todo[:name] %></h3>
+  ```
+  
+  Now it will be escaped when rendered.
+  
+  ### A More Thorough Approach
+  The problem with the `h` method is that a developer has to remember to use it every time untrusted data may enter the code. Many libraries now approach this by making _all_ output automatically escaped. This way a developer doesn't have to remember to escape it themselves.
+  
+  Add the following code to `todo.rb` in our app:
+  ```ruby
+  configure do
+    set :erb, :escape_html => true
+  end
+  ```
+  
+  Now the problem is _everything_ is escaped. To disable the auto-escape, replace `<%=` with `<%==`
+  
+  In our code we need to change two locations in `views/layout.erb`
+  ```html
+  ...
+  <%= yield_content :header_links %>
+  ...
+  <%= yield %>
+  ...
+  ```
+  Change to...
+  ```html
+  ...
+  <%== yield_content :header_links %>
+  ...
+  <%== yield %>
+  ...
+  ```
+  
+  ## Handling Bad Input
+  Open the application and go to the following url:
+  ```
+  http://localhost:4567/lists/15
+  ```
+  Should get an error. This is because we are not validating the params that are passed into the application. Here we are trying to access an index of an array that doesn't exist, `nil` is returned and we are trying to call a `#[]` method on it.
+  
+  To fix the issue:
+  * If there is an attempttoaccess a Todo list that doesn't exist, we should redirect the user to the `/lists` page and display an error.
+  
+  ## HTTP Methods and Security
+  There really isn't much difference in the security between different HTML requests. 
+  
+  Any data sent as a GET request can be seen if code can be viewed as plain text, for http. https helps to fix this.
+  
+  For a POST request, no parameters are in the url but they do go in the body. The parameters however are still visible as plain text in the body instead of the path, not much different. No real security is added and anyone a little skilled in the ways of the web can still access them.
+  
+  The build a secure application, build it and make it hosted to use the https protocol.
+  
+  ### Practice Problems
+  1. Is using POST as the HTTP method for a request more secure than GET? Why or why not?
+      For the average user, a little bit because information isn't displayed in the url. For anyone skilled with the web, no. The data can still be accessed, it is just located in the body of the request instead of in the path.
+  2. How can a web applications be secured so that any data being sent between the client and server can not be viewed by other parties?
+      Serve the application over __HTTPS__ is the only way to protect a user's data.
+  
+  
+'''
+tags: []
+isStarred: false
+createdAt: "2017-06-28T23:30:38.013Z"
+updatedAt: "2017-06-29T00:35:20.387Z"

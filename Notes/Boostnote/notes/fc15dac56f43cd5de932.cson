@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "What is Cross-Sit Scripting and how do we prevent it?"
+content: '''
+  # What is Cross-Sit Scripting and how do we prevent it?
+  Cross-Site Scripting (XSS) is when users are allowed to enter HTML or JavaScript that ends up being displayed directly by the site. Essentially this is allowing a user to inject code into your program, potentially giving access to sensitive data or damaging your application.
+  
+  How to prevent it:
+  * sanitize user input to eliminate inputs such as \\<script\\> tags don't allow HTML and JS altogether.
+  
+  
+  * Escape all user input when displaying it. In this way the browser will not interpret user inputs as code to be executed.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-07-18T15:53:15.424Z"
+updatedAt: "2017-07-18T15:57:38.932Z"

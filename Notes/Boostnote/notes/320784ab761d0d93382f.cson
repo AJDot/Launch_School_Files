@@ -1,0 +1,19 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "How do we protect against session hacking?"
+content: '''
+  # How do we protect against session hacking?
+  
+  * Resetting sessions by rendering old session ids invalid and requiring a new one be created (usually means signing in again)
+  
+  
+  * Setting a expiration time on sessions. A shorter time means an attacker won't have an unlimited amount of time to access your data.
+  
+  
+  * HTTPS
+  
+'''
+tags: []
+isStarred: false
+createdAt: "2017-07-18T15:49:51.678Z"
+updatedAt: "2017-07-18T15:52:27.480Z"

@@ -194,7 +194,7 @@ content: '''
   Let's take a quick detour.
   
   ### ERB
-  ERB - "Embedded" Ruby - A templating engine that allows us to embed Ruby directly into HTML. It takes a special syntax that mixes Ruby into HTML and produces a the final HTML string.
+  ERB - "Embedded" Ruby - A templating engine that allows us to embed Ruby directly into HTML. It takes a special syntax that mixes Ruby into HTML and produces the final HTML string.
   
   These files end in `.erb`.
   
@@ -484,4 +484,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-24T04:05:42.914Z"
-updatedAt: "2017-06-24T04:07:05.501Z"
+updatedAt: "2017-07-16T21:54:09.199Z"

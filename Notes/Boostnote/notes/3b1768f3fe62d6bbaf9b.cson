@@ -1,0 +1,20 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "What is the difference between methods declared with a helpers block and those defined at the top level in a classic Sinatra application?"
+content: '''
+  # What is the difference between methods declared with a `helpers` block and those defined at the top level in a classic Sinatra application?
+  
+  ## Jim Benton's Answer
+  The difference between methods declared within a helpers block and those defined at the top level in a classic Sinatra application has more to do with the developer's intent for those methods than where they are available. That methods defined at the top level are available within ERB templates is more of a side affect of how erubis and Sinatra are implemented than an intentional feature.
+  
+  The general rule followed in the course is this:
+  If a method is intended to be used as a view helper, then it is best to include it within the helpers block. If the method is something that is used only within routes as a way to separate behavior into logical parts, then it's better to keep it at the top level.
+  
+  As Brandon said, where code lives becomes more important in larger frameworks and projects. Larger Sinatra applications will often use a class-based style (called the "modular style" within the Sinatra documentation). When a class-based structure is used, no methods are declared at the top level, making the purpose of using helpers more obvious.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-07-17T17:32:29.253Z"
+updatedAt: "2017-07-18T15:00:24.856Z"

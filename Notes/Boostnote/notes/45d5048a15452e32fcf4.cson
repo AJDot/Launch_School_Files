@@ -1,0 +1,10 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "What does it mean for HTTP to be \"stateless\"? What are the benefits and downfalls of this type of protocol?"
+content: "# What does it mean for HTTP to be \"stateless\"? What are the benefits and downfalls of this type of protocol?"
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-07-18T15:07:39.907Z"
+updatedAt: "2017-07-18T15:09:21.275Z"

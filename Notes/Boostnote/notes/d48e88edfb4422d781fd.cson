@@ -1,0 +1,33 @@
+type: "MARKDOWN_NOTE"
+folder: "6c278bcfe0d2a245919c"
+title: "Project: Todos"
+content: '''
+  # Project: Todos
+  ## What is State?
+  
+  State is data that persists over time.
+  
+  A protocol is a set of rules. HTTP is a protocol for the interactions between a client and server.
+  
+  When someone says that HTTP is state-less, what they mean is that every HTTP request is handled separately. When a server finishes handling one response, it forgets everything about that request before accepting the next one.
+  
+  You might be thinking that servers remember things between requests all the time, and you would be correct. But doing this requires techniques that are built on top of HTTP and not part of the protocol itself.
+  
+  The grammar rules of written language include concepts of words, sentences, punctuation, etc, but no built-in concept of meaning. Determing the meaning of a sentence requires a level of interpretation above that of the words themselves.
+  
+  Likewise, HTTP has no concept of state itself. But we can use it to send information back and forth that, when interpreted correctly on both sides, creates a system where we can persist state across requests.
+  
+  ## Summary
+  * _State_ is data that persits over time.
+  * The _session_ provides a way to store data that will persist between subsequent HTTP requests. This data is associated with a specific user by storing a cookie in their browser. In Sinatra, the session data itself is also stored in this cookie, but this is configurable and not always the case with other web frameworks.
+  * Data that is submitted to the server often needs to be _validated_ to ensure it meets the requirements of the application. In this lesson we built _server-side_ validation as we performed the validation logic on the server.
+  * Messages that need to be displayed to the user on their next request and then deleted can be stored in the session. This kind of message is often referred to as a _flash_ message.
+  * Content from within a view template can be stored under a name and retrieved later using `content_for` and `yield_content`.
+  * `GET` requests should only request data. Any request that modifies data should be over `POST` or another non-GET method.
+  * Web browsers don't support request methods other than `GET` or `POST` in HTML forms, so there are times when a developer has to use `POST` even when another method would be more appropriate.
+  * View helpers provide a way to extract code that determines what HTML markup is generated for a view.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-06-26T13:30:10.257Z"
+updatedAt: "2017-06-28T12:28:31.108Z"

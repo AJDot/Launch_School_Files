@@ -26,7 +26,8 @@ get "/list" do
 end
 
 get "/users/:name" do
-  @name = params[:name].to_sym
+  # @name = params[:name].to_sym
+  @name = params["name"].to_sym
 
   @title = @name.to_s
   @email = @users[@name][:email]
