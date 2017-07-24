@@ -1,0 +1,18 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "What is the session? Where it is stored? How is it used?"
+content: '''
+  # What is the session? Where it is stored? How is it used?
+  
+  The session is a place where information can persist from one request to the next because the information is sent with each request and returned with each response. 
+  
+  The session is stored on the client. 
+  
+  **INCOMPLETE**
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-07-24T15:25:42.211Z"
+updatedAt: "2017-07-24T15:34:10.895Z"

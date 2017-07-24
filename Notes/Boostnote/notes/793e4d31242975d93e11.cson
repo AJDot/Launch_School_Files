@@ -14,7 +14,9 @@ content: '''
   
   This of course poses a problem if a website has Cross-origin resource sharing (CORS)
 '''
-tags: []
+tags: [
+  "QA"
+]
 isStarred: false
 createdAt: "2017-07-18T15:39:50.556Z"
-updatedAt: "2017-07-18T15:48:17.499Z"
+updatedAt: "2017-07-20T21:51:47.241Z"

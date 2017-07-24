@@ -5,6 +5,10 @@ content: '''
   # What are the components of an HTTP request and an HTTP response?
   
   ## HTTP Response
+  * Status
+  * Headers (optional)
+  * Body    (optional)
+  
   ### Status Code
   A three-digit number that signifies the status of the response.
   Some common status codes
@@ -29,6 +33,11 @@ content: '''
   
   
   ## HTTP Request
+  * Method
+  * Path
+  * Params  (optional)
+  * Headers (optional)
+  * Body    (optional)
   ### What are some useful request headers?
   
   | Field Name | Description | Example |
@@ -43,4 +52,4 @@ tags: [
 ]
 isStarred: false
 createdAt: "2017-07-18T01:29:01.778Z"
-updatedAt: "2017-07-18T15:03:08.923Z"
+updatedAt: "2017-07-20T21:58:28.695Z"

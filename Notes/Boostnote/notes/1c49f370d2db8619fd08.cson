@@ -108,10 +108,10 @@ content: '''
   * _URLs_ are made up of many components: a protocol, a host, a port, a path, and parameters.
   * _Query parameters_ are parameteres that are included in a URL. `?` signifies their start and they are written in the `key=value` form.
   * Use `&` to append more parameters.
-  * HTTPis stateless. By carefully craftings URLs and parameters, stateful interactions can be built on top of HTTP.
+  * HTTP is stateless. By carefully craftings URLs and parameters, stateful interactions can be built on top of HTTP.
   
 '''
 tags: []
 isStarred: false
 createdAt: "2017-06-22T00:41:40.427Z"
-updatedAt: "2017-06-22T19:24:11.170Z"
+updatedAt: "2017-07-21T14:00:07.991Z"

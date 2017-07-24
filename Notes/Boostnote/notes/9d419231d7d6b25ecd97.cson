@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "How does an HTML form element interact with the server-side code that processes it."
+content: '''
+  # How does an HTML form element interact with the server-side code that processes it.
+  An HTML form element has a `method` and a `action`. 
+  
+  The `method` specifies what HTML method is to be used. In the applications we have built, `GET` and `POST` would be the options. Typically a form will be used for the `POST` method and not for the `GET` method. This specificies how data will be sent to the server, in the URL (a `GET` request) or in the request body (a `POST` request).
+  
+  The `action` specifies the path of the request to be handled by the server.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-07-21T14:08:47.823Z"
+updatedAt: "2017-07-21T14:55:57.188Z"

@@ -13,7 +13,7 @@ content: '''
   * **query string**: data sent to the server. Optional. Used by server to make decisions/affect the HTTP response.
   
   Example URL:
-  ```
+  ```http
   http://www.example.com:3000/index?request=info
   ```
   
@@ -27,10 +27,22 @@ content: '''
   In the query string, the query parameter `request` has the value `info`. `&` will be used to separate multiple query paramters.
   
   ** Query parameters are only used in HTTP GET requests**. 
+  
+  My Example:
+  ```http
+  https://www.runtracker.com:5000/runs?data=2017-07-18
+  ```
+  * scheme: `https`
+  * host: `www.runtracker.com`
+  * port: `5000`
+  * path: `/runs`
+  * params=value: `data=2017-07-18`
+  
+  
 '''
 tags: [
   "QA"
 ]
 isStarred: false
 createdAt: "2017-07-18T00:29:55.429Z"
-updatedAt: "2017-07-18T15:00:28.851Z"
+updatedAt: "2017-07-20T22:11:59.949Z"

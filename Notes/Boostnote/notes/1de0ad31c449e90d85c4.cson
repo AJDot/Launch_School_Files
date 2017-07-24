@@ -35,7 +35,7 @@ content: '''
   
   The required components are the method and path. The optional components are the parameters, headers, and body.
   
-  2. What are the required components of an HTTP response? What are teh additional optional components?
+  2. What are the required components of an HTTP response? What are the additional optional components?
   
   The required components are the status. Headers and body are optional.
   
@@ -58,4 +58,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-21T23:22:32.799Z"
-updatedAt: "2017-06-22T00:36:19.418Z"
+updatedAt: "2017-07-21T13:58:26.123Z"

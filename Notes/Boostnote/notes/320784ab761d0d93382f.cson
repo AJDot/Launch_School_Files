@@ -13,7 +13,9 @@ content: '''
   * HTTPS
   
 '''
-tags: []
+tags: [
+  "QA"
+]
 isStarred: false
 createdAt: "2017-07-18T15:49:51.678Z"
-updatedAt: "2017-07-18T15:52:27.480Z"
+updatedAt: "2017-07-20T21:51:42.298Z"
