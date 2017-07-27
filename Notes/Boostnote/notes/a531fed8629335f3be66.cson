@@ -17,25 +17,22 @@ content: '''
   ## Sinatra
   * [x] Start a new Sinatra project and write simple routes to handle requests.
   * [x] What are the benefits of using view templates? Be able to use an ERB template in a Sinatra route.
-  * [ ] What is the session? Where it is stored? How is it used?
-  * [ ] Write a view helper and use it within a view template.
-  * [ ] Explain how redirection works and why it would be needed in a web application.
+  * [x] What is the session? Where it is stored? How is it used?
+  * [x] Write a view helper and use it within a view template.
+  * [x] Explain how redirection works and why it would be needed in a web application.
   
   ## Mine
-  * [ ] What is the difference between methods declared with a `helpers` block and those defined at the top level in a classic Sinatra application?
-  * [ ] What does it mean for HTTP to be "stateless"? What are the benefits and downfalls of this type of protocol?
-  * [ ] What is the Internet?
-  * [ ] How do you access a website? give the steps starting with the input of a URL in a web browser.
-  * [ ] What is a URL and what part does it play in accessing a website?
-  * [ ] What are some limitations with query parameters?
-  * [ ] What are some usefule Request Headers?
-  * [ ] How can a stateless protocol seem "stateful"?
-  * [ ] How do we secure HTTP?
-  * [ ] How do we protect against session hacking?
+  * [x] What is the difference between methods declared with a `helpers` block and those defined at the top level in a classic Sinatra application?
+  * [x] What does it mean for HTTP to be "stateless"? What are the benefits and downfalls of this type of protocol?
+  * [x] How do you access a website? Give the steps starting with the input of a URL in a web browser.
+  * [x] What are some limitations with query parameters?
+  * [x] How can a stateless protocol seem "stateful"?
+  * [x] How do we secure HTTP?
+  * [x] How do we protect against session hacking?
   * [x] What is Cross-Site Scripting and how do we prevent it?
   * [x] When to Use Validations?
 '''
 tags: []
 isStarred: false
 createdAt: "2017-07-17T17:11:45.949Z"
-updatedAt: "2017-07-24T15:25:00.227Z"
+updatedAt: "2017-07-27T15:46:36.382Z"

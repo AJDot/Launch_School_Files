@@ -4,6 +4,8 @@ title: "What is the difference between methods declared with a helpers block and
 content: '''
   # What is the difference between methods declared with a `helpers` block and those defined at the top level in a classic Sinatra application?
   
+  Not much. For Sinatra, methods declared inside or outside of the `helpers` block are available anywhere. In larger framerworks (I'm guessing Ruby on Rails) the exact location of a method matters more. Without this location restriction, the point of the `helpers` method is more about intent. If the method is intended to assist the output of a view template, then place it in the `helpers` method. If it is used keep code modular inside routes, then place them at top-level.
+  
   ## Jim Benton's Answer
   The difference between methods declared within a helpers block and those defined at the top level in a classic Sinatra application has more to do with the developer's intent for those methods than where they are available. That methods defined at the top level are available within ERB templates is more of a side affect of how erubis and Sinatra are implemented than an intentional feature.
   
@@ -17,4 +19,4 @@ tags: [
 ]
 isStarred: false
 createdAt: "2017-07-17T17:32:29.253Z"
-updatedAt: "2017-07-18T15:00:24.856Z"
+updatedAt: "2017-07-26T20:33:15.831Z"
