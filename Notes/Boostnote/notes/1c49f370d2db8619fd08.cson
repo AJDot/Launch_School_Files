@@ -19,11 +19,11 @@ content: '''
   
   Server has three main components: _web server_, _application server_, _data store_. This is hugely oversimplified but enough for our purposes right now.
   
-  _web server_ - a server that responds to static assets: filess, images, css, javascript, etc. Requests don't require any data processing - can be handled by a simple web server
+  _web server_ - a server that responds to static assets: files, images, css, javascript, etc. Requests don't require any data processing - can be handled by a simple web server
   
   _application server_ - where application or business logic resides - where more complicated requests are handled. This is where your server-side code lives when deployed.
   
-  _data store_ - often consulted by the application server, like a relational databse, to retrieve or create data. They can be simple file, key/value stores, document stores, etc, as long as it can save dta in some format for later retrieval and processing.
+  _data store_ - often consulted by the application server, like a relational database, to retrieve or create data. They can be simple file, key/value stores, document stores, etc, as long as it can save data in some format for later retrieval and processing.
   
   ### HTTP over TCP/IP
   
@@ -93,7 +93,7 @@ content: '''
       The first way is to use `%20`.
       The second way is to use a `+` sign
       
-  5. What character indicates the beginning ofa URL's query parameters.
+  5. What character indicates the beginning of a URL's query parameters.
       `?`
       
   6. What character is used between the name and value of a query parameter?
@@ -114,4 +114,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-22T00:41:40.427Z"
-updatedAt: "2017-07-21T14:00:07.991Z"
+updatedAt: "2017-07-27T21:52:13.715Z"

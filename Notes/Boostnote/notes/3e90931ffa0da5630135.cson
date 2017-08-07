@@ -10,7 +10,7 @@ content: '''
   ### What Makes a Rack Application
   It allows us to utilize a standardized methodology for communicating HTTP requests and responses between the client and the server. There are some very specific conventions that need to be followed in a Rack application:
   
-    1. Create a `rackup` file: this is a configuration file that specifies what to run and how to run it. A rackup file usesthe file extension `.ru`.
+    1. Create a `rackup` file: this is a configuration file that specifies what to run and how to run it. A rackup file uses the file extension `.ru`.
     2. The rack application we use in the rackup file must be a Ruby object that responds to the method `call(env)`. The `call(env)` method takes one argument, the environment variables for this application.
     
   The `call` method always returns an array containing these 3 elements:
@@ -484,4 +484,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-24T04:05:42.914Z"
-updatedAt: "2017-07-16T21:54:09.199Z"
+updatedAt: "2017-07-27T21:57:56.772Z"
