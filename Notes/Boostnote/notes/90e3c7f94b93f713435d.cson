@@ -25,16 +25,16 @@ content: '''
   The script that was injected in out code is literally inserted into the code and executed as if it were placed there by us. Here is the code after the insertion.
   ```html
   <li class="<%= 'complete' if todo[:completed] %>">
-          <form action="/lists/<%= @list_id %>/todos/<%= index %>" method="post" class="check">
-            <input type="hidden" name="completed" value="<%= !todo[:completed] %>" />
-            <button type="submit">Complete</button>
-          </form>
+    <form action="/lists/<%= @list_id %>/todos/<%= index %>" method="post" class="check">
+      <input type="hidden" name="completed" value="<%= !todo[:completed] %>" />
+      <button type="submit">Complete</button>
+    </form>
   
-          <h3><script>alert("This code was injected!");</script>Pizza</h3>
-          <form action="/lists/<%= @list_id %>/todos/<%= index %>/destroy" method="post" class="delete">
-            <button type="submit">Delete</button>
-          </form>
-        </li>
+    <h3><script>alert("This code was injected!");</script>Pizza</h3>
+    <form action="/lists/<%= @list_id %>/todos/<%= index %>/destroy" method="post" class="delete">
+      <button type="submit">Delete</button>
+    </form>
+  </li>
   ```
   
   ### Escaping HTML
@@ -102,7 +102,7 @@ content: '''
   Should get an error. This is because we are not validating the params that are passed into the application. Here we are trying to access an index of an array that doesn't exist, `nil` is returned and we are trying to call a `#[]` method on it.
   
   To fix the issue:
-  * If there is an attempttoaccess a Todo list that doesn't exist, we should redirect the user to the `/lists` page and display an error.
+  * If there is an attempt to access a Todo list that doesn't exist, we should redirect the user to the `/lists` page and display an error.
   
   ## HTTP Methods and Security
   There really isn't much difference in the security between different HTML requests. 
@@ -124,4 +124,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-28T23:30:38.013Z"
-updatedAt: "2017-06-29T00:35:20.387Z"
+updatedAt: "2017-08-10T20:49:59.192Z"

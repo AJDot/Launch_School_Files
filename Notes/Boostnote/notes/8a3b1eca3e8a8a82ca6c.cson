@@ -20,7 +20,7 @@ content: '''
   ```erb
   # view template
   <ul>
-    in_list(@array_of_items_to_display)
+    <%= in_list(@array_of_items_to_display) %>
   </ul>
   ```
 '''
@@ -29,4 +29,4 @@ tags: [
 ]
 isStarred: false
 createdAt: "2017-07-24T22:04:39.997Z"
-updatedAt: "2017-07-24T22:11:35.936Z"
+updatedAt: "2017-08-09T00:39:42.144Z"

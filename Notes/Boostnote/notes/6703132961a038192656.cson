@@ -1,0 +1,28 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "What is a project?"
+content: '''
+  # What is a project?
+  A project is the group of files that make up an entire application. These are files used in development, testing, construction, and distribution of the application. Examples of projects are software applications, modules, gems, and essentially anything else that can be organized into one cohesive unit.
+  
+  Project should be set up in a standard way so other developers can follow, it's like a protocol.
+  
+  Main ruby files should be kept in the `lib` folder.
+  Test file should be kep in the `test` folder.
+  
+  Configure a `Gemfile` with the following information:
+  * source for Rubygems `source 'https://rubygems.org'`
+  * if you need a `.gemspec` file
+  * version of Ruby `ruby '2.4.0'`
+  * gems needed `gem 'minitest', '~> 5.10'`
+  
+  Run `bundle install` to create the `Gemfile.lock` file and install all project dependencies.
+  
+  Add `require 'bundler/setup'` to all main Ruby files. (I think this will automatically run `bundle install` when the Ruby file is run. What it definitely does is prevent Ruby from finding Gems that are not listed in the `Gemfile`.)
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-09T11:39:25.369Z"
+updatedAt: "2017-08-09T22:25:40.695Z"

@@ -31,8 +31,12 @@ content: '''
   * [x] How do we protect against session hacking?
   * [x] What is Cross-Site Scripting and how do we prevent it?
   * [x] When to Use Validations?
+  * [x] What are the 3 ways to populate the `params` hash from the client?
+  * [x] What is a project?
+  * [x] URL Discussion
+  * [x] When to Use Validations
 '''
 tags: []
 isStarred: false
 createdAt: "2017-07-17T17:11:45.949Z"
-updatedAt: "2017-07-27T15:46:36.382Z"
+updatedAt: "2017-08-10T11:45:24.482Z"

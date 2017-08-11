@@ -31,7 +31,7 @@ content: '''
   
   
   ### Practice Problems
-  1. What are the required components fo an HTTP request? What are the additional optional components?
+  1. What are the required components of an HTTP request? What are the additional optional components?
   
   The required components are the method and path. The optional components are the parameters, headers, and body.
   
@@ -58,4 +58,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-21T23:22:32.799Z"
-updatedAt: "2017-07-21T13:58:26.123Z"
+updatedAt: "2017-08-09T00:49:43.380Z"

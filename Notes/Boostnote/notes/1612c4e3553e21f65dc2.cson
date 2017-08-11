@@ -11,7 +11,7 @@ content: '''
     redirect "/another_path"
   end
   ```
-  Here, when the `/` route is requested, the optional code will be executed and the response will include a `Location` header. This will be follow to the route `/another_path` and the code for that route will be run.
+  Here, when the `/` route is requested, the optional code will be executed and the response will include a `Location` header. This will be followed to the route `/another_path` and the code for that route will be run.
   
   A status code of `302` tells the browser that the resource has moved and to follow the `Location` header. 
   
@@ -25,4 +25,4 @@ tags: [
 ]
 isStarred: false
 createdAt: "2017-07-25T12:58:08.668Z"
-updatedAt: "2017-07-26T20:26:03.872Z"
+updatedAt: "2017-08-09T00:41:49.755Z"

@@ -4,6 +4,8 @@ title: "What does it mean for HTTP to be \"stateless\"? What are the benefits an
 content: '''
   # What does it mean for HTTP to be "stateless"? What are the benefits and downfalls of this type of protocol?
   
+  State is the concept of data persisting over time and, in the case of HTTP, persisting over requests.
+  
   `Stateless` means that each request/reponse is not affected by any previous requests/responses. When a request/response is sent/received, its effects are never influenced by previous requests/responses.
   
   ## Benefits
@@ -19,4 +21,4 @@ tags: [
 ]
 isStarred: false
 createdAt: "2017-07-18T15:07:39.907Z"
-updatedAt: "2017-07-26T20:41:49.391Z"
+updatedAt: "2017-08-09T23:03:42.953Z"

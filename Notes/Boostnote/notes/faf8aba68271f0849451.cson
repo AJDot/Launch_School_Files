@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "What are the 3 ways to populate the params hash from the client?"
+content: '''
+  # What are the 3 ways to populate the `params` hash from the client?
+  1. Query parameters from a `GET` request which are sent in URL. `http:example.com?id=value`
+  2. Route parameters which are part of the path. In Sinatra, ex: `get '/list/:id` where `:id` is the key that can be accessed using `params[:id]`.
+  3. Form data from a `POST` request. The name in the params hash is the name given to the HTML element. `<input name="id" value="value"/>`
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-08T18:15:52.035Z"
+updatedAt: "2017-08-08T18:21:03.884Z"

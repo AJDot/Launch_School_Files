@@ -29,7 +29,7 @@ content: '''
   
   Now zoom in on the middle part, the request and response.
   
-  HTTP relies on a TCP/IP connection (most of the time). So how is HTTP and TCP/IP related?
+  HTTP relies on a TCP/IP connection (most of the time). So how are HTTP and TCP/IP related?
   
   HTTP is know as an _application layer protocol_. It's just an agreement on how to format a string request. This is a higher level protocol layer.
   
@@ -114,4 +114,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-06-22T00:41:40.427Z"
-updatedAt: "2017-07-27T21:52:13.715Z"
+updatedAt: "2017-08-09T00:51:51.866Z"

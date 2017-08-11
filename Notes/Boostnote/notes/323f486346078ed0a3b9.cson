@@ -1,0 +1,20 @@
+type: "MARKDOWN_NOTE"
+folder: "bb813720b7cd4979b60a"
+title: "When to Use Validations"
+content: '''
+  # When to Use Validations
+  
+  If the bad data comes from user input on a form, then it should be validated. Provide an error message and allow the users to correct the bad data.
+  
+  Errors in your program due to a bug should not be validated. The bug should simply be found and fixed.
+  
+  The error message provided should be relevant to the user and not include information about details of your code. Ex: don't say "list index does not exist" because the user will have no idea what is an index. Instead say "list cannot be found" or "list does not exist" and the user should understand.
+  
+  Messages revealing any details about your code may be used maliciously.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-10T11:45:29.796Z"
+updatedAt: "2017-08-10T11:52:29.440Z"
