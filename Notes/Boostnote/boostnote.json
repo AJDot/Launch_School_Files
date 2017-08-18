@@ -49,6 +49,16 @@
       "key": "bb813720b7cd4979b60a",
       "color": "#d0021b",
       "name": "179 Assessment"
+    },
+    {
+      "key": "1a59de9384b539538d61",
+      "color": "#FF8E00",
+      "name": "180 SQL and Relational Databases"
+    },
+    {
+      "key": "68cc63b90815c1fa35c9",
+      "color": "#E10051",
+      "name": "Book: Intro to SQL"
     }
   ],
   "version": "1.0"
