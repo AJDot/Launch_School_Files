@@ -1,0 +1,18 @@
+type: "MARKDOWN_NOTE"
+folder: "1a59de9384b539538d61"
+title: "Interacting with a Database in Code"
+content: '''
+  # Interacting with a Database in Code
+  ## Summary
+  In this lesson, we've looked at how to:
+  * use the `pg` gem to interact with a PostgreSQL database from Ruby
+    * Creating a new `PG::Connection` object
+    * Executing SQL statements using `#exec` and `#exec_params`
+    * Accessing query results contained in `PG::Result` objects
+  * Build a small command-line Ruby application
+  * Automatically create tables if they do not exist
+'''
+tags: []
+isStarred: false
+createdAt: "2017-08-20T19:36:00.537Z"
+updatedAt: "2017-08-20T19:37:50.533Z"
