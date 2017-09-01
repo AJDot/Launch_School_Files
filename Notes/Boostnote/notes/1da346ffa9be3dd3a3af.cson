@@ -108,12 +108,12 @@ content: '''
   INSERT INTO menu_items VALUES ('oatmeal', 1, 0.50, 79, 5.99);
   ```
   
-  ## Using the table and data from #8 and #9, write a SQL query to detmine which menu item is the mostprofitable based on the cost of its ingredients, returning the name of the item and its profit. Keep in mind that `prep_time` is represented in minutes and `ingredient_cost` and `menu_price` are in dollars and cents.
+  ## Using the table and data from #8 and #9, write a SQL query to determine which menu item is the most profitable based on the cost of its ingredients, returning the name of the item and its profit. Keep in mind that `prep_time` is represented in minutes and `ingredient_cost` and `menu_price` are in dollars and cents.
   ```sql
   SELECT item, menu_price - ingredient_cost AS profit FROM menu_items ORDER BY profit DESC LIMIT 1;
   ```
   
-  ## Write a SQL query to determine how profitable each item on the menu isbased on the amount oftimeit takes to prepare. Assume that whoever is preparing the food is being paid #13 an hour. List the most profitable items first.
+  ## Write a SQL query to determine how profitable each item on the menu is based on the amount of time it takes to prepare. Assume that whoever is preparing the food is being paid $13 an hour. List the most profitable items first.
   ```sql
   SELECT item, menu_price, ingredient_cost,
          round(prep_time/60.0 * 13.0, 2) AS labor,
@@ -125,4 +125,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-08-16T00:12:26.877Z"
-updatedAt: "2017-08-16T01:12:09.739Z"
+updatedAt: "2017-08-29T18:36:42.739Z"

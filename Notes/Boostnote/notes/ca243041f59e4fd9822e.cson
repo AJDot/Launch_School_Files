@@ -1,0 +1,25 @@
+type: "MARKDOWN_NOTE"
+folder: "865ee7e7975989c91bc4"
+title: "Define a default value for a column."
+content: '''
+  # Define a default value for a column.
+  ```sql
+  CREATE TABLE <table name> (
+    number integer DEFAULT 0
+  );
+  ```
+  The column `number` will have a default value of 0.
+  
+  If the table has already been created, a default value may be added:
+  ```sql
+  ALTER TABLE <table name> 
+    ALTER COLUMN <column name> 
+      SET DEFAULT 0;
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-24T20:59:46.880Z"
+updatedAt: "2017-08-25T21:18:04.162Z"

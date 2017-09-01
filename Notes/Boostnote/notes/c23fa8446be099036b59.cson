@@ -1,0 +1,40 @@
+type: "MARKDOWN_NOTE"
+folder: "865ee7e7975989c91bc4"
+title: "Create a sequence and work with it."
+content: '''
+  # Create a sequence and work with it.
+  ```sql
+  CREATE SEQUENCE counter;
+  ```
+  
+  Retrieve the next value from the sequence.
+  ```sql
+  SELECT nextval('counter');
+  ```
+  
+  Remove the sequence
+  ```sql
+  DROP SEQUENCE counter;
+  ```
+  
+  Create a sequenct that returns only even numbers.
+  ```sql
+  CREATE SEQUENCE even_counter START 2 INCREMENT BY 2;
+  ```
+  
+  Add an auto-incrementing integer primary key to a column.
+  ```sql
+  ALTER TABLE films ADD COLUMN id serial PRIMARY KEY;
+  ```
+  
+  Remove the PRIMARY KEY without removing the `id` column.
+  ```sql
+  ALTER TABLE films DROP CONSTRAINT films_pkey;
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-29T19:16:40.261Z"
+updatedAt: "2017-08-29T19:23:50.307Z"

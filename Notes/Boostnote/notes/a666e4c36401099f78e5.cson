@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "1a59de9384b539538d61"
+title: "Optimizing SQL Queries"
+content: '''
+  # Optimizing SQL Queries
+  ## Summary
+  
+  In this lesson, we learned about:
+  * How N+1 queries are the result of performing an additional query for each element in a collection
+  * How to move business logic from Ruby into the database by adding to a query's select list.
+  * How making database interactions mroe efficient often involves making SQL queries more specialized.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-08-24T12:30:05.134Z"
+updatedAt: "2017-08-24T12:33:02.013Z"

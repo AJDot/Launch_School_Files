@@ -26,7 +26,7 @@ content: '''
     | boolean | boolean | true or false | true, false |
     | sub-language | controls | SQL Constructs |
   
-  * `NULL` is a psecial value that represents the absence of any other value.
+  * `NULL` is a special value that represents the absence of any other value.
   * `NULL` values must be compared using `IS NULL` or `IS NOT NULL`.
   * Database dumps can be loaded using `psql -d database_name < file_to_import.sql`.
   * Table columns can have default values, which are specified using `SET DEFAULT`.
@@ -41,4 +41,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-08-17T01:44:13.371Z"
-updatedAt: "2017-08-17T01:57:25.715Z"
+updatedAt: "2017-08-30T14:26:22.436Z"

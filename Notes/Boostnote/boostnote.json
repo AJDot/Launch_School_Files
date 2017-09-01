@@ -37,28 +37,33 @@
     },
     {
       "key": "bf83ff3b633d9312fae1",
-      "color": "#d0021b",
+      "color": "#417505",
       "name": "Book: Intro to HTTP"
     },
     {
       "key": "31b03d01eebd38ba7028",
-      "color": "#d0021b",
+      "color": "#417505",
       "name": "170 Web Development"
     },
     {
       "key": "bb813720b7cd4979b60a",
-      "color": "#d0021b",
+      "color": "#417505",
       "name": "179 Assessment"
     },
     {
       "key": "1a59de9384b539538d61",
-      "color": "#FF8E00",
+      "color": "#417505",
       "name": "180 SQL and Relational Databases"
     },
     {
-      "key": "68cc63b90815c1fa35c9",
+      "key": "865ee7e7975989c91bc4",
+      "color": "#417505",
+      "name": "189 Assessment"
+    },
+    {
+      "key": "2f2ccef443f50101476a",
       "color": "#E10051",
-      "name": "Book: Intro to SQL"
+      "name": "201 HTML & CSS"
     }
   ],
   "version": "1.0"

@@ -1,0 +1,35 @@
+type: "MARKDOWN_NOTE"
+folder: "865ee7e7975989c91bc4"
+title: "Create and remove foreign key constraints from a column."
+content: '''
+  # Create and remove foreign key constraints from a column.
+  ```sql
+  CREATE TABLE owners (
+    id serial PRIMARY KEY,
+    name text NOT NULL
+  );
+  
+  CREATE TABLE pets (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    owner_id integer REFERENCES owners (id)
+  );
+  -- OR --
+  CREATE TABLE pets (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    owner_id integer,
+    FOREIGN KEY (owner_id) REFERENCES owners (id)
+  );
+  ```
+  
+  ```sql
+  ALTER TABLE pets DROP CONSTRAINT pets_owner_id_fkey;
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-24T21:00:06.393Z"
+updatedAt: "2017-08-26T19:17:09.432Z"

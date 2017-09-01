@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "865ee7e7975989c91bc4"
+title: "Define cardinality and modality."
+content: '''
+  # Define cardinality and modality.
+  
+  **cardinality** - defines the number of objects on each side of a relationship. This is usually described as `one` or `many`. A single line or a "crow's foot" is used to denote this.
+  
+  **modality** - defines if the relationship is optional. This is an indicator that states if that relationship must exist or not. an open circle or a line is used to denote this.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-24T21:00:11.603Z"
+updatedAt: "2017-08-26T19:26:04.658Z"

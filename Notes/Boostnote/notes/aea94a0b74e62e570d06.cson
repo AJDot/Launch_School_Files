@@ -1,0 +1,13 @@
+type: "MARKDOWN_NOTE"
+folder: "865ee7e7975989c91bc4"
+title: "Be able to draw database diagrams using crow's foot notation."
+content: '''
+  # Be able to draw database diagrams using crow's foot notation.
+  I got it. Using LucidChart.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-24T21:00:16.639Z"
+updatedAt: "2017-08-29T18:24:58.674Z"

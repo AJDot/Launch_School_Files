@@ -1,0 +1,81 @@
+type: "MARKDOWN_NOTE"
+folder: "865ee7e7975989c91bc4"
+title: "Write SQL statements using INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN."
+content: '''
+  # Write SQL statements using INSERT, UPDATE, DELETE, CREATE/ALTER/DROP TABLE, ADD/ALTER/DROP COLUMN.
+  
+  ## CREATE TABLE
+  The following code creates three tables, `owners`, `pets`, and `furniture`.
+  ```sql
+  CREATE TABLE owners (
+    id serial PRIMARY KEY,
+    name text NOT NULL 
+  );
+  CREATE TABLE pets (
+    id serial PRIMARY KEY,
+    name text NOT NULL,
+    owner_id integer REFERENCES owners (id)
+  );
+  CREATE TABLE furniture (
+    id serial PRIMARY KEY,
+    name text
+  );
+  ```
+  
+  ## ALTER TABLE
+  The following code renames the table `pets` to `animals`.
+  ```sql
+  ALTER TABLE pets RENAME TO animals;
+  ```
+  
+  ## DROP TABLE
+  The following query deletes the table `furniture` from the database.
+  ```sql
+  DROP TABLE furniture;
+  ```
+  
+  ## ADD COLUMN
+  The following code adds a column `type` to the table `pets`.
+  ```sql
+  ALTER TABLE pets ADD COLUMN type text NOT NULL;
+  ```
+  
+  ## ALTER COLUMN
+  The following code alters the column `name` in the table `pets` to have a different type.
+  ```sql
+  ALTER TABLE pets ALTER COLUMN name TYPE char(25);
+  ```
+  
+  ## DROP COLUMN
+  The following code deletes the column `type` in the table `pets`.
+  ```sql
+  ALTER TABLE pets DROP COLUMN type;
+  ```
+  
+  ## INSERT
+  The following code inserts some rows into the `owners` and `pets` tables.
+  ```sql
+  INSERT INTO owners (name) VALUES ('Alex'), ('Bill'), ('Charles');
+  INSERT INTO pets (name, owner_id) VALUES ('Alfred', 1), ('Boots', 2), ('Cookie', NULL);
+  ```
+  
+  ## UPDATE
+  The following code updates the pet name 'Cookie' to have the owner with the id of 3 ('Charles').
+  ```sql
+  UPDATE pets
+    SET owner_id = 3
+    WHERE name = 'Cookie';
+  ```
+  
+  ## DELETE
+  The following code delete the row in `pets` where the name of the pet is 'Cookie'.
+  ```sql
+  DELETE FROM pets WHERE name = 'Cookie';
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-08-24T20:59:06.298Z"
+updatedAt: "2017-08-25T00:31:45.812Z"
