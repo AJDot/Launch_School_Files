@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "2f2ccef443f50101476a"
+title: "In computer typography, what is the difference between a font and a typeface?"
+content: '''
+  # In computer typography, what is the difference between a font and a typeface?
+  **Typeface** - The style and impression of the text. (How it looks, feels, reads)
+  
+  **Font** - The file containing the typeface with a specific weight/style.
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-02T00:53:03.614Z"
+updatedAt: "2017-09-02T00:55:15.287Z"
