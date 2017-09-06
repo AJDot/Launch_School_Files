@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Floats and Page Layout</title>
+    <style>
+      #columns {
+        width: 840px;
+        padding: 20px;
+        margin: 0 auto;
+        background: #e0e0e0;
+      }
+
+      #columns:after {
+        display: block;
+        clear: both;
+        content: "";
+      }
+
+      #primary, #secondary {
+        background: yellow;
+      }
+
+      #primary {
+        float: left;
+        width: 575px;
+      }
+
+      #secondary {
+        float: right;
+        width: 245px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="columns">
+      <div id="primary">
+        <h1>Main Content</h1>
+      </div>
+
+      <div id="secondary">
+        <h3>Sidebar Content</h3>
+      </div>
+    </div>
+  </body>
+</html>

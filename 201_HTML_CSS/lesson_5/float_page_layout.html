@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Floats and Page Layout</title>
+    <style>
+      body {
+        background: #e0e0e0;
+        font-family: "Helvetica";
+      }
+
+      #primary, #secondary {
+        padding: 25px;
+        background: yellow;
+        box-sizing: border-box;
+      }
+
+      #primary {
+        float: right;
+        width: 100%;
+      }
+
+      #secondary {
+        float: left;
+        width: 200px;
+        margin: 0 0 0 -220px;
+      }
+
+      #columns {
+        margin: 0 0 0 220px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="columns">
+      <div id="primary">
+        <h1>Main Content</h1>
+      </div>
+
+      <div id="secondary">
+        <h3>Sidebar Content</h3>
+      </div>
+    </div>
+  </body>
+</html>

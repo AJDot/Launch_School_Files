@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Practice Problems: Positioning</title>
+  </head>
+  <style>
+    #positioned {
+      background: #ffffff;
+      padding: 30px 15px;
+      position: absolute;
+      top: 20px;
+      width: 400px;
+      left: 50%;
+      margin-left: -200px;
+      box-sizing: border-box;
+      z-index: 2;
+    }
+
+    #mask {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+    }
+
+    #positioned > span {
+      width: 20px;
+      height: 20px;
+      background: #fcfc99;
+      position: absolute;
+      top: -10px;
+      left: -10px;
+    }
+  </style>
+  <body>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae sem id turpis interdum congue. Ut dapibus vel leo nec interdum. Nam laoreet feugiat lobortis. Quisque porttitor, est lacinia laoreet tincidunt, odio nunc fringilla velit, id aliquet urna nulla at metus. Proin eu rhoncus massa, vitae posuere tortor. Vestibulum hendrerit neque in blandit egestas. Suspendisse porta mi tempus lacus consectetur interdum. Quisque ultricies justo justo, a pharetra orci eleifend ac. Praesent quis tortor ex. Fusce non odio a elit eleifend maximus. Ut odio felis, hendrerit ut lobortis quis, vestibulum in nunc. Integer tristique est sit amet ante aliquam sagittis. In enim lectus, imperdiet vitae enim eu, scelerisque laoreet erat. Nulla maximus blandit rutrum. Aenean suscipit, dui ac fringilla scelerisque, urna nisi sollicitudin dolor, et maximus lectus ligula nec magna. Mauris dignissim, mauris et molestie tincidunt, tortor massa commodo felis, eget porttitor nisi turpis vel nulla.
+    </p>
+    <p>
+      Aenean finibus accumsan neque, ultrices rutrum lorem gravida quis. Morbi elementum, felis vel feugiat tempor, tortor magna tincidunt quam, nec consequat ligula tellus vel orci. Nam sed velit a ipsum lobortis facilisis nec vel diam. Vestibulum ut ante risus. Aenean non lorem eros. Praesent imperdiet lectus ut venenatis fermentum. Donec luctus dolor lorem, ut blandit libero laoreet consequat. Aenean vel ipsum ut arcu tincidunt lobortis vitae dignissim ante. Integer non purus sed dui rhoncus varius ut et massa. Duis eget venenatis dolor, id aliquet turpis. Cras dolor sapien, accumsan vel massa at, pretium malesuada eros. Suspendisse scelerisque nunc in ligula maximus pellentesque.
+    </p>
+    <p>
+      Vestibulum mattis eget neque sed hendrerit. Nulla mauris sapien, suscipit convallis est sed, tristique scelerisque velit. Nunc luctus finibus nibh nec fringilla. Vivamus cursus sollicitudin enim vel luctus. Donec sed aliquam lectus, id condimentum mauris. Vestibulum ante mauris, consequat tristique aliquam non, dignissim sed risus. Duis bibendum euismod neque. Cras efficitur libero eget pretium dignissim. Sed a orci aliquet, placerat tortor nec, accumsan augue. Ut facilisis dolor quam, vel vehicula urna tempus eget. Aenean eget enim purus. Phasellus eu pharetra massa.
+    </p>
+    <p>
+      Morbi quis aliquam nunc. Phasellus enim diam, commodo ac tellus maximus, tincidunt venenatis turpis. Suspendisse scelerisque dolor quam, quis interdum eros mattis non. Vestibulum ut velit vitae quam fermentum vestibulum. Nullam in condimentum leo. Sed vel ipsum turpis. Nulla maximus magna est, non dapibus eros varius nec. Nunc vestibulum felis sapien, a congue ligula cursus eu. Suspendisse est ligula, malesuada laoreet risus eget, tincidunt venenatis tellus. Etiam sapien magna, sagittis ac nisi volutpat, molestie molestie elit. In quis massa sapien. Suspendisse potenti. In non molestie dolor. Vestibulum at accumsan orci, et varius eros.
+    </p>
+    <p>
+      Vestibulum accumsan finibus eros, id fermentum nisi accumsan ac. Donec id neque sit amet quam iaculis suscipit in eget enim. Vivamus suscipit sed est in rutrum. Vestibulum accumsan et neque vel gravida. Integer vel consequat turpis. Phasellus ut sagittis sem. Vestibulum vehicula neque vel iaculis bibendum. In volutpat pulvinar neque at tincidunt. Nullam et interdum nisi, vel scelerisque nibh. Duis vel laoreet felis, quis aliquam metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras gravida ex ac finibus imperdiet. Integer lobortis ipsum eu pulvinar tempor. Phasellus vel justo id nulla pharetra viverra finibus sed diam. Nam velit odio, finibus at libero sit amet, luctus semper nibh.  </body>
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae sem id turpis interdum congue. Ut dapibus vel leo nec interdum. Nam laoreet feugiat lobortis. Quisque porttitor, est lacinia laoreet tincidunt, odio nunc fringilla velit, id aliquet urna nulla at metus. Proin eu rhoncus massa, vitae posuere tortor. Vestibulum hendrerit neque in blandit egestas. Suspendisse porta mi tempus lacus consectetur interdum. Quisque ultricies justo justo, a pharetra orci eleifend ac. Praesent quis tortor ex. Fusce non odio a elit eleifend maximus. Ut odio felis, hendrerit ut lobortis quis, vestibulum in nunc. Integer tristique est sit amet ante aliquam sagittis. In enim lectus, imperdiet vitae enim eu, scelerisque laoreet erat. Nulla maximus blandit rutrum. Aenean suscipit, dui ac fringilla scelerisque, urna nisi sollicitudin dolor, et maximus lectus ligula nec magna. Mauris dignissim, mauris et molestie tincidunt, tortor massa commodo felis, eget porttitor nisi turpis vel nulla.
+    </p>
+    <p>
+      Aenean finibus accumsan neque, ultrices rutrum lorem gravida quis. Morbi elementum, felis vel feugiat tempor, tortor magna tincidunt quam, nec consequat ligula tellus vel orci. Nam sed velit a ipsum lobortis facilisis nec vel diam. Vestibulum ut ante risus. Aenean non lorem eros. Praesent imperdiet lectus ut venenatis fermentum. Donec luctus dolor lorem, ut blandit libero laoreet consequat. Aenean vel ipsum ut arcu tincidunt lobortis vitae dignissim ante. Integer non purus sed dui rhoncus varius ut et massa. Duis eget venenatis dolor, id aliquet turpis. Cras dolor sapien, accumsan vel massa at, pretium malesuada eros. Suspendisse scelerisque nunc in ligula maximus pellentesque.
+    </p>
+    <p>
+      Vestibulum mattis eget neque sed hendrerit. Nulla mauris sapien, suscipit convallis est sed, tristique scelerisque velit. Nunc luctus finibus nibh nec fringilla. Vivamus cursus sollicitudin enim vel luctus. Donec sed aliquam lectus, id condimentum mauris. Vestibulum ante mauris, consequat tristique aliquam non, dignissim sed risus. Duis bibendum euismod neque. Cras efficitur libero eget pretium dignissim. Sed a orci aliquet, placerat tortor nec, accumsan augue. Ut facilisis dolor quam, vel vehicula urna tempus eget. Aenean eget enim purus. Phasellus eu pharetra massa.
+    </p>
+    <p>
+      Morbi quis aliquam nunc. Phasellus enim diam, commodo ac tellus maximus, tincidunt venenatis turpis. Suspendisse scelerisque dolor quam, quis interdum eros mattis non. Vestibulum ut velit vitae quam fermentum vestibulum. Nullam in condimentum leo. Sed vel ipsum turpis. Nulla maximus magna est, non dapibus eros varius nec. Nunc vestibulum felis sapien, a congue ligula cursus eu. Suspendisse est ligula, malesuada laoreet risus eget, tincidunt venenatis tellus. Etiam sapien magna, sagittis ac nisi volutpat, molestie molestie elit. In quis massa sapien. Suspendisse potenti. In non molestie dolor. Vestibulum at accumsan orci, et varius eros.
+    </p>
+    <p>
+      Vestibulum accumsan finibus eros, id fermentum nisi accumsan ac. Donec id neque sit amet quam iaculis suscipit in eget enim. Vivamus suscipit sed est in rutrum. Vestibulum accumsan et neque vel gravida. Integer vel consequat turpis. Phasellus ut sagittis sem. Vestibulum vehicula neque vel iaculis bibendum. In volutpat pulvinar neque at tincidunt. Nullam et interdum nisi, vel scelerisque nibh. Duis vel laoreet felis, quis aliquam metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras gravida ex ac finibus imperdiet. Integer lobortis ipsum eu pulvinar tempor. Phasellus vel justo id nulla pharetra viverra finibus sed diam. Nam velit odio, finibus at libero sit amet, luctus semper nibh.  </body>
+    </p>
+    <div id="positioned">
+      <span></span>
+      I'm positioned!
+    </div>
+    <div id="mask"></div>
+  </body>
+</html>
