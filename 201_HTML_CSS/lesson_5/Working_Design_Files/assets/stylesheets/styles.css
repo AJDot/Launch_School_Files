@@ -70,7 +70,7 @@ h1 {
   width: 400px;
   display: inline-block;
   margin-top: 70px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   color: #193441;
 }
 
@@ -92,7 +92,7 @@ Header
 
 .logo {
   float: left;
-  margin: 20px;
+  padding: 20px 20px 0 20px;
   color: #d1dbbd;
 }
 
@@ -124,6 +124,12 @@ Header
 
 .primary-nav li:hover a {
   color: #fcfff5;
+}
+
+header:after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 /*
