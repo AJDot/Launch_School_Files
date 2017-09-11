@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html en-US>
+  <head>
+    <meta charset="utf-8">
+    <title>Walkthrough: Creating a Contact Form</title>
+    <style>
+      body {
+        font: normal 16px Helvetica, Arial, sans-serif;
+      }
+
+      fieldset {
+        width: 600px;
+        padding: 0;
+        margin: 0 auto;
+        border: none;
+      }
+
+      dt {
+        margin-bottom: 5px;
+      }
+
+      dd {
+        margin: 0 0 25px 0;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      textarea {
+        width: 100%;
+        height: 30px;
+        padding: 3px 10px;
+        border: 1px solid #cecece;
+        border-radius: 5px;
+        font: normal 14px Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
+      }
+
+      textarea {
+        height: auto;
+        resize: vertical;
+        height: auto;
+      }
+
+      dl.partial {
+        display: inline-block;
+        padding-right: 10px;
+        box-sizing: border-box;
+      }
+
+      dl.city {
+        width: 50%;
+      }
+
+      dl.state {
+        width: 25%;
+      }
+
+      dl.state select {
+        width: 100%;
+        height: 30px;
+        background: inherit;
+        border: 1px solid #cecece;
+        border-radius: 5px;
+      }
+
+      dl.zipcode {
+        width: 25%;
+        padding-right: 0;
+      }
+
+      ul {
+        padding-left: 0;
+        list-style: none;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="#" method="post">
+      <fieldset>
+        <dl>
+          <dt>
+            <label for="first_name">First Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="first_name" id="first_name" />
+          </dd>
+          <dt>
+            <label for="last_name">Last Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="last_name" id="last_name" />
+          </dd>
+          <dt>
+            <label for="email">Email Address</label>
+          </dt>
+          <dd>
+            <input type="email" name="email" id="email" inputmode="email" />
+          </dd>
+          <dl class="city partial">
+            <dt>
+              <label for="city">City</label>
+            </dt>
+            <dd>
+              <input type="text" name="city" id="city" />
+            </dd>
+          </dl><!--
+          --><dl class="state partial">
+            <dt>
+              <label for="state">State</label>
+            </dt>
+            <dd>
+              <select name="state" id="state">
+                <option>AK</option>
+                <option>AL</option>
+                <option>AR</option>
+                <option>AZ</option>
+                <option>CA</option>
+                <option>CO</option>
+                <option>CT</option>
+                <option>DC</option>
+                <option>DE</option>
+                <option>FL</option>
+                <option>GA</option>
+                <option>HI</option>
+                <option>IA</option>
+                <option>ID</option>
+                <option>IL</option>
+                <option>IN</option>
+                <option>KS</option>
+                <option>KY</option>
+                <option>LA</option>
+                <option>MA</option>
+                <option>MD</option>
+                <option>ME</option>
+                <option>MI</option>
+                <option>MN</option>
+                <option>MO</option>
+                <option>MS</option>
+                <option>MT</option>
+                <option>NC</option>
+                <option>ND</option>
+                <option>NE</option>
+                <option>NH</option>
+                <option>NJ</option>
+                <option>NM</option>
+                <option>NV</option>
+                <option>NY</option>
+                <option>OH</option>
+                <option>OK</option>
+                <option>OR</option>
+                <option>PA</option>
+                <option>RI</option>
+                <option>SC</option>
+                <option>SD</option>
+                <option>TN</option>
+                <option>TX</option>
+                <option>UT</option>
+                <option>VA</option>
+                <option>VT</option>
+                <option>WA</option>
+                <option>WI</option>
+                <option>WV</option>
+                <option>WY</option>
+              </select>
+            </dd>
+          </dl><!--
+          --><dl class="zipcode partial">
+            <dt>
+              <label for="zipcode">Zipcode</label>
+            </dt>
+            <dd>
+              <input type="number" name="zipcode" id="zipcode" min="0" max="99999" inputmode="numeric" />
+            </dd>
+          </dl>
+        </dl>
+        <p>Which of these colors do you most prefer?</p>
+        <ul>
+          <li>
+            <label>
+              <input type="radio" name="color" value="red" checked />
+              Red
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="orange" checked />
+              Orange
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="yellow" checked />
+              Yellow
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="green" checked />
+              Green
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="blue" checked />
+              Blue
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="indigo" checked />
+              Indigo
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="color" value="violet" checked />
+              Violet
+            </label>
+          </li>
+        </ul>
+        <p>What web technologies do you want to hear more about?</p>
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" name="html" value="html" />
+              HTML
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="css" value="css" />
+              CSS
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="javascript" value="javascript" />
+              Javascript
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="ruby" value="ruby" />
+              Ruby
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" name="rails" value="rails" />
+              Rails
+            </label>
+          </li>
+        </ul>
+        <label for="comments">Comments</label>
+        <textarea name="comments" id="comments" rows="6" cols="80"></textarea>
+        <input type="hidden" value="2017-09-08" name="timestamp" />
+        <input type="submit" value="Send" />
+        <input type="reset" />
+      </fieldset>
+    </form>
+  </body>
+</html>
