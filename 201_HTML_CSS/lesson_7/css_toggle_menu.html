@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      label {  
+        cursor: pointer;
+      }
+      #menu-toggle {
+        display: none; /* hide the checkbox */
+      }
+      #menu {
+        display: none;
+      }
+      #menu-toggle:checked + #menu {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="menu-toggle">Click me to toggle menu</label>
+    <input type="checkbox" id="menu-toggle"/>
+    <ul id="menu">
+      <li><a href="#">First link</a></li>
+      <li><a href="#">Second link</a></li>
+      <li><a href="#">Third link</a></li>
+    </ul>
+  </body>
+</html>
