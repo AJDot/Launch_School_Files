@@ -1,0 +1,92 @@
+@import url("whitespace-reset.css");
+
+body {
+  font: normal 18px "Roboto Condensed", Helvetica, Arial, sans-serif;
+  color: #3e606f;
+  background: linear-gradient(to bottom, #d1dbbd, #fcfff4);
+}
+
+a {
+  text-decoration: none;
+}
+
+header,
+main,
+footer {
+  width: 960px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+header {
+  padding: 20px 20px 0 20px;
+  background: transparent url("../images/logo.png") 20px 20px no-repeat;
+  overflow: hidden;
+}
+
+h1 {
+  float: left;
+  padding: 45px 0 15px 112px;
+  font-size: 36px;
+  font-weight: normal;
+}
+
+h1 a {
+  color: #193441;
+}
+
+nav {
+  float: right;
+  padding: 75px 0 0 0;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav li a {
+  display: block;
+  padding: 10px 40px 15px 40px;
+  color: #91aa9d;
+  background: #fcfff5;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+nav li a:hover {
+  color: #fcfff5;
+  background: #91aa9d;
+}
+
+main {
+  padding: 30px 30px 50px 30px;
+  background: #ffffff;
+  box-shadow: 0 5px 5px 0 #b5b5b5;
+  overflow: hidden;
+}
+
+img.masthead {
+  display: block;
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin-bottom: 25px;
+  font-size: 32px;
+  font-weight: normal;
+}
+
+p {
+  margin-bottom: 18px;
+  line-height: 23px;
+}
+
+img.feature {
+  float: right;
+  margin-left: 40px;
+}
+
+footer {
+  font-size: 14px;
+  margin-top: 15px;
+}

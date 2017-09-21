@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Essentials of Elements</title>
+    <style>
+      article {
+        padding: 10px 0;
+        border: 1px solid #cecece;
+        border-radius: 5px;
+      }
+
+      article + article {
+        margin-top: 20px;
+      }
+
+      .credit {
+        font-style: italic;
+        padding-left: 10px;
+        margin-left: 20px;
+        border-left: 2px solid #999999;
+      }
+
+      .credit::before {
+        content: "Credit: ";
+      }
+
+      .ex {
+        font-size: 24px;
+        width: 600px;
+      }
+
+      .ex-1 div {
+        text-align: center;
+        background: rgba(128, 128, 128, 0.5);
+        border-radius: 5px;
+      }
+
+      .ex-1-header,
+      .ex-1-footer {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 20px;
+        line-height: 80px;
+      }
+
+      .ex-1-section,
+      .ex-1-aside {
+        display: inline-block;
+        height: 225px;
+        margin-bottom: 20px;
+      }
+
+      .ex-1-section {
+        width: 330px;
+        padding: 0 15px;
+        margin-right: 20px;
+        line-height: 100px;
+      }
+
+      .ex-1-aside {
+        width: 220px;
+        vertical-align: top;
+        line-height: 210px;
+      }
+
+      .ex-1-article {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Essentials of Elements</h1>
+    <h2>At the top</h2>
+    <article>
+      <code>&lt;!DOCTYPE html&gt;</code>
+      <p><b>document definition type</b> tells the browser what version of HTML should be used.</p>
+    </article>
+    <article >
+      <code>&lt;meta charset="utf-8"&gt;</code>
+      <p>This tells the browser what character set to use. It this is not done, special characters like the copyright symbol (&copy;) may not render correctly.</p>
+    </article>
+    <article>
+      <code>&lt;title&gt;Title for page&lt;/title&gt;</code>
+      <p>This semantic tag helps screen readers and places these words up on the tab or menu bar of the browser.</p>
+    </article>
+
+    <h2>Semantics</h2>
+    <p class="credit">Most of what you will read in this section originated from <a href="http://learn.shayhowe.com/html-css/">learn.shayhowe.com</a>.</p>
+
+    <h3>Overview</h3>
+    <p>Semantics give content meaning. In HTML, there are elements with, and elements without, inherent meaning. Without semantics tags have no value and would only be useful for styling. Semantic elements have a built-in value that tells other users (including yourself in the future) the purpose of that element. This makes the code easier understand and communicate. One great benefit of semantic markup is to functionalize screen readers, search engines, and other devices that depend on it to perform their tasks.</p>
+    <h3>Non-Semantic Elements</h3>
+    <h4>Divisions and Spans</h4>
+    <p><code>&lt;div&gt;</code>s are the non-semantic block-level element and <code>&lt;span&gt;</code>s are the non-semantic inline-level element. Their sole purpose is to provide containers for styling a section of code. A <code>&lt;div&gt;</code> is used to style a large group of code as a block while a <code>&lt;span&gt;</code> is used to style a small section of text of within a block-level element. Most often a <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> will have a <code>class</code> or <code>id</code> attribute to target it with CSS. This name should have some kind of semantic meaning as well.</p>
+
+      <h3><code>&lt;b&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;em&gt;</code></h3>
+      <p><code>strong</code> is used semantically to give a strong importance to content. <code>b</code> should be used to stylistically offset text.</p>
+      <p><code>em</code> is used semantically to placed a stressed emphasis on text - another type of increased importance. <code>i</code> is phrased as <i>alternative voice or tone</i> - as when speaking, a different voice may be used.</p>
+
+      <h3>Structural Elements</h3>
+      <p><code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code> are new structural elements in HTML5. A general examples of how these elements maybe be used/arranged is like so.</p>
+      <div class="ex ex-1">
+        <div class="ex-1-header"><code>&lt;header&gt;</code></div>
+        <div class="ex-1-section">
+          <code>&lt;section&gt;</code>
+          <div class="ex-1-article"><code>&lt;article&gt;</code></div>
+        </div><!--
+        --><div class="ex-1-aside">
+          <code>&lt;aside&gt;</code>
+        </div>
+        <div class="ex-1-footer"><code>&lt;footer&gt;</code></div>
+        <p class="credit">Redrawn from <a href="http://learn.shayhowe.com/html-css/">learn.shayhowe.com</a>.</p>
+      </div>
+      <h4>Article</h4>
+      <p>The <code>&lt;article&gt;</code> element should be used to identify a stand-alone group of elements that could be extracted and used on it's own without loss of meaning.</p>
+      <h4>Section</h4>
+      <p>A <code>&lt;section&gt;</code> should be used for a group of related text. It may include a header, headings, and paragraphs similar to an <code>&lt;article&gt;</code>. I think of a <code>&lt;section &gt;</code>as very similar to an <code>&lt;article &gt;</code>but a <code>&lt;section &gt;</code>might not make sense if it were extracted from the page.</p>
+      <h4>Aside</h4>
+      <p>Use for sidebars, inserts, and other content tangential to the surrounding content. Instinctively an aside may be pushed off to one side but this is not a requirement.</p>
+
+
+
+
+  </body>
+</html>

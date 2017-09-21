@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Background Images</title>
+    <style>
+      ul {
+        list-style-type: none;
+        padding: 0 0 0 20px;
+      }
+
+      ul.first li {
+        background: url("images/blt_ul.png") 0 0 no-repeat;
+      }
+
+      ul.correct-bg {
+        padding-left: 0;
+      }
+
+      ul.correct-bg li {
+        padding-left: 20px;
+        vertical-align: middle;
+        background: url("images/blt_ul.png") 0 50% no-repeat;
+      }
+
+      ul.correct-bg-2 {
+        list-style: url("images/blt_ul.png");
+      }
+    </style>
+  </head>
+  <body>
+    <p>Often using an image as a background to an element makes it easier to manipulate it with CSS.</p>
+    <p>Here is a list with a background image used as the bullet. However, the bullet is not where it is supposed to be.</p>
+    <ul class="first">
+      <li>Home</li>
+      <li>Work</li>
+      <li>Contact</li>
+      <li>About</li>
+    </ul>
+    <p>To remedy this we need to adjust the padding/margin of the list element to allow space for the image. We can remove the left padding on the ul as well. This would be the solution if every bullet image needed to be different.</p>
+    <ul class="correct-bg">
+      <li>Home</li>
+      <li>Work</li>
+      <li>Contact</li>
+      <li>About</li>
+    </ul>
+    <p>A simpler method, if all bullet images are the same, is to make the list-style-type on the ul set to the image.</p>
+    <ul class="correct-bg-2">
+      <li>Home</li>
+      <li>Work</li>
+      <li>Contact</li>
+      <li>About</li>
+    </ul>
+  </body>
+</html>

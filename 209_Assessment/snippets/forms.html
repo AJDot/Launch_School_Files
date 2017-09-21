@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forms</title>
+    <style>
+      body {
+        font: normal 20px Helvetica, Arial, sans-serif;
+      }
+
+      form {
+        margin-bottom: 30px;
+      }
+
+      form.inline {
+        display: none;
+        width: 650px;
+      }
+
+      form.inline label {
+        display: inline-block;
+        width: 120px;
+        margin: 0 5px 5px 0;
+        text-align: right;
+      }
+
+      form.inline div {
+        margin: 20px;
+      }
+
+      form.inline input[type="text"],
+      form.inline textarea {
+        font-size: inherit;
+        font: inherit;
+        width: 390px;
+        padding: 5px;
+        vertical-align: middle;
+        border: 1px solid #aaaaaa;
+        border-radius: 5px;
+      }
+
+      form.inline textarea {
+        height: 5em;
+        resize: vertical;
+      }
+
+      form.inline input[type="text"]:focus,
+      form.inline textarea:focus {
+        border: 1px solid #444444;
+        outline: none;
+      }
+
+      form.inline input[type="submit"] {
+        display: block;
+        font-size: 20px;
+        padding: 10px;
+        margin: 0 0 0 80%;
+        color: #dddddd;
+        background: #666666;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
+      form.stacked {
+        width: 600px;
+      }
+
+      form.stacked fieldset {
+        width: 100%;
+        background: #efefef;
+        margin-bottom: 2px;
+        border: none;
+        border-left: 5px solid rgba(0, 0, 0, .25);
+      }
+
+      form.stacked dl, dt, dd {
+        margin: 0;
+        padding: 0;
+      }
+
+      form.stacked dl {
+      }
+
+      form.stacked dl.partial {
+        display: inline-block;
+        padding-right: 10px;
+        box-sizing: border-box;
+      }
+
+      form.stacked dl.last {
+        padding-right: 0;
+      }
+
+      form.stacked dt {
+        margin-bottom: 5px;
+      }
+
+      form.stacked dd {
+        margin: 0 0 25px 0;
+      }
+
+      form.stacked input[type="text"],
+      form.stacked textarea {
+        font-size: inherit;
+        font: inherit;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #aaaaaa;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      form.stacked textarea {
+        height: 5em;
+        resize: vertical;
+      }
+
+      form.stacked dl.name {
+        width: 50%;
+      }
+
+      form.stacked dl.city {
+        width: 50%;
+      }
+
+      form.stacked dl.state {
+        width: 25%;
+      }
+
+      form.stacked dl.state select {
+        font-size: inherit;
+        font: inherit;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #aaaaaa;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background: none;
+      }
+
+      form.stacked dl.zip {
+        width: 25%;
+      }
+
+      form.stacked input[type="text"]:focus,
+      form.stacked textarea:focus {
+        border: 1px solid #444444;
+        outline: none;
+      }
+
+      form.stacked input[type="submit"] {
+        display: block;
+        font-size: 20px;
+        padding: 10px;
+        margin: 0 0 0 80%;
+        color: #dddddd;
+        background: #666666;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
+      form.stacked ul {
+        list-style: none;
+      }
+
+      form.stacked li {
+        display: inline-block;
+        padding-right: 5px;
+        background: rgba(0, 0, 0, .25);
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form class="inline" action="" method="post">
+        <fieldset>
+          <legend>Labels inline with inputs</legend>
+          <div>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" />
+          </div>
+          <div>
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" />
+          </div>
+          <div>
+            <label for="comment">Comment:</label>
+            <textarea name="comment" id="comment" rows="6" cols="80"></textarea>
+          </div>
+          <input type="submit" value="Send" />
+        </fieldset>
+      </form>
+
+      <form class="stacked" action="" method="post">
+        <fieldset>
+          <legend>Labels stacked with inputs</legend>
+          <h2>Personal Info</h2>
+          <dl class="partial name">
+            <dt>
+              <label for="first_name">First Name:</label>
+            </dt>
+            <dd>
+              <input type="text" name="first_name" id="first_name" />
+            </dd>
+          </dl><!--
+          --><dl class="partial name last">
+            <dt>
+              <label for="last_name">Last Name:</label>
+            </dt>
+            <dd>
+              <input type="text" name="last_name" id="last_name" />
+            </dd>
+          </dl>
+          <dl class="partial city">
+            <dt>
+              <label for="city">City</label>
+            </dt>
+            <dd>
+              <input type="text" name="city" id="city" />
+            </dd>
+          </dl><!--
+          --><dl class="partial state">
+            <dt>
+              <label for="state">State</label>
+            </dt>
+            <dd>
+              <select name="state" id="state">
+                <option>AK</option>
+                <option>AL</option>
+                <option>AR</option>
+                <option>AZ</option>
+                <option>CA</option>
+                <option>CO</option>
+                <option>CT</option>
+                <option>DC</option>
+                <option>DE</option>
+                <option>FL</option>
+                <option>GA</option>
+                <option>HI</option>
+                <option>IA</option>
+                <option>ID</option>
+                <option>IL</option>
+                <option>IN</option>
+                <option>KS</option>
+                <option>KY</option>
+                <option>LA</option>
+                <option>MA</option>
+                <option>MD</option>
+                <option>ME</option>
+                <option>MI</option>
+                <option>MN</option>
+                <option>MO</option>
+                <option>MS</option>
+                <option>MT</option>
+                <option>NC</option>
+                <option>ND</option>
+                <option>NE</option>
+                <option>NH</option>
+                <option>NJ</option>
+                <option>NM</option>
+                <option>NV</option>
+                <option>NY</option>
+                <option>OH</option>
+                <option>OK</option>
+                <option>OR</option>
+                <option>PA</option>
+                <option>RI</option>
+                <option>SC</option>
+                <option>SD</option>
+                <option>TN</option>
+                <option>TX</option>
+                <option>UT</option>
+                <option>VA</option>
+                <option>VT</option>
+                <option>WA</option>
+                <option>WI</option>
+                <option>WV</option>
+                <option>WY</option>
+              </select>
+            </dd>
+          </dl><!--
+          --><dl class="partial zip last">
+            <dt>
+              <label for="zip">Zip</label>
+            </dt>
+            <dd>
+              <input type="text" name="zip" id="zip" />
+            </dd>
+          </dl>
+        </fieldset>
+        <fieldset>
+          <h2>Optional</h2>
+          <dl>
+            <dt>
+              <label for="bio">Bio:</label>
+            </dt>
+            <dd>
+              <textarea name="bio" id="bio" rows="6" cols="80"></textarea>
+            </dd>
+          </dl>
+          <p for="interests">Interests <i><small>(Check all that apply)</small></i></p>
+          <ul>
+            <li>
+              <label>
+                <input type="checkbox" name="html" value="HTML" />
+                HTML
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" name="css" value="CSS" />
+                CSS
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" name="ruby" value="Ruby" />
+                Ruby
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" name="javascript" value="JavaScript" />
+                JavaScript
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" name="sql" value="SQL" />
+                SQL
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" name="jquery" value="jQuery" />
+                jQuery
+              </label>
+            </li>
+          </ul>
+          <input type="submit" value="Send" />
+        </fieldset>
+      </form>
+    </main>
+  </body>
+</html>

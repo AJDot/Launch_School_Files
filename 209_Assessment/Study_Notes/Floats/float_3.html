@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Floats 3</title>
+    <style>
+      main {
+        border: 2px solid red;
+      }
+
+      main:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      nav ul {
+        list-style-type: none;
+      }
+
+      nav li {
+        display: inline-block;
+        text-align: center;
+        background: #44aaaa;
+        box-sizing: border-box;
+      }
+
+      nav a {
+        display: inline-block;
+        width: 30px;
+        padding: 5px 10px;
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      nav li.active {
+        background: #ff4444;
+      }
+
+      #content {
+        float: left;
+        max-width: 65%;
+        background: #ccffcc;
+      }
+
+      #sidebar {
+        overflow: hidden;
+        background: #ccccff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Properties of Floats</h1>
+      <nav>
+        <ul>
+          <li><a href="float_1.html">1</a></li>
+          <li><a href="float_2.html">2</a></li>
+          <li class="active"><a href="float_3.html">3</a></li>
+          <li><a href="float_4.html">4</a></li>
+          <li><a href="float_5.html">5</a></li>
+          <li><a href="float_6.html">6</a></li>
+          <li><a href="float_7.html">7</a></li>
+          <li><a href="float_8.html">8</a></li>
+        </ul>
+      </nav>
+    </header>
+      <p>This is the result as the previous example but the CSS only specifies the width on the first floated element. The second is not floated and has the property/attribute of <code>overflow: hidden</code>. This will cause the second element to take up the rest of the width of the container no matter the width of the first element.</p>
+    <main>
+      <div id="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet tristique orci, in tincidunt ipsum. Phasellus eu nisl vestibulum, sollicitudin libero non, pulvinar libero. Quisque sed nulla condimentum, suscipit neque non, sagittis urna. Morbi pulvinar pellentesque enim, ac consectetur libero iaculis varius. Integer maximus diam eu purus condimentum, sit amet efficitur neque aliquet. Ut in magna augue. Fusce quis lorem mauris. Sed congue elit non venenatis aliquet. Quisque in elementum felis, in molestie dolor. Etiam vitae volutpat leo, vitae eleifend ex. Etiam fringilla libero sit amet lacinia tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eleifend porttitor scelerisque. Suspendisse in quam eget sapien tempor semper eu id purus. Pellentesque eu vestibulum justo. Sed ullamcorper at eros id molestie.
+      </div>
+      <div id="sidebar">
+        In elementum quis tellus sit amet dapibus. Suspendisse potenti. Proin sapien ipsum, euismod nec tortor ut, faucibus dignissim nunc. Donec varius turpis bibendum quam vestibulum finibus. Nunc in neque eget urna ultricies facilisis sit amet non leo. Sed nec felis et magna rhoncus rhoncus aliquet ac est. Etiam at porttitor mi. Sed ornare, diam a luctus fermentum, ligula elit facilisis nibh, nec suscipit ipsum libero quis mauris. Nam pretium congue blandit. Suspendisse maximus ante vel urna vestibulum tincidunt. Nunc accumsan congue dapibus.
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>3 Column Table</title>
+    <style>
+
+      body {
+        font: normal 16px Helvetica, Arial, sans-serif;
+      }
+      main {
+        padding: 30px;
+        margin: 0 30px;
+        background: #555555;
+      }
+
+      table {
+        max-width: 960px;
+        margin: 30px auto;
+        color: #ffffff;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        border: 1px solid #ffffff;
+      }
+
+      th {
+        font-size: 24px;
+        padding: 10px;
+      }
+
+      td {
+        font-size: 20px;
+      }
+
+      td:first-child {
+        text-align: center;
+      }
+
+      td:nth-child(2) {
+        padding: 0 30px;
+      }
+
+      td:last-child {
+        width: 270px;
+        padding: 20px 10px;
+        text-align: center;
+      }
+
+      td[colspan="2"] {
+        background: rgba(0, 0, 0, .25);
+      }
+
+      tr:hover {
+        background: rgba(0, 0, 0, .25);
+      }
+
+      h2 {
+        display: inline;
+        padding: 0 10px;
+        font-weight: normal;
+      }
+
+      img {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Title</th>
+            <th>Speaker</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>9:00</td>
+            <td>Ruby is a Great Language</td>
+            <td>
+              <h2>Alex Henegar</h2>
+              <img src="http://placehold.it/60x60" alt="Alex Henegar" />
+            </td>
+          </tr>
+          <tr>
+            <td>9:30</td>
+            <td>Ruby is a Great Language</td>
+            <td>
+              <h2>Alex Henegar</h2>
+              <img src="http://placehold.it/60x60" alt="Alex Henegar" />
+            </td>
+          </tr>
+          <tr>
+            <td>10:00</td>
+            <td>The Benefits of Blogging: It's not only for other people</td>
+            <td>
+              <h2>Alex Henegar</h2>
+              <img src="http://placehold.it/60x60" alt="Alex Henegar" />
+            </td>
+          </tr>
+          <tr>
+            <td>10:30</td>
+            <td colspan="2">Coffee Break</td>
+          </tr>
+          <tr>
+            <td>11:00</td>
+            <td>Ruby is a Great Language</td>
+            <td>
+              <h2>Alex Henegar</h2>
+              <img src="http://placehold.it/60x60" alt="Alex Henegar" />
+            </td>
+          </tr>
+          <tr>
+            <td>11:30</td>
+            <td>Ruby is a Great Language</td>
+            <td>
+              <h2>Alex Henegar</h2>
+              <img src="http://placehold.it/60x60" alt="Alex Henegar" />
+            </td>
+          </tr>
+          <tr>
+            <td>12:00</td>
+            <td colspan="2">Lunch</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
