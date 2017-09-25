@@ -62,8 +62,13 @@
     },
     {
       "key": "2f2ccef443f50101476a",
-      "color": "#E10051",
+      "color": "#417505",
       "name": "201 HTML & CSS"
+    },
+    {
+      "key": "3c2d0a64fbae751d51f9",
+      "color": "#d0021b",
+      "name": "210 Computational Thinking and JavaScript"
     }
   ],
   "version": "1.0"

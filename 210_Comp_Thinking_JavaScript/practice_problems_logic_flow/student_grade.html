@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+//    var total = 0;
+//    for (var i = 1; i <= 3; i++) {
+//      total += parseInt(prompt('Enter score ' + String(i) + ':'));
+//    }
+//
+//    var average = total / 3;
+//    var grade = 'F';
+//    if (average >= 90) {
+//      grade = 'A';
+//    } else if (70 <= average) {
+//      grade = 'B';
+//    } else if (50 <= average) {
+//      grade = 'C';
+//    }
+//    console.log('Based on the average of your 3 scores your letter grade is "' + grade + '".');
+
+      // Further Exploration
+      function getAverage(count) {
+        var total = 0;
+        for (var i = 1; i <= count; i++) {
+          total += parseInt(prompt('Enter score ' + String(i) + ':'));
+        }
+
+        return total / count;
+        
+      }
+
+      var count = 5
+      var average = getAverage(count);
+      var grade = 'F';
+      if (average >= 90) {
+        grade = 'A';
+      } else if (70 <= average) {
+        grade = 'B';
+      } else if (50 <= average) {
+        grade = 'C';
+      }
+      console.log(average);
+      console.log('Based on the average of your ' + count + ' scores your letter grade is "' + grade + '".');
+    </script>
+  </body>
+</html>

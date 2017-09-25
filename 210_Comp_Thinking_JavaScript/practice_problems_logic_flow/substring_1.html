@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function substr(string, start, length) {
+        var startIndex;
+        var newString = '';
+
+        if (start < 0) {
+          start = string.length + start;
+        }
+
+        for (var i = start; i < start + length; i++) {
+          if (string[i] === undefined) {
+            break;
+          }
+
+          newString += string[i];
+        }
+
+        return newString;
+      }
+
+      var string = 'hello world';
+
+      console.log(substr(string, 2, 4));     // "llo "
+      console.log(substr(string, -3, 2));    // "rl"
+      console.log(substr(string, 8, 20));    // "rld"
+      console.log(substr(string, 0, -20));   // ""
+      console.log(substr(string, 0, 0));     // ""
+    </script>
+  </body>
+</html>

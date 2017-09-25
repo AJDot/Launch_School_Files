@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function isXor(value1, value2) {
+        if (value1 && !value2) {
+          return true;
+        }
+
+        if (!value1 && value2) {
+          return true;
+        }
+
+        return false;
+      }
+
+      function isXor(value1, value2) {
+        if (Boolean(value1) !== Boolean(value2)) {
+          return true;
+        }
+
+        return false;
+      }
+
+      console.log(isXor(false, true));     // true
+      console.log(isXor(true, false));     // true
+      console.log(isXor(false, false));    // false
+      console.log(isXor(true, true));      // false
+
+
+      console.log(isXor(false, 3));        // true
+      console.log(isXor('a', undefined));  // true
+      console.log(isXor(null, ''));        // false
+      console.log(isXor('2', 23));         // false
+    </script>
+  </body>
+</html>

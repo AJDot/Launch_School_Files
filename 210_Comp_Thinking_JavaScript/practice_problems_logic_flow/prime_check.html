@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function isPrime(number) {
+        if (number <= 1) return false;
+
+        for (var i = 2; i < number; i++) {
+          if (number % i === 0) return false;
+        }
+        return true;
+      }
+
+      function isPrimeFurther(number) {
+        if (number <= 1 || (number > 2 && number % 2 === 0)) {
+          return false;
+        }
+
+        var divisor = 3;
+
+        while (divisor < number) {
+          if (number % divisor === 0) {
+            return false
+          }
+
+          divisor += 2;
+        }
+
+        return true;
+      }
+
+      // console.log(isPrime(1));
+      // console.log(isPrime(2));
+      // console.log(isPrime(3));
+      // console.log(isPrime(43));
+      // console.log(isPrime(55));
+      // console.log(isPrime(0));
+
+      console.log(isPrimeFurther(1));
+      console.log(isPrimeFurther(2));
+      console.log(isPrimeFurther(3));
+      console.log(isPrimeFurther(43));
+      console.log(isPrimeFurther(55));
+      console.log(isPrimeFurther(0));
+    </script>
+  </body>
+</html>

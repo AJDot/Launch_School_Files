@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function generatePattern(n) {
+        var lastRowString = '';
+        var string;
+        var width;
+        var stars;
+
+        for (var i = 1; i <= n; i++) {
+          lastRowString += String(i);
+        }
+
+        width = lastRowString.length;
+
+        for (var i = 1; i <= n; i++) {
+          string = '';
+          for (var j = 1; j <= i; j++) {
+            string += String(j);
+          }
+
+          stars = width - string.length;
+
+          for (var k = 1; k <= stars; k++) {
+            string += '*';
+          }
+
+          console.log(string);
+        }
+      }
+
+      generatePattern(7);
+      generatePattern(20);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 1
+      function lastInArray(arr) {
+        return arr[arr.length - 1];
+      }
+
+      // 2
+      function rollCall(arr) {
+        for (var i = 0; i < arr.length; i++) {
+          console.log(arr[i]);
+        }
+      }
+
+      // rollCall(['Alex', 'Bill', 'Charles', 'Dave']);
+
+      // 3
+      function reversedArray(arr) {
+        var reversedArray = [];
+        for (var i = arr.length - 1; i >= 0; i--) {
+          reversedArray.push(arr[i]);
+        }
+
+        return reversedArray;
+      }
+
+      var numbers = [1, 2, 3, 4, 5];
+
+      // console.log(reversedArray(numbers));
+
+      // 4
+      function firstIndex(value, arr) {
+        var position = -1;
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] === value) {
+            position = i;
+            break;
+          }
+        }
+
+        return position;
+      }
+
+      // console.log(firstIndex(2, [1, 2, 3]));
+      // console.log(firstIndex(9, [1, 2, 3]));
+
+      // 5
+      function arrayToString(arr) {
+        str = '';
+        for (var i = 0; i < arr.length; i++) {
+          str += String(arr[i]);
+        }
+
+        return str;
+      }
+
+      // console.log(arrayToString([1, 2, 3]));
+    </script>
+  </body>
+</html>

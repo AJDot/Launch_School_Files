@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function missing(arr) {
+        var result = [];
+        var start = arr[0] + 1;
+        var end = arr[arr.length - 1]
+        for (var i = start; i < end; i++) {
+          if (arr.indexOf(i) === -1) {
+            result.push(i);
+          }
+        }
+
+        return result;
+      }
+    </script>
+  </body>
+</html>

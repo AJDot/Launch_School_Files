@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function firstElementOf(arr) {
+        return arr[0];
+      }
+
+      function lastElementOf(arr) {
+        return arr[array.length - 1];
+      }
+
+      function nthElementOf(arr, index) {
+        // ADDED code to handle out of bounds index
+        // if (index > arr.length - 1) {
+        //   index = arr.length - 1;
+        // }
+        //
+        // if (index < 0) {
+        //   index = array.length - index;
+        // }
+
+        arr[index];
+      }
+
+      function firstNOf(arr, count) {
+        return arr.slice(0, count);
+      }
+
+      function lastNOf(arr, count) {
+        var start = arr.length - count;
+        if (start < 0) {
+          start = 0
+        }
+        return arr.slice(start);
+      }
+
+      function endsOf(beginningArr, endingArr) {
+        return [beginningArr[0], endingArr[endingArr.length - 1]];
+      }
+    </script>
+  </body>
+</html>

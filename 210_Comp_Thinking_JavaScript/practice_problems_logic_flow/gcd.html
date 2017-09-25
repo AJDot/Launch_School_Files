@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function gcd(num1, num2) {
+        var temp;
+        if (num2 > num1) {
+          temp = num1;
+          num1 = num2;
+          num2 = temp;
+        }
+
+        while (num2 !== 0) {
+          var temp = num2;
+          num2 = num1 % num2;
+          num1 = temp;
+        }
+
+        return num1;
+      }
+//
+//      console.log(gcd(12, 4));
+//      console.log(gcd(15, 10));
+//      console.log(gcd(9, 2));
+
+      function gcdFurther(numbers) {
+        //if (numbers.length === 1) {
+        //  return numbers[0];
+        //}
+
+        while (numbers.length > 1) {
+          var subGCD = gcd(numbers.shift(), numbers.shift());
+
+          numbers.unshift(subGCD);
+        }
+        
+        return numbers[0];
+      }
+
+      console.log(gcdFurther([12, 4, 8]));
+      console.log(gcdFurther([1200, 444, 880]));
+    </script>
+  </body>
+</html>

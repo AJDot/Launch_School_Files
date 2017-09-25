@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+
+      function fizzbuzz() {
+        var message;
+
+        for (var i = 1; i <= 100; i++) {
+          message = i;
+
+          if (i % 3 === 0 && i % 5 === 0) {
+            message = 'FizzBuzz';
+          } else if (i % 3 === 0) {
+            message = 'Fizz';
+          } else if (i % 5 === 0) {
+            message = 'Buzz';
+          }
+
+          console.log(message);
+        }
+      }
+
+      function fizzbuzzConcise() {
+        var message;
+
+        for (var i = 1; i <= 100; i++) {
+          message = '';
+
+          if (i % 3 === 0) {
+            message += 'Fizz';
+          }
+
+          if (i % 5 === 0) {
+            message += 'Buzz';
+          }
+
+          console.log(message || i);
+        }
+      }
+
+      // fizzbuzz();
+      fizzbuzzConcise();
+    </script>
+  </body>
+</html>

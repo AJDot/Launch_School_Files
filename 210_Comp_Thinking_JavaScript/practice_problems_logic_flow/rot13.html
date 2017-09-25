@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+function rot13(string) {
+  var ROTATION_KEY = 13;
+  var rotate;
+  var lowerCase;
+  var charCode;
+  var newString = '';
+
+  for (var i = 0; i < string.length; i++) {
+    if (!isLetter(string[i])) {
+      newString += string[i];
+      continue;
+    }
+
+    rotate = ROTATION_KEY;
+    lowerCase = string[i].toLowerCase();
+    if (lowerCase >= 'n' && lowerCase <= 'z') {
+      rotate *= -1;
+    }
+
+    charCode = string[i].charCodeAt(0);
+    charCode += rotate;
+    newString += String.fromCharCode(charCode);
+  }
+
+  return newString;
+
+}
+
+function isLetter(letter) {
+  var lowerCase = letter.toLowerCase();
+  return lowerCase >= 'a' && lowerCase <= 'z';
+}
+
+      console.log(rot13('Teachers open the door, but you must enter by yourself.'));
+      console.log(rot13(rot13('Teachers open the door, but you must enter by yourself.')));
+    </script>
+  </body>
+</html>

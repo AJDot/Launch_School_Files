@@ -1,0 +1,536 @@
+type: "MARKDOWN_NOTE"
+folder: "3c2d0a64fbae751d51f9"
+title: "JavaScript Basics"
+content: '''
+  # JavaScript Basics
+  
+  ## Primitive Values are Immutable
+  JavaScript primitive types:
+  * number
+  * string
+  * boolean
+  * null
+  * undefined
+  
+  This means you cannont change them once they are created. When the value of a string (or another primitive type) seemingly changes, JavaScript is actually assigns a completely new and different value to the variable. So always remember to assign an expression to change, **no method, function, or anything else will modify it for you**.
+  
+  All other constructs, like arrays and functions, are mutable.
+  
+  ## Variables
+  ### Declaring Variables
+  Variables must be declared before they are used.
+  ```javascript
+  var myVariable;
+  var otherVariable;
+  var anotherVariable;
+  ```
+  
+  ### Variable Assignment
+  Use the `=` operator
+  ```javascript
+  var number;
+  
+  number = 3;
+  ```
+  
+  This can be combined with the declaration.
+  ```javascript
+  var myVariable = 'Hello, World!';
+  ```
+  
+  Note: Any variable declared but not assigned will be initialized to the value `undefined`.
+  
+  ### Dynamic Typing
+  JavaScript is a dynamically typed language - variables can hold a reference to any data type and reassigned to any data type without error.
+  
+  ## Operators
+  The arithmetic operators are as expected, like Ruby.
+  
+  ### Comparison Operators
+  Compares two operands and returns `true` or `false`. If the operands are of different types, JavaScript will try to implicitly convert them to suitable types. **This can use significant problems**. Many programmers avoid using `==` and `!=` for this reason, in favor of `===` and `!==`.
+  
+  | Operator | Description |
+  | -------- | ----------- |
+  | Equal (==) | Returns true if the operands are equal |
+  | Not Equal (!=) | Returns true if the operands are not equal |
+  | Strict Equal (===) | Returns true if the operands are equal and of the same type |
+  | String Not Equal (!==) | Returns true if the operands are not equal and/or not of the same type |
+  | Greater than (>) | Returns true if the left operand is greater than the right |
+  | Less than (<) | Returns true if the left operand is less than the right |
+  
+  ## Expressions and Statements
+  ### Increment and Decrement Operators in Expressions
+  (++) and (--) change the value of their operands by 1. They can appears as a prefix or postfix of the operand. However, **in more complex expressions** the two options behave a little differently.
+  
+  * If the operator appears after the operand, JavaScript evaluates the expression, then modifies the operand.
+  * If the operator appears before the operand, JavaScript modifies the operand, then evaluates the expression.
+  
+  ### Logical Short Circuit Evaluation in Expressions
+  JavaScript evaluates the minimal amount of a logical expression. Examples:
+  ```javascript
+  var a = true;
+  var b = false;
+  
+  a || (b = true);      // b is still false after this, because (b = true) is never evaluated
+  b && (a = 1);         // a is still true after this, because (a = 1) is never evaluated
+  ```
+  
+  ### Statements
+  Unlike expression, statements in JavaScript don't necessarily resolve to a value. Statements, in general, control execution of the program. Examples, variable assignments are expressions, but variable declarations are statements.
+  
+  ```javascript
+  var a;        // a statement to declare variables
+  var b;
+  var c;
+  var b = (a = 1);        // this works, because assignments are expression too
+  var c = (var a = 1);    // this gives an error, since a statement can't be used as part of an expression
+  ```
+  
+  Other statements are `if ... else ...` and `switch` for branching logic (conditionals), `while` and `for` for looping.
+  
+  ## Input and Output
+  ### Using prompt() to Get User's Input
+  `prompt()` method pops up a dialog box with an option message and asks for some text from the user.
+  ```javascript
+  var name = prompt('What is your name?');
+  ```
+  If `Cancel` is clicked in the dialog box, then `null` is returned.
+  Note: The user's input is always captured as a string.
+  
+  ### Using alert() to Prompt a Message to the User
+  `alert()` method displays a dialog with a message. Like `prompt()` but no input from the user.
+  ```javascript
+  alert('Hello, world');
+  alert();
+  ```
+  
+  ### Logging Debuggin Messages to the JavaScript Console
+  `console.log()` method outputs a message to the JavaScript console.
+  ```javascript
+  var name = prompt('What is your name?');
+  
+  console.log('Hello, ' + name);
+  ```
+  
+  ## Practice Problems: Variables and Numbers
+  1. Declare a variable named `numerator` and set it to 10.
+      ```javascript
+      var numerator = 10;
+      ```
+  2. Declare a variable name `denominator` and set it to 2.
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      ```
+  3. Declare a variable name `answer` and set it ot the result of `numerator` divided by `denominator`. Log the value of `answer` (it should be 5).
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      ```
+  4. Declare a variable named `incrementer` and set it to 1.
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      ```
+  5. Declare a variable name `start` and set it to `incrementer`. 
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      var start = incrementer;
+      ```
+  6. Declare variables name `end` and `difference`. Leave them undefined. 
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      var start = incrementer;
+      var end;
+      var difference;
+      ```
+  7. Increment the `incrementer` varaible by 1 three times using the self-addition notation.
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      var start = incrementer;
+      var end;
+      var difference;
+      
+      incrementer += 1;
+      incrementer += 1;
+      incrementer += 1;
+      ```
+  8. Increment the `incrementer` variable by 1 twice using increment operator shorthand.
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      var start = incrementer;
+      var end;
+      var difference;
+      
+      incrementer += 1;
+      incrementer += 1;
+      incrementer += 1;
+      
+      incrementer++;
+      incrementer++;
+      ```
+  9. Set the value of `end` to `incrementer` and the value of `difference` to `end` minus `start`. Log the value of `end`, which should be 6. Log the value of `difference`, which should be 5.
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      var start = incrementer;
+      var end;
+      var difference;
+      
+      incrementer += 1;
+      incrementer += 1;
+      incrementer += 1;
+      
+      incrementer++;
+      incrementer++;
+      
+      end = incrementer;
+      difference = end - start;
+      console.log('end = ' + end);
+      console.log('difference = ' + difference);
+      ```
+  10. `answer` = 11 plus 31 multiplied by 3 as one statement.
+      ```javascript
+      var numerator = 10;
+      var denominator = 2;
+      var answer = numerator / denominator;
+      console.log(answer);
+      
+      var incrementer = 1;
+      var start = incrementer;
+      var end;
+      var difference;
+      
+      incrementer += 1;
+      incrementer += 1;
+      incrementer += 1;
+      
+      incrementer++;
+      incrementer++;
+      
+      end = incrementer;
+      difference = end - start;
+      console.log('end = ' + end);
+      console.log('difference = ' + difference);
+      
+      answer = (11 + 31) * 3;
+      console.log('answer = ' + answer);
+      ```
+  
+  ## Explicit Primitive Type Coercions
+  Converting from one type to another is called a **coercion** or **conversion**. Since primitives in JavaScript are immutable, nothing is actually converted, instead a new value of the new type is returned.
+  
+  ### Converting Strings to Numbers
+  ```javascript
+  Number('1'); // 1
+  Number('abc123'):   // NaN
+  parseInt('123', 10);    // 123
+  parseInt('123.12', 10); // 123, will only return whole numbers
+  parseInt('123.12');     // 123
+  parseFloat('123.12');   // 123.12, can handle floating point values
+  ```
+  
+  ### Converting Numbers to Strings
+  ```javascript
+  String(123);          // "123"
+  String(1.23);         // "1.23"
+  (123).toString();     // "123"
+  (123.12).toString();  // "123.12"
+  123 + '';             // "123", works but intent is not clear, avoid using it
+  '' + 123.12;          // "123.12", works but intent is not clear, avoid using it
+  ```
+  
+  ### Booleans to Strings
+  ```javascript
+  String(true);       // "true"
+  String(false);      // "false"
+  true.toString();    // "true"
+  false.toString();   // "false"
+  ```
+  
+  ### Primitives to Booleans
+  No way to coerce a String into a boolean, so a string must be compared to another string. Keep in mind that "true" is not equal to "TRUE".
+  ```javascript
+  var a = 'true';
+  var b = 'false';
+  a === 'true';       // true
+  b === 'true';       // false
+  ```
+  `Boolean()` can be used to convert any value into a boolean using the `truthy` and `falsy` rule in JavaScript.
+  ```javascript
+  Boolean(null);            // false
+  Boolean(NaN);            // false
+  Boolean(0);            // false
+  Boolean('');            // false
+  Boolean(false);            // false
+  Boolean(undefined);            // false
+  Boolean('abc');            // other values will be true
+  Boolean(123);            // true
+  Boolean('true');            // true
+  Boolean('false');            // true
+  ```
+  
+  Use the double `!` operator to coerce a truthy or falsy value to its boolean equivalent.
+  ```javascript
+  !!(null);       // false
+  !!(NaN);        // false
+  !!(0);          // false
+  !!('');         // false
+  !!(false);      // false
+  !!(undefined);  // false
+  
+  !!('abc');      // true
+  !!(123);        // true
+  !!('true');     // true
+  !!('false');    // this is also true! All non-empty strings are truthy in JavaScript
+  ```
+  
+  ## Implicit Primitive Type Coercions
+  ### The Plus (+) Operator
+  Tries to convert values into numbers:
+  ```javascript
+  +('123')        // 123
+  +('')           // 0
+  +(null)         // 0
+  +('a')          // NaN
+  ```
+  
+  When used with two operands and one is a string, JavaScript tries to convert the other to a string.
+  ```javascript
+  1 + true          // 2
+  '123' + 123       // "123123"
+  123 + "123"       // "123123"
+  'a' + null        // "anull" - null is coerced to a string
+  ```
+  
+  ### Other Arithmetic Operators
+  `-`, `*`, `/`, `%`, are only defined for numbers, so JavaScript will try to coerce operands to numbers:
+  ```javascript
+  1 - true          // 0
+  '123' * 3         // 369 - the string is coerced to a number
+  '8' - "1"         // 7
+  ```
+  
+  ### Relational Operators
+  `<`, `>`, `<=`, `>=` are defined for numbers and strings. Generally, JS tries to convert operands into numbers unless both operands are strings.
+  ```javascript
+  11 > '9'          // true - "9" is coerced to 9
+  123 > 'a'         // false - "a" is coerced to NaN; any number comparison with NaN is false
+  123 <= 'a'        // also false
+  ```
+  
+  ### Equality Operators
+  #### Non-strict equality operators
+  ```javascript
+  0 == false        // true - false is coerced into a number 0
+  '' == undefined   // false - undefined is coerced to "undefined"
+  '' == 0           // true - "" is coerced to 0
+  true == 1         // true - comparison of a boolean and a non-boolean will coerce the boolean to a number
+  'true' == true    // false, and source of many bugs
+  ```
+  
+  #### Strict equality operators
+  ```javascript
+  0 === false        // false
+  '' === undefined   // false
+  '' === 0           // false
+  true === 1         // false
+  'true' === true    // false
+  ```
+  
+  ### Best Practices
+  * **Always use explicit type coercions**
+  * **Always use strict equality operators** (`===` and `!==`)
+  
+  ## Conditionals
+  ### if...else
+  ```javascript
+  var score = 80;
+  
+  if (score > 70) {
+    console.log('Congratulations, you passed!');
+  }
+  ```
+  
+  ```javascript
+  if (score > 70) {
+    console.log('Congratulations, you passed!');
+  } else {
+    console.log('Sorry, but you need to study more!');
+  }
+  ```
+  
+  ```javascript
+  if (condition1) {
+    // statements
+  } else if (conditional2) {
+    // statements
+  } else if (conditionN) {
+    // statements
+  }
+  ```
+  
+  ### Truthy and Falsy
+  These are the only 6 possible "falsy" values (include the boolean `false`).
+  ```javascript
+  if (false)      // falsy
+  if (null)       // falsy
+  if (undefined)  // falsy
+  if (0)          // falsy
+  if (NaN)        // falsy
+  if ('')         // falsy
+  ```
+  Everything else is "truthy"
+  
+  ### Switch
+  ```javascript
+  var reaction = 'negative';
+  
+  switch (reaction) {
+    case 'positive':
+      console.log('The sentiment of the market is positive');
+      break;
+    case 'negative':
+      console.log('The sentiment of the market is negative');
+      break;
+    case 'undecided':
+      console.log('The sentiment of the market is undecided');
+      break;
+    default:
+      console.log('The market has not reacted enough');
+  }
+  
+  // console output
+  The sentiment of the market is negative
+  ```
+  
+  ### Comparing values with NaN
+  `NaN` is a special value that represents an illegal operation on numbers. It stands for "Not a Number" but it is considered a number in JavaScript. `console.log(typeof(NaN)); // number`
+  
+  A big problem with `Nan` is that a comparison to it will always evaluate to `false` even if compared to another`NaN`. So `NaN` is not equal to `NaN`.
+  
+  So to check if a variable holds a `NaN`, use the function `isNaN` which returns `true` if a value is not a number, `false` otherwise. And this is literal, even a string will evaluate to `true` because it is not a number.
+  
+  ```javascript
+  var foo = NaN;
+  console.log(isNaN(foo));      // true
+  console.log(isNaN("hello"));  // true
+  ```
+  
+  To solve this elegantly, `NaN` is not equal to itself, so make a function to test this.
+  
+  ```javascript
+  function isValueNaN(value) {
+    return value !== value;
+  }
+  
+  // A more explicit check that the argument is numeric
+  function isValueNaN(value) {
+    return typeof value === "number" && isNaN(value);
+  }
+  ```
+  
+  ## Looping and Iteration
+  ### The "while" Loop
+  ```javascript
+  var counter = 0;
+  var limit = 10;
+  
+  while (counter < limit) {
+    console.log(counter);
+    counter += 2;
+  }
+  ```
+  
+  ### Break and Continue
+  The `break` statement exits from a loop immediately;
+  ```javascript
+  var counter = 0;
+  var limit = 10;
+  
+  while (true) {
+    counter += 2;
+    if (counter > limit) {
+      break;
+    }
+  
+    console.log(counter);
+  }
+  ```
+  
+  The `continue` statement skips the current iteration of a loop and return to the top of the loop.
+  ```javascript
+  var counter = 0;
+  var limit = 10;
+  
+  while (true) {
+    counter += 2;
+    if (counter === 4) {
+      continue;
+    }
+  
+    if (counter > limit) {
+      break;
+    }
+  
+    console.log(counter);
+  }
+  ```
+  
+  ### The "do...while" Loop
+  Similar to the `while` loop but it ensures the code is executed at least once.
+  ```javascript
+  var counter = 0;
+  var limit = 0;
+  
+  do {
+    console.log(counter);
+    counter++;
+  } while (counter < limit);
+  ```
+  
+  ### The "for" Loop
+  ```javascript
+  for (initialExpression; condition; incrementExpression) {
+    // statements
+  }
+  
+  for (var i = 0; i < 10; i++) {
+    console.log(i);
+  }
+  ```
+'''
+tags: []
+isStarred: false
+createdAt: "2017-09-21T18:01:06.540Z"
+updatedAt: "2017-09-21T23:42:23.308Z"

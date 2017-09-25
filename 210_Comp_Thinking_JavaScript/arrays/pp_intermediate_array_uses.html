@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function oddElementsOf(arr) {
+        var oddElements = [];
+        for (var i = 1; i < arr.length; i += 2) {
+          oddElements.push(arr[i]);
+        }
+        return oddElements;
+      }
+
+      function combinedArray(even, odd) {
+        var newArray = [];
+        for (var i = 0; i < even.length; i++) {
+          newArray.push(even[i], odd[i]);
+        }
+        return newArray;
+      }
+
+      var digits = [4, 8, 15, 16, 23, 42];
+      var letters = ['A', 'L', 'V', 'A', 'R', 'H'];
+
+      combinedArray(digits, letters); // Returns [4, "A", 8, "L", 15, "V", 16, "A", 23, "R", 42, "H"]
+
+      function mirroredArray(arr) {
+        return arr.concat(arr.slice().reverse());
+      }
+
+      function sortDescending(arr) {
+        var arrCopy = arr.slice();
+        return arrCopy.sort(function(a, b) {
+          return b - a;
+        });
+      }
+
+      function matrixSums(arr) {
+        var sums = [];
+        var currentSum;
+        for (var i = 0; i < arr.length; i++) {
+          currentSum = 0;
+
+          for (var j = 0; j < arr[i].length; j++) {
+            currentSum += arr[i][j];
+          }
+
+          sums.push(currentSum);
+        }
+
+        return sums;
+      }
+
+      function uniqueElements(arr) {
+        var uniques = [];
+        for (var i = 0; i < arr.length; i++) {
+          if (uniques.indexOf(arr[i]) === -1) {
+            uniques.push(arr[i]);
+          }
+        }
+
+        return uniques;
+      }
+    </script>
+  </body>
+</html>

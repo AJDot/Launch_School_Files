@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function push(arr, value) {
+        arr[arr.length] = value;
+        return arr.length;
+      }
+
+      function pop(array) {
+        newLength = array.length - 1;
+        var value = array[newLength];
+        array.length = newLength
+        return value;
+      }
+
+      function unshift(array, value) {
+        for (var i = array.length; i > 0; i--) {
+          array[i] = array[i - 1];
+        }
+
+        array[0] = value;
+        return array.length;
+      }
+
+      function shift(array) {
+        var first = array[0];
+        for (var i = 0; i < array.length; i++) {
+          array[i] = array[i + 1];
+        }
+
+        array.length -= 1;
+        return first;
+      }
+
+      function indexOf(array, value) {
+        for (var i = 0; i < array.length; i++) {
+          if (array[i] === value) {
+            return i;
+          }
+        }
+
+        return -1;
+      }
+
+      function lastIndexOf(array, value) {
+        for (var i = array.length - 1; i >= 0; i--) {
+          if (array[i] === value) {
+            return i;
+          }
+        }
+
+        return -1;
+      }
+
+      function slice(array, begin, end) {
+        var newArray = [];
+        for (var i = begin; i < end; i++) {
+          push(newArray, array[i]);
+        }
+
+        return newArray;
+      }
+
+      function splice(array, begin, number) {
+        var removedValues = [];
+        for (var i = begin; i < array.length; i++) {
+          if (i < begin + number) {
+            push(removedValues, array[i]);
+          }
+
+          array[i] = array[i + number];
+        }
+
+        array.length = array.length - number;
+        return removedValues;
+      }
+
+      function concat(array1, array2) {
+        newArray = [];
+        for (var i = 0; i < array1.length; i++) {
+          push(newArray, array1[i]);
+        }
+
+        for (var i = 0; i < array2.length; i++) {
+          push(newArray, array2[i]);
+        }
+
+        return newArray;
+      }
+
+      function join(array, separator) {
+        result = '';
+
+        for (var i = 0; i < array.length; i++) {
+          result += String(array[i]);
+
+          if (i < array.length - 1) {
+            result += separator;
+          }
+        }
+
+        return result;
+      }
+
+
+    </script>
+  </body>
+</html>

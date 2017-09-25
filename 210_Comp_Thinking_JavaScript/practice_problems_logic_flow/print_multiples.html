@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function logMultiples(number) {
+        for (var i = 100; i >= number; i--) {
+          if (i % 2 === 0) continue;
+          if (i % number === 0) {
+            console.log(i);
+          }
+        }
+      }
+
+      function logMultiplesFurther(number) {
+        var largestMultiple;
+        if (number % 2 === 0) return console.log('No odd multiples!');
+
+        largestMultiple = Math.floor(100 / number) * number;
+        for (var i = largestMultiple; i >= number; i -= 2 * number) {
+          console.log(i);
+        }
+      }
+
+      logMultiples(17);
+      logMultiplesFurther(13);
+      logMultiplesFurther(14);
+      logMultiplesFurther(15);
+      logMultiplesFurther(16);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+
+      function splitString(string, delimiter) {
+
+        if (delimiter === undefined) {
+          console.log('ERROR: No delimiter');
+          return;
+        }
+
+
+        var fragment = '';
+        for (var i = 0; i < string.length; i++) {
+          if (string[i] === delimiter) {
+            console.log(fragment);
+            fragment = '';
+          } else if (delimiter === '') {
+            console.log(string[i]);
+          } else {
+            fragment += string[i];
+          }
+        }
+
+        if (fragment) {
+          console.log(fragment);
+        }
+      }
+
+      splitString('hello', '');
+    </script>
+  </body>
+</html>
