@@ -1,0 +1,44 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Dynamic"
+content: '''
+  # Dynamic
+  
+  ## What gets logged by lines 11 and 12?
+  ```javascript
+  var myObject = {
+    prop1: '123',
+    prop2: '234',
+    'prop 3': '345',
+  };
+  
+  var prop2 = '456';
+  myObject['prop2'] = '456';
+  myObject[prop2] = '678';
+  
+  console.log(myObject[prop2]);
+  console.log(myObject.prop2);
+  ```
+  
+  ## ANSWER
+  After line 9, `myObject` looks like:
+  ```javascript
+  {
+    prop1: '123',
+    prop2: '456',
+    'prop 3': '345,
+    '456': '678',
+  }
+  ```
+  
+  ```
+  Line 11: "678"
+  Line 12: "456"
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-28T19:31:33.810Z"
+updatedAt: "2017-09-28T19:40:11.104Z"

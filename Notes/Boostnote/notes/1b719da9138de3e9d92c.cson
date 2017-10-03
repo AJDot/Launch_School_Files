@@ -1,0 +1,53 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Logical Operation"
+content: '''
+  # Logical Operation
+  
+  What will the output of each line be?
+  ```javascript
+  (false && undefined);
+  (false || undefined);
+  ((false && undefined) || (false || undefined));
+  ((false || undefined) || (false && undefined));
+  ((false && undefined) && (false || undefined));
+  ((false || undefined) && (false && undefined));
+  ('a' || (false && undefined) || '');
+  ((false && undefined) || 'a' || '');
+  ('a' && (false || undefined) && '');
+  ((false || undefined) && 'a' && '');
+  ```
+  
+  ## ANSWER
+  There are only 6 falsy values:
+  ```javascript
+  false
+  undefined
+  null
+  ''
+  0
+  NaN
+  ```
+  `&&` returns the first expression if it can be converted to `false`; otherwise the second is returned.
+  `||` return the first expression if it can be converted to `true`; otherwise the second is returned.
+  So:
+  ```javascript
+  (false && undefined);                           // false
+  (false || undefined);                           // undefined
+  ((false && undefined) || (false || undefined)); // undefined
+  ((false || undefined) || (false && undefined)); // false
+  ((false && undefined) && (false || undefined)); // false
+  ((false || undefined) && (false && undefined)); // undefined
+  ('a' || (false && undefined) || '');            // 'a'
+  ((false && undefined) || 'a' || '');            // 'a'
+  ('a' && (false || undefined) && '');            // undefined
+  ((false || undefined) && 'a' && '');            // undefined
+  ```
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-29T00:35:33.283Z"
+updatedAt: "2017-09-29T16:34:58.108Z"

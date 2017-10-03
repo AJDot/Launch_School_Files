@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array Slice and Splice</title>
+  </head>
+  <body>
+    <script>
+      function slice(array, begin, end) {
+        newArray = [];
+        begin = begin > array.length ? array.length : begin;
+        end = end > array.length ? array.length : end;
+
+        for (var i = begin; i < end; i += 1) {
+          newArray.push(array[i]);
+        }
+
+        return newArray;
+      }
+
+      function splice(array, start, deleteCount) {
+        start = start > array.length ? array.length : start;
+        deletecount = deleteCount > (array.length - start) ? array.length - start : deleteCount;
+
+        var endIndex = start + deleteCount - 1;
+
+        var arrStart = [];
+        // copy unaffected beginning of array
+        for (var i = 0; i < start; i += 1) {
+          arrStart[i] = array[i];
+        }
+
+        var arrDelete = [];
+        // copy values to delete
+        for (var i = start; i <= endIndex; i += 1) {
+          arrDelete[i - start] = array[i];
+        }
+
+        var arrEnd = [];
+        // copy unaffected end of array
+        for (var i = endIndex + 1; i < array.length; i += 1) {
+          arrEnd[i - (endIndex + 1)] = array[i];
+        }
+
+        var items = [];
+        // get items to insert
+        for (var i = 3; i < arguments.length; i += 1) {
+          items[i - 3] = arguments[i];
+        }
+
+        // piece array back together
+        // shorten array to contain value before deletions
+        array.length = start;
+        // append new items to array
+        for (var i = 0; i < items.length; i += 1) {
+          array[array.length] = items[i];
+        }
+        // copy end of array
+        for (var i = 0; i < arrEnd.length; i += 1) {
+          array[array.length] = arrEnd[i];
+        }
+
+        return arrDelete;
+      }
+    </script>
+  </body>
+</html>

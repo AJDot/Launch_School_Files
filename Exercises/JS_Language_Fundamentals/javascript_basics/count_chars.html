@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Counting the Number of Characters</title>
+  </head>
+  <body>
+    <script>
+      var input = prompt('Please write a phrase:');
+      var charCount = input.length;
+      console.log('There are ' + charCount + ' characters in "' + input + '".');
+
+      var spacesRemoved = input.replace(/\s/g, '');
+      var noSpacesCharCount = spacesRemoved.length;
+      console.log('There are ' + noSpacesCharCount + ' characters in "' + spacesRemoved + '".');
+
+      var onlyAlpha = spacesRemoved.replace(/[^A-Za-z]/g, '');
+      var onlyAlphaCount = onlyAlpha.length;
+      console.log('There are ' + onlyAlphaCount + ' characters in "' + onlyAlpha + '".');
+    </script>
+  </body>
+</html>

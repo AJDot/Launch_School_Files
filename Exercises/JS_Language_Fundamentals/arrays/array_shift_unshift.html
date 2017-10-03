@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array Shift and Unshift</title>
+  </head>
+  <body>
+    <script>
+      function shift(array) {
+        var firstItem;
+
+        if (array.length !== 0) {
+          firstItem = array.splice(0, 1).pop();
+        }
+
+        return firstItem;
+      }
+
+      function unshift(array) {
+        for (var index = 1; index < arguments.length; index += 1) {
+          array.splice(index - 1, 0, arguments[index]);
+        }
+
+        return array.length;
+      }
+    </script>
+  </body>
+</html>

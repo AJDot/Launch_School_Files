@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Working with the Math Object</title>
+  </head>
+  <body>
+    <script>
+      // 1
+      function toDegrees(radians) {
+        return radians * (180 / Math.PI);
+      }
+
+      // 2
+      var degrees = -180;
+      console.log(Math.abs(degrees));
+
+      // 3
+      console.log(Math.sqrt(16777216));
+
+      // 4
+      console.log(Math.pow(16, 6));
+
+      // 5
+      var a = 50.72;
+      var b = 49.2;
+      var c = 49.86;
+
+      console.log(Math.floor(a));
+      console.log(Math.ceil(b));
+      console.log(Math.round(c));
+
+      // 6
+      function randomInt(min, max) {
+        if (min > max) {
+          var temp = min;
+          min = max;
+          max = temp;
+        }
+
+        var range = max - min + 1;
+        return Math.floor(Math.random() * range) + min;
+      }
+
+      console.log(randomInt(5, 10));
+      console.log(randomInt(5, 5));
+    </script>
+  </body>
+</html>

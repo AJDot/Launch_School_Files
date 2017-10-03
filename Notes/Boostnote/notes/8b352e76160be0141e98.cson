@@ -1,0 +1,25 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Accidentally Global"
+content: '''
+  # Accidentally Global
+  
+  ## What will the following code log to the console and why?
+  ```javascript
+  function someFunction() {
+    myVar = 'This is global';
+  }
+  
+  someFunction();
+  console.log(myVar);
+  ```
+  
+  ## ANSWER
+  `This is global` will be logged. With the use of `var` to declare the variable as a local variable, `myVar` is binded to be a "property" of the `global` object. This is "almost" the same as declaring it as a global variable.
+'''
+tags: [
+  "1A"
+]
+isStarred: false
+createdAt: "2017-09-27T22:28:14.739Z"
+updatedAt: "2017-09-28T19:19:52.604Z"

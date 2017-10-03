@@ -9,11 +9,25 @@ content: '''
   The simplest regex just matches an alphanumeric character. Just place that character between the `/` characters. Note that this _is_ case sensitive. `/s/` will not match `"S"` in `"KANSAS"`.
   
   To use this in a program (Ruby or JavaScript in this case) we can use the `match` method for the String classes.
+  #### Ruby
   ```ruby
   str = 'cast'
   print "matched 's'" if str.match(/s/)
   print "matched 'x'" if str.match(/x/)
   ```
+  
+  ### JavaScript
+  ```javascript
+  var str = 'cast';
+  if (str.match(/s/)) {
+    console.log("matched 's'");
+  }
+  
+  if (str.match(/x/)) {
+    console.log("matched 'x'");
+  }
+  ```
+  Both will print since the `str` contains 's' but not print since it doesn't contain 'x'.
   
   ### Special Characters
   Some special characters have special meaning inside a regex and require special treatment.
@@ -46,9 +60,16 @@ content: '''
   ### Control Characters Escapes
   These are used to represent certain characters that don't have a visual representation. For example, `\\n`, `\\r`, and `\\t` are nearly universal ways to represent line feeds, carriage returns, and tabs, respectively.
   
-  So in Ruby
+  #### Ruby
   ```ruby
   puts "has tab" if text.match(/\\t/)
+  ```
+  
+  #### JavaScript
+  ```javascript
+  if (text.match(/\\t/)) {
+    console.log('has tab');
+  }
   ```
   
   ### Ignoring Case
@@ -329,4 +350,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-05-31T15:01:51.390Z"
-updatedAt: "2017-06-02T05:24:26.011Z"
+updatedAt: "2017-10-03T14:32:31.932Z"

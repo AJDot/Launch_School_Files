@@ -69,6 +69,11 @@
       "key": "3c2d0a64fbae751d51f9",
       "color": "#d0021b",
       "name": "210 Computational Thinking and JavaScript"
+    },
+    {
+      "key": "e6fa7285af0e624af2be",
+      "color": "#417505",
+      "name": "219 Test"
     }
   ],
   "version": "1.0"

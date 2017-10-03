@@ -1,0 +1,19 @@
+type: "MARKDOWN_NOTE"
+folder: "3c2d0a64fbae751d51f9"
+title: "Study Guide for Test"
+content: '''
+  # Study Guide for Test
+  Be able to explain clearly the following topics:
+  * primitive values, type, and type conversions
+  * variable scopes and hoisting
+  * function declarations, expressions, and scopes
+  * object properties and mutation
+  * assignments and comparison
+  * pure functions and side effects
+  
+  Be able to explain code in words, use precise vocabulary. Pinpoint the exact causal mechanism at work. **Don't be vague**.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-09-27T18:05:18.277Z"
+updatedAt: "2017-09-27T18:07:03.662Z"

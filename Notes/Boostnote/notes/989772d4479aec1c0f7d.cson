@@ -1,0 +1,35 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "What's My Value?"
+content: '''
+  # What's My Value?
+  (Quirks of arrays as objects in reference to the value of `Array.length`)
+  
+  What will the following program log to the console?
+  ```javascript
+  var arr = ['Apples', 'Peaches', 'Grapes'];
+  
+  arr[3.4] = 'Oranges';
+  console.log(arr.length);
+  console.log(Object.keys(arr).length);
+  
+  arr[-2] = 'Watermelon';
+  console.log(arr.length);
+  console.log(Object.keys(arr).length);
+  ```
+  
+  ## ANSWER
+  ```
+  3
+  4
+  3
+  5
+  ```
+  This is because the `length` property of arrays only counts keys with non-negative integer values.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-29T14:09:01.882Z"
+updatedAt: "2017-09-29T14:12:52.663Z"

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array Concat</title>
+  </head>
+  <body>
+    <script>
+      function concat() {
+        newArray = [];
+
+        for (var i = 0; i < arguments.length; i += 1) {
+          currentArg = arguments[i];
+          if (Array.isArray(currentArg)) {
+            for (var j = 0; j < currentArg.length; j += 1) {
+              newArray.push(currentArg[j]);
+            }
+          } else {
+            newArray.push(currentArg);
+          }
+        }
+
+        return newArray;
+      }
+
+      concat([1, 2 ,3], [4, 5, 6], [7, 8, 9]);           // [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+      concat([1, 2], "a", ["one", "two"]);               // [ 1, 2, "a", "one", "two" ]
+      concat([1, 2], ["three"], 4);                      // [ 1, 2, "three", 4 ]
+    </script>
+  </body>
+</html>

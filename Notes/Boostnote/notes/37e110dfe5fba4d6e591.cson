@@ -1,0 +1,30 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Pass by Value with Shadowing"
+content: '''
+  # Pass by Value with Shadowing
+  
+  ## what will the following code log to the console and why?
+  ```javascript
+  var a = 7;
+  
+  function myValue(a) {
+    a += 10;
+  }
+  
+  myValue(a);
+  console.log(a);
+  ```
+  
+  ## ANSWER
+  ```javascript
+  7
+  ```
+  `myValue(a)` takes the global variable `a`, has a value of `7`, and assigns its value to the local variable `a` inside the `myValue` Function. This local variable shadows the outer variable making it the variable change inside the function, not the global variable.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-27T22:34:27.512Z"
+updatedAt: "2017-09-28T19:19:47.433Z"

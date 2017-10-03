@@ -1,0 +1,41 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "The End is Near But Not Here"
+content: '''
+  # The End is Near But Not Here
+  
+  The penultimate function returns the next to the last word in the String passed to it. The function assumes that "words" are any sequence of non-blank characters. It also assumes that the input String will always contain at least two words. Currently, the solution provided does not match expected result. Run the program, check the current result, identify the problem, explain what the problem is, and provide a working solution.
+  
+  ```javascript
+  penultimate('last word')               // 'last'
+  penultimate('Launch School is great!') // 'is'
+  
+  function penultimate(string) {
+    return string.split(' ')[-2];
+  }
+  ```
+  
+  ## ANSWER
+  A negative index on an array will not access elements starting from the end of the array. Since arrays are object, this tries to access the value with the key of -2, which is `undefined` in this case.
+  
+  The Fix:
+  ```javascript
+  function penultimate(string) {
+    var arr = string.split(' ');
+    return arr[arr.length - 2];
+  }
+  
+  // OR
+  
+  function penultimate(string) {
+    return string.split(' ').slice(-2, -1)[0];
+  }
+  ```
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-28T19:53:45.397Z"
+updatedAt: "2017-09-28T20:02:09.041Z"

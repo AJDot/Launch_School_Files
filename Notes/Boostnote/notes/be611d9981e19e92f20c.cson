@@ -1,0 +1,26 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Variable Lookup"
+content: '''
+  # Variable Lookup
+  
+  ## What will the following code log to the console and why?
+  ```javascript
+  var myVar = 'This is global';
+  
+  function someFunction() {
+    console.log(myVar);
+  }
+  
+  someFunction();
+  ```
+  
+  ## ANSWER
+  `This is global` will be logged to the console. Inner scopes have access to variable in outer scopes. JavaScript searches for variable values starting at the inner-most scope. Here, it did not find `myVar` inside the scope of the Function `someFunction`. The next outer scope is the global scope, where `myVar` does exist.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-27T22:25:11.014Z"
+updatedAt: "2017-09-28T19:19:57.574Z"

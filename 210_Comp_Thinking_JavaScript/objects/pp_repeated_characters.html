@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function repeatedCharacters(string) {
+        var lowerCaseString = string.toLowerCase();
+        var counts = {};
+        var i, key;
+
+        for (i = 0; i < lowerCaseString.length; i++) {
+          if (counts[lowerCaseString[i]]) {
+            counts[lowerCaseString[i]] += 1;
+          } else {
+            counts[lowerCaseString[i]] = 1;
+          }
+        }
+
+        for (key in counts) {
+          if (counts[key] === 1) {
+            delete counts[key];
+          }
+        }
+
+        return counts;
+      }
+
+      console.log(repeatedCharacters('Programming'));    // { r: 2, g: 2, m: 2 }
+      console.log(repeatedCharacters('Combination'));    // { o: 2, i: 2, n: 2 }
+      console.log(repeatedCharacters('Pet'));            // {}
+      console.log(repeatedCharacters('Paper'));          // { p: 2 }
+      console.log(repeatedCharacters('Baseless'));       // { s: 3, e: 2 }
+    </script>
+  </body>
+</html>

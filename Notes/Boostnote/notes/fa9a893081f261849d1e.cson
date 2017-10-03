@@ -1,0 +1,35 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Array Object 1"
+content: '''
+  # Array Object 1
+  
+  ## What will this code log?
+  ```javascript
+  var myArray = ['a', 'b', 'c'];
+  console.log(myArray[0]);
+  console.log(myArray[-1]);
+  myArray[-1] = 'd';
+  myArray['e'] = 5;
+  myArray[3] = 'f';
+  
+  console.log(myArray[-1]);
+  console.log(myArray['e']);
+  console.log(myArray);
+  ```
+  
+  ## ANSWER
+  ```
+  Line 2: 'a'
+  Line 3: undefined
+  Line 8: 'd'
+  Line 9: 5
+  Line 10: [ 'a', 'b', 'c', 'f', '-1': 'd', e: 5 ]
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-28T19:40:12.389Z"
+updatedAt: "2017-09-28T20:02:16.115Z"

@@ -1,0 +1,54 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Counter"
+content: '''
+  # Counter
+  
+  What will these log?
+  Code Snippet 1
+  ```javascript
+  var counter = 5;
+  var rate = 3;
+  console.log('The total value is ' + (counter * rate));
+  
+  function counter(count) {
+    // ...
+  }
+  ```
+  
+  Code Snippet 2
+  ```javascript
+  function counter(count) {
+    // ...
+  }
+  
+  console.log('The total value is ' + (counter * rate));
+  
+  var counter = 5;
+  var rate = 3;
+  ```
+  
+  Code Snippet 3
+  ```javascript
+  var counter = 5;
+  var rate = 3;
+  
+  function counter(count) {
+    // ...
+  }
+  
+  console.log('The total value is ' + (counter * rate));
+  ```
+  
+  ## ANSWER
+  ```
+  Snippet 1: The total values is 15
+  Snippet 2: The total values is NaN
+  Snippet 3: The total values is 15
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-29T01:15:40.699Z"
+updatedAt: "2017-09-29T01:21:53.275Z"

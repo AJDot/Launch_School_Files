@@ -1,0 +1,46 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Array Object 2"
+content: '''
+  # Array Object 2
+  
+  ## The user of the function put in the statements below and was expecting the function to return 5 to test it. What is the value returned?
+  ```javascript
+  var myArray = [5, 5];
+  myArray[-1] = 5;
+  myArray[-2] = 5;
+  function average(array) {
+    var sum = 0;
+    for (var i = -2; i < array.length; i++) {
+      sum += array[i];
+    }
+  
+    return sum / array.length;
+  }
+  
+  average(myArray);
+  ```
+  
+  ## ANSWER
+  ```
+  10
+  ```
+  
+  `myArray` looks like `[5, 5, -1: 5, -2: 5]`. The `length` property of an array will count the number of non-negative integer keys. In this case there are two of them (0 and 1). The call to the function looks like this:
+  ```javascript
+  var sum = 0;
+  for (var i = -2; i < 2; i++) {
+    sum += array[i];
+  }
+  
+  return sum / 2;
+  ```
+  It will sum up values for the keys -2, -1, 0, and 1. This totals 20 and when divided by the array length, results in 10.
+  
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-28T19:44:14.095Z"
+updatedAt: "2017-09-28T20:02:12.714Z"

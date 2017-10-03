@@ -1,0 +1,52 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Length"
+content: '''
+  # Length
+  
+  What values will it log to the console?
+  ```javascript
+  var languages = ['JavaScript', 'Ruby', 'Python'];
+  console.log(languages);
+  console.log(languages.length);
+  
+  languages.length = 4;
+  console.log(languages);
+  console.log(languages.length);
+  
+  languages.length = 1;
+  console.log(languages);
+  console.log(languages.length);
+  
+  languages.length = 3;
+  console.log(languages);
+  console.log(languages.length);
+  
+  languages.length = 1;
+  languages[2] = 'Python';
+  console.log(languages);
+  console.log(languages[1]);
+  console.log(languages.length);
+  ```
+  
+  ## ANSWER
+  ```
+  ["JavaScript", "Ruby", "Python"]
+  3
+  ["JavaScript", "Ruby", "Python", empty x 1]
+  4
+  ["JavaScript"]
+  1
+  ["JavaScript", empty x 2]
+  3
+  ["JavaScript", empty x 1, "Python"]
+  undefined
+  3
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-29T14:12:57.149Z"
+updatedAt: "2017-09-29T14:32:03.100Z"

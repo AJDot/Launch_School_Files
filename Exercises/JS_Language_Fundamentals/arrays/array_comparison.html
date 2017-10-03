@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array Comparison</title>
+  </head>
+  <body>
+    <script>
+      function areArraysEqual(array1, array2) {
+        if (array1.length !== array2.length) {
+          return false;
+        }
+
+        var arr2Copy = array2.slice();
+
+        for (var i = 0; i < array1.length; i += 1) {
+          var nextIndex = arr2Copy.indexOf(array1[i]);
+          if (nextIndex >= 0) {
+            arr2Copy.splice(nextIndex, 1);
+          } else {
+            return false;
+          }
+        }
+
+        if (arr2Copy.length === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>

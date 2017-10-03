@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Working with the Math Object</title>
+  </head>
+  <body>
+    <script>
+      // 1
+      var today = new Date();
+
+      // 2
+      console.log("Today's day is " + String(today.getDay()));
+
+      // 3
+      var daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      console.log("Today's day is " + daysOfWeek[today.getDay()]);
+
+      // 4
+      console.log("Today's date is " + daysOfWeek[today.getDay()] + ', the ' + today.getDate() + 'th');
+
+      // 5
+      function dateSuffix(date) {
+        var suffix = 'th';
+        var numString = String(date);
+
+        var onesDigit = numString[numString.length - 1];
+        switch (onesDigit) {
+          case '1':
+            suffix = 'st';
+            break;
+          case '2':
+            suffix = 'nd';
+            break;
+          case '3':
+            suffix = 'rd';
+            break;
+        }
+
+        if ([11, 12, 13].indexOf(date) !== -1) {
+          suffix = 'th';
+        }
+
+        return numString + suffix;
+      }
+
+      console.log("Today's date is " + daysOfWeek[today.getDay()] + ', the ' + dateSuffix(today.getDate()));
+
+      // 6
+
+      console.log("Today's date is " + daysOfWeek[today.getDay()] + ', ' +
+                                      String(today.getMonth()) + ' ' +
+                                      dateSuffix(today.getDate()));
+
+      // 7
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      console.log("Today's date is " + daysOfWeek[today.getDay()] + ', ' +
+                                      months[today.getMonth()] + ' ' +
+                                      dateSuffix(today.getDate()));
+
+      // 8
+      function formattedMonth(date) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months[date.getMonth()];
+      }
+
+      function formattedDay(date) {
+        var daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        return daysOfWeek[date.getDay()];
+      }
+
+      function formattedDate(date) {
+        var day = formattedDay(date);
+        var month = formattedMonth(date);
+
+        console.log("Today's date is " + day + ', ' + month + ' ' + dateSuffix(date.getDate()));
+      }
+
+      formattedDate(today);
+
+      // 9
+      console.log(today.getFullYear());
+      console.log(today.getYear());
+
+      // 10
+      console.log(today.getTime());
+
+      // 11
+      var tomorrow = new Date(today.getTime());
+
+      tomorrow.setDate(today.getDate() + 1);
+      formattedDate(tomorrow);
+
+      // 12
+      var nextWeek = new Date(today.getTime());
+
+      console.log(nextWeek === today);
+
+      // 13
+      console.log(nextWeek.toDateString() === today.toDateString());
+
+      nextWeek.setDate(today.getDate() + 7);
+      formattedDate(nextWeek);
+
+      // 14
+      function formatTime(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+
+        return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+      }
+
+      console.log(formatTime(today));
+      console.log(formatTime(new Date(2013, 2, 1, 1, 10)))
+    </script>
+  </body>
+</html>

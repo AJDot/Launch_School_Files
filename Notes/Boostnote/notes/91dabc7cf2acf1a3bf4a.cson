@@ -1,0 +1,54 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Hoisting Functions"
+content: '''
+  # Hoisting Functions
+  
+  ## What will the following code log to the console and why?
+  ```javascript
+  logValue();
+  
+  function logValue() {
+    console.log('Hello, world!');
+  }
+  ```
+  
+  ## ANSWER
+  Functions declarations are hoisted to the top of their scope. Unlike with variables, the entire declaration is hoisted, including the block. Effectively the code looks like this:
+  ```javascript
+  function logValue() {
+    console.log('Hello, world!');
+  }
+  
+  logValue();
+  ```
+  The code will log `Hello, world!` to the console.
+  
+  ## Further
+  ### What does it log now? What is the hoisted equivalent of this code?
+  ```javascript
+  var logValue = 'foo';
+  
+  function logValue() {
+    console.log('Hello, world!');
+  }
+  
+  console.log(typeof logValue);
+  ```
+  This will log `string`. Functions are hoisted above varables. The hoisted code is as follows:
+  ```javascript
+  function logValue() {
+  console.log('Hello, world!');
+  }
+  var logValue;
+  logValue = 'foo';
+  
+  console.log(typeof logValue);
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-27T22:44:39.680Z"
+updatedAt: "2017-09-28T19:19:39.474Z"

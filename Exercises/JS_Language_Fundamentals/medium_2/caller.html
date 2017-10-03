@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Caller</title>
+  </head>
+  <body>
+    <script>
+      function doubler(number, caller) {
+        console.log('This function was called by ' + caller + '.');
+        return number + number;
+      }
+
+      doubler(5, 'Victor');     // 10
+      // This function was called by Victor.
+
+      // Make a function that does the same but with the caller preset
+
+      function makeDoubler(caller) {
+        return function (number) {
+          console.log('This function was called by ' + caller + '.');
+          return number + number;
+        }
+      }
+
+      var doubler = makeDoubler('Victor');
+      doubler(5);               // 10
+      // This function was called by Victor.
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Invoice"
+content: '''
+  # Invoice
+  
+  Refactor so this works with any number of line items.
+  ```javascript
+  function invoiceTotal(amount1, amount2, amount3, amount4) {
+    return amount1 + amount2 + amount3 + amount4;
+  }
+  
+  invoiceTotal(20, 30, 40, 50);             // 140
+  invoiceTotal(20, 30, 40, 50, 40, 40);     // doesn't work; how can you make it work?
+  ```
+  
+  ## ANSWER
+  ```javascript
+  function invoiceTotal() {
+    var total = 0;
+    for (var i = 0; i < arguments.length; i += 1) {
+      total += arguments[i];
+    }
+    return total;
+  }
+  
+  invoiceTotal(20, 30, 40, 50);             // 140
+  invoiceTotal(20, 30, 40, 50, 40, 40);     // 220
+  ```
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-29T01:22:47.459Z"
+updatedAt: "2017-09-29T14:12:55.811Z"

@@ -1,0 +1,28 @@
+type: "MARKDOWN_NOTE"
+folder: "e6fa7285af0e624af2be"
+title: "Local vs Global"
+content: '''
+  # Local vs Global
+  ## What will the following code log to the console and why?
+  
+  ```javascript
+  var myVar = 'This is global';
+  
+  function someFunction() {
+    var myVar = 'This is local';
+  }
+  
+  someFunction();
+  
+  console.log(myVar);
+  ```
+  
+  ## ANSWER
+  This code will log `'This is global'` to the console. This will happen because JavaScript uses lexical scope and Functions create a new scope. This means that because `someFunction` is nested inside the global scope, the `myVar` declared on line 4 is only accessible to that function (or any scopes nested inside it) but not accessible to "outer" scopes, i.e. the global scope.
+'''
+tags: [
+  "QA"
+]
+isStarred: false
+createdAt: "2017-09-27T22:04:55.847Z"
+updatedAt: "2017-09-27T22:11:55.714Z"

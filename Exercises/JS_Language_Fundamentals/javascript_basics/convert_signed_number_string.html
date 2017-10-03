@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Convert String to Number</title>
+  </head>
+  <body>
+    <script>
+      var DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+      function signedIntegerToString(integer) {
+        if (integer < 0) {
+          return ('-' + integerToString(-integer));
+        } else if (integer > 0) {
+          return ('+' + integerToString(integer));
+        } else {
+          return (integerToString(integer));
+        }
+      }
+
+      function integerToString(integer) {
+        var digit;
+        var string = '';
+
+        do {
+          digit = integer % 10;
+          integer = Math.floor(integer / 10);
+          string = DIGITS[digit] + string;
+        } while (integer > 0)
+
+        return string;
+      }
+    </script>
+  </body>
+</html>

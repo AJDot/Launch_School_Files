@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array and String Reverse</title>
+  </head>
+  <body>
+    <script>
+      function reverse(input) {
+        if (Array.isArray(input)) {
+          return reverseArray(input);
+        } else {
+          return reverseString(input);
+        }
+
+        return reverse;
+      }
+
+      function reverseArray(array) {
+        var reversed = [];
+        for(var i = array.length - 1; i >= 0; i -= 1) {
+          reversed.push(array[i]);
+        }
+        return reversed;
+      }
+
+      function reverseString(string) {
+        // var reversed = '';
+        // for(var i = string.length - 1; i >= 0; i -= 1) {
+        //   reversed += string[i];
+        // }
+        // return reversed;
+
+        // Other method
+        var stringArray = string.split('');
+        return reverseArray(stringArray).join('');
+      }
+    </script>
+  </body>
+</html>
