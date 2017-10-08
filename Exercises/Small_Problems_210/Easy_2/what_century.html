@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>What Century is That</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a year as input and returns the century. The return value should be a string that begins with the century number, and ends with st, nd, rd, or th as appropriate for that number.
+      //
+      // New centuries begin in years that end with 01. So, the years 1901-2000 comprise the 20th century.
+
+      // The Problem
+      //   Input: year as integer
+      //   Output: string as [century number][number suffix]
+      //   Rules:
+      //     centuries range from ...1 to ...0
+      //     Example: 1st century is 1-100
+      //     Example: 19th century is 1801-1900
+      //     century = Math.floor((year - 1) / 100) + 1
+      //       Ex: year = 1800 --> century = (1801 - 1) / 100 + 1 = 18
+      //       Ex: year = 1801 --> century = (1801 - 1) / 100 + 1 = 19
+      //       Ex: year = 1900 --> century = (1900 - 1) / 100 + 1 = 19
+      //       Ex: year = 1901 --> century = (1901 - 1) / 100 + 1 = 20
+      //     suffix:
+      //       'th' if century > 10 && ends in '11', '12', '13'
+      //       'st' if century end in '1'
+      //       'nd' if century end in '2'
+      //       'rd' if century end in '3'
+      //       'th' if century ends in 0, 4-9
+
+      // Algorithm
+      //   function centuryNumber(year)
+      //     return Math.floor((year - 1) / 100) + 1;
+      //   function century(year)
+      //     number = centuryNumber(year)
+      //     if (number % 100 >= 11 && number % 100 <= 13)
+      //       suffix = 'th'
+      //     else if (number % 10 === 1)
+      //       suffix = 'st'
+      //     else if (number % 10 === 2)
+      //       suffix = 'nd'
+      //     else if (number % 10 === 3)
+      //       suffix = 'rd'
+      //     else
+      //       suffix = 'th'
+      //     return String(number) + suffix;
+
+      function centuryNumber(year) {
+        return Math.floor((year - 1) / 100) + 1;
+      }
+
+      function century(year) {
+        var number = centuryNumber(year);
+        var lastDigit = number % 10;
+        if (number % 100 >= 11 && number % 100 <= 13) {
+          suffix = 'th';
+        } else if (lastDigit === 1) {
+          suffix = 'st';
+        } else if (lastDigit === 2) {
+          suffix = 'nd';
+        } else if (lastDigit === 3) {
+          suffix = 'rd';
+        } else {
+          suffix = 'th';
+        }
+        return String(number) + suffix;
+      }
+
+
+      console.log(century(2000));        // '20th'
+      console.log(century(2001));        // '21st'
+      console.log(century(1965));        // '20th'
+      console.log(century(256));         // '3rd'
+      console.log(century(5));           // '1st'
+      console.log(century(10103));       // '102nd'
+      console.log(century(1052));        // '11th'
+      console.log(century(1127));        // '12th'
+      console.log(century(11201));       // '113th'
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mail Count</title>
+  </head>
+  <body>
+    <script src="http://dbdwvr6p7sskw.cloudfront.net/210/files/email_data_v2.js"></script>
+    <script>
+      // 5 parts to each email delimited by /#/
+      // Sender
+      // Subject
+      // Date
+      // Recipient
+      // Body
+
+      function mailCount(emailData) {
+        var emails = emailData.split("##\|\|##");
+        var count = emails.length;
+        var emailDates = emails.map(function(email) {
+          return email.split('#/#')[2];
+        });
+
+        console.log('Count of Email: ' + String(emails.length));
+        console.log('Date Range: ' + displayableDateRange(emailDates));
+      }
+
+      function displayableDateRange(dates) {
+        var dateObjects = extractDates(dates);
+
+        dateObjects.sort(function(a, b) {
+          return a.valueOf() - b.valueOf();
+        });
+
+        return dateObjects[0].toDateString() + ' - ' + dateObjects[dateObjects.length - 1].toDateString();
+      }
+
+      function extractDates(dates) {
+        return dates.map(function(date) {
+          var dateString = date.match(/(\d{2})-(\d{2})-(\d{4})/);
+          var month = parseInt(dateString[1]) - 1;
+          var day = parseInt(dateString[2]);
+          var year = parseInt(dateString[3]);
+          return new Date(year, month, day);
+        });
+      }
+
+      mailCount(emailData);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vigenere Cipher</title>
+  </head>
+  <body>
+    <script>
+      //   The vigenere cipher encrypts alphabetic text by way of polyalphabetic substitution. It uses a series of caesar ciphers based on the letters of a keyword. Each letter of the keyword is treated as a shift value. For instance, the letter B corresponds to a shift value of 1 and the letter d a shift value 3. In essence, the shift value used for the letters of the alphabet is its index value. This means that the letter a-z would be equivalent to numbers 0-25; likewise A-Z would be 0-25.
+      //
+      // Applying the vigenere cipher is done sequentially for each character by applying the current shift value to a caesar cipher for that particular character. To make this more concrete lets take the example of the following:
+      //
+      // plaintext: Pineapples don't go on pizzas!
+      // keyword: meat
+      //
+      // Applying the vigenere cipher for each alphabetic character:
+      // plaintext : Pine appl esdo ntgo onpi zzas
+      // shift     : meat meat meat meat meat meat
+      // ciphertext: Bmnx mtpe qwdh zxgh arpb ldal
+      //
+      // result: Bmnxmtpeqw dhz'x gh ar pbldal!
+      // Notice from the example that the key is not moved forward if the character is not in the alphabet. Like, the caesar cipher it only encrypts alphabet characters.
+      //
+      // The objective for this exercise to implement the vigenere cipher. Take note that the case does not matter for the key (i.e 'MEat' === 'mEaT'), the resulting encryption won't change depending on the case of the letters.
+      //
+      // The Problem
+      // Input:
+      //   text: any sequence of characters
+      //   keyword: any sequence of characters. Ignore case.
+      // Output:
+      //   encryptedText: sequence of characters ecrypted using the vigenere cipher. Same number of characters as text.
+      // Rules:
+      //   shift for each character uses the caesar cipher
+      //   each character in keyword is used as the shift (0-25) for the next character in the text.
+      //   don't advance keyword shift if current character is not a letter
+      //
+      // Algorithm
+      //   Create Tabula recta to get all encryptions for all letters
+      //     object with input letter as key and caesar cipher for every shift as value.
+      //     Example: tabula['C'][5] // 'H'
+      //       will find the letter where 'C' if shifted by 5
+      //   initialize keyIndex = -1
+      //   forEach character
+      //     if (character is letter)
+      //       keyIndex = nextKeyIndex(keyword, keyIndex)
+      //       key = keyword[keyIndex]
+      //       shift = ALPHABET.indexOf(key.toUpperCase())
+      //       return tabula[letter][shift]
+      //       return caesarEncrypt(letter, shift)
+      //     else
+      //       do not update key value
+      //       return character
+      //   nextKeyIndex(keyword, currentKeyIndex):
+      //     keyLength = keyword.length;
+      //     nextIndex = (currentKeyIndex + 1) % keyLength
+
+      var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+      function vigenereEncrypt(text, keyword) {
+        var result, shift, key;
+        var characters = text.split('');
+        var keyIndex = -1;
+
+        result = characters.map(function(char) {
+          if (/[A-Za-z]/.test(char)) {
+            keyIndex = nextKeyIndex(keyword, keyIndex);
+            key = keyword[keyIndex];
+            shift = ALPHABET.indexOf(key.toUpperCase());
+            return caesarEncrypt(char, shift);
+          } else {
+            return char;
+          }
+        });
+
+        return result.join('');
+      }
+
+      function nextKeyIndex(keyword, currentKeyIndex) {
+        return (currentKeyIndex + 1) % keyword.length;
+      }
+
+      function caesarEncrypt(text, key) {
+        var chars = text.split('');
+        var encryptedChars;
+
+        encryptedChars = chars.map(function(char) {
+          if (/[A-Z]/i.test(char)) {
+            return encryptLetter(char, key);
+          } else {
+            return char;
+          }
+        })
+
+        return encryptedChars.join('');
+      }
+
+      function encryptLetter(letter, key) {
+        var position, newPosition, startCode;
+
+        if (/[A-Z]/.test(letter)) {
+          startCode = 'A'.charCodeAt(0);
+        } else if (/[a-z]/.test(letter)) {
+          startCode = 'a'.charCodeAt(0);
+        }
+
+        position = letter.charCodeAt(0) - startCode;
+        newPosition = (position + key) % 26;
+        return String.fromCharCode(newPosition + startCode);
+      }
+
+    console.log(vigenereEncrypt('AAAAAAAA', 'ABCD')) // "ABCDABCD"
+    console.log(vigenereEncrypt('BBBBBBBB', 'CD')) // "DEDEDEDE"
+    console.log(vigenereEncrypt('BBBBBBBB', 'D')) // "EEEEEEEE"
+    console.log(vigenereEncrypt('A-B-C-D-E-F-G-H', 'ABCD')) // "A-C-E-G-E-G-I-K"
+    console.log(vigenereEncrypt('Dog', 'Rabbit')) // "Uoh"
+    console.log(vigenereEncrypt('Pineapples don\'t go on pizzas!', 'cab'))
+    console.log(vigenereEncrypt('Pineapples don\'t go on pizzas!', 'Aa'))
+    // "Pineapples don't go on pizzas!"
+    </script>
+  </body>
+</html>

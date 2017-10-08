@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Short Long Short</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes two strings as arguments, determines the longer of the two strings, and then returns the result of concatenating the shorter string, the longer string, and the shorter string once again. You may assume that the strings are of different lengths.
+      //
+      // Examples:
+      //
+      // shortLongShort('abc', 'defgh');   // "abcdefghabc"
+      // shortLongShort('abcde', 'fgh');   // "fghabcdefgh"
+      // shortLongShort('', 'xyz');        // "xyz"
+
+      // The Problem
+      //   Input: two strings (str1, str2)
+      //   Output: concatenated string of longer + short + longer of the strings
+      //   Rules:
+      //     strings can have any characters
+      //     must find which string is shorter and which is longer
+      //     concatenation is done with any character in between
+
+      // Algorithm
+      //   find longest string by comparing string lengths
+      //     if (str1.length >= str2.length) then long = str1 && short = str2
+      //     else then long = str2 && short = str1
+      //   console.log(short + long + short)
+
+      function shortLongShort(str1, str2) {
+        var short, long;
+        if (str1.length >= str2.length) {
+          long = str1;
+          short = str2;
+        } else {
+          long = str2;
+          short = str1;
+        }
+
+        return short + long + short;
+      }
+
+      console.log(shortLongShort('abc', 'defgh'));       // "abcdefghabc"
+      console.log(shortLongShort('abcde', 'fgh'));       // "fghabcdefgh"
+      console.log(shortLongShort('', 'xyz'));            // "xyz"
+    </script>
+  </body>
+</html>

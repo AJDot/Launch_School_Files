@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Now I Know My ABCs</title>
+  </head>
+  <body>
+    <script>
+    // Blocks
+    // B:O   X:K   D:Q   C:P   N:A
+    // G:T   R:E   F:S   J:W   H:U
+    // V:I   L:Y   Z:M
+
+    // Blocks used to make words. No block can be used more than once. One letter from each block may be used.
+
+    // Write a function that takes a word as a string, and returns `true` if it can spell the argument passed in from the set of blocks, `false` otherwise. Blocks are case insensitive.
+
+    // The Problem
+    // Input: string representing a word
+    // Output: true/false if the word can be spelled using the blocks above.
+    // Rules:
+    //   1. Given 13 two-letter blocks
+    //   2. If a block is used more than once, return false
+    //   3. Ignore case of blocks.
+
+    // Examples / Test Cases
+    console.log(isBlockWord('BATCH') === true);     // true
+    console.log(isBlockWord('BUTCH') === false);    // false
+    console.log(isBlockWord('jest') === true);      // true
+    console.log(isBlockWord('floW') === true);      // true
+    console.log(isBlockWord('APPLE') === false);    // false
+    console.log(isBlockWord('apple') === false);    // false
+    console.log(isBlockWord('apPLE') === false);    // false
+    console.log(isBlockWord('Box') === false);      // false
+
+    // Data Structure and Algorithm
+    // Blocks are an array of two-letter strings containing both upper and lower case versions of the letters
+
+    // Define array of 13 letter Blocks
+    // Turn the input string into an array of letter and iterate through it.
+    // For each letter
+    //   - Remove the block that contains the letter from the array
+    //   - Return false if we can't find a block that contains the letter
+    //   - Return true after we've processed all the letters in the input string
+
+    function isBlockWord(word) {
+      var blockIndex, i;
+      var blocks = ['BObo', 'XKxk', 'DQdq', 'CPcp', 'NAna', 'GTgt',
+                    'REre', 'FSfs', 'JWjw', 'HUhu', 'VIvi', 'LYly', 'ZMzm'];
+
+      var letters = word.split('');
+
+      for (i = 0; i < letters.length; i++) {
+        blockIndex = blocks.findIndex(function(block) {
+          return block.indexOf(letters[i]) >= 0;
+        });
+
+        if (blockIndex >= 0) {
+          blocks.splice(blockIndex, 1);
+        } else {
+          return false;
+        }
+      }
+      return true;
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Anagrams</title>
+  </head>
+  <body>
+    <script>
+      function anagram(word, list) {
+        // Thinking in Abstractions
+        // 1. sort the letters in the word.
+        // 2. map the list to each sort by letters.
+        // 3. filter sorted list items by if they equal the sorted test word.
+
+        return list.filter(function(candidate) {
+          return areAnagrams(candidate, word)
+        });
+      }
+
+      function areAnagrams(source, target) {
+        sourceSorted = source.split('').sort().join('');
+        targetSorted = target.split('').sort().join('');
+        return sourceSorted === targetSorted;
+      }
+
+      console.log(anagram('listen', ['enlists', 'google', 'inlets', 'banana'])); // [ "inlets" ]
+      console.log(anagram('listen', ['enlist', 'google', 'inlets', 'banana']));  // [ "enlist", "inlets" ]
+    </script>
+  </body>
+</html>

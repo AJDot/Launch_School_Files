@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Total Square Area</title>
+  </head>
+  <body>
+    <script>
+      // Thinking in Abstractions
+      // 1. Filter out rectangles that are not squares
+      // 2. Get the area for each rectangle
+      // 3. Add all areas together
+
+      // 1. filter
+      // 2. map
+      // 3. reduce
+      function totalSquareArea(rectangles) {
+        var squares = rectangles.filter(function(rectangle) {
+          return rectangle[0] === rectangle[1];
+        })
+
+        return totalArea(squares);
+      }
+
+      function totalArea(rectangles) {
+        var areas = rectangles.map(function(rectangle) {
+          return rectangle[0] * rectangle[1];
+        });
+
+        return areas.reduce(function(sum, area) {
+          return sum + area;
+        });
+      }
+
+      var rectangles = [[3, 4], [6, 6], [1, 8], [9, 9], [2, 2]];
+
+      console.log(totalSquareArea(rectangles)); // 141
+    </script>
+  </body>
+</html>

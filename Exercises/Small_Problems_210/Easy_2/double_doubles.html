@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Double Doubles</title>
+  </head>
+  <body>
+    <script>
+      // A double number is an even length number whose left-side digits are exactly the same as its right-side digits. For example, 44, 3333, 103103, 7676 are all double numbers. 444, 334433, and 107 are not.
+      //
+      // Write a function that returns 2 times the number provided as an argument, unless the argument is a double number; return double numbers as-is.
+      //
+
+      // The Problem
+      //   Input: integer
+      //   Output: double that number, if it is a double number, then return number
+      //   Rules:
+      //     Double numbers have the same sequence of digits repeated twice
+      //     Double numbers must have an even number of digits.
+
+      // Algorithm
+      //   function twice(n)
+      //     if isDouble(n) return n
+      //     else return n * 2
+      //   function isDouble(n)
+      //     stringNumber = String(n).split('');
+      //     mid = stringNumber.length / 2;
+      //     left = stringNumber.substring(0, mid);
+      //     right = stringNumber.substring(mid);
+      //     return left === right;
+
+        function twice(n) {
+          if (isDouble(n)) {
+            return n;
+          } else {
+            return n * 2;
+          }
+        }
+
+        function isDouble(n) {
+          var mid;
+          var stringNumber = String(n);
+          mid = stringNumber.length / 2;
+          return stringNumber.substring(0, mid) === stringNumber.substring(mid);
+        }
+
+      console.log(twice(37));                 // 74
+      console.log(twice(44));                 // 44
+      console.log(twice(334433));             // 668866
+      console.log(twice(444));                // 888
+      console.log(twice(107));                // 214
+      console.log(twice(103103));             // 103103
+      console.log(twice(3333));               // 3333
+      console.log(twice(7676));               // 7676
+
+    </script>
+  </body>
+</html>

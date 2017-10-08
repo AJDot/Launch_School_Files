@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Leap Years Part 2</title>
+  </head>
+  <body>
+    <script>
+
+      function isLeapYear(year) {
+        if (year < 1752) {
+          return isLeapYearJulian(year);
+        } else {
+          return isLeapYearGregorian(year);
+        }
+      }
+
+      function isLeapYearGregorian(year) {
+        return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0);
+      }
+
+      function isLeapYearJulian(year) {
+        return year % 4 === 0;
+      }
+
+      console.log(isLeapYear(2016) === true);     // true
+      console.log(isLeapYear(2015) === false);     // false
+      console.log(isLeapYear(2100) === false);     // false
+      console.log(isLeapYear(2400) === true);     // true
+      console.log(isLeapYear(240000) === true);   // true
+      console.log(isLeapYear(240001) === false);   // false
+      console.log(isLeapYear(2000) === true);     // true
+      console.log(isLeapYear(1900) === false);     // false
+      console.log(isLeapYear(1752) === true);     // true
+      console.log(isLeapYear(1700) === true);     // true
+      console.log(isLeapYear(1) === false);        // false
+      console.log(isLeapYear(100) === true);      // true
+      console.log(isLeapYear(400) === true);      // true
+    </script>
+  </body>
+</html>

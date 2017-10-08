@@ -72,8 +72,13 @@
     },
     {
       "key": "e6fa7285af0e624af2be",
-      "color": "#417505",
-      "name": "219 Test"
+      "color": "#d0021b",
+      "name": "210 Test"
+    },
+    {
+      "key": "ab9271ff5a295b1f06dd",
+      "color": "#E10051",
+      "name": "219 Assessment"
     }
   ],
   "version": "1.0"

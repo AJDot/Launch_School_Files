@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse a String</title>
+  </head>
+  <body>
+    <script>
+      // Logic and Abstractions
+      // 1. split string into array of characters
+      // 2. unshift each char onto new string
+
+      function reverse(string) {
+        return string.split('').reverse().join('');
+      }
+
+      console.log(reverse('hello'));
+      console.log(reverse('The quick brown fox'));
+    </script>
+  </body>
+</html>

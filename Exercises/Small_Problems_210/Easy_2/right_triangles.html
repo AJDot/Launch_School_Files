@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Right Triangles</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a positive integer, n, as an argument, and logs a right triangle whose sides each have n stars. The hypotenuse of the triangle (the diagonal side in the images below) should have one end at the lower-left of the triangle, and the other end at the upper-right.
+
+      // triangle(5);
+
+          // *
+        //  **
+        // ***
+      //  ****
+      // *****
+      //
+        // triangle(9);
+      //
+              // *
+            //  **
+            // ***
+          //  ****
+          // *****
+        //  ******
+        // *******
+      //  ********
+      // *********
+
+      // The Problem
+      //   Input: integer representing width and height of triangle
+      //   Output: Right triangle of stars
+      //   Rules:
+      //     Each row has one less space and one more star than the previous row
+      //     Total number of character in a row is always n
+
+      // Algorithm
+      //   In any triangle,
+      //     spaces go from n - 1 to 0
+      //     stars go from 1 to n
+      //   Iterate from 1 to n
+      //     number of spaces = n - i
+      //     number of stars = i
+      //     console.log(number of spaces + number of stars)
+
+      function triangle(n) {
+        var spaces, stars;
+        for (var i = 1; i <= n; i++) {
+          spaces = repeat(' ', n - i);
+          stars = repeat('*', i);
+          console.log(spaces + stars);
+        }
+      }
+
+      function repeat(text, times) {
+        var result = '';
+        for (var i = 0; i < times; i++) {
+          result += text;
+        }
+        return result;
+      }
+
+      triangle(5);
+      triangle(9);
+    </script>
+  </body>
+</html>

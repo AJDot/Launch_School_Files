@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Acronym</title>
+  </head>
+  <body>
+    <script>
+      // Abstractions
+      // 1. Get array of words
+      // 2. Get first letter of each word and capitalize it
+      // 3. Join all first letters together into a string.
+
+      function acronym(string) {
+        var stringArray = string.replace(/-/g, ' ').split(' ');
+        var initials;
+
+        initials = stringArray.map(function(word) {
+          return word[0].toUpperCase();
+        });
+
+        return initials.join('');
+      }
+
+      console.log(acronym('Portable Network Graphics'));                 // "PNG"
+      console.log(acronym('First In, First Out'));                       // "FIFO"
+      console.log(acronym('PHP: HyperText Preprocessor'));               // "PHP"
+      console.log(acronym('Complementary metal-oxide semiconductor'));   // "CMOS"
+      console.log(acronym('Hyper-text Markup Language'));                // "HTML"
+    </script>
+  </body>
+</html>

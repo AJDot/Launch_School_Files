@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sum or Product of Consecutive Integers</title>
+  </head>
+  <body>
+    <script>
+      // Write a program that asks the user to enter an integer greater than 0, then asks if the user wants to determine the sum or product of all numbers between 1 and the entered integer.
+      //
+      // Examples:
+      //
+      // Please enter an integer greater than 0: 5
+      // Enter "s" to compute the sum, "p" to compute the product. s
+      //
+      // The sum of the integers between 1 and 5 is 15.
+      // Please enter an integer greater than 0: 6
+      // Enter "s" to compute the sum, "p" to compute the product. p
+      //
+      // The product of the integers between 1 and 6 is 720.
+
+      // The Problem
+      //   Input: Integer greater that 0
+      //          'sum' or 'product'
+      //   Output: The sum or product of number between 1 and entered number
+      //   Rules:
+      //     If "s" is entered, computer sum.
+      //     If "p" is entered, computer product.
+
+      // Algorithm
+      //   prompt number and choice from user. Use while loop to insure choice is a valid choice.
+      //   for loop to compute sum or product
+      //   log result to console
+
+      var number;
+      var choice;
+
+      number = parseInt(prompt('Please enter an integer greater than 0: '));
+      while (true) {
+        choice = prompt('Enter "s" to computer the sum "p" to computer the product. ');
+        if (choice === 's' || choice === 'p') {
+          break;
+        }
+
+        alert('Invalid choice. Try again.');
+      }
+
+      if (choice === 's') {
+        var sum = 0;
+        for (var i = 1; i <= number; i++) {
+          sum += i;
+        }
+        console.log('The sum of the integers between 1 and ' + number + ' is ' + String(sum) + '.');
+      } else {
+        var product = 1;
+        for (var i = 1; i <= number; i++) {
+          product *= i;
+        }
+        console.log('The product of the integers between 1 and ' + number + ' is ' + String(product) + '.');
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // Understand the Problem
+      // Input: two version numbers
+      //   - Need to check if strings are valid inputs
+      //   - Only numbers and the '.' are allowed.
+      // Output: 1, -1, 0 depending on comparision
+
+      // - if any inputs contain invalid characters, return null
+      //   - any characters other than digits and . are considered invalid.
+      // - Compare the two input versions
+      //   - if version1 > version2, return 1
+      //   - if version1 < version2, return -1
+      //   - if version1 === version2, return 0
+      // - The rules to compare two version numbers
+      //   - start from the left most parts of the two version numbers
+      //   - if part of version1 > part of version2, then version1 is larger
+      //   - if part of version1 < part of version2, then version1 is smaller
+      //   - if parts are the same, move to next number part of each version
+      //     - do same comparison to decide which version is larger
+      //     - if end of only one version is reached, pad that number with 0.
+      //     - if end of both numbers is reached, versions are equal.
+
+      // Examples / Test Cases
+      // compareVersions('0.1', '1')        // -1
+      // compareVersions('1', '1.0')        // 0
+      // compareVersions('1.0', '1.1')      // -1
+      // compareVersions('1.1', '1.0')      // 1
+      // compareVersions('1.2', '1.2.0.0')  // 0
+      // compareVersions('1.18', '1.2.0')   // 1
+      // compareVersions('1.18.2', '13.37') // -1
+      // compareVersions('abc', '1.4')      // null
+      // compareVersions('1.4', '1.a')      // null
+
+      // Data Structures
+      // Input: strings consisting of numbers and .
+      // array of version components as Numbers to compare between versions
+      // Output: numbers (-1, 1, 0) or null
+
+      // Algorithm
+      // return null is input contain anything but digits and dots in the required format
+      // split inputs into array of version components
+      // iterate through first version array, compare to corresponding component in second version array.
+      // - if equal, continue to next component
+      // - else different, return -1, 1 depending on comparison
+      // if no return of -1 or 1, then versions are equal, return 0
+
+      function compareVersions(versionA, versionB) {
+        if (!isValidVersion(versionA) || !isValidVersion(versionB)) {
+          return null;
+        }
+
+        var aParts = versionA.split('.').map(Number);
+        var bParts = versionB.split('.').map(Number);
+
+        makeArraysEqualLength(aParts, bParts, 0);
+
+        for (var i = 0; i < aParts.length; i++) {
+          if (aParts[i] < bParts[i]) {
+            return -1;
+          } else if (aParts[i] > bParts[i]) {
+            return 1;
+          }
+        }
+
+        return 0;
+      }
+
+      function isValidVersion(version) {
+        var validChars = /^\d+(.\d+)*$/;
+        return validChars.test(version);
+      }
+
+      function stringsToNumbers(strings) {
+        return strings.map(function(string) {
+          return Number(string);
+        });
+      }
+
+      function makeArraysEqualLength(array1, array2, value) {
+        var array1Length = array1.length;
+        var array2Length = array2.length;
+        if (array1Length < array2Length) {
+          array1.length = array2Length;
+          array1.fill(value, array1Length, array2Length);
+        } else if (array2Length < array1Length) {
+          array2.length = array1Length;
+          array2.fill(value, array2Length, array1Length);
+        }
+      }
+
+      console.log(compareVersions('1', '1'));          // 0
+      console.log(compareVersions('1.1', '1.0'));      // 1
+      console.log(compareVersions('2.3.4', '2.3.5'));  // -1
+      console.log(compareVersions('1', '1.0'));        // 0
+      console.log(compareVersions('1.0', '1.1'));      // -1
+      console.log(compareVersions('1.2', '1.2.0.0'));  // 0
+      console.log(compareVersions('1.0.0', '1.1'));    // -1
+      console.log(compareVersions('1.0', '1.0.5'));    // -1
+      console.log(compareVersions('1.4', '1.a'));      // null - only contain numbers and .
+      console.log(compareVersions('.1', '1'));         // null - must start with number
+      console.log(compareVersions('1.', '1'));         // null - must end with number
+      console.log(compareVersions('1..0', '1'));       // null - dots must appear only between numbers
+
+    </script>
+  </body>
+</html>

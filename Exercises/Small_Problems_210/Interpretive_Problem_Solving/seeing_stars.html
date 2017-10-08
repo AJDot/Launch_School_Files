@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Seeing Stars</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that displays an 8-pointed star in an nxn grid, where n is an odd integer that is supplied as an argument to the function. The smallest such star you need to handle is a 7x7 grid or n is 7.
+      //
+      // Examples
+      //
+      // star(7)
+      // // logs
+      // *  *  *
+      //  * * *
+      //   ***
+      // *******
+      //   ***
+      //  * * *
+      // *  *  *
+      // star(9)
+      // // logs
+      // *   *   *
+      //  *  *  *
+      //   * * *
+      //    ***
+      // *********
+      //    ***
+      //   * * *
+      //  *  *  *
+      // *   *   *
+      //
+
+      // The Problem
+      //  Input: odd integer representing the widest part of the star
+      //  Output: an nxn star
+      //  Rules:
+      //    Input is an odd integer
+      //    Points of the star radiate from the center of the star
+      //    Each row, except for center, has 3 stars and the rest spaces
+      //    Example
+      //    *__*__* spaces = (n - 3) / 2 - distFromEnd = (7 - 3) / 2 - 0 = 2
+      //    _*_*_*_ spaces = (n - 3) / 2 - distFromEnd = (7 - 3) / 2 - 1 = 1
+      //    __***__ spaces = (7 - 3) / 2 - 2 = 0
+      //    ******* spaces = 0
+      //    __***__
+      //    _*_*_*_
+      //    *__*__*
+      // So spaces between stars go from (n - 3)/ 2 down to 0, 0, 0 up to (n - 3) / 2
+      // Padding at start of row moves in opposite way
+
+      // Algorithm
+      //   Find the middle row (n / 2) = mid
+      //   Iterate from 0 to mid (exclusive)
+      //     Initialize array with 3 stars
+      //     Join together with ((n - 3) / 2) - currentIndex number of spaces
+      //     Pad left side with currentIndex number of spaces
+      //     Log row
+      //   Log n number of stars
+      //   Iterate from mid + 1 to last row
+      //     Initialize array with 3 stars
+      //     Join together with currentIndex number of spaces
+      //     Pad left side with ((n - 3) / 2) - currentIndex number of spaces
+      //     Log row
+
+      function star(n) {
+        var mid = Math.floor(n / 2);
+        var i, spaceBetween, padding;
+
+        for (i = 0; i < mid; i++) {
+          spaceBetween = (n - 3) / 2 - i;
+          padding = i;
+          console.log(buildRow(spaceBetween, padding));
+        }
+
+        console.log(repeat('*', n));
+
+        for (i = 0; i < mid; i++) {
+          spaceBetween = i;
+          padding = (n - 3) / 2 - i;
+          console.log(buildRow(spaceBetween, padding));
+        }
+
+      }
+
+      function buildRow(spaceBetween, padding) {
+        var row = ['*', '*', '*'];
+        var starRow = row.join(repeat(' ', spaceBetween));
+        var paddedStarRow = repeat(' ', padding) + row;
+        return paddedStarRow;
+      }
+
+      function repeat(text, n) {
+        var result = '';
+        for (i = 0; i < n; i++) {
+          result += text;
+        }
+        return result;
+      }
+
+      star(7);
+      console.log('');
+      star(9);
+    </script>
+  </body>
+</html>

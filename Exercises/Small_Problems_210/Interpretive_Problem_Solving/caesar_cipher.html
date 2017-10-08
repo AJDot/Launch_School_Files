@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Caesar Cipher</title>
+  </head>
+  <body>
+    <script>
+      // Implement the caesar cipher. The caesar cipher is one of the earliest and simplest ways to encrypt plaintext so that passing or communicating a message can be made secure. It is a substitution type of cipher, wherein the characters in a plaintext are substituted by a letter some fixed number of positions in the alphabet. For example the letter A can be right shifted 3 and it will be substituted with the letter D. This shift value is often referred to as the key. If a person has this key value then they can decode the "encrypted plaintext" or ciphertext.
+      //
+      // As one of the earlier ciphers, it only encrypts lower and upper cased letters of the alphabet. Any other character is left as is. Likewise, the substituted letters are only taken from the corresponding letter case. In the event that the key value for shifting exceeds the alphabet capacity, it wraps around.
+      //
+      // Examples:
+      //
+      // // Simple shift
+      // caesarEncrypt('A', 0);       // 'A'
+      // caesarEncrypt('A', 3);       // 'D'
+      //
+      // // Wrap around
+      // caesarEncrypt('y', 5);       // 'd'
+      // caesarEncrypt('a', 47);      // 'v'
+      //
+      // // All letters
+      // caesarEncrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 25);
+      // // ZABCDEFGHIJKLMNOPQRSTUVWXY
+      // caesarEncrypt('The quick brown fox jumps over the lazy dog!', 5);
+      // // Ymj vznhp gwtbs ktc ozrux tajw ymj qfed itl!
+      //
+      // // Many non-letters
+      // caesarEncrypt('There are, as you can see, many punctuations. Right?; Wrong?', 2);
+      // // Vjgtg ctg, cu aqw ecp ugg, ocpa rwpevwcvkqpu. Tkijv?; Ytqpi?
+
+      // The Problem
+      // Input: A string consisting of any characters
+      //        A key representing amount to shift each letter
+      // Output: A string consisting of same number of characters, with letters
+      //   shifted according to the key.
+      // Rules:
+      //   1. All letters are shifted (maintaining case) by the key.
+      //     - Step key number of times to the right to find next character.
+      //   2. All other characters remain unchanged.
+      //   3. If shifting extends past end of alphabet, wrap around to beginning
+
+      // Algorithm
+      //   split text into array of characters
+      //   encryptedText = map over characters
+      //     if (/[A-Z]/.test(letter))
+      //       position = letter.charCodeAt(0) - 'A'.charCodeAt(0)
+      //       shift = (position + key) % 26
+      //       newPosition = position + shift
+      //       return String.fromCharCode(newPosition + 'A'.charCodeAt(0))
+      //     else if (/[a-z]/.test(letter))
+      //       position = letter.charCodeAt(0) - 'a'.charCodeAt(0)
+      //       shift = (position + key) % 26
+      //       newPosition = position + shift
+      //       return String.fromCharCode(newPosition + 'a'.charCodeAt(0))
+      //     else
+      //       return character
+      //   return encryptedText.join('');
+
+      function caesarEncrypt(text, key) {
+        var chars = text.split('');
+        var encryptedChars;
+
+        encryptedChars = chars.map(function(char) {
+          if (/[A-Z]/i.test(char)) {
+            return encryptLetter(char, key);
+          } else {
+            return char;
+          }
+        })
+
+        return encryptedChars.join('');
+      }
+
+      function encryptLetter(letter, key) {
+        var position, newPosition, startCode;
+
+        if (/[A-Z]/.test(letter)) {
+          startCode = 'A'.charCodeAt(0);
+        } else if (/[a-z]/.test(letter)) {
+          startCode = 'a'.charCodeAt(0);
+        }
+
+        position = letter.charCodeAt(0) - startCode;
+        newPosition = (position + key) % 26;
+        return String.fromCharCode(newPosition + startCode);
+      }
+
+      // Simple shift
+      console.log(caesarEncrypt('A', 0));       // 'A'
+      console.log(caesarEncrypt('A', 3));       // 'D'
+
+      // Wrap around
+      console.log(caesarEncrypt('y', 5));       // 'd'
+      console.log(caesarEncrypt('a', 47));      // 'v'
+      console.log(encryptLetter('a', 26 * 12 + 2)) // 'c'
+
+      // All letters
+      console.log(caesarEncrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 25));
+      // ZABCDEFGHIJKLMNOPQRSTUVWXY
+      console.log(caesarEncrypt('The quick brown fox jumps over the lazy dog!', 5));
+      // Ymj vznhp gwtbs ktc ozrux tajw ymj qfed itl!
+
+      // Many non-letters
+      console.log(caesarEncrypt('There are, as you can see, many punctuations. Right?; Wrong?', 2));
+      // Vjgtg ctg, cu aqw ecp ugg, ocpa rwpevwcvkqpu. Tkijv?; Ytqpi?    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>How Big is the Room</title>
+  </head>
+  <body>
+    <script>
+      // Build a program that asks a user for the length and width of a room in meters and then logs to the console the area of the room in both square meters and square feet.
+      //
+      // Note: 1 square meter == 10.7639 square feet
+      //
+      // Do not worry about validating the input at this time. Use the prompt() function to collect user input.
+      //
+      // Enter the length of the room in meters:
+      // 10
+      // Enter the width of the room in meters:
+      // 7
+      // The area of the room is 70.0 square meters (753.47 square feet).
+
+      SQUARE_METER_TO_FOOT = 10.7639;
+
+      var unit;
+      while (unit !== 'meter' && unit !== 'foot') {
+        unit = prompt('Enter the measurement unit: ("meter" or "foot")');
+        if (unit === 'meter' || unit === 'foot') {
+          break;
+        }
+
+        alert("Invalid unit. Please try again.");
+      }
+
+      var length = parseInt(prompt('Enter the length of the room:'), 10);
+      var width = parseInt(prompt('Enter the width of the room:'), 10);
+
+      if (unit === 'meter') {
+        var sqMeters = length * width;
+        var sqFeet = sqMeters * SQUARE_METER_TO_FOOT;
+        console.log('The area of the room is ' + sqMeters.toFixed(2) + ' square meters (' + sqFeet.toFixed(2) + ' square feet.)');
+      } else {
+        var sqFeet= length * width;
+        var sqMeters = sqFeet / SQUARE_METER_TO_FOOT;
+        console.log('The area of the room is ' + sqFeet.toFixed(2) + ' square feet (' + sqMeters.toFixed(2) + ' square meters.)');
+      }
+
+
+
+    </script>
+  </body>
+</html>

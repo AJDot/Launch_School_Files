@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ddaaiillyy ddoouubbllee</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a string argument and returns a new string that contains the value of the original string with all consecutive duplicate characters collapsed into a single character.
+      //
+
+      // The Problem
+      //   Input: any string of characters
+      //   Output: input string with consecutive duplicate characters collapsed into 1 character.
+      //   Rules:
+      //     collapsed part of string that contains identical consecutive characters.
+      //     if character is not repeated, do nothing
+
+      // Algorithm
+      //   result = ''
+      //   iterate through input
+      //   concat character to result if character !== previous character
+      //   return result
+
+      function crunch(string) {
+        var result = '';
+
+        for(var i = 0; i < string.length; i++) {
+          if (string[i] !== string[i - 1]) {
+            result += string[i];
+          }
+        }
+
+        return result;
+      }
+
+      function crunch(string) {
+        return string.replace(/(.)\1+/g, '$1');
+      }
+
+      console.log(crunch('ddaaiillyy ddoouubbllee'));        // 'daily double'
+      console.log(crunch('4444abcabccba'));                  // '4abcabcba'
+      console.log(crunch('ggggggggggggggg'));                // 'g'
+      console.log(crunch('a'));                              // 'a'
+      console.log(crunch(''));                               // ''
+    </script>
+  </body>
+</html>

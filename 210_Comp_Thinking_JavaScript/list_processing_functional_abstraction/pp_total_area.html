@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Total Area</title>
+  </head>
+  <body>
+    <script>
+      // Thinking in Abstractions
+      // 1. Get the area for each rectangle
+      // 2. Add all areas together
+
+      // 1. map
+      // 2. reduce
+      function totalArea(rectangles) {
+        var areas = rectangles.map(function(rectangle) {
+          return rectangle[0] * rectangle[1];
+        });
+
+        return areas.reduce(function(sum, area) {
+          return sum + area;
+        });
+      }
+
+      var rectangles = [[3, 4], [6, 6], [1, 8], [9, 9], [2, 2]];
+
+      console.log(totalArea(rectangles)); // 141
+    </script>
+  </body>
+</html>

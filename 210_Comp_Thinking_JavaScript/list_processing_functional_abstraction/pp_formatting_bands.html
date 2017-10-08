@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Formatting Bands</title>
+  </head>
+  <body>
+    <script>
+    // Thinking in Abstractions
+    // 1. map through bands
+    //   1.1 change country to 'Canada'
+    //   1.2 remove dots from band names
+    //   1.3 capitalize all words in band names
+
+    // Mutating the original objects
+    function processBands(bands) {
+      bands.map(function(band) {
+        updateCountry(band);
+        capitalizeBandName(band);
+        removeDotsInBandName(band);
+      });
+
+      return bands;
+    }
+
+    function updateCountry(band) {
+      band.country = 'Canada';
+    }
+
+    function capitalizeBandName(band) {
+      band.name = band.name.split(' ').map(function(word) {
+        return capitalizeString(word);
+      }).join(' ');
+    }
+
+    function capitalizeString(string) {
+      var firstLetter = string[0].toUpperCase();
+      var rest = string.slice(1);
+      return firstLetter + rest;
+    }
+
+    function removeDotsInBandName(band) {
+      band.name = band.name.replace(/\./g, '');
+    }
+
+    var bands = [
+      { name: 'sunset rubdown', country: 'UK', active: false },
+      { name: 'women', country: 'Germany', active: false },
+      { name: 'a silver mt. zion', country: 'Spain', active: true },
+    ];
+
+    // NOT mutating the original objects
+    function processBands(bands) {
+      return bands.map(function(band) {
+        var capitalizedName = capitalizePhrase(band.name);
+        var newBandName = removeDotsInString(capitalizedName);
+
+        return {
+          name: newBandName,
+          country: 'Canada',
+          active: band.active,
+        }
+      });
+    }
+
+    function capitalizePhrase(phrase) {
+      var capitalizePhrase = phrase.split(' ').map(function(word) {
+        return capitalizeString(word);
+      }).join(' ');
+      return capitalizePhrase;
+    }
+
+    function capitalizeString(string) {
+      var firstLetter = string[0].toUpperCase();
+      var rest = string.slice(1);
+      return firstLetter + rest;
+    }
+
+    function removeDotsInString(string) {
+      return string.replace(/\./g, '');
+    }
+
+    processBands(bands);
+
+    // should return:
+
+    [
+      { name: 'Sunset Rubdown', country: 'Canada', active: false },
+      { name: 'Women', country: 'Canada', active: false },
+      { name: 'A Silver Mt Zion', country: 'Canada', active: true },
+    ]
+    </script>
+  </body>
+</html>

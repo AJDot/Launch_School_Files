@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fibonacci Number Location by Length</title>
+  </head>
+  <body>
+    <script>
+      // The Fibonacci series is a series of numbers (1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition, and each subsequent number is the sum of the two previous numbers. This series appears throughout the natural world.
+      //
+      // Computationally, the Fibonacci series is a simple series, but the results grow at an incredibly rapid rate. For example, the 100th Fibonacci number is 354,224,848,179,261,915,075 -- that's enormous, especially considering that it takes 6 iterations just to find the first 2 digit Fibonacci number.
+      //
+      // Write a function that calculates and returns the index of the first Fibonacci number that has the number of digits specified as an argument. (The first Fibonacci number has index 1.)
+
+      function findFibonacciIndexByLength(length) {
+        var first = 1;
+        var second = 1;
+        var fib = 0;
+        var index = 2;
+
+        while (String(fib).length < length) {
+          fib = first + second;
+          first = second;
+          second = fib;
+
+          index += 1;
+        }
+
+        return index;
+      }
+
+      console.log(findFibonacciIndexByLength(2));
+      console.log(findFibonacciIndexByLength(10));
+      console.log(findFibonacciIndexByLength(16));
+    </script>
+  </body>
+</html>

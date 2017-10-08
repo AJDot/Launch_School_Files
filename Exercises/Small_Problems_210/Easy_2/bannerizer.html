@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bannerizer</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that will take a short line of text, and write it to the console log within a box.
+      //
+      // Example:
+      //
+      // logInBox('To boldly go where no one has gone before.');
+      // will log on the console:
+      //
+      // +--------------------------------------------+
+      // |                                            |
+      // | To boldly go where no one has gone before. |
+      // |                                            |
+      // +--------------------------------------------+
+      // logInBox('');
+      // +--+
+      // |  |
+      // |  |
+      // |  |
+      // +--+
+      // You may assume that the output will always fit in your browser window.
+
+      // The Problem
+      //   Input: string
+      //   Output: string boxed inside according to description
+      //   Rules:
+      //     3 types of lines:
+      //       top/bottom edge
+      //       line without text
+      //       line with text
+
+      // Algorithm
+      //   Construct top/bottom line
+      //     number of dashes = string.length + 2
+      //     line = '+' + dashes + '+'
+      //   Construct line without text
+      //     number of spaces = string.length + 2
+      //     line = '|' + spaces + '|'
+      //   Construct line with text
+      //     line = '| ' + text + ' |'
+      //   log rows: border, empty, text, empty, border
+
+      function logInBox(text) {
+
+        console.log(constructBorderLine(text));
+        console.log(constructEmptyLine(text));
+        console.log(constructTextLine(text));
+        console.log(constructEmptyLine(text));
+        console.log(constructBorderLine(text));
+      }
+
+      function constructBorderLine(text) {
+        var dashes = repeat('-', text.length + 2);
+        return '+' + dashes + '+';
+      }
+
+      function constructEmptyLine(text) {
+        var spaces = repeat(' ', text.length + 2);
+        return '|' + spaces + '|';
+      }
+
+      function constructTextLine(text) {
+        return '| ' + text + ' |';
+      }
+
+      function repeat(text, times) {
+        var result = '';
+        for (var i = 0; i < times; i++) {
+          result += text;
+        }
+        return result;
+      }
+
+      logInBox('To boldly go where no one has gone before.');
+      logInBox('');
+    </script>
+  </body>
+</html>

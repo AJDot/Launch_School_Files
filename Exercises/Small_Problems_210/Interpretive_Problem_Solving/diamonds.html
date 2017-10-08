@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Diamonds</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that displays a 4-pointed diamond in an nxn grid, where n is an odd integer supplied as an argument to the function. You may assume that the argument will always be an odd integer.
+      // diamond(1);
+      // // logs
+      // *
+      // diamond(3);
+      // // logs
+      //  *
+      // ***
+      //  *
+      // diamond(9);
+      // // logs
+      //     *
+      //    ***
+      //   *****
+      //  *******
+      // *********
+      //  *******
+      //   *****
+      //    ***
+      //     *
+
+      // The Problem
+      // Input: odd integer
+      // Output: Display of stars and spaces that form a diamond where the width at the widest part (middle) is the odd number
+      // Rules:
+      // 1. 4 point diamond - a grid of nxn.
+      // 2. n is an odd integer
+
+      // Examples: are displayed above
+
+      // Data Structure
+      // Array of rows (arrays)
+      //   - starting spaces + number of stars
+
+      // Algorithm
+      // Generate initial array of arrays
+      //   - number of rows === n (the input)
+      // For each row
+      //   - Calculate spaces
+      //     - Ex: For n = 9, need 4, 3, 2, 1, 0, 1, 2, 3, 4 spaces
+      //     - maxSpaces = Math.floor(9 / 2) (= 4)
+      //     - spaces = Math.abs(maxSpaces - index)
+      //   - Calculate stars
+      //     - Ex: For n = 9, need 1, 3, 5, 7, 9, 7, 5, 3, 1 stars
+      //     - stars = -Math.abs((index * 2 + 1) - 9) + 9
+      //   - concat spaces and stars
+      //   - add string to correct row
+      // join rows with '\n'
+
+      function diamond(n) {
+        var midRowIndex, spacesCount, firstSpaces;
+        var starsWidth, stars;
+        var result;
+        var rows = initializeRows(n);
+
+        midRowIndex = Math.floor(n / 2);
+        rows = rows.map(function(row, i) {
+          spacesCount = Math.abs(midRowIndex - i);
+          firstSpaces = ' '.repeat(spacesCount);
+          starsWidth = -Math.abs((i * 2 + 1) - n) + n;
+          stars = '*'.repeat(starsWidth);
+          return firstSpaces + stars;
+        });
+
+        console.log(rows.join('\n'));
+      }
+
+      function hollowDiamond(n) {
+        var midRowIndex, spacesCount, firstSpaces;
+        var rowWidth;
+        var rows = initializeRows(n);
+
+        midRowIndex = Math.floor(n / 2);
+        rows = rows.map(function(row, i) {
+          spacesCount = Math.abs(midRowIndex - i);
+          firstSpaces = ' '.repeat(spacesCount);
+          rowWidth = -Math.abs((i * 2 + 1) - n) + n;
+
+          if (rowWidth === 1) {
+            return firstSpaces + '*';
+          } else {
+            centerSpaces = ' '.repeat(rowWidth - 2);
+            return firstSpaces + '*' + centerSpaces + '*';
+          }
+        });
+
+        console.log(rows.join('\n'));
+      }
+
+      function initializeRows(n) {
+        var result = [];
+        result.length = n;
+        result.fill([]);
+        return result;
+      }
+
+      diamond(1);
+      diamond(3);
+      diamond(9);
+      hollowDiamond(1);
+      hollowDiamond(3);
+      hollowDiamond(9);
+
+    </script>
+  </body>
+</html>

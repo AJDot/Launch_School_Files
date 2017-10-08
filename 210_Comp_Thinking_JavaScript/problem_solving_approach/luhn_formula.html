@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Luhn Formula</title>
+  </head>
+  <body>
+    <script>
+      // Input: a string containing any characters
+      // Cleaned Input: input, ignoring non-numeric characters
+      // Output: Boolean indicating the cleaned input is valid
+
+      // Data Structures
+      // array of Numbers taken from character in cleaned string
+
+      // Algorithm
+      // - Clean string to remove non-numeric characters
+      //   - string.replace(/\D/g, '');
+      // - split clean string into array of characters
+      // - map cleaned to Numbers
+      // - reverse array in prep for next step
+      // - iterate over numbers and double every second digit
+      //   - Ex: reversed = [9, 7, 5, 3, 1]
+      //     - if (index % 2 !== 0), then double number
+      //       - if double > 10 ? double - 9 : double
+      //     - output = [9, 14, 5, 6, 1]
+      //
+      // - checksum = reduce numbers using addition
+      // - if checksum % 10 === 0, return true
+      // - else return false
+
+      function validLuhnNumber(string) {
+        var doubled, checksum;
+        var clean = string.replace(/\D/g, '');
+        var numbers = clean.split('').map(Number).reverse();
+        var luhnNumbers = numbers.map(function(digit, index) {
+          if (index % 2 === 0) {
+            return digit;
+          } else {
+            doubled = digit * 2;
+            return doubled >= 10 ? doubled - 9 : doubled;
+          }
+        });
+
+        checksum = luhnNumbers.reduce(function(sum, number) {
+          return sum + number;
+        })
+
+        return checksum % 10 === 0;
+      }
+
+
+      // Without going over 10
+      console.log(validLuhnNumber('1313') === true);
+      console.log(validLuhnNumber('1111') === false);
+
+      // With going over 10
+      // 1313 --> 2323 --> 2+3+2+3 = 10 --> 10 % 10 === 0
+      console.log(validLuhnNumber('8763') === true);
+      // 6666 --> [12]6[12]6 --> 3636 --> 3+6+3+6 = 18 --> 18 % 10 !== 0
+      console.log(validLuhnNumber('6666') === false);
+
+      // With other characters
+      console.log(validLuhnNumber('8763 $abc 1313') === true);
+      console.log(validLuhnNumber('6666 test 1313') === false);
+
+      // Given in problem description
+      console.log(validLuhnNumber('2323 2005 7766 3554') === true);
+
+      // Write a function that can add a check digit to make the number valid per the Luhn formula and return the original number plus that digit. This shoudl give "2323 2005 7766 3554" in response to "2323 2005 7766 355"
+
+      // Algorithm
+      // if input is already valid, return input
+      // Iterate through digits 0-9
+      //   - Add digit to end of input string
+      //   - check if new number is a valid using Luhn formula
+      //   - if valid, return number
+      //   - else continue iteration
+
+      function addCheck(numString) {
+        var candidate;
+        var i;
+        if (validLuhnNumber(numString)) { return numString; }
+        for(i = 0; i < 10; i++) {
+          debugger;
+          candidate = numString + String(i);
+          if (validLuhnNumber(candidate)) { return candidate; }
+        }
+      }
+
+      console.log(addCheck('2323 2005 7766 355') === '2323 2005 7766 3554');
+      console.log(addCheck('2323 2005 7766 3554') === '2323 2005 7766 3554');
+    </script>
+  </body>
+</html>

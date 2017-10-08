@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Filter</title>
+  </head>
+  <body>
+    <script>
+function myFilter(array, func) {
+  var result = [];
+  array.forEach(function(value) {
+    if (func(value)) {
+      result.push(value);
+    }
+  });
+
+  // myForEach(array, function(value) {
+  //   if (func(value)) {
+  //     result.push(value);
+  //   }
+  // })
+
+  // for (var i = 0; i < array.length; i++) {
+  //   if (func(array[i])) {
+  //     result.push(array[i]);
+  //   }
+  // }
+
+  return result;
+}
+
+var isPythagoreanTriple = function(triple) {
+  return Math.pow(triple.a, 2) + Math.pow(triple.b, 2) === Math.pow(triple.c, 2);
+};
+
+console.log(myFilter([{a: 3, b: 4, c: 5}, {a: 5, b: 12, c: 13}, {a: 1, b: 2, c: 3}], isPythagoreanTriple));
+// returns [{a: 3, b: 4, c: 5}, {a: 5, b: 12, c: 13}]
+
+function myForEach(array, func) {
+  for (var i = 0; i < array.length; i++) {
+    func(array[i], i, array);
+  }
+}
+
+    </script>
+  </body>
+</html>
