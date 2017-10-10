@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Grocery List</title>
+  </head>
+  <body>
+    <script>
+      // Write a function which takes a grocery list (array) of fruits with quantities and converts it into an array of the correct number of each fruit.
+
+      function buyFruit(array) {
+        return array.map(function(fruit) {
+          return repeat(fruit);
+        }).reduce(function(list, fruit) {
+          return list.concat(fruit);
+        });
+      }
+
+      function repeat(fruit) {
+        var result = [];
+        for (var i = 0; i < fruit[1]; i++) {
+          result.push(fruit[0]);
+        }
+        return result;
+      }
+
+      console.log(buyFruit([['apples', 3], ['orange', 1], ['bananas', 2]]));
+      // result
+      // ['apples', 'apples', 'apples', 'orange', 'bananas','bananas']
+
+    </script>
+  </body>
+</html>

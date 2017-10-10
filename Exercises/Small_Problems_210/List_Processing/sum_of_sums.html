@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sum of Sums</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes an Array of numbers and then returns the sum of the sums of each leading subsequence for that Array. You may assume that the Array always contains at least one number.
+
+      function sumOfSums(numbers) {
+        return numbers.reduce(function(total, _, index) {
+          return total + sliceSum(numbers, index + 1)
+        });
+      }
+
+      function sliceSum(numbers, size) {
+        var slice = numbers.slice(0, size);
+        return slice.reduce(function(total, value) {
+          return total + value;
+        });
+      }
+
+      console.log(sumOfSums([3, 5, 2]));       // (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+      console.log(sumOfSums([1, 5, 7, 3]));    // (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+      console.log(sumOfSums([4]));             // 4
+      console.log(sumOfSums([1, 2, 3, 4, 5])); // 35
+
+    </script>
+  </body>
+</html>

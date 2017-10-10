@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Palindromic Substrings</title>
+  </head>
+  <body>
+    <script>
+
+      // Write a function that returns a list of all substrings of a string that are palindromic. That is, each substring must consist of the same sequence of characters forwards as it does backwards. Arrange the return values in the same sequence as the substrings appear in the string. Include duplicate palindromes multiple times.
+      //
+      // You may (and should) use the substrings function you wrote in the previous exercise.
+      //
+      // For the purposes of this exercise, you should consider all characters and pay attention to case; that is, "AbcbA" is a palindrome, but neither "Abcba" nor "Abc-bA" are. In addition, assume that single characters are not palindromes.
+
+      function palindromes(text) {
+        var allSubstrings = substrings(text);
+        return allSubstrings.filter(isPalindrome);
+      }
+
+      function isPalindrome(text) {
+        return text.length > 1 && text === text.split('').reverse().join('');
+      }
+
+      function substrings(string) {
+        return string.split('').map(function(char, idx) {
+          return substringsAtStart(string.slice(idx));
+        }).reduce(function(result, array) {
+          return result.concat(array);
+        });
+      }
+
+      function substringsAtStart(string) {
+        var result = [];
+        return string.split('').map(function(char, idx, array) {
+          return array.slice(0, idx + 1).join('');
+        });
+      }
+      console.log(palindromes('abcd'));  // []
+      console.log(palindromes('madam')); // ['madam', 'ada']
+      console.log(palindromes('hello-madam-did-madam-goodbye'));
+      // result
+      // [ 'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+      //   'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+      //   '-madam-', 'madam', 'ada', 'oo' ]
+
+      console.log(palindromes('knitting cassettes'));
+      // result
+      // [ 'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt' ]
+      console.log(palindromes('arewenotpurenosirpanamasmoodynoriegabragsitisgarbageironydoomsamanaprisoneruptonewera'));
+    </script>
+  </body>
+</html>

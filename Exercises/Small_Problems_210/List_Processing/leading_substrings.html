@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Leading Substrings</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that returns a list of all substrings of a string that start at the beginning of the original string. It returns the substrings arranged from shortest to longest.
+
+      function substringsAtStart(string) {
+        var result = [];
+        return string.split('').map(function(char, idx, array) {
+          return array.slice(0, idx + 1).join('');
+        });
+      }
+
+      console.log(substringsAtStart('abc'));   // ['a', 'ab', 'abc']
+      console.log(substringsAtStart('a'));     // ['a']
+      console.log(substringsAtStart('xyzzy')); // ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
+
+    </script>
+  </body>
+</html>

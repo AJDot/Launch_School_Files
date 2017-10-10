@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Multiply All Pairs</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes two Array arguments in which each Array contains a list of numbers, and returns a new Array that contains the product of every pair of numbers that between the elements of the two Arrays. Sort the results in increasing value.
+      //
+      // You may assume that neither argument is an empty Array.
+
+      function multiplyAllPairs(arr1, arr2) {
+        result = [];
+
+        arr1.forEach(function(value1) {
+          arr2.forEach(function(value2) {
+            result.push(value1 * value2);
+          });
+        });
+
+        return result.sort(function(value1, value2) {
+          return value1 - value2;
+        })
+      }
+
+      console.log(multiplyAllPairs([2, 4], [4, 3, 1, 2])); // [2, 4, 4, 6, 8, 8, 12, 16]
+      console.log(multiplyAllPairs([2, 2], [4, 3, 1, 2])); // [2, 4, 4, 6, 8, 8, 12, 16]
+      console.log(multiplyAllPairs([0, 5], [4, 3, 1, 2])); // [2, 4, 4, 6, 8, 8, 12, 16]
+
+    </script>
+  </body>
+</html>
