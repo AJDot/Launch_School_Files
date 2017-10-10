@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Convert Number to Reversed Array of Digits</title>
+  </head>
+  <body>
+    <script>
+
+      // Write a function that takes a positive integer as an argument and returns that number with its digits reversed. Examples:
+
+      function reversedNumber(number) {
+        return parseInt(String(number).split('').reverse().join(''), 10);
+      }
+
+      console.log(reversedNumber(12345)); // 54321
+      console.log(reversedNumber(12213)); // 31221
+      console.log(reversedNumber(456));   // 654
+      console.log(reversedNumber(12000)); // 21 # Note that zeros get dropped!
+      console.log(reversedNumber(1));     // 1
+    </script>
+  </body>
+</html>

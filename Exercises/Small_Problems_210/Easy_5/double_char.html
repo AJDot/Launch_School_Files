@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Double Char</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a string, and returns a new string in which it doubles every character.
+
+      function repeater(text) {
+        var chars = text.split('');
+        return zip(chars, chars).join('');
+      }
+
+      function repeater(text) {
+        var result = '';
+        for (var i = 0; i < text.length; i++) {
+          result += text[i];
+          result += text[i];
+        }
+        return result;
+      }
+
+      function zip(array1, array2) {
+        result = [];
+        for (var i = 0; i < array1.length; i++) {
+          result.push(array1[i], array2[i]);
+        }
+        return result;
+      }
+
+      console.log(repeater('Hello'));     // "HHeelllloo"
+      console.log(repeater("Good job!")); // "GGoooodd  jjoobb!!"
+      console.log(repeater(''));          // ''
+
+      // Write a function that takes a string, and returns a new string in which it doubles every consonant character. It doesn't double vowels (a,e,i,o,u), digits, punctuation, and whitespace.
+
+      function doubleConsonants(text) {
+        result = '';
+        for (var i = 0; i < text.length; i++) {
+          result += text[i];
+          if (/[b-df-hj-np-tv-z]/i.test(text[i])) { result += text[i]; }
+        }
+
+        return result;
+      }
+
+      console.log(doubleConsonants('String'));       // "SSttrrinngg"
+      console.log(doubleConsonants('Hello-World!')); // "HHellllo-WWorrlldd!"
+      console.log(doubleConsonants('July 4th'));     // "JJullyy 4tthh"
+      console.log(doubleConsonants(''));             // ""
+    </script>
+  </body>
+</html>

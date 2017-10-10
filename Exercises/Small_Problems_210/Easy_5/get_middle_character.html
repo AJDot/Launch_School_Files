@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Get the MIddle Character</title>
+  </head>
+  <body>
+    <script>
+
+      // Write a function that takes a non-empty string argument, and returns the middle character or characters of the argument. If the argument has an odd length, you should return exactly one character. If the argument has an even length, you should return exactly two characters.
+
+      function centerOf(string) {
+        var mid = Math.floor(string.length / 2);
+        if (string.length % 2 === 0) {
+          return string.substr(mid - 1, 2);
+        } else {
+          return string[mid];
+        }
+      }
+
+      console.log(centerOf('I love ruby'));    // 'e'
+      console.log(centerOf('Launch School'));  // ' '
+      console.log(centerOf('Launch'));         // 'un'
+      console.log(centerOf('Launchschool'));   // 'hs'
+      console.log(centerOf('x'));              // 'x'
+    </script>
+  </body>
+</html>

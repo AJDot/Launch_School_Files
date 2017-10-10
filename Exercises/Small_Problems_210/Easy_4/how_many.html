@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>How Many</title>
+  </head>
+  <body>
+    <script>
+
+      // Write a function that counts the number of occurrences of each element in a given array. Once counted, log each element alongside the number of occurrences.
+
+      function countOccurrences(array) {
+        counts = {};
+
+        for (var i = 0; i < array.length; i++) {
+          counts[array[i]] = counts[array[i]] || 0;
+          counts[array[i]] += 1;
+        }
+
+        for (var item in counts) {
+          console.log(item + ' => ' + counts[item]);
+        }
+      }
+
+      var vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck', 'motorcycle', 'motorcycle', 'car', 'truck'];
+      countOccurrences(vehicles);
+
+      // console output
+      // car => 4
+      // truck => 3
+      // SUV => 1
+      // motorcycle => 2
+    </script>
+  </body>
+</html>

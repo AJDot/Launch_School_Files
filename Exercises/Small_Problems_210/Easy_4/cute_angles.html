@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cute Angles</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a floating point number that represents an angle between 0 and 360 degrees and returns a String that represents that angle in degrees, minutes, and seconds. You should use a degree symbol (˚) to represent degrees, a single quote (') to represent minutes, and a double quote (") to represent seconds. There are 60 minutes in a degree, and 60 seconds in a minute.
+
+      function dms(degreesFloat) {
+        var DEGREE = '\xB0';
+        var MINUTES_IN_DEGREE = 60;
+        var SECONDS_IN_MINUTE = 60;
+        var degress, minutes, seconds;
+
+        minutes = (degreesFloat % 1) * MINUTES_IN_DEGREE;
+        seconds = (minutes % 1) * SECONDS_IN_MINUTE;
+
+        degrees = Math.floor(degreesFloat);
+        minutes = Math.floor(minutes);
+        seconds = Math.floor(seconds);
+
+        var minDisplay = padLeft(String(minutes), '0', 2);
+        var secDisplay = padLeft(String(seconds), '0', 2);
+
+        return degrees + DEGREE + minDisplay + "'" + secDisplay + '"';
+      }
+
+      // Works with all negative and positive numbers
+      function dmsFurther(degreesFloat) {
+        degreesFloat = degBetween0And360(degreesFloat);
+        return dms(degreesFloat);
+      }
+
+      function degBetween0And360(degree) {
+        degree = degree % 360;
+        if (degree < 0) {
+          degree = 360 + degree;
+        }
+        return degree;
+      }
+
+      function padLeft(text, padChar, totalLength) {
+        var result = text;
+        while (result.length < totalLength) {
+          result = padChar + result;
+        }
+        return result;
+      }
+
+      console.log(dms(30));        // 30°00'00"
+      console.log(dms(76.73));     // 76°43'48"
+      console.log(dms(254.6));     // 254°35'59"
+      console.log(dms(93.034773)); // 93°02'05"
+      console.log(dms(0));         // 0°00'00"
+      console.log(dms(360));       // 360°00'00" or 0°00'00"
+
+      console.log(dmsFurther(-30));       // 330°00'00"
+      console.log(dmsFurther(-70.5));     // 289°30'00"
+      console.log(dmsFurther(-4000.4));   // 319°35'59"
+      console.log(dmsFurther(720));       // 360°00'00"
+      console.log(dmsFurther(1000));      // 280°00'00"
+    </script>
+  </body>
+</html>

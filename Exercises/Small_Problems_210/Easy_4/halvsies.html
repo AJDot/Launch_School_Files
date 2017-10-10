@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Halvsies</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes an Array as an argument, and returns an array that contains 2 elements, each of which is an Array. Put the first half of the original Array elements in the first element of the return value, and put the second half in the second element. If the original array contains an odd number of elements, place the middle element in the first half Array.
+
+      function halvsies(array) {
+        result = [[], []];
+
+        array.forEach(function(value, index) {
+          if (index < array.length / 2) {
+            result[0].push(value);
+          } else {
+            result[1].push(value);
+          }
+        });
+
+        return result;
+      }
+
+      function halvies(array) {
+        var half = Math.ceil(array.length / 2);
+        var firstHalf = array.slice(0, half);
+        var secondHalf = array.slice(half);
+        return [firstHalf, secondHalf];
+      }
+
+      console.log(halvsies([1, 2, 3, 4]));    // [[1, 2], [3, 4]]
+      console.log(halvsies([1, 5, 2, 4, 3])); // [[1, 5, 2], [4, 3]]
+      console.log(halvsies([5]));             // [[5], []]
+      console.log(halvsies([]));              // [[], []]
+    </script>
+  </body>
+</html>

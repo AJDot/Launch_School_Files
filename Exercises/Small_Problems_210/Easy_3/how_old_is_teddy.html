@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>How Old is Teddy</title>
+  </head>
+  <body>
+    <script>
+      // Build a program that randomly generates and logs Teddy's age to the console. Have the age be a random number between 20 and 200 (inclusive).
+      //
+      // Example Output
+      //
+      // Teddy is 69 years old!
+
+      function randomBetween(min, max) {
+        var temp;
+        if (max < min) {
+          temp = max;
+          max = min;
+          min = temp;
+        }
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
+
+      var age = randomBetween(180, 20);
+      console.log('Teddy is ' + age + ' years old!');
+    </script>
+  </body>
+</html>

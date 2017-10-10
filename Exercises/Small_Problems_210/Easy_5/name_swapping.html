@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Name Swapping</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a first name, a space, and a last name passed as a single String argument, and returns a string that contains the last name, a comma, a space, and the first name.
+
+      function swapName(fullName) {
+        var name = fullName.split(' ');
+        return name[1] + ', ' + name[0];
+      }
+
+      function swapName(fullName) {
+        return fullName.split(' ').reverse().join(', ');
+      }
+      console.log(swapName('Joe Roberts')); // 'Roberts, Joe'
+    </script>
+  </body>
+</html>

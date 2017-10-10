@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Searching 101</title>
+  </head>
+  <body>
+    <script>
+      // Write a program that solicits 6 numbers from the user, then logs a message that describes whether or not the 6th number appears amongst the first 5 numbers.
+      //
+      // Examples:
+      //
+      // Enter the 1st number: 25
+      // Enter the 2nd number: 15
+      // Enter the 3rd number: 20
+      // Enter the 4th number: 17
+      // Enter the 5th number: 23
+      // Enter the last number: 17
+      //
+      // The number 17 appears in [25, 15, 20, 17, 23].
+      // ---
+      //
+      // Enter the 1st number: 25
+      // Enter the 2nd number: 15
+      // Enter the 3rd number: 20
+      // Enter the 4th number: 17
+      // Enter the 5th number: 23
+      // Enter the last number: 18
+      //
+      // The number 18 does not appear in [25, 15, 20, 17, 23].
+
+      function search() {
+        var list = []
+        list[list.length] = parseInt(prompt('Enter the 1st number: '));
+        list[list.length] = parseInt(prompt('Enter the 2nd number: '));
+        list[list.length] = parseInt(prompt('Enter the 3rd number: '));
+        list[list.length] = parseInt(prompt('Enter the 4th number: '));
+        list[list.length] = parseInt(prompt('Enter the 5th number: '));
+        var last = parseInt(prompt('Enter the last number: '));
+
+        if (list.indexOf(last) >= 0) {
+          console.log('The number ' + last + ' appears in [' + list.join(', ') + '].');
+        } else {
+          console.log('The number ' + last + ' does not appear in [' + list.join(', ') + '].');
+        }
+      }
+
+      // search();
+
+      // return true/false depending if there is a number in the array
+      // that is greater than the val argument.
+      function searchGreater(arr, val) {
+        return arr.some(function(number) {
+          return number > val
+        });
+      }
+
+      console.log(searchGreater([25, 15, 20, 17, 23], 18));  // true
+      console.log(searchGreater([25, 15, 20, 17, 23], 26));  // false
+    </script>
+  </body>
+</html>

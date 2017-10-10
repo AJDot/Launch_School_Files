@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Letter Counter Part 1</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that takes a string with one or more space separated words and returns an object that shows the number of words of different sizes.
+      //
+      // Words consist of any string of characters that do not include a space.
+
+      function wordSizes(text) {
+        var words = text.split(' ');
+        var sizes = {};
+        var wordLength;
+        var wordKey;
+
+
+        words.forEach(function(word) {
+          wordLength = word.length;
+          wordKey = String(wordLength);
+
+          if (word.length !== 0) {
+            sizes[wordKey] = sizes[wordKey] || 0;
+            sizes[wordKey] += 1;
+          }
+        });
+
+        return sizes;
+      }
+
+      console.log(wordSizes('Four score and seven.'));                       // { "3": 1, "4" : "1", "5": 1, "6": 1 }
+      console.log(wordSizes('Hey diddle diddle, the cat and the fiddle!'));  // { "3": 5, "6": 1, "7": 2 }
+      console.log(wordSizes('What\'s up doc?'));                             // { "6": 1, "2": 1, "4": 1 }
+      console.log(wordSizes(''));                                            // {}
+      console.log(wordSizes('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae maximus lectus, sed ultrices sapien. Quisque elit massa, interdum eget enim lobortis, pellentesque commodo est. Sed tincidunt ornare dui. Vivamus eget dolor dapibus, feugiat leo et, tempor nunc. Phasellus tempor risus vitae ipsum sollicitudin, eu ultricies eros luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque a quam venenatis, varius risus quis, congue tortor. Vivamus at consequat enim. Suspendisse potenti. Ut eu gravida diam, vel auctor ex. Nam turpis velit, fermentum vitae sapien ac, aliquet sodales mi. Aenean est leo, volutpat eleifend ex et, posuere vulputate ante. Ut nec nisl rhoncus, tincidunt magna eu, imperdiet augue. Aliquam non magna rutrum, tincidunt neque eu, rutrum ligula. Mauris maximus, nulla at maximus finibus, libero nisl imperdiet diam, at molestie nibh sapien eget metus. Sed sit amet enim at orci lobortis sollicitudin eget sed magna. Etiam vitae purus orci. Nunc auctor ligula ut sapien tempor interdum. Nullam at dolor blandit, egestas tortor quis, laoreet est. Suspendisse potenti. Nulla sagittis bibendum turpis in pretium. Vivamus consequat nisl molestie tellus aliquam imperdiet. Donec maximus libero orci, quis feugiat libero tempor non. Curabitur faucibus mi eget sodales ullamcorper. Phasellus accumsan, urna vel cursus elementum, nibh tortor efficitur est, id semper justo massa eget risus. Pellentesque facilisis arcu at sem rutrum dignissim. Curabitur gravida laoreet euismod. Praesent tempus orci quis leo interdum hendrerit. Aliquam aliquet blandit ante, non elementum elit accumsan ultricies. Etiam fermentum efficitur tristique. Nulla ligula nisi, fringilla nec lectus quis, sagittis auctor turpis. Nulla et interdum risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi iaculis est nunc, quis accumsan metus lobortis a. Praesent sollicitudin mattis turpis ac venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi tempor faucibus turpis, vitae finibus tellus varius et. Nam quis consectetur turpis. Nunc aliquet non velit eu dignissim. Fusce eu leo a est ullamcorper cursus sit amet tempor dolor. Aliquam volutpat porta leo sit amet facilisis. Praesent tincidunt orci at augue pellentesque mollis. Mauris facilisis lacus quis magna bibendum tincidunt. Suspendisse rutrum odio quis leo tincidunt eleifend. Vivamus faucibus lectus nisi, scelerisque elementum leo auctor id. Nunc gravida fringilla fringilla. Nullam tempor justo lacinia, condimentum nibh vitae, tempus enim. Maecenas diam leo, semper id ipsum vel, ullamcorper fringilla quam. Sed rutrum eu nunc ut lacinia. Phasellus ornare hendrerit dui, facilisis convallis felis posuere a. Nunc quis fermentum dolor. In in metus elit. Proin ac mi pulvinar, mollis lorem a, dapibus quam. Nunc in ornare odio, vel semper libero. Ut auctor id tortor eget ultricies. Duis condimentum nisl neque, ac mollis ligula aliquam at.'));
+
+    </script>
+  </body>
+</html>

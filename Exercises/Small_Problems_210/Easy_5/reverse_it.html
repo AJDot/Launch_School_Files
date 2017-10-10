@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse It</title>
+  </head>
+  <body>
+    <script>
+
+      // Write a function that takes one argument, a string, and returns the same string with the words in reverse order.
+
+      function reverseSentence(string) {
+        return string.split(' ').reverse().join(' ');
+      }
+
+      console.log(reverseSentence(''));                     // ''
+      console.log(reverseSentence('Hello World'));          // 'World Hello'
+      console.log(reverseSentence('Reverse these words'));  // 'words these Reverse'
+
+
+      // Write a function that takes one argument, a string containing one or more words, and returns the given string with all five or more letter words reversed. Each string will consist of only letters and spaces. Include spaces only when more than one word is present.
+
+      function reverseWords(string) {
+        var result = [];
+        var words = string.split(' ');
+        for (var i = 0; i < words.length; i++) {
+          if (words[i].length >= 5) {
+            result.push(words[i].split('').reverse().join(''));
+          } else {
+            result.push(words[i]);
+          }
+        }
+
+        return result.join(' ');
+      }
+
+      console.log(reverseWords('Professional'));          // lanoisseforP
+      console.log(reverseWords('Walk around the block')); // Walk dnuora the kcolb
+      console.log(reverseWords('Launch School'));         // hcnuaL loohcS
+    </script>
+  </body>
+</html>
