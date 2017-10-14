@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Triangle Sides</title>
+  </head>
+  <body>
+    <script>
+      // A triangle is classified as follows:
+
+      // Equilateral: All 3 sides are of equal length
+      // Isosceles: 2 sides are of equal length, while the 3rd is different
+      // Scalene: All 3 sides are of different length
+      // To be a valid triangle, the sum of the lengths of the two shortest sides
+      // must be greater than the length of the longest side, and all sides must have
+      // lengths greater than 0. If either of these conditions are not satisfied, the
+      // triangle is invalid.
+
+      // Write a function that takes the lengths of the 3 sides of a triangle as
+      // arguments, and returns a string 'equilateral', 'isosceles', 'scalene', or
+      //'invalid' depending on whether the triangle is equilateral, isosceles,
+      // scalene, or invalid.
+
+
+
+      // The Problem
+      //   Input: 3 numbers representing the lengths of the 3 sides of a triangle
+      //   Output: output a string representing what type of type it is.
+      //   Rules:
+      //     a triangle is...
+      //       sum of lengths of two shortest side is greater than the longest side
+      //       all sides > 0
+      //     if above 2 rules aren't satisfied
+      //
+      //     equilateral: all 3 sides equal
+      //     scalene: all 3 sides are not the same
+      //     isoscele: if not others
+
+      // Data Structure
+      //   Numbers representing side lengths
+      //   Array of sides
+
+      // Algorithm
+      //   initialize sides = [side1, side2, side3]
+      //   sort side based on length [1.5, 3, 3]
+      //   check if 3 sides can make a triangle
+      //     Array.every sides[0] > 0, sides[1] > 0, sides[2] > 0
+      //     sides[0] + sides[1] > sides[2]
+      //   if checks fail, return 'invalid'
+
+      //   I know sides can make triangle
+      //     if (side[0] === side[2]) then return 'equilateral'
+      //     else if (side[0] !== sides[1] && sides[1] !== sides[2])
+      //       return 'scalene'
+      //     else { return 'isosceles' }
+
+      function triangle(s1, s2, s3) {
+      var sArray = [s1, s2, s3];
+      sArray.sort(function(a, b) {
+        return a - b;
+      });
+
+      if (!(allGreaterThanZero(sArray) && validSideRatio(sArray))) {
+        return 'invalid';
+      }
+
+        if (sArray[0] === sArray[2]) {
+          return 'equilateral';
+        } else if (sArray[0] !== sArray[1] && sArray[1] !== sArray[2]) {
+          return 'scalene';
+        } else {
+          return 'isosceles';
+        }
+
+      }
+
+      function allGreaterThanZero(array) {
+      return array.every(function(value) {
+        return value > 0;
+      });
+      }
+
+      function validSideRatio(sides) {
+      return sides[0] + sides[1] > sides[2];
+      }
+
+      console.log(triangle(3, 3, 3));   // equilateral
+      console.log(triangle(3, 4, 5));   // scalene
+      console.log(triangle(3, 3, 1.5)); // isosceles
+      console.log(triangle(0, 3, 3));   // invalid
+      console.log(triangle(3, 1, 1));   // invalid
+      console.log(triangle(-3, -1, -1));   // invalid
+    </script>
+  </body>
+</html>

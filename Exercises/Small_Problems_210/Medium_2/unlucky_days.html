@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Unlucky Days</title>
+  </head>
+  <body>
+    <script>
+      // Unlucky Days
+      //
+      // Write a function that returns the number of Friday the 13ths in the year passed in as an argument. You may assume that the year is greater than 1752 (when the modern Gregorian Calendar was adopted by the United Kingdom), and you may assume that the same calendar will remain in use for the foreseeable future.
+
+      function fridayThe13ths(year) {
+        var FRIDAY = 5;
+        var count = 0;
+        var date;
+        for (var i = 0; i <= 11; i++) {
+          date = new Date(year, i, 13);
+          if (date.getDay() === FRIDAY) {
+            count += 1;
+          }
+        }
+        return count;
+      }
+
+      console.log(fridayThe13ths(2015)); // 3
+      console.log(fridayThe13ths(1986)); // 1
+
+    </script>
+  </body>
+</html>

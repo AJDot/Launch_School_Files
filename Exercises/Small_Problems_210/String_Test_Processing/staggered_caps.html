@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Staggered Caps</title>
+  </head>
+  <body>
+    <script>
+
+      // Staggered Caps Part 1
+      //
+      // Write a function that takes a string as an argument, and returns a new string that contains the original value using a staggered capitalization scheme in which it capitalizaes every other character while the making the characters in between lowercased. Don't change characters that are not letters, but count it as characters when switching between upper and lowercase.
+
+      function staggeredCase(text) {
+        return text.split('').map(function(char, idx) {
+          if (idx % 2 === 0) {
+            return char.toUpperCase();
+          } else {
+            return char.toLowerCase();
+          }
+        }).join('');
+      }
+
+      console.log(staggeredCase('I Love Launch School!'));     // 'I LoVe lAuNcH ScHoOl!'
+      console.log(staggeredCase('ALL_CAPS'));                  // 'AlL_CaPs'
+      console.log(staggeredCase('ignore 77 the 444 numbers')); // 'IgNoRe 77 ThE 444 NuMbErS'
+
+      console.log('');
+
+      // Staggered Caps Part 2
+      //
+      // Modify the function from the previous exercise so it ignores non-alphabetic characters when determining whether it should uppercase or lowercase each letter. The non-alphabetic characters are still included in the return value; they just don't count when toggling the desired case.
+
+      function staggeredCase2(text) {
+        var needUpper = true;
+        var newChar;
+        return text.split('').map(function(char) {
+          if (!char.match(/[a-z]/gi)) {
+            return char;
+          }
+          if (needUpper) {
+            newChar = char.toUpperCase();
+          } else {
+            newChar = char.toLowerCase();
+          }
+
+          needUpper = !needUpper;
+          return newChar;
+        }).join('');
+      }
+
+      console.log(staggeredCase2('I Love Launch School!'));     // 'I lOvE lAuNcH sChOoL!'
+      console.log(staggeredCase2('ALL CAPS'));                  // 'AlL cApS'
+      console.log(staggeredCase2('ignore 77 the 444 numbers')); // 'IgNoRe 77 ThE 444 nUmBeRs'
+    </script>
+  </body>
+</html>

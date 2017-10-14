@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete Vowels</title>
+  </head>
+  <body>
+    <script>
+
+      // Delete Vowels
+      //
+      // Write a function that takes an array of strings, and returns an array of the same string values without the vowels (a, e, i, o, u).
+
+      function removeVowels(strings) {
+        return strings.map(function(string) {
+          return string.replace(/[aeiou]/gi, '');
+        });
+      }
+
+      function removeVowels(strings) {
+        return strings.map(loseVowels);
+      }
+
+      function loseVowels(string) {
+        return string.replace(/[aeiou]/gi, '');
+      }
+
+      console.log(removeVowels(['abcdefghijklmnopqrstuvwxyz']));             // ['bcdfghjklmnpqrstvwxyz']
+      console.log(removeVowels(['green', 'YELLOW', 'black', 'white']));      // ['grn', 'YLLW', 'blck', 'wht']
+      console.log(removeVowels(['ABC', 'AEIOU', 'XYZ']));                    // ['BC', '', 'XYZ']
+    </script>
+  </body>
+</html>

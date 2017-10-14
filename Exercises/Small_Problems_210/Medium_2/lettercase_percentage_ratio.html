@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lettercase Percentage Ratio</title>
+  </head>
+  <body>
+    <script>
+
+      // Lettercase Percentage Ratio
+      //
+      // Write a function that takes a string and then returns an object that contains 3 properties: one represents the percentage of characters in the string that are lowercase letters, one the percentage of characters that are uppercase letters, and one the percentage of characters that are neither.
+      //
+      // You may assume that the string will always contain at least one character.
+
+      function letterPercentages(text) {
+        var lowercase = text.match(/[a-z]/g) || [];
+        var uppercase = text.match(/[A-Z]/g) || [];
+        var neither = text.match(/[^A-Z]/gi) || [];
+
+        total = text.length;
+        lowerPercent = lowercase.length / total * 100;
+        upperPercent = uppercase.length / total * 100;
+        neitherPercent = neither.length / total * 100;
+
+        return {
+          lowercase: lowerPercent.toFixed(2),
+          uppercase: upperPercent.toFixed(2),
+          neither: neitherPercent.toFixed(2),
+        }
+
+      }
+
+      console.log(letterPercentages('abCdef 123')); // { lowercase: 50.00, uppercase: 10.00, neither: 40.00 }
+      console.log(letterPercentages('AbCd +Ef'));   // { lowercase: 37.50, uppercase: 37.50, neither: 25.00 }
+      console.log(letterPercentages('123'));        // { lowercase: 0.00, uppercase: 0.00, neither: 100.00 }
+    </script>
+  </body>
+</html>

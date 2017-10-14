@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sum Square - Square Sum</title>
+  </head>
+  <body>
+    <script>
+      // Sum Square - Square Sum
+      //
+      // Write a function that computes the difference between the square of the sum of the first n positive integers and the sum of the squares of the first n positive integers.
+
+      function sumSquareDifference(n) {
+        var numbers = arrayOfFirstN(n);
+
+        return Math.pow(sum(numbers), 2) - sum(squares(numbers));
+      }
+
+      function arrayOfFirstN(n) {
+        var result = [];
+        for (var i = 1; i <= n; i++) {
+          result.push(i);
+        }
+        return result;
+      }
+
+      function squares(numbers) { return numbers.map(square); }
+
+      function square(n) { return n * n; }
+
+      function sum(numbers) {
+        return numbers.reduce(function(total, n) {
+          return total += n;
+        });
+      }
+
+      console.log(sumSquareDifference(3));    // 22
+      // -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+      console.log(sumSquareDifference(10));   // 2640
+      console.log(sumSquareDifference(1));    // 0
+      console.log(sumSquareDifference(100));  // 25164150
+
+    </script>
+  </body>
+</html>

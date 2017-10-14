@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rotation Part 1</title>
+  </head>
+  <body>
+    <script>
+
+      // Rotation Part 1
+      //
+      // Write a function that rotates an array by moving the first element to the end of the array. Do not modify the original array.
+      //
+      // If the input is not an array, return undefined.
+      // If the input is an empty array, return an empty array as well.
+      // Review the test cases below and then implement the solution accordingly.
+
+      // The Problem
+      //   Input: an array of any elements
+      //   Ouput: new array with same array elements but rotated left by one (first becomes last, 2nd becomes 1st, etc)
+      //   Rules:
+      //     output array is same length as input array
+      //     if input is not an array, return undefined
+      //     if input is an empty array, return an empty array
+      //     process must not mutate input
+      //
+      // Data Structures
+      //   build new array from original
+      //
+      // Algorithm
+      //   check if input is array using Array.isArray
+      //     if not, return undefined
+      //   check if input array is empty using inputArray.length === 0
+      //     if it is empty, return []
+      //   build shifted array
+      //     input.slice(1) + input.slice(0, 1)
+      //   return result
+
+      function rotateArray(array) {
+        result = [];
+        if (!Array.isArray(array)) {
+          return;
+        }
+        if (array.length === 0) {
+          return [];
+        }
+
+        return array.slice(1).concat(array[0]);
+      }
+
+      console.log(rotateArray([7, 3, 5, 2, 9, 1]))   // [3, 5, 2, 9, 1, 7]
+      console.log(rotateArray(['a', 'b', 'c']))      // ['b', 'c', 'a']
+      console.log(rotateArray(['a']))                // ['a']
+      console.log(rotateArray([1, 'a', 3, 'c']));    // [ 'a', 3, 'c', 1 ]
+      console.log(rotateArray([{a: 2}, [1, 2], 3])); // [ [1, 2], 3, {a: 2} ]
+      console.log(rotateArray([]))                   // []
+
+      // return undefined if the argument is not an array
+      console.log(rotateArray());                    // undefined
+      console.log(rotateArray(1));                   // undefined
+
+
+      // the input array is not mutated
+      x = [1, 2, 3, 4];
+      console.log(rotateArray(x)); // [2, 3, 4, 1]
+      console.log(x); // [1, 2, 3, 4]
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rotation Part 2</title>
+  </head>
+  <body>
+    <script>
+      // Write a function that can rotate the last n digits of a number. For the rotation, rotate 1 digit to the left and put the first digit to the right.
+
+      // The Problem
+      //   Input: number
+      //   Output: number with last n digits shifted 1 to the left, other digits remain in same position
+      //   Rules:
+      //     only last n digits are shifted
+      //     shift cuts off left-most digit and appends it to the end
+      //
+      // Data Structures
+      //   string representing input
+      //
+      // Algorithm
+      //   convert number into string
+      //   split string into 2 parts using string.substring(0, n) and string.substring(n)
+      //   rotate 2nd part using function from previous exercise
+      //   join to halves back together
+      //   convert string to number
+      //   return number
+
+      function rotateRightmostDigits(number, n) {
+        var numString = String(number);
+        var firstPart = numString.substr(0, numString.length - n);
+        var secondPart = numString.substr(numString.length - n);
+
+        secondPart = rotateArray(secondPart.split('')).join('');
+
+        return parseInt(firstPart + secondPart, 10);
+      }
+
+      console.log(rotateRightmostDigits(735291, 1)); // 735291
+      console.log(rotateRightmostDigits(735291, 2)); // 735219
+      console.log(rotateRightmostDigits(735291, 3)); // 735912
+      console.log(rotateRightmostDigits(735291, 4)); // 732915
+      console.log(rotateRightmostDigits(735291, 5)); // 752913
+      console.log(rotateRightmostDigits(735291, 6)); // 352917
+
+      function rotateArray(array) {
+        result = [];
+        if (!Array.isArray(array)) {
+          return;
+        }
+        if (array.length === 0) {
+          return [];
+        }
+
+        return array.slice(1).concat(array[0]);
+      }
+    </script>
+  </body>
+</html>

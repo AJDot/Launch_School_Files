@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Swap Case</title>
+  </head>
+  <body>
+    <script>
+
+      // Swap Case
+      //
+      // Write a function that takes a string as an argument and returns a new string in which lowercase letters replace every uppercase and vice versa. Leave all other characters unchanged.
+
+      function swapcase(text) {
+        return text.replace(/[A-Z]/gi, function(char) {
+          if (/[a-z]/.test(char)) {
+            return char.toUpperCase();
+          } else {
+            return char.toLowerCase();
+          }
+        });
+      }
+
+      console.log(swapcase('CamelCase'));         // 'cAMELcASE'
+      console.log(swapcase('Tonight on XYZ-TV')); // 'tONIGHT ON xyz-tv'
+    </script>
+  </body>
+</html>

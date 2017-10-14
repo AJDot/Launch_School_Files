@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Next Featured Number Higher than a Given Value</title>
+  </head>
+  <body>
+    <script>
+      // Next Featured Number Higher than a Given Value
+
+      // A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
+
+      // Write a function that takes a single integer as an argument, and returns the next featured number that is greater than the argument. Issue an error message if there is no next featured number.
+
+      // The Problem
+      //   Input: integer
+      //   Output: next featured number
+      //   Rules:
+      //     featured number is:
+      //       odd
+      //       multiple of 7
+      //       each can occur 0 or 1 times
+      //     if input is featured number, still return the next featured number
+      //     send error message if no next featured number exists
+      //
+      // Data Structures
+      //   String representation of potential feature number to check for repeat digits
+      //
+      // Algorithm
+      //   Makes number an odd multiple of 7
+      //   do
+      //     add 1 to number
+      //     while number % 7 !== 0 && number % 2 !== 1
+      //   get string of digits
+      //   test with /([0-9]).*\1/ for any repeat digit
+      //     if no repeat, then it is the next featured number
+      //     else, add 14 to number and test again
+      //   if digits.length > 10, return error message
+
+      function featured(n) {
+        var nString;
+        var MAX_FEATURED = 9876543210;
+        do {
+          n += 1;
+        } while (n % 7 !== 0 || n % 2 !== 1);
+
+        while (true) {
+          nString = String(n);
+          if (n > MAX_FEATURED) {
+            return 'No featured number beyond this point.'
+          } else if (/([0-9]).*\1/g.test(nString)) {
+            n += 14;
+          } else {
+            return n;
+          }
+        }
+      }
+
+      // Refactored
+      function featured(n) {
+        var MAX_FEATURED = 9876543210;
+        n = toNextOddMultipleOf7(n);
+        do {
+          if (hasARepeatedDigit(n)) {
+            n += 14;
+          } else {
+            return n;
+          }
+        } while (n < MAX_FEATURED);
+
+        return 'No featured number beyond this point.';
+      }
+
+      function toNextOddMultipleOf7(n) {
+        do {
+          n += 1;
+        } while (n % 7 !== 0 || n % 2 !== 1);
+        return n;
+      }
+
+      function hasARepeatedDigit(n) {
+        return /([0-9]).*\1/g.test(String(n));
+      }
+
+      // Recursive
+function featured(n) {
+  var MAX_FEATURED = 9876543210;
+  n = toNextOddMultipleOf7(n);
+  if (n > MAX_FEATURED) {
+    return 'No featured number beyond this point.';
+  }
+
+  if (hasARepeatedDigit(n)) {
+    return featured(n + 13);
+  } else {
+    return n;
+  }
+}
+
+      function toNextOddMultipleOf7(n) {
+        do {
+          n += 1;
+        } while (n % 7 !== 0 || n % 2 !== 1);
+        return n;
+      }
+
+      function hasARepeatedDigit(n) {
+        return /([0-9]).*\1/g.test(String(n));
+      }
+
+      console.log(featured(12));        // 21
+      console.log(featured(20));        // 21
+      console.log(featured(21));        // 35
+      console.log(featured(997));       // 1029
+      console.log(featured(1029));      // 1043
+      console.log(featured(999999));    // 1023547
+      console.log(featured(999999987)); // Throws a RangeEror (call stack size exceeded)
+      console.log(featured(9999999987)); // No featured number beyond this point.
+
+    </script>
+  </body>
+</html>

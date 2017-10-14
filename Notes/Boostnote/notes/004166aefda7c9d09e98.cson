@@ -7,13 +7,13 @@ content: '''
   
   Here is a list of JavaScript specific topics that you need to study on:
   
-  * Language syntax, types and flow control
-  * Functions, variables and scopes
-  * Arrays and objects
-  * Language built-in methods on String and Array
-  * Mutability of values and objects
-  * Pure functions and side effects
-  * Regular expressions (what's covered in our book)
+  * [ ] Language syntax, types and flow control
+  * [ ] Functions, variables and scopes
+  * [ ] Arrays and objects
+  * [ ] Language built-in methods on String and Array
+  * [x] Mutability of values and objects
+  * [ ] Pure functions and side effects
+  * [ ] Regular expressions (what's covered in our book)
   
   Here is a list of general problem solving topics that you're expected to demonstrate in the interview:
   
@@ -29,8 +29,10 @@ content: '''
   * Accuracy in concepts and terminologies
   * Stay calm
   
+  ## My Additions
+  * [ ] Passing Functions as Arguments
 '''
 tags: []
 isStarred: false
 createdAt: "2017-10-06T19:25:48.396Z"
-updatedAt: "2017-10-06T19:27:14.936Z"
+updatedAt: "2017-10-10T21:55:07.656Z"

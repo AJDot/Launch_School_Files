@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>How Long Are You</title>
+  </head>
+  <body>
+    <script>
+
+      // How long are you
+      //
+      // Write a function that takes a string as an argument, and returns an Array that contains every word from the string with the length of the word joined to it by a blank space.
+      //
+      // You may assume that one blank space separates words in the string.
+
+      function wordLengths(text) {
+        if (!text || text.length === 0) { return []; }
+        return text.split(' ').map(function(word) {
+          return word + ' ' + String(word.length);
+        });
+      }
+
+      console.log(wordLengths('cow sheep chicken'));
+      // result
+      // ['cow 3', 'sheep 5', 'chicken 7']
+
+      console.log(wordLengths('baseball hot dogs and apple pie'));
+      // result
+      // ['baseball 8', 'hot 3', 'dogs 4', 'and 3', 'apple 5', 'pie 3']
+
+      console.log(wordLengths('It ain\'t easy, is it?'));
+      // result
+      // ['It 2', 'ain\'t 5', 'easy, 5', 'is 2', 'it? 3']
+
+      console.log(wordLengths('Supercalifragilisticexpialidocious'));
+      // result
+      // ['Supercalifragilisticexpialidocious 34']
+
+      console.log(wordLengths(''));
+      // result
+      // []
+    </script>
+  </body>
+</html>
