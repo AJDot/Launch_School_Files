@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rail Fence Cipher</title>
+  </head>
+  <body>
+    <script>
+      //
+      // Implement the encoding and decoding of the rail fence cipher
+      // In the rail fence the cipher, the message is written downwards
+      // on successive "rails" of an imaginary fence, then moving up
+      // when we get to the bottom (like a zig-zag). Finally the message
+      // is read off in rows.
+      // example
+      // "WE ARE DISCOVERED FLEE AT ONCE" -> WECRLTEERDSOEEFEAOCAIVDEN
+      // W . . . E . . . C . . . R . . . L . . . T . . . E
+      // . E . R . D . S . O . E . E . F . E . A . O . C .
+      // . . A . . . I . . . V . . . D . . . E . . . N . .
+      //
+      // build two functions:
+      //   encodeRailFenceCipher(plainText, numberOfRails)
+      //     returns the encoded string
+      //   decodeRailFenceCipher(encodedText, numberOfRails)
+      //     returns the plain text string
+
+      // Encoding
+      // The Problem
+      //   Input: string representing message to encoded
+      //   Output: encoded string
+      //   Rules:
+      //     characters from input are added to encoding by zig-zagging down and then back up the rails as shown in the example.
+      //     spaces (and assuming all non-alphanumeric characters) should be removed
+      //     output is composed of joining each rail of the fence, top to bottom
+      //
+      // Data Structure
+      //   array of strings - each string will represent one rail of the fence
+      //
+      // Algorithm
+      //   clean up input (replace non-alphanumeric characters) using regex
+      //     /[a-z0-9]/gi
+      //   initialize rails
+      //   initialize currentRailIndex = 0
+      //   initialize increment = 1
+      //   forEach character in input
+      //     rails[currentRailIndex] += char
+      //     if currentRailIndex === last rail index
+      //       increment = -1
+      //     else if currentRailIndex === first rail index
+      //       increment = 1
+      //     end
+      //     currentRailIndex += increment
+      //   return rails.join('')
+
+      function encodeRailFenceCipher(message, railCount) {
+        var rails;
+        var increment;
+        var railIndex;
+        message = message.replace(/[^a-z0-9]/gi, '').toUpperCase();
+        if (railCount <= 1) {
+          return message;
+        }
+        rails = initializeRails(railCount);
+
+        increment = 1;
+        railIndex = 0;
+        message.split('').forEach(function(char) {
+          rails[railIndex] += char;
+          increment = nextIncrement(railIndex, railCount, increment);
+          railIndex = railIndex + increment;
+        });
+        return rails.join('');
+      }
+
+      function initializeRails(railCount) {
+        var rails = [];
+        for (var i = 1; i <= railCount; i++) {
+          rails.push('');
+        }
+        return rails;
+      }
+
+      function nextIncrement(currentRailIndex, railCount, currentIncrement) {
+        switch (currentRailIndex) {
+          case railCount - 1:
+            return -1;
+          case 0:
+            return 1;
+          default:
+            return currentIncrement;
+        }
+      }
+      console.log(encodeRailFenceCipher('WE ARE DISCOVERED FLEE AT ONCE', 3) === 'WECRLTEERDSOEEFEAOCAIVDEN');
+      console.log(encodeRailFenceCipher('abcbabcbabcba', 3) === 'AAAABBBBBBCCC');
+      console.log(encodeRailFenceCipher('a', 3) === 'A');
+      console.log(encodeRailFenceCipher('', 3) === '');
+      console.log(encodeRailFenceCipher('Oh no! We are discovered; Flee. AT ONCE!', 3) === 'OWECRLTEHOERDSOEEFEAOCNAIVDEN');
+      console.log(encodeRailFenceCipher('Oh no! We are discovered; Flee. AT ONCE!', 1) === 'OHNOWEAREDISCOVEREDFLEEATONCE');
+    </script>
+  </body>
+</html>

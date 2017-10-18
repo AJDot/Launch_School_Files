@@ -7,10 +7,10 @@ content: '''
   
   Here is a list of JavaScript specific topics that you need to study on:
   
-  * [ ] Language syntax, types and flow control
+  * [x] Language syntax, types and flow control
   * [ ] Functions, variables and scopes
   * [ ] Arrays and objects
-  * [ ] Language built-in methods on String and Array
+  * [x] Language built-in methods on String and Array
   * [x] Mutability of values and objects
   * [ ] Pure functions and side effects
   * [ ] Regular expressions (what's covered in our book)
@@ -35,4 +35,4 @@ content: '''
 tags: []
 isStarred: false
 createdAt: "2017-10-06T19:25:48.396Z"
-updatedAt: "2017-10-10T21:55:07.656Z"
+updatedAt: "2017-10-17T00:00:55.498Z"

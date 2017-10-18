@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Transpose 3x3</title>
+  </head>
+  <body>
+    <script>
+      // Transpose 3x3
+      //
+      // A 3 x 3 matrix can be represented by an Array of Arrays in which the main Array and all of the sub-Arrays has 3 elements. For example:
+      //
+      // 1  5  8
+      // 4  7  2
+      // 3  9  6
+      // can be described by the Array of Arrays:
+      //
+      // var matrix = [
+      // [1, 5, 8],
+      // [4, 7, 2],
+      // [3, 9, 6]
+      // ];
+      // An Array of Arrays is sometimes called nested arrays because each of the inner Arrays is nested inside an outer Array.
+      //
+      // To access an element in matrix, you use Array[][] with both the row index and column index. So, in this case, matrix[0][2] is 8, and matrix[2][1] is 9. An entire row in the matrix can be referenced by just using one index: matrix[1] is the row (an Array) [4, 7, 2]. Furthermore, given one row, we can also get the length of the column by getting the number of elements in a row. Unfortunately, there's no convenient notation for accessing an entire column.
+      // The transpose of a 3 x 3 matrix is the matrix that results from exchanging the columns and rows of the original matrix. For example, the transposition of the array shown above is:
+      //
+      // 1  4  3
+      // 5  7  9
+      // 8  2  6
+      // Write a function that takes a 3 x 3 matrix in Array of Arrays format and returns the transpose of the original matrix. Your task is to do this yourself don't use external libraries.
+      //
+      // Take care not to modify the original matrix: you must produce a new matrix and leave the original matrix unchanged.
+      //
+
+      // The Problem
+      //   Input: array of arrays representing a 3x3 matrix
+      //   Output: the transpose of the input (still an array of arrays)
+      //   Rule:
+      //     original matrix must not be mutated
+      //     to transpose, row become columns and vice versa
+      //
+      // Data Structure
+      //   array of arrays to represent the transpose
+      //   subarrays to represent each column in input
+      //
+      // Algorithm
+      //   build columns from input
+      //     for each row push row[0] to new array
+      //     push this new array to result
+      //     do this for each column
+
+      function transpose(matrix) {
+        var rowCount = matrix.length;
+        var newRowCount = matrix[0].length;
+        var transposed = [];
+        for (var i = 0; i < newRowCount; i++) {
+          transposed.push([]);
+        }
+
+        for (var row = 0; row < rowCount; row++) {
+          for (var col = 0; col < newRowCount; col++) {
+            transposed[col].push(matrix[row][col]);
+          }
+        }
+
+        return transposed;
+      }
+
+
+      var matrix = [
+      [1, 5, 8],
+      [4, 7, 2],
+      [3, 9, 6]
+      ]
+
+      var newMatrix = transpose(matrix)
+
+      console.log(newMatrix); // [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
+      console.log(matrix);    // [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
+
+    </script>
+  </body>
+</html>

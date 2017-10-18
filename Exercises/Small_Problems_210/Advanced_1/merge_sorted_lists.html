@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // Merge Sorted Lists
+      //
+      // Write a function that takes two sorted Arrays as arguments, and returns a new Array that contains all elements from both arguments in sorted order.
+      //
+      // You may not provide any solution that requires you to sort the result array. You must build the result array one element at a time in the proper order.
+      //
+      // Your solution should not mutate the input arrays.
+
+      // The Problem
+      //   Input: 2 arrays with sorted elements
+      //   Output: 1 array merged from inputs, sorted
+      //   Rules:
+      //     Can't use built in sort methods, must build one element at a time
+      //     Output must be in sorted order
+      //     Duplicates are kept
+      //
+      // Data Structure
+      //   An array for the result
+      //
+      // Algorithm
+      //   initialize result to copy of array1 and array2
+      //   initialize a1Index on array1
+      //   iterate through array2 until all array2 elements have been tested
+      //     if array2[i] < array1[indexTracker]
+      //       array1.splice(indexTracker, 0, array2.shift())
+      //       indexTracker += 1
+      //       continue
+      //     else check next array2 element
+      //   if still elements in array2...
+      //     array1.concat()
+
+      // My weird solution
+      function merge(array1, array2) {
+        if (array1.length === 0) { return array2; }
+        if (array2.length === 0) { return array1; }
+        var a1 = array1.slice();
+        var a2 = array2.slice();
+
+        var a1Index = 0;
+        var a2Index = 0;
+        while (a2Index < a2.length) { // until all a2 elements have been checked
+          if (a2[a2Index] < a1[a1Index]) {
+            // if a2 element is smaller, splice it in
+            a1.splice(a1Index, 0, a2[a2Index]);
+            a2Index += 1; // move to next a2 element
+            continue;
+          }
+          // if we've checked every element in a1, break then concat the rest
+          // of a2 onto end
+          if (a1Index === a1.length - 1) { break; }
+          a1Index += 1; // move to next a1 element
+        }
+        return a1.concat(a2.slice(a2Index));
+      }
+
+      // Solution after looking at solution
+      function merge(array1, array2) {
+        var a1 = array1.slice();
+        var a2 = array2.slice();
+        var result = [];
+
+        while (a1.length > 0 && a2.length > 0) {
+          result.push(a1[0] < a2[0] ? a1.shift() : a2.shift());
+        }
+
+        return result.concat(a1.length === 0 ? a2 : a1);
+      }
+
+      console.log(merge([1, 5, 9], [2, 6, 8])); // [1, 2, 5, 6, 8, 9]
+      console.log(merge([1, 1, 3], [2, 2]));    // [1, 1, 2, 2, 3]
+      console.log(merge([1, 3], [2, 2]));    // [1, 1, 2, 2, 3]
+      console.log(merge([1, 1, 3], [2]));    // [1, 1, 2, 2, 3]
+      console.log(merge([], [1, 4, 5]));        // [1, 4, 5]
+      console.log(merge([1, 4, 5], []));        // [1, 4, 5]
+      console.log(merge([1, 4, 5, 8, 9, 12, 28], [1, 4, 6, 8, 10, 29, 39]));        // [1, 1, 4, 4, 5, 8, 8, 9, 10, 12, 28, 29, 39]
+    </script>
+  </body>
+</html>
