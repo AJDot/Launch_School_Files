@@ -1,0 +1,458 @@
+# List Processing and Functional Abstractions
+
+## Passing Functions as Arguments
+
+Functions can be stored in variables and pass as arguments to other Functions
+
+### Abstractions Allow Code to Specialize
+```javascript
+function buildOrder(hungerLevel, item) {
+}
+
+function prasadOrder() {
+}
+
+function sueOrder() {
+}
+
+function jaiOrder() {
+}
+```
+Details have been extracted to makes the responsibilities of each function much clearer. `buildOrder` create a complete message and the other functions log it.
+
+### Passing Functions as Arguments
+Functions are first-class values, which means one thing they can do is be passed into other functions as arguments.
+
+Example:
+```javascript
+var count = [1, 2, 3, 4, 5];
+
+function iterate(array) {
+  for (var i = 0; i < array.length; i++) {
+    console.log(array[i]);
+  }
+}
+```
+A simple was to iterate through and log values in an Array.
+
+At this point:
+| --- | --- |
+| How to iterate through an Array | Which Array to iterte through |
+| What to do with each element |
+
+```javascript
+function iterate(array, callback) {
+  for (var i = 0; i < array.length; i++) { // for each element in the Array
+    callback(array[i]);                    // invoke callback and pass the element
+  }
+}
+```
+And the refactored code:
+```javascript
+function logger(number) {
+  console.log(number);
+}
+
+iterate(count, logger);
+// logs
+1
+2
+3
+4
+5
+```
+The callback Function argument no controls what to do with each element of the Array we will iterate through.
+
+| --- | --- |
+| How to iterate through an Array | Which Array to iterte through |
+| | What to do with each element |
+
+Now the Function iterate has only one responsibility, determine how to iterate through an array. What to do with each element is now up to the parameters.
+
+### Behavior as Arguments to Allow Abstractions
+So far we have used arguments to define the data that the Function needs and the body of the Function contains the logic/behaviors for using that data. When a Function takes another Function as an argument, some of that behavior is now supplemented by this argument. Essentially, instead of having to say this function "iterates through an array and logs the elements", with an **abstraction** like this we can say this function "iterate through an array and does **something**" that the caller defines.
+
+Example:
+```javascript
+function oddOrEven(array) {
+  for (var i = 0; i < array.length; i++) {
+    var number = array[i];
+    if (number % 2 === 0) {
+    } else {
+    }
+  }
+}
+// Becomes
+function oddOrEven(array) {
+  iterate(array, function(number) {
+    if (number % 2 === 0) {
+    } else {
+    }
+  });
+}
+```
+
+JavaScript does have some built-in methods that provide some abstractions. For this need, use `forEach()`.
+```javascript
+function oddOrEven(array) {
+  array.forEach(function(number) {
+    if (number % 2 === 0) {
+    } else {
+    }
+  });
+}
+```
+
+## Declarative Programming with Abstractions
+### Imperative Style
+```javascript
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var newArray = [];
+
+for (var i = 0; i < array.length; i++) {
+  if (array[i] % 2 === 1) {
+    newArray.push(array[i]);
+  }
+}
+
+console.log(newArray);
+```
+
+### Imperative Styles with Function Abstractions
+```javascript
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var newArray = [];
+
+for (var i = 0; i < array.length; i++) {
+  if (isOddNumber(array[i])) {
+    newArray.push(array[i]);
+  }
+}
+
+console.log(newArray);
+
+function isOddNumber(number) {
+  return number % 2 === 1;
+}
+```
+The determination of an odd number has now been abstracted to another function. The "how to do something" has been moved and the "what we need to do" is now being focused on.
+
+### Iteration Focused Abstraction
+```javascript
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var newArray = [];
+
+array.forEach(function(element) {
+  if (isOddNumber(element)) {
+    newArray.push(element);
+  }
+});
+
+console.log(newArray)
+
+function isOddNumber(number) {
+  return number % 2 === 1;
+}
+```
+The iteration part has now been abstracted to raise the level of abstraction once more. We are focusing even more now on the "what to do as we iterate through the array" instead of dealing with the mechanics of how to loop through the array with a `for` loop.
+
+### Filter Abstraction that Truly Reflects the Purpose
+```javascript
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var oddNumbers = array.filter(function(element) {
+  return isOddNumber(element);
+});
+
+console.log(oddNumbers);
+
+function isOddNumber(number) {
+  return number % 2 === 1;
+}
+```
+With arrays being first-class:
+```javascript
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var oddNumbers = array.filter(isOddNumber);
+
+console.log(oddNumbers);
+
+function isOddNumber(number) {
+  return number % 2 === 1;
+}
+```
+Abstraction is raised yet again. Instead of thinking on the level *"create a new empty array, iterate through the original array and push the odd numbers onto the new array, and log the new array to the console"*, we now think like *"filter the original array to get odd numbers and log them on the console"* 
+
+* more readability since it fits our mental model of the problem.
+* more concise since the code is shorter
+* more robust since we now use a built-in abstraction (`filter`) instead of writing our own function
+
+### Declarative Programming
+Essentially the higher the level of abstraction the more declarative your code is. For example, CSS works at a very high level of abstraction. `p { color: red }` tells what needs to be done but no just about no way does it say how the browser and language should do it.
+
+This of it this way, declarative programming is when you solve a problem by thinking like a human. Imperative programming is when you solve a problem by thinking like a computer.
+
+## List Processing Abstractions
+| Abstraction | Used To | Returns | Array Methods |
+| --- | --- | --- | --- |
+| Iteration | Perform an operation on each element in an Array | undefined | forEach |
+| Filtering / Selection | Select a subset of elements | new Array | filter |
+| Transformation | Compute a new value from each element | new Array | map |
+| Ordering | Rearrange elements by sorting the array in place | sorted Array | sort |
+| Reducing / Folding | Iteratively compute a result based on all element values | single value | reduce, reduceRight |
+
+Each method that fits into the above categories take a Function as an argument. The developer define **how** to implement the chosen abstraction. Because the methods "call back" the Function, we often call this Function a *callback*.
+
+## Iteration
+`forEach` invoke a Function once for each element and calls with the following three arguments:
+* The value of the current element in the Array
+* The index of the current element
+* The Array being processed
+
+`forEach` does not use the return value of the callback.
+
+### Return Value
+`forEach` returns `undefined`. Which also means that it must have side effects to be useful.
+
+### Build it to Understand It
+```javascript
+function myForEach(array, func) {
+  for (var i = 0; i < array.length; i++) {
+    func(array[i], i, array);
+  }
+}
+
+var min = Infinity;
+var getMin = function(value) {
+  min = value <= min ? value : min;
+};
+
+myForEach([4, 5, 12, 23, 3], getMin);   // undefined
+console.log(min);                       // 3
+```
+
+## Filtering / Selection
+```javascript
+var count = [1, 2, 3, 4, 5];
+var filtered = count.filter(function(number, index, array) {
+  return number % 2 === 0;                    // look for the even numbers
+});
+
+console.log(filtered);                        // logs [ 2, 4 ]
+```
+### Callback
+Takes a single argument, a Function, which will be invoked for each element in the Array using three arguments:
+* The current element in the Array
+* The index of the current element
+* The Array being iterated over
+
+If the callback returns `true`, the elemnt will be included in the final Array. If the callback returns `false`, it will be excluded.
+
+### Return Value
+`filter` returns a new Array containing the elements for which the callback returned true.
+
+### Build it to Understand it
+```javascript
+function myFilter(array, func) {
+  var result = [];
+  array.forEach(function(value) {
+    if (func(value)) {
+      result.push(value);
+    }
+  });
+
+  // myForEach(array, function(value) {
+  //   if (func(value)) {
+  //     result.push(value);
+  //   }
+  // })
+
+  // for (var i = 0; i < array.length; i++) {
+  //   if (func(array[i])) {
+  //     result.push(array[i]);
+  //   }
+  // }
+
+  return result;
+}
+
+var isPythagoreanTriple = function(triple) {
+  return Math.pow(triple.a, 2) + Math.pow(triple.b, 2) === Math.pow(triple.c, 2);
+};
+
+console.log(myFilter([{a: 3, b: 4, c: 5}, {a: 5, b: 12, c: 13}, {a: 1, b: 2, c: 3}], isPythagoreanTriple));
+// returns [{a: 3, b: 4, c: 5}, {a: 5, b: 12, c: 13}]
+
+function myForEach(array, func) {
+  for (var i = 0; i < array.length; i++) {
+    func(array[i], i, array);
+  }
+}
+```
+
+## Transformation
+Creates a new Array of values calculated from the values in the original Array.
+```javascript
+var count = [1, 2, 3, 4, 5];
+var doubled = count.map(function(number, index, array) {
+  return number * 2;              // double each number
+});
+
+console.log(doubled);             // logs [ 2, 4, 6, 8, 10 ]
+```
+
+### Callback
+Takes a Function as an argument and passes 3 arguments to it:
+* The values of the current element in the Array
+* The index of the current element
+* The Array being processed
+
+The values returned by the callback Function become the elements in the new Array.
+
+### Return Value
+The new Array with one item for each item in the original Array.
+
+### Build it to Understand it
+```javascript
+function myMap(array, func) {
+  var result = [];
+  array.forEach(function(value) {
+    result.push(func(value));
+  });
+
+  return result;
+}
+
+var plusOne = function(n) { return n + 1; };
+
+console.log(myMap([1, 2, 3, 4], plusOne));       // [2, 3, 4, 5]
+```
+
+## Reducing
+A more complex processing method, each invocation of the callback affects later invocations.
+```javascript
+function add(previousValue, element) {
+  return previousValue + element;
+}
+var count = [1, 2, 3, 4, 5];
+count.reduce(add);            // 15
+```
+
+### Callback
+The `reduce` takes a required first argument, a Function. `reduce` invookes this callback Function once for each element in the Array. It passes four arguments to the callback Function:
+* `accumulator`: The return value of the previous callback invocation (this is the initial value on the first iteration)
+* `currentValue`: The value of the current element in the Array
+* `currentIndex`: The index of the current element
+* `array`: Theh array being processed
+
+`reduce` takes an optional second argument, `initialValue`. This will be used as the first value in the first call. If it is not provided, the first element of the array is used and `reduce` starts processing with the second element of the array.
+
+### Return Value
+The value returned by the final callback invocation.
+
+### Build it to Understand it
+```javascript
+function myReduce(array, func, initial) {
+  var value;
+  var index;
+
+    value = array[0];
+    index = 1;
+  } else {
+    value = initial;
+    index = 0;
+  }
+
+  array.slice(index).forEach(function(element) {
+    value = func(value, element);
+  });
+
+  return value;
+}
+
+var smallest = function(result, value) {
+  return result <= value ? result : value;
+};
+
+var sum = function(result, value) {
+  return result + value;
+};
+
+console.log(myReduce([5, 12, 15, 1, 6], smallest));           // 1
+console.log(myReduce([5, 12, 15, 1, 6], sum, 10));            // 49
+```
+
+## Interrogation
+Used to determine how many elements satisfy some condition. `Array.prototype.some` and `Array.prototype.every` are in this category.
+```javascript
+function odd(number) {
+  return number % 2 === 1;
+}
+var count = [1, 2, 3, 4, 5];
+count.some(odd);          // true, some numbers are odd
+count.every(odd);         // false, every number is not odd
+```
+
+### Callback
+Take a single argument, Function, which is invoked for each element of the array with 3 arguments:
+* The value of the current element in the Array
+* The index of the current element
+* The Array being processed
+
+`every` iterates until the callback returns a falsy value and will return `false` when this happens, `true` otherwise.
+`some` iterates until the callback returns a truthy value and will return `true` when this happens, `false` otherwise.
+
+### Return Value
+`Array.prototype.some` returns `true` if the callback returns a truthy value for **at least one** of the elements in the original Array.
+`Array.prototype.every` returns `true` if the callback returns a truthy value for **all** of the elements in the original Array.
+
+### Build it to Understand it
+```javascript
+function myOwnEvery(array, func) {
+  for (var i = 0; i < array.length; i++) {
+    if (!func(array[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+var isAString = function(value) {
+};
+
+```
+
+If code needs to end early, consider a `for` loop instead of `forEach`. JavaScript list processing abstractions, other than `every` and `some`, all traverse the entire list, and that may be wasted effort.
+
+## Sort
+`Array.prototype.sort`. Rearrange elements of an array from least to greatest or vice versa based on any criteria. This will perform an **in-place** sort of the Array (the Array will be mutated). The callback function determines the criteria to sort by.
+```javascript
+function compareScores(score1, score2) {
+  if (score1 < score2) {
+    return -1;
+  } else if (score1 > score2) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+var scores = [88, 50, 60, 99, 12, 23];
+scores.sort(compareScores);            // [ 12, 23, 50, 60, 88, 99 ]
+scores;                                // mutated to [ 12, 23, 50, 60, 88, 99 ]
+```
+This will sort the scores from least to greatest. If `score1` is less than `score2` then `score1` will come before `score2`.
+
+### Callback
+`sort` takes one argument, a comparison function callback. The callback must take two arguments, `item1` and `item2`, and must define the sort order by returning a `negative value`, `positive value`, or `0` depending on the comparison between `item1` and `item2`. If `negative`, then `item1` comes before `item2`. You can guess what the others mean.
+
+### Return Value
+`sort` mutates the original array and returns a reference to the mutated (sorted) array. So `sort` can be used for its return value or its side effect.
+
+## Summary
+* First class and higher-order functions
+* Declarative thinking and programming
+* Decomposing problems with layers of established abstractions
+* Combining andbuilding custom abstractions
+* Eliminating side effects and pure functions
+

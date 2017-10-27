@@ -1,0 +1,20 @@
+# Array Copy 1
+## What does it log to the console at lines 5 and 8?
+```javascript
+var myArray = [1, 2, 3, 4];
+var myOtherArray = myArray;
+
+myArray.pop();
+console.log(myOtherArray);
+
+myArray = [1, 2];
+console.log(myOtherArray);
+```
+
+## ANSWER
+```
+line 5: [1, 2, 3]
+line 8: [1, 2, 3]
+```
+On line 2, the two arrays are the same because the value stored for `myArray` is the reference to the location of its values, not the values themselves. So `myOtherArray` is assigned to that same reference. Line 4 pops a value from `myArray`, and since `myOtherArray` references the same locations, it will also reflect this change, hence line 5.
+Line 7 then reassigns `myArray` to another value which *does change* what it references. In this case it reference a new object.

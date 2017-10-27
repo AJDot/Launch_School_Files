@@ -1,0 +1,157 @@
+# Specific Topics of Interest
+## Be able to explain clearly the following topics:
+### Local Variable Scope
+especially how local variables interact with method invocations with blocks and method definitions
+### Answer
+#### For blocks
+Local variables in general can be accessed by blocks if they have been declared in a higher scope. For example:
+```ruby
+loop do
+  break
+end
+```
+In this code `a` is accessible by the loop method through the use of the do..end block
+```ruby
+loop do
+  break
+end
+
+```
+A NameError will pop up here because `a` was defined inside a block but was being accessed at a higher scope. This is not possible.
+
+Another Example:
+```ruby
+
+loop do
+  break
+end
+
+```
+Here a was modified inside the block, this is not the declaration of a new variable, it is reassignment of the variable declared in the outer scope.
+#### For methods
+Methods define their own scope. This means they cannot access local variables outside of the method. For example
+```ruby
+def a_method
+end
+```
+```ruby
+def a_method(string)
+end
+
+a_method(a)
+```
+### How passing an object into a method definition can or cannot permanently change the object
+When an object is passed as an argument into a method, any actions on that object that do not mutate the caller will have no effect on the object that was passed in.
+
+If you want to alter the object passed into a method, a method must be called the mutates the caller. For example
+```ruby
+def a_method(string)
+  string.upcase!
+end
+
+a_method(a)
+```
+`#upcase!` mutates the caller so the object that `a` points to was altered permanently.
+The following example will not alter the variable.
+```ruby
+def a_method(string)
+  string.upcase
+end
+
+a_method(a)
+```
+`#upcase` does not mutate the caller, so the object that `a` points to was not altered permanently.
+There is an interesting situation when it comes to collections where the array/hash elements can be altered and this change is reflected outside of the method. For example
+```ruby
+def a_method(array)
+  array.each { |n| n.upcase! }
+end
+arr = [a, b, c]
+a_method(arr)
+```
+This should look peculiar. Even though we are not explicitly calling `#upcase!` on `a`, `b`, and `c`, it will still modify them. This is because `a`, `b`, and `c` simply point to the same objects that array[0], array[1], and array[2] point to. When `#upcase!` mutated each element in the array, the local variables were altered as well since they point to the same objects. We must be very aware of which object a mutating method is being called by. In this case, `#upcase!` is being called by the each object in the array, not the array itself.
+If `a`, `b`, and `c` were not meant to be alter, we must call the mutating method on the array itself.
+```ruby
+def a_method(array)
+  array.map! { |n| n.upcase }  
+end
+arr = [a, b, c]
+a_method(arr)
+```
+`a`, `b`, and `c` now remain the same but the elements inside the `arr` were altered.
+### Working with collections (Array, Hash, String), and popular collection methods (each, map, select, etc). Review the two lessons on these topics thoroughly
+#### Common Array methods
+- include?
+- flatten
+- each_index
+- each_with_index
+- sort
+- product
+#### Common Hash methods
+- has_key?
+- select
+- fetch
+- to_a
+- keys and values
+
+### Variables as Pointers
+#### Variable reassignment using `=`
+![Variables as Pointers 1](https://d2aw5xe2jldque.cloudfront.net/books/ruby/images/variables_pointers1.jpg)
+#### Object Mutation using `<<`
+![Variables as Pointers 2](https://d2aw5xe2jldque.cloudfront.net/books/ruby/images/variables_pointers2.jpg)
+
+Some operations will mutate the actual address space in memory, thereby affecting all variables that point to that address space. Some operations will not mutate the address space in memory, and instead will re-point the variable to a new address space in memory.
+```ruby
+a = [1, 2, 3, 3]
+b = a
+c = a.uniq!
+```
+In this code, `a.uniq!` changes the object itself therefore any variable pointing to that object will change. This means `c = [1, 2, 3]`, `a = [1, 2, 3]`, and also `b = [1, 2, 3]` since `b` is pointing to the same object `a` is pointing to.
+### Puts vs Return
+#### Return
+__Ruby methods ALWAYS return the evaluated result of the last line of the expression unless an explicit return comes before it.__
+#### Puts
+Puts will call `#to_s` on its argument and output it. The `return` of `puts` is always `nil`
+#### Examples
+```ruby
+def add_three(number)
+  return number + 3
+end
+puts add_three(4)  # => 7
+```
+```ruby
+def add_three(number)
+  return number + 3
+  number + 4
+end
+puts add_three(4) # => 7
+```
+In the code above the last line of the method does not get evaluated because a `return` was implemented earlier in the method.
+
+### False vs nil and the idea of "truthiness"
+#### Truthiness
+Truthiness is the concept that if some kind of comparison in Ruby does not evaluate to false (or somehow nil) then the result is used as if the value of it was the explicit boolean value of true. For example:
+```ruby
+a = 5
+if a
+  puts true
+else
+  puts false
+end
+
+# => true
+```
+The `if` statement above will execute the "true" side of the statement because the value of 5 is a "truthy" value. Remember, a truthy value is anything besides `false` and `nil`.
+#### nil
+`nil` is how "nothing" is represented in Ruby. Something with a value of `nil` is considered to be "completely empty", "not of any specific type"
+#### false
+`false` is a boolean value (like `true`). `false` is the result of comparison or evaluation is not true. `false` and `nil` are not the same thing. `false` is a successful evaluation/determination from the code while `nil` is nothing at all.
+
+In comparisons, both `false` and `nil` will evaluate as false, but know that they are not equal. The statement `false = nil` will evaluate to `false`.
+
+### Implicit return value of method definitions and method invocation with blocks
+The explicit reserved word `return` does not need to be written for a method or block to return a value. Without the reserved word, the evaluation of the last line of the method will be returned. With the reserved word explicitly written, the method or block will abort and return the value of the return, no matter where it is placed in the method or block.
+
+### General
+In programming we are always concerned with the output and the return value and mutations to objects. We need to speak of them with specific vocabulary. Avoid using words like "results" as this is too vague. Do you consider the output or the return value the result of a method? It will always depend on the method you are talking about.
+

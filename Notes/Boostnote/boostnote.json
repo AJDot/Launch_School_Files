@@ -67,18 +67,23 @@
     },
     {
       "key": "3c2d0a64fbae751d51f9",
-      "color": "#d0021b",
+      "color": "#417505",
       "name": "210 Computational Thinking and JavaScript"
     },
     {
       "key": "e6fa7285af0e624af2be",
-      "color": "#d0021b",
+      "color": "#417505",
       "name": "210 Test"
     },
     {
       "key": "ab9271ff5a295b1f06dd",
-      "color": "#E10051",
+      "color": "#417505",
       "name": "219 Assessment"
+    },
+    {
+      "key": "6faff87b62d974a8145d",
+      "color": "#d0021b",
+      "name": "220 Front End Development with JavaScript"
     }
   ],
   "version": "1.0"

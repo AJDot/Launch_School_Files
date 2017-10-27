@@ -1,0 +1,34 @@
+type: "MARKDOWN_NOTE"
+folder: "6faff87b62d974a8145d"
+title: "Closures and Function Scope"
+content: '''
+  # Closures and Function Scope
+  
+  ## Closures and Function Review
+  Functions can be defined using two different syntaxes:
+  ```javascript
+  // This is the named function syntax
+  function hello() {
+    console.log('Welcome!');
+  }
+  
+  // This is the function expression syntax
+  var hello = function() {
+    console.log('Welcome!');
+  }
+  ```
+  **Function expression** syntax is useful when passing a function to another function as an argument or return value.
+  ```javascript
+  var squares = [1, 2, 3, 4, 5].map(function(number) {
+    return math.Pow(number, 2);
+  });
+  ```
+  
+  All functions obey these lexical scoping rules:
+  * it can access any variables defined within it.
+  * It can access any varaibles that were in scope based on teh context where the function was **defined**.
+'''
+tags: []
+isStarred: false
+createdAt: "2017-10-26T21:00:02.989Z"
+updatedAt: "2017-10-26T21:04:24.421Z"

@@ -1,0 +1,59 @@
+# Lesson 4 - Fundamentals of CSS Styling
+### The Box Model: Wrapup
+
+* The CSS box model puts every element on the page in a box.
+* Boxes have a content width and height, padding, a border, and margins. All components are optional.
+* A container is an element that contains other elements, each of which may also be a container.
+* The primary display property values are block, inline, and inline-block:
+  * block elements:
+    * The browser places each block element on a line by itself within its container.
+    * The browser treats width, height, padding, margin, and border as expected.
+  * inline elements:
+    * The browser tries to place inline elements on the same horizontal line.
+    * The browser ignores width, height, and top and bottom margins.
+    * The browser observes top and bottom padding, but these properties do not influence the positioning of neighbor elements.
+  * inline-block elements:
+    * The browser tries to position inline-block elements in the same way as inline elements.
+    * The browser treats width, height, padding, margin, and border in the same way as block elements.
+* The box-sizing property controls whether the width and height include padding and borders.
+  * content-box is the default box-sizing model. It includes the content area of a box in the width and height properties.
+  * border-box includes the content area, padding, and border of a box in the width and height properties. This box-sizing model is best when working with elements that have padding or borders.
+
+## Dimensions and Spacing
+### Should I use Padding or Margins?
+
+The simplest strategy is to use margin everywhere except when you need padding. You probably need padding when:
+* You want to adjust how much background is visible around an element.
+* You want to alter the amount of clickable area for an element.
+
+## When to Use the Different Units
+* Use absolute units sparingly, and stick with pixels. Pixels work well for:
+  * the root font size
+  * image widths and heights
+  * top and bottom margins and padding, sometimes useful with left and right margins and padding
+  * width or height of some large containers such as navigation sidebars
+* Use relative units liberally:
+  * Use rems for fonts, possibly with a fallback to pixels. The root font typically should use pixels.
+  * Use rems (or pixels) for left and right margins and padding.
+  * Use vw and vh units to express measurements as a fixed percentage of the viewport size, with fallback to pixels or %
+
+### Dimensions and Spacing Wrapup
+* Top and bottom margins collapse when adjacent block and inline-block elements have margins.
+* The browser ignores top and bottom margins for inline elements.
+* Margins can be negative.
+* Prefer margins over padding except when:
+  * an element has a border
+  * an element has a background color or image that must be visible.
+  * an element must be clickable out to the border.
+* CSS lengths can be either absolute or relative.
+  * absolute lengths use CSS reference pixels
+  * relative lengths use ems, rems, vws, vhs, and %s.
+* A CSS reference pixel has an angular width of a physical pixel on a device that displays 96 pixels per inch, adjusted for some typical viewing distance appropriate for the device.
+* Ems measure lengths proportional to the calculated font size.
+* Rems measure lengths proportional to the root font size.
+* The root font is the font defined for the html element.
+* vw and vh units measure lengths in 1/100ths of the viewport width or height.
+* Before using % units, remember that:
+  * CSS uses the box-sizing model (content-box or border-box) to calculate percentage lengths.
+  * some vertical items, such as top and bottom padding and margins, use the element width to calculate percentage lengths.
+* You can, with care, mix different measurement units in the same container or element.
