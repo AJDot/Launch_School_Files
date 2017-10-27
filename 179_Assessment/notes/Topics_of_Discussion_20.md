@@ -1,0 +1,33 @@
+# Topics of Discussion
+## HTTP
+* [x] Describe what HTTP is and the role of the request and the response.
+* [x] What are the components of an HTTP request and an HTTP response?
+* [x] Identify the components of a URL. Construct a URL that contains a few params and values.
+* [x] Explain the difference between GET and POST, and know when to choose each.
+* [x] What is the difference between client-side and server-side code? For each file in a Sinatra project, be able to say which it is.
+
+## Web
+* [x] How does an HTML form element interact with the server-side code that processes it.
+* [x] Why is user-entered content a security risk? Be aware of how to mitigate this risk.
+
+## Sinatra
+* [x] Start a new Sinatra project and write simple routes to handle requests.
+* [x] What are the benefits of using view templates? Be able to use an ERB template in a Sinatra route.
+* [x] What is the session? Where it is stored? How is it used?
+* [x] Write a view helper and use it within a view template.
+* [x] Explain how redirection works and why it would be needed in a web application.
+
+## Mine
+* [x] What is the difference between methods declared with a `helpers` block and those defined at the top level in a classic Sinatra application?
+* [x] What does it mean for HTTP to be "stateless"? What are the benefits and downfalls of this type of protocol?
+* [x] How do you access a website? Give the steps starting with the input of a URL in a web browser.
+* [x] What are some limitations with query parameters?
+* [x] How can a stateless protocol seem "stateful"?
+* [x] How do we secure HTTP?
+* [x] How do we protect against session hacking?
+* [x] What is Cross-Site Scripting and how do we prevent it?
+* [x] When to Use Validations?
+* [x] What are the 3 ways to populate the `params` hash from the client?
+* [x] What is a project?
+* [x] URL Discussion
+* [x] When to Use Validations

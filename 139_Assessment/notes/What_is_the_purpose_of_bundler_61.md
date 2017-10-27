@@ -1,0 +1,3 @@
+# What is the purpose of bundler?
+
+Bundler is used to handle program dependencies. This Gem provides an easy way to make sure that the when you run a specific Ruby program you have all the required Gems so it runs properly. Bundler will check through all the dependencies listed in the `Gemfile` and then look at all the dependencies of those Gems. If your version of Ruby is missing any of these, they can be installed for you.

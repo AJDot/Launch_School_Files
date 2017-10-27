@@ -1,0 +1,90 @@
+# Explain the difference between INNER, LEFT OUTER, and RIGHT OUTER joins.
+
+For the description of JOINs, I will use the following data as an example.
+```bash
+-- people --
+ id |  name   |   phone    
+----+---------+------------
+  1 | Alex    | 1234567890
+  2 | Bill    | 1239123123
+  3 | Charles | 
+
+-- pets --
+ id | name  |     type      | person_id 
+----+-------+---------------+-----------
+  1 | Emma  | Long-Hair Cat |         1
+  2 | Socks | Dragon        |         3
+  3 | Fisk  | Tabby Cat     |          
+```
+
+**INNER** JOIN: When joining two tables together, an `INNER JOIN` will grab all the rows that satisfy the comparison. If the comparison is not true for a row in either table, then it will not be included in the result. *Additionally*, if either side of the comparison is NULL, the row will not be included.
+
+```sql
+SELECT people.name AS "Person",
+       pets.name AS "Pets"
+  FROM people
+  INNER JOIN pets ON people.id = pets.person_id;
+```
+```bash
+ Person  | Pets  
+---------+-------
+ Alex    | Emma
+ Charles | Socks
+(2 rows)
+```
+Even though Bill is a person and Fisk is a cat, neither were included in the result table because they do not having a matching animal or person respectively.
+
+**LEFT OUTER** JOIN: Follows the same rules as `INNER JOIN` but will always contain every row from the table specified in the `FROM` clause.
+```sql
+SELECT people.name AS "Person",
+       pets.name AS "Pets"
+  FROM people
+  LEFT OUTER JOIN pets ON people.id = pets.person_id;
+```
+```
+ Person  | Pets  
+---------+-------
+ Alex    | Emma
+ Bill    | 
+ Charles | Socks
+(3 rows)
+```
+
+Since this is a `LEFT OUTER` JOIN, `Bill` is included even though he does not have a matching pet in the `pets` table.
+
+**RIGHT OUTER** JOIN: Same as `LEFT OUTER` JOIN but applies to the table specified in the `JOIN` clause instead of the table in the `FROM` clause.
+```sql
+SELECT people.name AS "Person", pets.name AS "Pets"
+  FROM people                                              
+  RIGHT OUTER JOIN pets ON people.id = pets.person_id;
+```
+```
+ Person  | Pets  
+---------+-------
+ Alex    | Emma
+ Charles | Socks
+         | Fisk
+(3 rows)
+
+```
+
+**CROSS** JOIN: No `ON` clause is specified. This JOIN simply performs the cartesian product of the two tables; it makes every possible combination, each row of the first table is matched with each row of the second table. This information is often nonsensical but can be useful for generating databases in the development stage of a project.
+```sql
+SELECT people.name AS "Person", pets.name AS "Pets"
+FROM people
+CROSS JOIN pets;
+```
+```
+ Person  | Pets  
+---------+-------
+ Alex    | Emma
+ Alex    | Socks
+ Alex    | Fisk
+ Bill    | Emma
+ Bill    | Socks
+ Bill    | Fisk
+ Charles | Emma
+ Charles | Socks
+ Charles | Fisk
+(9 rows)
+```

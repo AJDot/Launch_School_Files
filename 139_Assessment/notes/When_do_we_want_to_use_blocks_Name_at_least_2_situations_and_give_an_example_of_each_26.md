@@ -1,0 +1,52 @@
+# When do we want to use blocks? Name at least 2 situations and give an example of each.
+
+Two common situations where blocks are nice to use are when you have a method that needs to be implemented in a slightly different way each time and also when you need to perform before/after tasks to any given code. 
+
+# Example 1
+The need to tweak a method at each call.
+```ruby
+class RecipeManager
+  attr_reader :recipes
+  def initialize
+    @recipes = []
+  end
+
+  def add(item)
+    @recipes << item
+  end
+
+  def select
+    @recipes.each_with_object([]) do |recipe, obj|
+      obj << recipe if yield(recipe)
+    end
+  end
+end
+
+manager = RecipeManager.new
+
+puts manager.select { |recipe| recipe =~ /Fish/}
+
+puts manager.select { |recipe| recipe.length <= 10 }
+```
+In this example we can now select recipes based on a variety of criteria. In this example I have selected recipes based on if they contain "Fish" in the title and also if the length of the recipe title is less than or equal to 10. 
+
+# Example 2
+The need to always run code before and after _any_ code.
+```ruby
+def wrap_in_h1
+  "<h1>" + yield + "</h1>"
+end
+
+puts wrap_in_h1 { "This is a Heading" } # => "<h1>This is a Heading</h1>"
+```
+This code allows us to wrap text in a heading 1 HTML tag. We could also make it so that we could do something different after this wrapping.
+```ruby
+def wrap_in_h1(text)
+  html = "<h1>" + text + "</h1>"
+  yield(html)
+end
+
+wrap_in_h1("This is a Heading") { |html| open_file.write(html) }
+```
+Now this method will do the wrapping and then any additional tasks by using the block. In this example we wrap the text in the `<h1>` heading and then write it to the file `open_file`.
+

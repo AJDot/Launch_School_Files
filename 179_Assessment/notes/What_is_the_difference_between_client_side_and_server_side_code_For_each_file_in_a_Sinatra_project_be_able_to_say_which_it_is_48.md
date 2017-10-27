@@ -1,0 +1,8 @@
+# What is the difference between client-side and server-side code? For each file in a Sinatra project, be able to say which it is.
+The distinction is where each bit of code of executed.
+
+* Gemfile - server-side - This file tells the the server what gems are needed, where to find them, what version of Ruby to use. This is used by bundler, a Ruby dependency management system.
+* Ruby files (.rb) - server-side - These are the files that make up the program and do the heavy lifting computations and control. They handle incoming requests and send back responses.
+* Stylesheets (.css) - client-side - These are the files that give instruction on how to beautify an html web page. They are downloaded and executed by the client.
+* JavaScript (.js)- client-side - Similar to `.css` files. Downloaded and executed by client. They add interactive functionality (behavior) to a web page.
+* View Tempalates (.erb) - server-side - Although they are convert to HTML and eventually run by the client, they are initially used by the server to embed Ruby code into HTML.

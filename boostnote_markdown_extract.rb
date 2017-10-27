@@ -1,4 +1,8 @@
-require 'pry'
+# This file was used to extract the title and content
+# from Boostnote .cson files and create new markdown
+# files not dependent on the Boostnote program
+
+# Format title for new filename
 def form_title(title)
   title.gsub!(/\Atitle: /, '')
   title.tr!(' ', '_')
@@ -13,6 +17,7 @@ def form_title(title)
   title = title.gsub(/_+/, '_')
 end
 
+# Extract info from file text
 def get_data(lines)
   title = ''
   content = []
@@ -46,6 +51,7 @@ files = Dir.glob('./Notes/Boostnote/notes/*.cson').map do |filename|
   File.expand_path(filename)
 end
 
+# For each file extract data and save to new file
 files.each_with_index do |filename, index|
   file = File.read(filename)
   lines = file.split("\n")
