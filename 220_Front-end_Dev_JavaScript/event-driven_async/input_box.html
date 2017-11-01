@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      .text-field {
+        border: solid 1px #ccc;
+        padding: 1em;
+        cursor: pointer;
+        font-family: sans-serif;
+        font-size: 18px;
+        overflow: hidden;
+        width: 300px;
+      }
+
+      .text-field .content {
+        display: inline-block;
+        height: 21px;
+        float: left;
+        white-space: pre;
+      }
+
+      .text-field.focused {
+        border-color: black;
+      }
+
+      .text-field.focused .content {
+
+      }
+
+      .text-field.cursor .content {
+        border-right: solid 2px black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text-field">
+      <div class="content"></div>
+    </div>
+    <script>
+      var cursorInterval;
+      var focusedTextField;
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var textField = document.querySelector(".text-field");
+
+        textField.addEventListener("click", function(event) {
+          event.stopPropagation();
+
+          focusedTextField = textField;
+          textField.classList.add("focused");
+
+          cursorInterval = setInterval(function() {
+            textField.classList.toggle("cursor");
+          }, 500);
+        });
+
+      });
+
+      document.addEventListener("keydown", function(event) {
+        if (focusedTextField) {
+          var contentDiv = focusedTextField.querySelector(".content");
+          console.log(event.key);
+          if (event.key === "Backspace") {
+            contentDiv.textContent = contentDiv.textContent.slice(0, -1);
+          } else {
+            contentDiv.textContent = contentDiv.textContent + event.key;
+          }
+        }
+      });
+
+      document.addEventListener("click", function(event) {
+        clearInterval(cursorInterval);
+        if (focusedTextField) {
+          focusedTextField.classList.remove("focused");
+          focusedTextField.classList.remove("cursor");
+          focusedTextField = null;
+        }
+      });
+    </script>
+  </body>
+</html>

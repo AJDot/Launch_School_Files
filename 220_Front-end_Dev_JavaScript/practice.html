@@ -1,3 +1,26 @@
-<script src="./function_contexts_objects/hard_binding_functions_contexts.js">
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>title</title>
+    <meta charset="UTF-8">
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var addButton = document.getElementById('add');
+        var output = document.getElementById('output');
+        var count = 0;
 
-</script>
+        addButton.addEventListener('click', function(event) {
+          count++;
+          output.textContent = String(count);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <p>
+      <span id="output">0</span>
+      <button id="add">Add One</button>
+    </p>
+  </body>
+</html>
