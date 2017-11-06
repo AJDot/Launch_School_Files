@@ -1,4 +1,34 @@
 # Event-Driven and Asynchronous Programming
+
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Event-Driven and Asynchronous Programming](#event-driven-and-asynchronous-programming)
+  * [Asynchronous Execution with setTimeout](#asynchronous-execution-with-settimeout)
+    * [Problems](#problems)
+  * [Repeating Execution with setInterval](#repeating-execution-with-setinterval)
+    * [Problems](#problems-1)
+  * [User Interfaces and Events](#user-interfaces-and-events)
+  * [A Simple Example](#a-simple-example)
+  * [Page Lifecyle Events](#page-lifecyle-events)
+  * [User Events](#user-events)
+  * [Adding Event Listeners (aka Event Handlers)](#adding-event-listeners-aka-event-handlers)
+  * [The Event Object](#the-event-object)
+    * [Mouse Events](#mouse-events)
+    * [Keyboard Events](#keyboard-events)
+    * [Problems](#problems-2)
+  * [Capturing and Bubbling](#capturing-and-bubbling)
+    * [Capturing and Bubbling](#capturing-and-bubbling-1)
+    * [Specifying an Event Listener's Phase](#specifying-an-event-listeners-phase)
+      * [Capturing vs. Bubbling](#capturing-vs-bubbling)
+  * [Preventing Propagation and Default Behaviors](#preventing-propagation-and-default-behaviors)
+    * [Preventing Default Behaviors](#preventing-default-behaviors)
+  * [Event Delegation](#event-delegation)
+    * [When To Use Event Delegation](#when-to-use-event-delegation)
+  * [What is the Event Loop?](#what-is-the-event-loop)
+  * [Douglas Crockford: An Inconvenient API - The Theory of the DOM](#douglas-crockford-an-inconvenient-api-the-theory-of-the-dom)
+  * [Summary](#summary)
+
+<!-- tocstop -->
 ## Asynchronous Execution with setTimeout
 Most code I've written is **sequential** - one line must wait until the one before it is executed. When code is executed one line after another it is called **synchronous code**. It starts immediately and runs until the program ends.
 

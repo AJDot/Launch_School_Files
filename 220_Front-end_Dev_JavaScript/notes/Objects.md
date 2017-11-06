@@ -1,4 +1,19 @@
 # Objects
+
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Objects](#objects)
+  * [Objects and Methods](#objects-and-methods)
+    * [Function and Method Invocation](#function-and-method-invocation)
+    * [`this` during Method Invocation](#this-during-method-invocation)
+  * [Mutating Objects](#mutating-objects)
+  * [Functions as Object Factories](#functions-as-object-factories)
+  * [Object Orientation](#object-orientation)
+      * [Local Variables and Functions Solution](#local-variables-and-functions-solution)
+      * [Object-oriented Solution](#object-oriented-solution)
+  * [Summary](#summary)
+
+<!-- tocstop -->
 ## Objects and Methods
 Objects can contain:
 * properties

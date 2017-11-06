@@ -1,5 +1,31 @@
 # Closures and Function Scope
 
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Closures and Function Scope](#closures-and-function-scope)
+  * [Closures and Function Review](#closures-and-function-review)
+  * [Higher-Order Functions](#higher-order-functions)
+  * [Practice Problems: Higher-Order Functions](#practice-problems-higher-order-functions)
+  * [Closures and Private Data](#closures-and-private-data)
+    * [Problems](#problems)
+  * [Practice Problems: Closures](#practice-problems-closures)
+  * [Objects and Closures](#objects-and-closures)
+    * [Problems](#problems-1)
+    * [Why use closures to make data private?](#why-use-closures-to-make-data-private)
+  * [Project: Banking with Objects and Closures](#project-banking-with-objects-and-closures)
+  * [Garbage Collection](#garbage-collection)
+  * [How Closures Affect Garbage collection](#how-closures-affect-garbage-collection)
+    * [Problems](#problems-2)
+  * [Practice Problems: Garbage Collection](#practice-problems-garbage-collection)
+  * [Partial Function Application](#partial-function-application)
+    * [Problems](#problems-3)
+  * [Practice Problems: Partial Function Application](#practice-problems-partial-function-application)
+  * [Immediately Invoked Function Expressions](#immediately-invoked-function-expressions)
+  * [Creating a Private Scope with an IIFE](#creating-a-private-scope-with-an-iife)
+  * [Practice Problems: IIFEs](#practice-problems-iifes)
+  * [Summary](#summary)
+
+<!-- tocstop -->
 ## Closures and Function Review
 Functions can be defined using two different syntaxes:
 
@@ -541,7 +567,7 @@ list.clear = function() {
 
 To add the method, the original definition of `makeList` must be updated.
 
-## Project: Baking with Objects and Closures
+## Project: Banking with Objects and Closures
 1. Create an object named `account` that represents a bank account. It should contain a `balance` property that stores the account's current balance.
 ```javascript
 var account = {

@@ -205,6 +205,7 @@ def compare(str)
 end
 
 # method invocation
+compare('hello') { |word| word.upcase }
 
 # Output:
 # Before: hello
@@ -215,6 +216,7 @@ What we see here is that _blocks have a return value_. This implies that blocks 
 
 This block allows us the flexibility to see the before and after of any implementation
 ```ruby
+compare('hello') { |word| word.slice(1..2) }
 
 # Before: hello
 # After: el
@@ -223,6 +225,7 @@ This block allows us the flexibility to see the before and after of any implemen
 
 Here is a slightly trickier example
 ```ruby
+compare('hello') { |word| puts "hi" }
 
 # Before: hello
 # hi
@@ -349,7 +352,7 @@ A block implements the idea of a _closure_. In order for this chunk of code to b
 ```ruby
 chunk_of_code = Proc.new {puts "hi #{name}"}
 ```
-`chunk_of_code` can now be passed around and executed whenever. 
+`chunk_of_code` can now be passed around and executed whenever.
 ```ruby
 def call_me(some_code)
   some_code.call        # => call will execute the "chunk of code" that gets passed in
@@ -395,7 +398,7 @@ After:
 ```ruby
 [1, 2, 3, 4, 5].map(&:to_s)     # => ["1", "2", "3", "4", "5"]
 ```
-This shortcut... 
+This shortcut...
 * works with any collect method that takes a block
 
 #### Symbol#to_proc

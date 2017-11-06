@@ -1,4 +1,40 @@
 # Function Contexts and Objects
+
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Function Contexts and Objects](#function-contexts-and-objects)
+  * [The Global Object](#the-global-object)
+    * [Global Object as Implicit Context](#global-object-as-implicit-context)
+    * [Global Variables and Function Declarations](#global-variables-and-function-declarations)
+    * [Note](#note)
+  * [Practice Problems: The Global Object](#practice-problems-the-global-object)
+  * [Implicit and Explicit Function Execution Contexts](#implicit-and-explicit-function-execution-contexts)
+    * [Function Execution Context](#function-execution-context)
+    * [Implicit Function Execution Context](#implicit-function-execution-context)
+      * [Implicit Method Execution Context](#implicit-method-execution-context)
+    * [Explicit Function Execution Context](#explicit-function-execution-context)
+    * [Practice Problems: Implicit and Explicit Function Execution Contexts](#practice-problems-implicit-and-explicit-function-execution-contexts)
+  * [Hard Binding Functions with Contexts](#hard-binding-functions-with-contexts)
+  * [Practice Problems: Hard Binding Functions with Contexts](#practice-problems-hard-binding-functions-with-contexts)
+  * [Dealing with Context Loss (1)](#dealing-with-context-loss-1)
+    * [Method Losing Context when Taken Out of Object](#method-losing-context-when-taken-out-of-object)
+  * [Dealing with Context Loss (2)](#dealing-with-context-loss-2)
+    * [Internal Function Losing Method Context](#internal-function-losing-method-context)
+      * [Solution 1: Preserve Context with a Local Variables in the Lexical Scope](#solution-1-preserve-context-with-a-local-variables-in-the-lexical-scope)
+      * [Solution 2: Pass the Context to Internal Functions](#solution-2-pass-the-context-to-internal-functions)
+      * [Solution 3: Bind the Context with a Function Expression](#solution-3-bind-the-context-with-a-function-expression)
+  * [Dealing with Context Loss (3)](#dealing-with-context-loss-3)
+    * [Function as Argument Losing Surrounding Context](#function-as-argument-losing-surrounding-context)
+      * [Solution 1: Use a local varaible in the lexical scope to store this](#solution-1-use-a-local-varaible-in-the-lexical-scope-to-store-this)
+      * [Solution 2: Bind the argument function with the surrounding context](#solution-2-bind-the-argument-function-with-the-surrounding-context)
+      * [Solution 3: Use the optional thisArg argument](#solution-3-use-the-optional-thisarg-argument)
+  * [Practice Problems: Dealing with Context Loss](#practice-problems-dealing-with-context-loss)
+  * [Summary: The "this" Keyword in JavaScript](#summary-the-this-keyword-in-javascript)
+  * [Practice Problems: What is this? (1)](#practice-problems-what-is-this-1)
+  * [Practice Problems: What is this? (2)](#practice-problems-what-is-this-2)
+  * [Summary](#summary)
+
+<!-- tocstop -->
 ## The Global Object
 JS creates a **global object** when it starts running. In the browser, the global object is the `window` object.
 
@@ -183,6 +219,7 @@ Arguments can be passed to `call` as so.
 ```javascript
 someObject.someMethod.call(context, arg1, arg2, arg3[, ...])
 ```
+
 Example
 ```javascript
 var iPad   = {
@@ -193,16 +230,21 @@ var kindle = {
 };
 
 function printLine(lineNumber, punctuation) {
+  console.log(lineNumber + ': ' + this.name + ', ' + this.price / 100 + ' dollars' + punctuation);
 }
 
+printLine.call(iPad, 1, ';');        // "1: iPad, 400 dollars;"
+printLine.call(kindle, 2, '.');      // "2: kindle, 300 dollars."
 ```
 
 `apply` is identical to `call` expect that `apply` takes arguments as an Array.
+
 ```javascript
-someOjbect.someMethod.apply(context, [arg1, arg2, arg3..])
+someObject.someMethod.apply(context, [arg1, arg2, arg3..])
 ```
-> * **C**all: **C**ount the **C**ommas (you have to count the number of arguments to match the called function)
-> * **A**pply: **A**rguments as **A**rray
+
+> * **C** all: **C** ount the **C** ommas (you have to count the number of arguments to match the called function)
+> * **A** pply: **A** rguments as **A** rray
 
 ### Practice Problems: Implicit and Explicit Function Execution Contexts
 
@@ -238,6 +280,7 @@ someOjbect.someMethod.apply(context, [arg1, arg2, arg3..])
 
 3. What will the code below output?
     ```javascript
+    var message = 'Hello from the global scope!';
 
     function deliverMessage() {
       console.log(this.message);
@@ -256,7 +299,7 @@ someOjbect.someMethod.apply(context, [arg1, arg2, arg3..])
     Solution
     ```
     Hello from the global scope!
-    Hello from teh function scope!
+    Hello from the function scope!
     ```
 
 4. What will the code below output?
@@ -282,11 +325,13 @@ someOjbect.someMethod.apply(context, [arg1, arg2, arg3..])
     0
     ```
 
+5. The problems above all feature implicit function execution context. What methods have we learned so far that allow us to explicitly specify what a function's execution context should be?
 
-    Solution
-    The `Function` methods `call` and `apply`, which are essentially the same except `apply` takes arguments as an array.
+  Solution
+  The `Function` methods `call` and `apply`, which are essentially the same except `apply` takes arguments as an array.
 
-6. In the code below, use call to invoke add as a method on bar but with foo as execution context. What will this return?
+
+6. In the code below, use `call` to invoke `add` as a method on `bar` but with `foo` as execution context. What will this return?
     ```javascript
     var foo = {
       a: 1,
@@ -310,6 +355,7 @@ someOjbect.someMethod.apply(context, [arg1, arg2, arg3..])
 
     ```javascript
     var fruitsObj = {
+      list: ['Apple', 'Banana', 'Grapefruit', 'Pineapple', 'Orange'],
       title: "A Collection of Fruit"
     }
 
@@ -325,7 +371,7 @@ someOjbect.someMethod.apply(context, [arg1, arg2, arg3..])
 
     // invoke outputList here
     ```
-    
+
     Desired output:
     ```
     A Collection of Fruit:
@@ -535,7 +581,7 @@ function foo() {
     greetings: function() {
     }
   };
-  
+
   repeatThreeTimes(john.greetings.bind(john));
 }
 
@@ -735,7 +781,7 @@ Solution
 * `getDescription` was removed from its context of `turk` and passed into `logReturnVal`.
 
 ---
- 
+
 
 Solution
   ```javascript
@@ -883,8 +929,8 @@ var foo = {
 
 ## Summary: The "this" Keyword in JavaScript
 
-> 
-> 
+>
+>
 
 ## Practice Problems: What is this? (1)
 While working through these practice problems, assume that the code runs within a web page.
@@ -1186,9 +1232,9 @@ console.log(computer.total());
 
 ## Summary
 > * Function invocations, e.g., `parseInt(numberString)` rely upon implicit execution context that resolves to the global object. Method invocations, e.g., `array.forEach(processElement)` rely upon implicit context that resolves to the object that holds the method.
-> 
+>
 > * All JavaScript code executes within a context. The top level context in a web browser is the `window` object. All global methods and Objects (such as `isNaN` or `Math`) are properties of this object.
-> 
+>
 >
 ```javascript
 var car = 1;
@@ -1196,16 +1242,16 @@ function speak() { ... }
 ```
 >
 > * `this` is the current execution context of a function.
-> 
+>
 > * The value of `this` changes based on **how you invoke a function**, not **how you define it**.
-> 
+>
 > * JavaScript has **first-class functions** which have the following characteristics:
-> 
+>
 >   * You can add them to objects and execute them in their contexts.
 >   * You can remove them from their objects, pass them around, and execute them in entirely different contexts.
 >
 > * `call` and `apply` invoke a function with an explicit execution context.
-> 
+>
 > * `bind` permanently binds a Function to the context of an object.
 >
 > * A function included in an object that can operate on data within that object is a **method**.
