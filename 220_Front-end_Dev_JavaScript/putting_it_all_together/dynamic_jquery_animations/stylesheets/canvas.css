@@ -1,0 +1,72 @@
+body {
+  font: normal 14px Helvetica, Arial, sans-serif;
+  background: #761a2b;
+}
+
+main {
+  width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  background: #ffffff;
+}
+
+.canvas {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #ffffff 0%, #1365c8 100%);
+  border: 1px solid #cbcbcb;
+}
+
+.canvas > div {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}
+
+.canvas > .square {
+  background: #dce249;
+}
+
+.canvas > .circle {
+  border-radius: 50%;
+  background: #dce249;
+}
+
+.canvas > .star {
+  background: transparent url("../images/star.png");
+  background-size: 100% auto;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+ul {
+  list-style: none;
+}
+
+dl {
+  margin: 0;
+}
+
+dt, dd {
+  padding: 0;
+  margin: 0;
+}
+
+dt {
+  padding: 0 0 5px 0;
+}
+
+dd {
+  padding: 0 0 20px 0;
+}
+
+dd input {
+  width: 50px;
+  padding: 5px;
+}

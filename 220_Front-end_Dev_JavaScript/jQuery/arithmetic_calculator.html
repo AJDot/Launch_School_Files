@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Arithmetic Calculator</title>
+    <style>
+      body {
+        font: normal 24px monospace;
+        background: #6D1726;
+      }
+
+      main {
+        width: 400px;
+        padding: 20px;
+        margin: 50px auto;
+        background: #ffffff;
+      }
+
+      h1 {
+        font: normal 40px monospace;
+        color: #16997c;
+      }
+
+      fieldset {
+        border: none;
+      }
+
+      input,
+      select {
+        font: inherit;
+        font-size: 18px;
+        height: 30px;
+        margin: 0;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        vertical-align: middle;
+        box-sizing: border-box;
+      }
+
+      input {
+        width: 80px;
+        padding: 5px;
+      }
+
+      input[type="submit"] {
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(to bottom, #f0f0f0 0%, #d5d5d5 100%);
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1></h1>
+      <form action="#" method="get">
+        <fieldset>
+          <input type="number" name="numerator" id="numerator" value="0" />
+          <select id="operator" name="operator">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+          </select>
+          <input type="number" name="denominator" id="denominator" value="0" />
+          <input type="submit" value="=" />
+        </fieldset>
+      </form>
+    </main>
+    <script>
+      $(document).ready(function() {
+        $('form').on('submit', function(e) {
+          e.preventDefault();
+          var $form = $(this);
+          var numerator = parseInt($form.find('#numerator').val(), 10);
+          var denominator = parseInt($form.find('#denominator').val(), 10);
+          var operation = $form.find('#operator').val();
+
+          var result = 0;
+          switch (operation) {
+            case '+':
+              result = numerator + denominator;
+              break;
+            case '-':
+              result = numerator - denominator;
+              break;
+            case '*':
+              result = numerator * denominator;
+              break;
+            case '/':
+              result = numerator / denominator;
+              break;
+          }
+
+          $('h1').text(result);
+        });
+
+        $('form').trigger('submit');
+      });
+    </script>
+  </body>
+</html>
