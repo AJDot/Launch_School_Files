@@ -6,58 +6,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-    <form action="#" method="post">
-      <fieldset>
-        <input type="text" id="key" maxlength="1" />
-        <input type="submit" value="Submit">
-      </fieldset>
-    </form>
-    <a href="#">Toggle</a>
-    <div id="accordion">
-      <p>$(function() {
-  // find the paragraph on the page
-  var $p = $('p');
-  var OUTPUT = 'Your favorite fruit is ';
+    <h1>Existing Page</h1>
 
-  $('a').on('click', function(e) {
-//$('a').click(function(e) {
-    e.preventDefault();
-    // make clicked DOM element into jQuery object
-    var $e = $(this);
-    // Update paragraph text to be text of clicked link
-    $p.text(OUTPUT + $e.text());
-  });
-
-  $('form').on('submit', function(e) {
-//$('form').submit(function(e) {
-    e.preventDefault();
-    // get input and store as jQuery object
-    var $input = $(this).find('input[type=text]');
-    // update paragraph text with value from input
-    $p.text(OUTPUT + $input.val());
-  });
-});</p>
-    </div>
-
+    <div id="store"></div>
     <script>
-      $(function() {
-        $('form').on('click', function(e) {
-          e.preventDefault();
-          var key = $('#key').val();
-          var character_code = key.charCodeAt(0);
+var data = {
+  name: 'Acid Free Paper',
+  sku: 'afp001',
+  price: 1300
+};
+var json = JSON.stringify(data);
+var request = new XMLHttpRequest();
 
-          $(document).off('keypress').on('keypress', function(e) {
-            if (e.which !== character_code) { return; }
-            $('a').trigger('click');
-          });
 
-        });
+request.open('POST', 'http://ls-230-web-store-demo.herokuapp.com/v1/products');
+request.setRequestHeader('Content-Type', 'application/json');
+request.setRequestHeader('Authorization', 'token AUTH_TOKEN');
 
-        $('a').on('click', function(e) {
-          e.preventDefault();
-          $('#accordion').slideToggle();
-        })
-      })
+request.send(json);
+
     </script>
   </body>
 </html>
+
+```
+POST /books HTTP/1.1
+Host: ls-230-book-catalog.herokuapp.com
+Content-Length: 19;
