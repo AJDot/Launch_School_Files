@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <script>
 function Vehicle() {
   if (!(this instanceof Vehicle)) {
     return new Vehicle();
@@ -62,6 +53,3 @@ Sedan.prototype = Object.create(Vehicle.prototype);
 var lesabre;
 console.log(lesabre instanceof Sedan);
 console.log(lesabre instanceof Vehicle);
-    </script>
-  </body>
-</html>

@@ -1,0 +1,22 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 1%;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  margin: 10px 0;
+  vertical-align: middle;
+}
+
+canvas {
+  margin: 10px 0;
+}
