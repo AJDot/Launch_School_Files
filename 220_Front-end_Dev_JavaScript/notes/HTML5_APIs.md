@@ -1,4 +1,12 @@
-# HTML5 APIs
+# HTML
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [HTML](#html)
+  * [Client-side Storage](#client-side-storage)
+  * [The Canvas API](#the-canvas-api)
+
+<!-- tocstop -->
+5 APIs
 ## Client-side Storage
 1. `window.localStorage`
 2. `window.sessionStorage`

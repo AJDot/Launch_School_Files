@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Handlebars Example</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/home/ajdot/local_projects/Frameworks/handlebars-v4.0.11.js"></script>
+    <script src="/home/ajdot/local_projects/Frameworks/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+    <ul class="items">
+
+    </ul>
+    <script id="rows" type="text/x-handlebars">
+      {{#each items}}
+      {{>row}}
+      {{/each}}
+    </script>
+
+    <script id="row" type="text/x-handlebars">
+      <li>
+        <div>{{name}}: {{quantity}}</div>
+        {{#if types}}
+        <ul class='types'>
+          {{>types}}
+        </ul>
+        {{/if}}
+        {{#if alert}}
+        <div class="alert">{{alert}}</div>
+        {{/if}}
+      </li>
+    </script>
+
+    <script id="types" type="text/x-handlebars">
+      {{#each types}}
+      {{>type}}
+      {{/each}}
+    </script>
+
+    <script id="type" type="text/x-handlebars">
+      <li>-{{this}}-</li>
+    </script>
+    <script src="scripts.js"></script>
+  </body>
+</html>

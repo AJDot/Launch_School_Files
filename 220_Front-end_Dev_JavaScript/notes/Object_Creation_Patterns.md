@@ -1,4 +1,33 @@
-# Object Creation Patterns
+# Object Creation Patt
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Object Creation Patt](#object-creation-patt)
+  * [Factory Functions](#factory-functions)
+  * [Constructor Functions](#constructor-functions)
+  * [Objects and Prototypees](#objects-and-prototypees)
+    * [Object's Prototypes](#objects-prototypes)
+      * [Prototype Chain and the Object.prototype Object](#prototype-chain-and-the-objectprototype-object)
+  * [Prototypal Inheritance and Behavior Delegation](#prototypal-inheritance-and-behavior-delegation)
+    * [Prototype Chain Lookup for Property Access](#prototype-chain-lookup-for-property-access)
+    * [Prototypal Inheritance and Behavior Delegation](#prototypal-inheritance-and-behavior-delegation-1)
+    * [Overriding Default Behavior](#overriding-default-behavior)
+    * [Object.getOwnPropertyNames and object.hasOwnProperty](#objectgetownpropertynames-and-objecthasownproperty)
+    * [Methods on Object.prototype](#methods-on-objectprototype)
+  * [Practice Problems: Prototypes and Prototypal Inheritance](#practice-problems-prototypes-and-prototypal-inheritance)
+  * [Constructors and Prototypes](#constructors-and-prototypes)
+  * [The Pseudo-classical Pattern and the OLOO Pattern](#the-pseudo-classical-pattern-and-the-oloo-pattern)
+    * [Object Creation Considerations](#object-creation-considerations)
+    * [The Pseudo-classical Pattern](#the-pseudo-classical-pattern)
+    * [The OLOO Pattern](#the-oloo-pattern)
+    * [Further Reading](#further-reading)
+  * [More Methods on the Object Constructor](#more-methods-on-the-object-constructor)
+    * [Object.create() and Object.getPrototypeOf()](#objectcreate-and-objectgetprototypeof)
+    * [Object.defineProperties()](#objectdefineproperties)
+    * [Object.freeze()](#objectfreeze)
+  * [Summary](#summary)
+
+<!-- tocstop -->
+erns
 ## Factory Functions
 aka 'Factory Object Creation Pattern'
 ```javascript

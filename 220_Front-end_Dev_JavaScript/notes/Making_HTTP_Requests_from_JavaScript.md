@@ -1,4 +1,35 @@
-# Making HTTP Requests from JavaScript
+# Maki
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Maki](#maki)
+  * [Making a Request with XMLHttpRequest](#making-a-request-with-xmlhttprequest)
+    * [Overview of XMLHttpRequest Methods](#overview-of-xmlhttprequest-methods)
+    * [Debugging XMLHttpRequests in Chrome](#debugging-xmlhttprequests-in-chrome)
+    * [Problems](#problems)
+  * [XMLHttpRequest Events](#xmlhttprequest-events)
+  * [Data Serialization](#data-serialization)
+    * [Request Serialization Formats](#request-serialization-formats)
+      * [Query String / URL Encoding](#query-string-url-encoding)
+    * [Multipart Forms](#multipart-forms)
+    * [JSON Serialization](#json-serialization)
+  * [Example: Loading HTML via XHR](#example-loading-html-via-xhr)
+  * [Example: Submitting a Form via XHR](#example-submitting-a-form-via-xhr)
+    * [URL-encoding POST parameters](#url-encoding-post-parameters)
+    * [Submitting a Form](#submitting-a-form)
+    * [Submitting a Form with FormData](#submitting-a-form-with-formdata)
+  * [Example: Loading JSON via XHR](#example-loading-json-via-xhr)
+    * [Problems](#problems-1)
+  * [Example: Sending JSON via XHR](#example-sending-json-via-xhr)
+    * [Serializing Data with JSON](#serializing-data-with-json)
+    * [Setting the Content-Type Header](#setting-the-content-type-header)
+  * [Cross-Domain XMLHttpRequests with CORS](#cross-domain-xmlhttprequests-with-cors)
+    * [Cross-Origin Requests](#cross-origin-requests)
+    * [Cross-Origin requests with XHR](#cross-origin-requests-with-xhr)
+    * [CORS](#cors)
+  * [Summary](#summary)
+
+<!-- tocstop -->
+ng HTTP Requests from JavaScript
 
 ## Making a Request with XMLHttpRequest
 

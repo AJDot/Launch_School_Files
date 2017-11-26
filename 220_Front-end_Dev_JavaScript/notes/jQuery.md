@@ -1,4 +1,14 @@
 # jQuery
+
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [jQuery](#jquery)
+  * [Introduction to jQuery](#introduction-to-jquery)
+  * [jQuery Events](#jquery-events)
+  * [jQuery DOM Traversal](#jquery-dom-traversal)
+  * [Practice Problems: jQuery Events](#practice-problems-jquery-events)
+
+<!-- tocstop -->
 Douglas Crockford Lecture: The Metamorphosis of Ajax => [Link](https://www.youtube.com/watch?v=Fv9qT9joc0M)
 
 ## Introduction to jQuery

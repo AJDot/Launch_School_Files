@@ -1,5 +1,20 @@
 # Advanced jQuery and Dynamic Content Creation
 
+<!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
+
+* [Advanced jQuery and Dynamic Content Creation](#advanced-jquery-and-dynamic-content-creation)
+  * [jQuery Event Delegation](#jquery-event-delegation)
+        * [Namespace](#namespace)
+        * [Create a new event object](#create-a-new-event-object)
+  * [Ajax](#ajax)
+    * [A is for Asynchronous](#a-is-for-asynchronous)
+    * [`$.ajax()`](#ajax-1)
+    * [Ajax and Forms](#ajax-and-forms)
+      * [Serialization](#serialization)
+    * [Ajax Events](#ajax-events)
+
+<!-- tocstop -->
+
 ## jQuery Event Delegation
 
 Imagine 3000 event handlers on links that will each remove an item from a list. This may not be too much but it could cause slow downs. Instead, use event delegation and attach one event to their parent.

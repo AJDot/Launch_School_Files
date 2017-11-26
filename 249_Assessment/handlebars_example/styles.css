@@ -1,0 +1,45 @@
+body {
+  font: normal 16px sans-serif;
+}
+
+.items {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.items > li {
+  position: relative;
+  padding: 10px;
+  color: #ffffff;
+  background: #666666;
+  border: 2px solid #559955;
+}
+
+.items > li + li {
+  border-top: none;
+}
+
+.types {
+  padding: 0;
+  margin: 0;
+}
+
+.types li {
+  display: inline-block;
+  padding: 3px 12px;
+  font-size: .8em;
+  border: 1px solid #559955;
+  border-radius: 5px;
+}
+
+.alert {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  font-size: .7em;
+  color: #b00b00;
+  text-shadow: 0 0 12px #ffffff;
+}
