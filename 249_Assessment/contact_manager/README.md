@@ -1,3 +1,4 @@
+# Contact Manager
 I spent a significant amount of time working on this project. My initial focus was on the functionality, then I refactored, then I focused on the usability.
 
 Relevant to this course in particular, here are some features I intended to hit:

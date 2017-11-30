@@ -96,11 +96,49 @@ function shallowCopy(object) {
 }
 ```
 
-## Prototype Pattern
-Constructor functions are used to create objects but shared behaviors are defined on the constructor's `prototype` object.
+## Pseudo-classical Pattern
+A combination of the constructor pattern and the prototype pattern. Constructor is used set object states and shared methods are put on the constructor function's prototype.
 ```javascript
-var Account = function () {};
+var Account = function (name) {
+  this.name = name;
+  this.id = 1293;   // made unique through other methods
+};
 
 Account.prototype.getBalance = function() {
-
+  // code..
 }
+
+Account.prototype.deposit = function() {
+  // code..
+}
+
+var acc = new Account("checking"); // use new to create objects
+
+acc instanceof Account; // use instanceof to check type
+```
+
+OLOO Pattern
+Objects Linking to Other Objects.
+
+Define shared behaviors on the prototype object. Use an optional `init` method to set unique state.
+```javascript
+var Account = {
+  name: '',
+  id: 1293,   // made unique through other methods
+  getBalance: function() {
+  // code..
+  },
+  deposit: function() {
+  // code..
+  },
+  init: function(name, id) {
+    this.name = name;
+    this.id = id;
+  },
+}
+
+// use Object.create to create new object
+var acc = Object.create(Account).init("checking", 1293);
+
+Account.isPrototypeOf(acc); // use isPrototypeOf to check type
+```

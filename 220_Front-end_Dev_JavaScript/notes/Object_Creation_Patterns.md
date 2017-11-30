@@ -1,7 +1,7 @@
-# Object Creation Patt
+# Object Creation Patterns
 <!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
 
-* [Object Creation Patt](#object-creation-patt)
+* [Object Creation Patterns](#object-creation-patterns)
   * [Factory Functions](#factory-functions)
   * [Constructor Functions](#constructor-functions)
   * [Objects and Prototypees](#objects-and-prototypees)
@@ -421,7 +421,7 @@ var baz = new Qux();
 Object.getPrototypeOf(baz) === Qux.prototype;   // true
 ```
 
-WE can use a constructor function and its "prototype object" to set up behavior delegation.
+We can use a constructor function and its "prototype object" to set up behavior delegation.
 ```javascript
 var Dog = function() {};
 
