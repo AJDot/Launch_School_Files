@@ -54,7 +54,7 @@ Dictionary.prototype.valueChanged = function() {
     this.fetchMatches(value, function(response) {
       this.matches = response.results;
       this.selectedIndex = null;
-      this.draw();
+      this.buildList();
     }.bind(this));
   } else {
     this.reset();
@@ -80,6 +80,10 @@ Dictionary.prototype.fetchMatches = function(query, callback) {
     callback(request.response);
   }.bind(this));
 
+  request.addEventListener('loadstart', function() {
+    this.loading(this.listUI);
+  }.bind(this));
+
   request.send();
 }
 
@@ -90,10 +94,14 @@ Dictionary.prototype.fetchDefinition = function(query, callback) {
     callback(request.response);
   }.bind(this));
 
+  request.addEventListener('loadstart', function() {
+    this.loading(this.defsUI);
+  }.bind(this));
+
   request.send();
 }
 
-Dictionary.prototype.draw = function() {
+Dictionary.prototype.buildList = function() {
   this.clearElement(this.listUI);
 
   this.matches.forEach(function(match, index) {
@@ -122,28 +130,40 @@ Dictionary.prototype.handleKeydown = function(e) {
   switch (e.key) {
     case 'ArrowDown':
       e.preventDefault();
-      if (this.selectedIndex === null) {
-        this.selectedIndex = -1;
-      }
-      this.select(this.selectedIndex + 1);
+      this.selectDown();
       break;
     case 'ArrowUp':
       e.preventDefault();
-      if (this.selectedIndex === null) {
-        this.selectedIndex = this.matches.length;
-      }
-      this.select(this.selectedIndex - 1);
+      this.selectUp();
       break;
     case 'Enter':
       e.preventDefault();
-      this.selected = document.querySelector('.autocomplete-ui-choice.selected');
-      if (this.selected) {
-        this.input.dispatchEvent(new Event('input'));
-
-        var query = this.selected.textContent;
-        this.fetchDefinition(query, this.buildDefinitions.bind(this));
-      }
+      this.viewDefinition();
       break;
+  }
+}
+
+Dictionary.prototype.selectDown = function() {
+  if (this.selectedIndex === null) {
+    this.selectedIndex = -1;
+  }
+  this.select(this.selectedIndex + 1);
+}
+
+Dictionary.prototype.selectUp = function() {
+  if (this.selectedIndex === null) {
+    this.selectedIndex = this.matches.length;
+  }
+  this.select(this.selectedIndex - 1);
+}
+
+Dictionary.prototype.viewDefinition = function() {
+  this.selected = document.querySelector('.autocomplete-ui-choice.selected');
+  if (this.selected) {
+    this.input.dispatchEvent(new Event('input'));
+
+    var query = this.selected.textContent;
+    this.fetchDefinition(query, this.buildDefinitions.bind(this));
   }
 }
 
@@ -270,6 +290,14 @@ Dictionary.prototype.buildDefSenses = function(entries) {
     }
   }.bind(this));
 }
+
+Dictionary.prototype.loading = function(element) {
+  var loading = document.createElement('div');
+  loading.className = 'loading';
+  this.clearElement(element);
+  element.appendChild(loading);
+};
+
 
 function wrapNumber(number, end) {
   // 0 to end (exclusive)

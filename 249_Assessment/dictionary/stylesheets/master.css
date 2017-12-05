@@ -4,9 +4,17 @@ body {
   background: #30504c;
 }
 
-header,
-footer {
+header {
   text-align: center;
+}
+
+a {
+  color: #cccccc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d0bd9d;
 }
 
 .app {
@@ -112,4 +120,31 @@ div.autocomplete-defs .example {
 div.autocomplete-defs .example::before,
 div.autocomplete-defs .example::after {
   content: '"'
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+  margin: 50px auto;
+  background: #d0bd9d;
+  clip-path: polygon(
+  /* points of the outer triangle going counterclockwise */
+  95% 50%, 27.6666% 11%, 27.6666% 89%,
+
+  /* return to the first point of the outer triangle */
+  95% 50%,
+
+  /* points of the inner triangle going clockwise */
+  86% 50%, 32% 81.3333%, 32% 18.6666%,
+
+  /* return to the first point of the inner triangle */
+  86% 50%
+  );
+
+  animation: loading 2s infinite;
+}
+
+@keyframes loading {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
 }
