@@ -154,7 +154,7 @@ var hatchback = makeCar(8, 6);
 ```
 
 ## Object Orientation
-> Object-oriented programming is a pattern that uses objects as the basic building blocks of a program instead of local variables andn functions.
+> Object-oriented programming is a pattern that uses objects as the basic building blocks of a program instead of local variables and functions.
 > Compare the object-oriented code to the code with which we began. The object-based code is much easier to understand; the relationship between it and the data is readily evident.
 
 #### Local Variables and Functions Solution
