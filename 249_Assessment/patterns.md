@@ -117,7 +117,7 @@ var acc = new Account("checking"); // use new to create objects
 acc instanceof Account; // use instanceof to check type
 ```
 
-OLOO Pattern
+## OLOO Pattern
 Objects Linking to Other Objects.
 
 Define shared behaviors on the prototype object. Use an optional `init` method to set unique state.

@@ -202,7 +202,7 @@ When the `new` operator is used to call a function:
 3. The code in the function is executed.
 4. `this` is returned if there's not an explicit return.
 
-## Objects and Prototypees
+## Objects and Prototypes
 ### Object's Prototypes
 Every JavaScript Object has a special `__proto__` property that points to another object. When `Object.create` is used to create an object, `__proto__` can be used to set the `__proto__` property on it.
 ```javascript
