@@ -5,10 +5,10 @@
 1. What are the three levels of schema?
     Conceptual, Logical, Physical
 2. What is a conceptual schema?
-    Focuses solely on the enitites and their relationships. The details/specifics of what is in a table are not present.
+    Focuses solely on the entities and their relationships. The details/specifics of what is in a table are not present.
     high-level design focused on identifying entities and their relationships
 3. What is a physical schema?
-    Focused on implementation. Details of each table are written and the relationships between them are drawn. 
+    Focused on implementation. Details of each table are written and the relationships between them are drawn.
     low-level database-specific design focused on implementation
 4. What are the three types of raltionships that can be shown in a database diagram?
     one-to-one, one-to-many, many-to-many

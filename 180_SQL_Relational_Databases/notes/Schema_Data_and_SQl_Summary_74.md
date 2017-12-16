@@ -1,4 +1,4 @@
-# Schema, Data, and SQl - Summary
+# Schema, Data, and SQL - Summary
 
 * *SQL* is a *special-purpose, declarative* language used to manipulate the structure and values of datasets stored in a relational database.
 * SQL is comprised of three sublanguages:
@@ -7,7 +7,7 @@
   | DDL or data definition language | relation structure and rules | `CREATE`, `DROP`, `ALTER` |
   | DML or data manipulation language | values stored within relations | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
   | DCL or data control language | who can do what | `GRANT` |
-  
+
 * SQL code is made up of statements, which must be terminated by a semicolon.
   | Data Type | Type | Value | Example Values |
   | --------- | ---- | ----- | -------------- |
