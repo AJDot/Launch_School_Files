@@ -1,0 +1,121 @@
+body {
+  font: normal 16px Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0;
+  color: #333333;
+  background: #555599;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #ddddcc;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#todos li {
+  position: relative;
+  padding: 10px;
+  margin: 5px;
+  background: #ddddcc;
+  border-radius: 5px;
+}
+
+#todos li:hover {
+  background: #ffffdd;
+}
+
+.context_menu {
+  position: absolute;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.context_menu li {
+  padding: 10px 20px 10px 10px;
+  background: #aaaa88;
+  cursor: pointer;
+}
+
+.context_menu li:hover {
+  background: #ffffdd;
+}
+
+.context_menu li + li {
+  border-top: 1px solid #333333;
+}
+
+
+/*.remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
+}*/
+
+/*.remove:hover {
+  background: #995555;
+}*/
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .5);
+}
+
+.confirm_modal {
+  display: none;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  width: 500px;
+  padding: 10px 30px 30px 30px;
+  font-size: 20px;
+  color: #333333;
+  background: #ddddcc;
+  transform: translateX(-50%);
+}
+
+.actions {
+  margin-top: 35px;
+  margin: 35px 0 0 0;
+  text-align: right;
+}
+
+.actions a {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.confirm_yes {
+  background: #995555;
+}
+
+.confirm_yes:hover {
+  background: #bb7a7a;
+}
+
+.confirm_no {
+  background: #559955;
+}
+
+.confirm_no:hover {
+  background: #80b780;
+}
