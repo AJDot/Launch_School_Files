@@ -1,7 +1,7 @@
 # matching_parentheses.rb
 
 #Understand the problem
-#  Write a method that takes a string as argument, and returns true if all parentheses in teh string are properly balanced, false otherwise. To be properly balanced, parentheses must occur in matching '(' and ')' pairs.
+#  Write a method that takes a string as argument, and returns true if all parentheses in the string are properly balanced, false otherwise. To be properly balanced, parentheses must occur in matching '(' and ')' pairs.
 
 #Examples / Test Cases
 #  balanced?('What (is) this?') == true

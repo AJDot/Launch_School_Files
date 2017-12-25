@@ -64,7 +64,7 @@ iterate(count, logger);
 The callback Function argument no controls what to do with each element of the Array we will iterate through.
 
 | --- | --- |
-| How to iterate through an Array | Which Array to iterte through |
+| How to iterate through an Array | Which Array to iterate through |
 | | What to do with each element |
 
 Now the Function iterate has only one responsibility, determine how to iterate through an array. What to do with each element is now up to the parameters.
@@ -180,7 +180,7 @@ function isOddNumber(number) {
   return number % 2 === 1;
 }
 ```
-Abstraction is raised yet again. Instead of thinking on the level *"create a new empty array, iterate through the original array and push the odd numbers onto the new array, and log the new array to the console"*, we now think like *"filter the original array to get odd numbers and log them on the console"* 
+Abstraction is raised yet again. Instead of thinking on the level *"create a new empty array, iterate through the original array and push the odd numbers onto the new array, and log the new array to the console"*, we now think like *"filter the original array to get odd numbers and log them on the console"*
 
 * more readability since it fits our mental model of the problem.
 * more concise since the code is shorter
@@ -455,4 +455,3 @@ This will sort the scores from least to greatest. If `score1` is less than `scor
 * Decomposing problems with layers of established abstractions
 * Combining andbuilding custom abstractions
 * Eliminating side effects and pure functions
-

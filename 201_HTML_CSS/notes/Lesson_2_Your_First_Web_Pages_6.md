@@ -20,7 +20,7 @@ Link to article on [Specificity and Inheritance](https://www.smashingmagazine.co
 ### CSS
 
 * CSS is an acronym for Cascading Style Sheets.
-* You can use CSS via the style attribute, the \\<style> tag, or with a \\<link> tag.
+* You can use CSS via the style attribute, the \<style> tag, or with a \<link> tag.
 * CSS tells your browser how to present content with spacing, colors, sizing, font styles, background images, placement, and much more.
 * CSS properties have a name and value.
 * CSS rules have a selector that describes what elements to style and a list of zero or more properties that define how the browser should render the elements.

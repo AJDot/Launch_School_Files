@@ -1,11 +1,11 @@
-# Putting i
+# Putting it All Together
 <!-- toc orderedList:0 depthFrom:1 depthTo:6 -->
 
-* [Putting i](#putting-i)
+* [Putting it All Together](#putting-it-all-together)
   * [HTML Data Attributes](#html-data-attributes)
 
 <!-- tocstop -->
-t All Together
+
 
 ## HTML Data Attributes
 Attributes in HTML page for the purpose of the JavaScript. Example: want to switch visibility of tabs. This can create an association between the tab links and the blocks using HTML. In this way, if the tabs are reordered, the JavaScript will still display the right information.

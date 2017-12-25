@@ -10,7 +10,7 @@
 3. What is a physical schema?
     Focused on implementation. Details of each table are written and the relationships between them are drawn.
     low-level database-specific design focused on implementation
-4. What are the three types of raltionships that can be shown in a database diagram?
+4. What are the three types of relationships that can be shown in a database diagram?
     one-to-one, one-to-many, many-to-many
 
 ## Cardinality and Modality

@@ -21,7 +21,7 @@ As a consumer, ask yourself:
 ```javascript
 var request = new XMLHttpRequest(); // Instantiate new XMLHttpRequest object
 request.open('GET', '/path');       // Set HTTP method and URL on request
-request.send();                     // Send reqeust
+request.send();                     // Send request
 ```
 
 To access anything about the response, must wait for response to return. Use event listener `load`.
