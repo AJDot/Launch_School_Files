@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   var OPS = ["+", "-", "*", "/", "^"];
   var CLICKABLE = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-                   "+", "-", "*", "/", "^", ".", "Enter", "Backspace"];
+                   "+", "-", "*", "/", "^", ".", "Enter", "Backspace", "Ans"];
 
   function inList(list) {
     var items = [].slice.call(arguments, 1);
@@ -156,6 +156,11 @@ document.addEventListener('DOMContentLoaded', function() {
       var content = button.textContent;
       var id = button.getAttribute('data-id');
       if (id === "^") { content = id };
+      if (id === "Ans") {
+        var answer = Number(document.getElementById("Ans").textContent);
+        content = answer;
+        id = answer;
+      }
 
       // ignore OP or '.' if it is the first entry
       if (!this.stack.last() && (inList(OPS, id) || id === '.')) {
@@ -188,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         // if current is a number
         // or an OP coming after a number
+        console.log(id, content);
         this.appendToInput(content);
         this.stack.push(id);
       }
