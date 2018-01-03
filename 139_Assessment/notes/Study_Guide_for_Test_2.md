@@ -11,7 +11,7 @@
 
 ## Testing With Minitest
 * Testing terminology
-* Minispec vs. RSpec
+* Minitest vs. RSpec
 * SEAT Approach
 * Assertions
 

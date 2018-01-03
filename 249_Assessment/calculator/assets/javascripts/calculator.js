@@ -217,15 +217,13 @@ document.addEventListener('DOMContentLoaded', function() {
             result = data.num1 * data.num2;
           }
         } else if (this.stack.has('-')) { // subtract
-            data = this.stack.getOpParams('-');
+          data = this.stack.getOpParams('-');
           result = data.num1 - data.num2;
         } else { // add
-            data = this.stack.getOpParams('+');
+          data = this.stack.getOpParams('+');
           result = data.num1 + data.num2;
         }
         this.stack.splice(data.index - 1, 3, result);
-
-
       }
 
       this.answer = this.stack.pop();
@@ -251,7 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     processKeydown: function(e) {
       e.preventDefault();
-      console.log(e.key);
       if (CLICKABLE.indexOf(e.key) !== -1) {
         var click = new Event('click', { "bubbles": true, });
         var button = document.querySelector('[data-id="' + e.key + '"]');
@@ -288,10 +285,4 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   Calculator.init();
-
-  function inStack() {
-    var args = [].slice.call(arguments);
-    return inList.apply(null, [Calculator.stack].concat(args));
-  }
-
 });

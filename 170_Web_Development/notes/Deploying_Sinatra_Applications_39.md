@@ -81,7 +81,7 @@ You should be able to visit the application at localhost:5000 and test it out. I
 
 Now that the application is running locally using the production configuration, it is time to deploy it to a remote server. We'll be using Heroku for this assignment.
 
-1. Create a Heroku application using heroku apps:create $NAME, where $NAME is the application name you wish to use. If you don't provide this value, Heroku will generate a random application name for you.
+1. Create a Heroku application using `heroku apps:create $NAME`, where `$NAME` is the application name you wish to use. If you don't provide this value, Heroku will generate a random application name for you.
 
 ```
 $ heroku apps:create ls-170-book-viewer

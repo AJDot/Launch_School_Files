@@ -148,7 +148,7 @@ end
 def detect_winner(player1_hand, player2_hand)
   player_total = total(player1_hand)
   dealer_total = total(player2_hand)
-  
+
   if player_total > HIGHEST_TOTAL
     :player_busted
   elsif dealer_total > HIGHEST_TOTAL
@@ -161,10 +161,10 @@ def detect_winner(player1_hand, player2_hand)
     :tie
   end
 end
-           
+
 def display_winner(player1_hand, player2_hand)
   result = detect_winner(player1_hand, player2_hand)
-  
+
   case result
   when :player_busted
     prompt "You busted! Dealer wins!"
@@ -193,16 +193,16 @@ end
 def match_winner?(score)
   score.values.include?(5)
 end
-           
+
 def update_score!(player_hand, dealer_hand, score)
   result = detect_winner(player_hand, dealer_hand)
-  
+
   case result
   when :player_busted, :dealer
     score[:dealer] += 1
   when :dealer_busted, :player
     score[:player] += 1
-  end  
+  end
 end
 
 def display_score(score)
@@ -249,7 +249,7 @@ loop do # Match loop
       display_winner(player_hand, dealer_hand)
       update_score!(player_hand, dealer_hand, score)
       display_score(score)
-      
+
       prompt "Press ENTER to continue..."
       gets
       # if yes, go back to the top to start the game over
@@ -285,7 +285,7 @@ loop do # Match loop
 #    break unless play_again?
     match_winner?(score) ? break : next
   end
-  
+
   prompt "-----------------------"
   prompt "The match is over!"
   if score.key(5) == :player
