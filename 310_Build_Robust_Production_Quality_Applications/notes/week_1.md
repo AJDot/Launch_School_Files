@@ -270,7 +270,7 @@ describe Todo do
   describe "#name_only?" do
     it "returns true if the description is nil" do
       todo = Todo.new(name: "cook dinner")
-      todo.name_only?.should be_true
+      todo.name_only?.should be true
     end
 
     it "returns true if the description is an empty string" do
@@ -316,12 +316,12 @@ describe Todo do
   describe "#name_only?" do
     it "returns true if the description is nil" do
       todo = Todo.new(name: "cook dinner")
-      todo.name_only?.should be_true
+      todo.name_only?.should be true
     end
 
     it "returns true if the description is an empty string" do
       todo = Todo.new(name: "cook dinner", description: "")
-      todo.name_only?.should be_true
+      todo.name_only?.should be true
     end
 
     it "returns false if the description is a non-empty string" do
@@ -339,17 +339,17 @@ describe Todo do
   describe "#name_only?" do
     it "returns true if the description is nil" do
       todo = Todo.new(name: "cook dinner")
-      todo.name_only?.should be_true
+      todo.name_only?.should be true
     end
 
     it "returns true if the description is an empty string" do
       todo = Todo.new(name: "cook dinner", description: "")
-      todo.name_only?.should be_true
+      todo.name_only?.should be true
     end
 
     it "returns false if the description is a non-empty string" do
       todo = Todo.new(name: "cook dinner", description: "Potatoes")
-      todo.name_only?.should be_false
+      todo.name_only?.should be false
     end
   end
 end
