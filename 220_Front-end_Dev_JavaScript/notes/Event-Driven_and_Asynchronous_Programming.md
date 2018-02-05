@@ -545,7 +545,7 @@ To attached a common listener to 8 buttons we could use a `for` loop and attach 
 **Event delegation** utilizes event bubbling to fix all this. Add a single handler to the parent of a group of elements.
 
 ### When To Use Event Delegation
-Start by binding event handlers directly when a project is new and small. As it grows, delegation may make sense to reduce the number of event handlers required. Remember `document` does have to be used as the delegator.
+Start by binding event handlers directly when a project is new and small. As it grows, delegation may make sense to reduce the number of event handlers required. Remember `document` does not have to be used as the delegator.
 jQuery is good at handling all of this.
 
 ## What is the Event Loop?

@@ -4,7 +4,7 @@
 * [Object Creation Patterns](#object-creation-patterns)
   * [Factory Functions](#factory-functions)
   * [Constructor Functions](#constructor-functions)
-  * [Objects and Prototypees](#objects-and-prototypees)
+  * [Objects and Prototypes](#objects-and-prototypes)
     * [Object's Prototypes](#objects-prototypes)
       * [Prototype Chain and the Object.prototype Object](#prototype-chain-and-the-objectprototype-object)
   * [Prototypal Inheritance and Behavior Delegation](#prototypal-inheritance-and-behavior-delegation)
