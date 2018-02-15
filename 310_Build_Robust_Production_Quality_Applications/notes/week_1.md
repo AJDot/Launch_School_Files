@@ -1,3 +1,4 @@
+
 # Week 1
 ## Lesson: The Rationale Behind Testing
 Why Perform Automated Testing?
@@ -431,7 +432,7 @@ Here is a way to build a custom form that displays errors easily and automatical
 
 class MyFormBuilder < ActionView::Helpers::FormBuilder
   def label(method, text = nil, options = {}, &block)
-    error = object.errors[method.to_sym]
+    errors = object.errors[method.to_sym]
     if errors
       text += " <span class=\"error\">#{errors.first}</span>"
     end
